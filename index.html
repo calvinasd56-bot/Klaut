@@ -1202,14 +1202,10 @@
      HERO
 ========================================================================= -->
 <section class="relative overflow-hidden pt-16 hero-section">
-  <!-- Background video — dual layer crossfade for seamless infinite loop.
-       Both videos play same source, offset by half duration; JS crossfades
-       at each one's boundary so the seam is always hidden by the other. -->
+  <!-- Background video — native browser loop, no JS transitions. -->
   <div class="hero-video-wrap" aria-hidden="true">
-    <video class="hero-video hero-video-a" src="klaut-hero.mp4"
+    <video class="hero-video" src="klaut-hero.mp4"
       autoplay muted loop playsinline preload="auto"></video>
-    <video class="hero-video hero-video-b" src="klaut-hero.mp4"
-      autoplay muted loop playsinline preload="auto" style="opacity:0"></video>
     <div class="hero-video-overlay"></div>
   </div>
 
@@ -1950,76 +1946,9 @@
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
   // =====================================================================
-  // HERO VIDEO — dual-layer crossfade for truly seamless infinite loop.
-  // Video A plays the source. Video B plays the same source, offset by
-  // half the duration. When A nears its loop boundary, opacity fades to B,
-  // which is mid-stream (no seam). Same in reverse. End result: the loop
-  // discontinuity is always hidden behind the other video's stable frame.
+  // HERO VIDEO — native browser loop. No JS transitions, no opacity tricks.
+  // The video element's `loop` attribute handles the cycle natively.
   // =====================================================================
-  (function initHeroVideoLoop() {
-    const vA = document.querySelector('.hero-video-a');
-    const vB = document.querySelector('.hero-video-b');
-    if (!vA || !vB) return;
-
-    const FADE_WINDOW = 0.6;   // seconds before/after each boundary to crossfade
-    const ease = k => k <= 0 ? 0 : k >= 1 ? 1 : (1 - Math.cos(k * Math.PI)) / 2;
-
-    let offsetApplied = false;
-
-    function applyOffset() {
-      const d = vA.duration;
-      if (!d || !isFinite(d) || offsetApplied) return;
-      // Put B at half-cycle from A so their boundaries never coincide
-      vB.currentTime = (vA.currentTime + d / 2) % d;
-      offsetApplied = true;
-    }
-
-    // Apply offset once metadata is ready
-    if (vA.readyState >= 1) applyOffset();
-    else vA.addEventListener('loadedmetadata', applyOffset, { once: true });
-
-    // Re-sync any drift between the two players every couple seconds
-    let lastResync = 0;
-    function maybeResync(now) {
-      const d = vA.duration;
-      if (!d || !isFinite(d)) return;
-      if (now - lastResync < 2000) return;
-      lastResync = now;
-      const expectedB = (vA.currentTime + d / 2) % d;
-      const drift = Math.abs(vB.currentTime - expectedB);
-      // Tolerate small drift; correct only if it grows past a frame or two
-      if (drift > 0.08 && drift < d - 0.08) {
-        vB.currentTime = expectedB;
-      }
-    }
-
-    function opacityFor(t, d) {
-      // 1 in the middle, 0 at the boundaries (within FADE_WINDOW)
-      let k = 1;
-      if (t < FADE_WINDOW)         k = t / FADE_WINDOW;
-      else if (t > d - FADE_WINDOW) k = (d - t) / FADE_WINDOW;
-      return ease(k);
-    }
-
-    function tick(now) {
-      const d = vA.duration;
-      if (d && isFinite(d) && !vA.paused && !vB.paused) {
-        if (!offsetApplied) applyOffset();
-        const opA = opacityFor(vA.currentTime, d);
-        const opB = opacityFor(vB.currentTime, d);
-        vA.style.opacity = opA;
-        vB.style.opacity = opB;
-        maybeResync(now);
-      }
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-
-    // Safety: if tab regains focus or video stalls, ensure both keep playing
-    [vA, vB].forEach(v => {
-      v.addEventListener('pause', () => v.play().catch(() => {}));
-    });
-  })();
 
   // =====================================================================
   // KLAUT AI ORCHESTRATION LAYER
