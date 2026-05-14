@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /og-template.html
+Disallow: /og-template-en.html
+
+Sitemap: https://klaut.id/sitemap.xml
