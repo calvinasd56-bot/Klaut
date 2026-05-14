@@ -124,7 +124,7 @@
 </footer>
 
 <script type="module">
-import { supabase, tiptapToHtml, formatDate } from "/shared/supabase.js";
+import { supabase, tiptapToHtml, formatDate, readingTime } from "/shared/supabase.js";
 
 const match = location.pathname.match(/^\/en\/articles\/([^\/]+)/);
 const slug  = match ? decodeURIComponent(match[1]) : null;
@@ -151,17 +151,27 @@ if (!slug) {
   if (error || !data || !data.title_en || !data.title_en.trim()) {
     show(notfound);
   } else {
-    document.title = `${data.title_en} — Klaut`;
     document.documentElement.lang = "en";
 
-    const desc = data.excerpt_en || "";
-    document.getElementById("meta-desc").setAttribute("content", desc);
-    document.getElementById("meta-og-title").setAttribute("content", `${data.title_en} — Klaut`);
-    document.getElementById("meta-og-desc").setAttribute("content", desc);
+    const pageTitle = (data.seo_title_en || data.title_en) + " — Klaut";
+    const pageDesc  = data.seo_description_en || data.excerpt_en || "";
+    const author    = (data.author && data.author.trim()) || "Klaut";
+    const mins      = readingTime(data.content_en);
+
+    document.title = pageTitle;
+    document.getElementById("meta-desc").setAttribute("content", pageDesc);
+    document.getElementById("meta-og-title").setAttribute("content", pageTitle);
+    document.getElementById("meta-og-desc").setAttribute("content", pageDesc);
     document.getElementById("meta-canonical").setAttribute("href", `https://klaut.id/en/articles/${data.slug}`);
     if (data.cover_image_url) document.getElementById("meta-og-image").setAttribute("content", data.cover_image_url);
 
-    // ID link only if ID version exists (it should, since title_id is required)
+    if (data.noindex) {
+      const robots = document.createElement("meta");
+      robots.name = "robots";
+      robots.content = "noindex, nofollow";
+      document.head.appendChild(robots);
+    }
+
     document.getElementById("lang-id-link").href = `/artikel/${data.slug}`;
 
     if (data.cover_image_url) {
@@ -169,7 +179,11 @@ if (!slug) {
       document.getElementById("cover-img").alt = data.title_en;
       show(document.getElementById("cover-wrap"));
     }
-    document.getElementById("date").textContent = formatDate(data.published_at, "en-US");
+    const dateStr = formatDate(data.published_at, "en-US");
+    const parts = [dateStr];
+    if (mins) parts.push(`${mins} min read`);
+    if (author && author !== "Klaut") parts.push(`by ${author}`);
+    document.getElementById("date").textContent = parts.join(" · ");
     document.getElementById("title").textContent = data.title_en;
     if (data.excerpt_en) {
       document.getElementById("excerpt").textContent = data.excerpt_en;
@@ -178,17 +192,21 @@ if (!slug) {
     }
     document.getElementById("content").innerHTML = tiptapToHtml(data.content_en);
 
+    const authorLd = author === "Klaut"
+      ? { "@type": "Organization", "name": "Klaut" }
+      : { "@type": "Person", "name": author };
+
     const ld = document.createElement("script");
     ld.type = "application/ld+json";
     ld.textContent = JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Article",
       "headline": data.title_en,
-      "description": desc,
+      "description": pageDesc,
       "image": data.cover_image_url || "https://klaut.id/og-image-en.png",
       "datePublished": data.published_at,
       "dateModified": data.updated_at,
-      "author": { "@type": "Organization", "name": "Klaut" },
+      "author": authorLd,
       "publisher": { "@type": "Organization", "name": "Klaut", "logo": { "@type": "ImageObject", "url": "https://klaut.id/klaut-K.png" } },
       "mainEntityOfPage": `https://klaut.id/en/articles/${data.slug}`,
       "inLanguage": "en-US"

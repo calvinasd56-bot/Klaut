@@ -84,3 +84,28 @@ export function formatDate(iso, locale = "id-ID") {
     });
   } catch { return ""; }
 }
+
+// Extract plain text from Tiptap JSON for word counting.
+function extractText(node) {
+  if (!node) return "";
+  if (Array.isArray(node)) return node.map(extractText).join(" ");
+  if (typeof node.text === "string") return node.text;
+  if (node.content) return extractText(node.content);
+  return "";
+}
+
+// Reading time in minutes (200 wpm). Returns at least 1 if there is any content.
+export function readingTime(tiptapJson) {
+  const text = extractText(tiptapJson).trim();
+  if (!text) return 0;
+  const words = text.split(/\s+/).length;
+  return Math.max(1, Math.ceil(words / 200));
+}
+
+// Truncate string to max length with ellipsis. Useful for Google snippet preview.
+export function truncate(s, max) {
+  if (!s) return "";
+  s = String(s);
+  if (s.length <= max) return s;
+  return s.slice(0, max - 1).trimEnd() + "…";
+}

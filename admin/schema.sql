@@ -1,5 +1,6 @@
 -- Klaut Articles schema
 -- Run this in Supabase: SQL Editor → New query → paste → Run
+-- Idempotent: safe to re-run when adding new columns.
 
 create extension if not exists "pgcrypto";
 
@@ -18,6 +19,14 @@ create table if not exists articles (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+-- SEO fields (added later — idempotent for existing tables)
+alter table articles add column if not exists seo_title_id text;
+alter table articles add column if not exists seo_title_en text;
+alter table articles add column if not exists seo_description_id text;
+alter table articles add column if not exists seo_description_en text;
+alter table articles add column if not exists author text default 'Klaut';
+alter table articles add column if not exists noindex boolean not null default false;
 
 create index if not exists articles_published_idx on articles (published, published_at desc);
 create index if not exists articles_slug_idx on articles (slug);
