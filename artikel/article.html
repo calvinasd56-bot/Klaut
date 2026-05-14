@@ -6,7 +6,7 @@
 <title>Artikel — Klaut</title>
 <meta name="description" id="meta-desc" content="Wawasan AI dari tim Klaut."/>
 <meta name="theme-color" content="#0a0a0a"/>
-<link rel="canonical" id="meta-canonical" href="https://klaut.id/articles"/>
+<link rel="canonical" id="meta-canonical" href="https://klaut.id/artikel"/>
 <meta property="og:type" content="article"/>
 <meta property="og:title"       id="meta-og-title"       content="Klaut"/>
 <meta property="og:description" id="meta-og-desc"        content=""/>
@@ -65,12 +65,12 @@
     <nav class="hidden md:flex items-center gap-1">
       <a href="/#about"        class="px-4 py-2 text-sm text-muted hover:text-ink">Tentang</a>
       <a href="/#industries"   class="px-4 py-2 text-sm text-muted hover:text-ink">Studi Kasus</a>
-      <a href="/articles"      class="px-4 py-2 text-sm text-white">Artikel</a>
+      <a href="/artikel"       class="px-4 py-2 text-sm text-white">Artikel</a>
       <a href="/faq"           class="px-4 py-2 text-sm text-muted hover:text-ink">FAQ</a>
     </nav>
     <div class="flex items-center gap-3">
       <div class="flex items-center rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium">
-        <a href="/articles"      class="px-3 py-1.5 rounded-full bg-white/10 text-white">ID</a>
+        <a href="/artikel"       class="px-3 py-1.5 rounded-full bg-white/10 text-white">ID</a>
         <a id="lang-en-link" href="/en/articles" class="px-3 py-1.5 rounded-full text-muted hover:text-white">EN</a>
       </div>
     </div>
@@ -79,7 +79,7 @@
 
 <main class="flex-1">
   <article id="article" class="max-w-3xl mx-auto px-6 lg:px-8 pt-12 pb-24 hidden">
-    <a href="/articles" class="text-sm text-muted hover:text-ink">← Semua artikel</a>
+    <a href="/artikel" class="text-sm text-muted hover:text-ink">← Semua artikel</a>
 
     <div id="cover-wrap" class="mt-6 rounded-2xl overflow-hidden border border-line hidden">
       <img id="cover-img" alt="" class="w-full aspect-[16/9] object-cover"/>
@@ -94,7 +94,7 @@
     <div id="content" class="prose"></div>
 
     <div class="mt-16 border-t border-line pt-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-      <a href="/articles" class="text-sm text-muted hover:text-ink">← Semua artikel</a>
+      <a href="/artikel" class="text-sm text-muted hover:text-ink">← Semua artikel</a>
       <a href="/#cta" class="text-sm text-accent-2 hover:text-white">Bicara dengan tim Klaut →</a>
     </div>
   </article>
@@ -105,7 +105,7 @@
     <div class="text-6xl mb-4">404</div>
     <h1 class="text-2xl font-bold mb-2">Artikel tidak ditemukan</h1>
     <p class="text-muted">Artikel yang Anda cari tidak ada atau belum dipublikasikan.</p>
-    <a href="/articles" class="inline-block mt-6 px-4 py-2 rounded-lg bg-accent hover:bg-accent-deep">Lihat semua artikel</a>
+    <a href="/artikel" class="inline-block mt-6 px-4 py-2 rounded-lg bg-accent hover:bg-accent-deep">Lihat semua artikel</a>
   </div>
 </main>
 
@@ -126,8 +126,8 @@
 <script type="module">
 import { supabase, tiptapToHtml, formatDate } from "/shared/supabase.js";
 
-// Extract slug from URL: /articles/<slug>  (after Vercel rewrite, location.pathname keeps the original URL)
-const match = location.pathname.match(/^\/articles\/([^\/]+)/);
+// Extract slug from URL: /artikel/<slug>  (after Vercel rewrite, location.pathname keeps the original URL)
+const match = location.pathname.match(/^\/artikel\/([^\/]+)/);
 const slug  = match ? decodeURIComponent(match[1]) : null;
 
 const loading = document.getElementById("loading");
@@ -161,7 +161,7 @@ if (!slug) {
     document.getElementById("meta-desc").setAttribute("content", desc);
     document.getElementById("meta-og-title").setAttribute("content", `${data.title_id} — Klaut`);
     document.getElementById("meta-og-desc").setAttribute("content", desc);
-    document.getElementById("meta-canonical").setAttribute("href", `https://klaut.id/articles/${data.slug}`);
+    document.getElementById("meta-canonical").setAttribute("href", `https://klaut.id/artikel/${data.slug}`);
     if (data.cover_image_url) document.getElementById("meta-og-image").setAttribute("content", data.cover_image_url);
 
     // Only show EN link if EN version exists
@@ -198,7 +198,7 @@ if (!slug) {
       "dateModified": data.updated_at,
       "author": { "@type": "Organization", "name": "Klaut" },
       "publisher": { "@type": "Organization", "name": "Klaut", "logo": { "@type": "ImageObject", "url": "https://klaut.id/klaut-K.png" } },
-      "mainEntityOfPage": `https://klaut.id/articles/${data.slug}`,
+      "mainEntityOfPage": `https://klaut.id/artikel/${data.slug}`,
       "inLanguage": "id-ID"
     });
     document.head.appendChild(ld);

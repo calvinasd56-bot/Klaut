@@ -73,7 +73,7 @@
     <div class="flex items-center justify-between mb-6">
       <div>
         <h1 class="text-2xl font-bold">Artikel</h1>
-        <p class="text-sm text-muted mt-1">Kelola publikasi untuk klaut.id/articles</p>
+        <p class="text-sm text-muted mt-1">Kelola publikasi untuk klaut.id/artikel</p>
       </div>
       <a href="/admin/editor.html" class="px-4 py-2 rounded-lg bg-accent hover:bg-accent-deep font-medium transition">+ Artikel baru</a>
     </div>
@@ -138,7 +138,7 @@ async function loadArticles() {
       </td>
       <td class="px-4 py-3 text-muted">${formatDate(a.updated_at)}</td>
       <td class="px-4 py-3 text-right">
-        ${a.published ? `<a href="/articles/${a.slug}" target="_blank" class="text-xs text-muted hover:text-ink mr-3">↗ Lihat</a>` : ""}
+        ${a.published ? `<a href="/artikel/${a.slug}" target="_blank" class="text-xs text-muted hover:text-ink mr-3">↗ Lihat</a>` : ""}
         <button data-del="${a.id}" class="text-xs text-red-400 hover:text-red-300">Hapus</button>
       </td>
     </tr>

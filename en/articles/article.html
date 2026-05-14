@@ -70,7 +70,7 @@
     </nav>
     <div class="flex items-center gap-3">
       <div class="flex items-center rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium">
-        <a id="lang-id-link" href="/articles" class="px-3 py-1.5 rounded-full text-muted hover:text-white">ID</a>
+        <a id="lang-id-link" href="/artikel" class="px-3 py-1.5 rounded-full text-muted hover:text-white">ID</a>
         <a href="/en/articles" class="px-3 py-1.5 rounded-full bg-white/10 text-white">EN</a>
       </div>
     </div>
@@ -162,7 +162,7 @@ if (!slug) {
     if (data.cover_image_url) document.getElementById("meta-og-image").setAttribute("content", data.cover_image_url);
 
     // ID link only if ID version exists (it should, since title_id is required)
-    document.getElementById("lang-id-link").href = `/articles/${data.slug}`;
+    document.getElementById("lang-id-link").href = `/artikel/${data.slug}`;
 
     if (data.cover_image_url) {
       document.getElementById("cover-img").src = data.cover_image_url;

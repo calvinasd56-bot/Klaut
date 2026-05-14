@@ -3,11 +3,15 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/articles",             "destination": "/articles/index.html" },
-    { "source": "/articles/:slug",       "destination": "/articles/article.html" },
+    { "source": "/artikel",              "destination": "/artikel/index.html" },
+    { "source": "/artikel/:slug",        "destination": "/artikel/article.html" },
     { "source": "/en/articles",          "destination": "/en/articles/index.html" },
     { "source": "/en/articles/:slug",    "destination": "/en/articles/article.html" },
     { "source": "/admin",                "destination": "/admin/index.html" },
     { "source": "/admin/editor",         "destination": "/admin/editor.html" }
+  ],
+  "redirects": [
+    { "source": "/articles",         "destination": "/artikel",          "permanent": true },
+    { "source": "/articles/:slug",   "destination": "/artikel/:slug",    "permanent": true }
   ]
 }
