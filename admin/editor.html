@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Editor — Klaut Admin</title>
+<link rel="icon" type="image/png" href="/klaut-K.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'], mono: ['JetBrains Mono','ui-monospace'] },
+        colors: {
+          bg:'#0a0a0a', surface:'#111111', surface2:'#1a1a1a',
+          line:'#262626', linestrong:'#3f3f46',
+          accent:'#6366f1', 'accent-2':'#818cf8', 'accent-deep':'#4f46e5',
+          ink:'#ffffff', muted:'#a1a1aa', dim:'#71717a'
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html,body{background:#0a0a0a;color:#fff;font-family:'Inter',ui-sans-serif,system-ui;}
+  .ProseMirror{ min-height: 380px; outline: none; }
+  .ProseMirror p{ margin: 0 0 0.9em; line-height: 1.7; color: #e4e4e7; }
+  .ProseMirror h1{ font-size: 1.9rem; font-weight: 700; margin: 1.2em 0 0.5em; }
+  .ProseMirror h2{ font-size: 1.5rem; font-weight: 700; margin: 1.1em 0 0.5em; }
+  .ProseMirror h3{ font-size: 1.2rem; font-weight: 600; margin: 1em 0 0.4em; }
+  .ProseMirror ul, .ProseMirror ol{ padding-left: 1.4em; margin: 0 0 1em; }
+  .ProseMirror ul{ list-style: disc; }
+  .ProseMirror ol{ list-style: decimal; }
+  .ProseMirror li{ margin: 0.25em 0; }
+  .ProseMirror a{ color: #818cf8; text-decoration: underline; }
+  .ProseMirror img{ max-width: 100%; border-radius: 8px; margin: 1em 0; }
+  .ProseMirror blockquote{ border-left: 3px solid #3f3f46; padding-left: 1em; color: #a1a1aa; margin: 1em 0; }
+  .ProseMirror pre{ background:#1a1a1a; border:1px solid #262626; padding: 0.8em 1em; border-radius:8px; font-family: 'JetBrains Mono', monospace; font-size: 0.9em; overflow-x:auto; }
+  .ProseMirror p.is-editor-empty:first-child::before{
+    content: attr(data-placeholder); color: #52525b; float: left; height: 0; pointer-events: none;
+  }
+  .tb-btn{ padding: 0.4rem 0.6rem; border-radius: 0.4rem; color:#a1a1aa; transition: all 0.15s; font-size: 0.85rem; }
+  .tb-btn:hover{ background:#1a1a1a; color:#fff; }
+  .tb-btn.active{ background:#6366f1; color:#fff; }
+  .tb-sep{ width:1px; height: 1.2rem; background:#262626; margin: 0 0.25rem; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="border-b border-line bg-surface/80 backdrop-blur sticky top-0 z-20">
+  <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3 min-w-0">
+      <a href="/admin/" class="text-muted hover:text-ink shrink-0">← Kembali</a>
+      <span class="text-dim shrink-0">/</span>
+      <span id="header-title" class="font-medium truncate">Artikel baru</span>
+      <span id="save-state" class="text-xs text-dim shrink-0"></span>
+    </div>
+    <div class="flex items-center gap-2 shrink-0">
+      <button id="btn-save"    class="px-3 py-1.5 rounded-md border border-line hover:border-linestrong text-sm">Simpan draft</button>
+      <button id="btn-publish" class="px-3 py-1.5 rounded-md bg-accent hover:bg-accent-deep text-sm font-medium">Publish</button>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-6 py-8 grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
+
+  <!-- EDITOR COLUMN -->
+  <section>
+    <!-- Language toggle -->
+    <div class="flex items-center gap-1 mb-4 border border-line rounded-lg p-1 bg-surface w-fit">
+      <button data-lang="id" class="lang-tab px-3 py-1.5 rounded-md text-sm font-medium bg-accent text-white">Bahasa Indonesia</button>
+      <button data-lang="en" class="lang-tab px-3 py-1.5 rounded-md text-sm text-muted hover:text-ink">English</button>
+    </div>
+
+    <!-- Title -->
+    <input id="title-input" type="text" placeholder="Judul artikel…"
+      class="w-full bg-transparent border-0 text-3xl font-bold focus:outline-none placeholder-dim mb-3"/>
+
+    <!-- Excerpt -->
+    <textarea id="excerpt-input" rows="2" placeholder="Ringkasan singkat (excerpt) — muncul di list artikel & meta description"
+      class="w-full bg-transparent border-0 border-b border-line text-muted focus:outline-none resize-none mb-4 pb-2"></textarea>
+
+    <!-- Toolbar -->
+    <div id="toolbar" class="flex flex-wrap items-center gap-1 p-2 border border-line rounded-t-lg bg-surface sticky top-[73px] z-10">
+      <button class="tb-btn font-bold" data-cmd="bold" title="Bold (Ctrl+B)">B</button>
+      <button class="tb-btn italic"    data-cmd="italic" title="Italic (Ctrl+I)">I</button>
+      <div class="tb-sep"></div>
+      <button class="tb-btn" data-cmd="h1" title="Heading 1">H1</button>
+      <button class="tb-btn" data-cmd="h2" title="Heading 2">H2</button>
+      <button class="tb-btn" data-cmd="h3" title="Heading 3">H3</button>
+      <div class="tb-sep"></div>
+      <button class="tb-btn" data-cmd="bulletList" title="Bullet list">• List</button>
+      <button class="tb-btn" data-cmd="orderedList" title="Numbered list">1. List</button>
+      <div class="tb-sep"></div>
+      <button class="tb-btn" data-cmd="link" title="Link">🔗 Link</button>
+      <button class="tb-btn" data-cmd="image" title="Insert image">🖼 Gambar</button>
+      <button class="tb-btn" data-cmd="quote" title="Blockquote">❝ Quote</button>
+      <button class="tb-btn" data-cmd="code" title="Code block">{} Code</button>
+      <button class="tb-btn" data-cmd="hr" title="Divider">— Divider</button>
+      <div class="tb-sep"></div>
+      <button class="tb-btn" data-cmd="undo" title="Undo (Ctrl+Z)">↶</button>
+      <button class="tb-btn" data-cmd="redo" title="Redo (Ctrl+Shift+Z)">↷</button>
+    </div>
+
+    <!-- Editor -->
+    <div id="editor" class="border border-line border-t-0 rounded-b-lg bg-surface px-5 py-4"></div>
+  </section>
+
+  <!-- SIDEBAR -->
+  <aside class="space-y-5">
+    <div class="border border-line rounded-xl bg-surface p-4">
+      <div class="text-xs uppercase tracking-wider text-dim mb-3">Status</div>
+      <div id="status-pill" class="inline-block px-2.5 py-1 rounded text-xs bg-zinc-500/15 text-zinc-300 border border-zinc-500/30">Draft</div>
+      <div id="published-at" class="text-xs text-muted mt-3"></div>
+    </div>
+
+    <div class="border border-line rounded-xl bg-surface p-4">
+      <label class="block text-xs uppercase tracking-wider text-dim mb-2">Slug</label>
+      <input id="slug-input" type="text" placeholder="auto-generate dari judul"
+        class="w-full px-3 py-2 rounded-lg bg-surface2 border border-line focus:border-accent outline-none text-sm font-mono"/>
+      <p class="text-xs text-dim mt-2">URL: <span class="text-muted">klaut.id/articles/<span id="slug-preview">…</span></span></p>
+    </div>
+
+    <div class="border border-line rounded-xl bg-surface p-4">
+      <label class="block text-xs uppercase tracking-wider text-dim mb-2">Cover image URL</label>
+      <input id="cover-input" type="url" placeholder="https://…"
+        class="w-full px-3 py-2 rounded-lg bg-surface2 border border-line focus:border-accent outline-none text-sm"/>
+      <img id="cover-preview" alt="" class="mt-3 rounded-lg w-full hidden"/>
+    </div>
+
+    <div class="border border-line rounded-xl bg-surface p-4 text-xs text-dim leading-relaxed">
+      <div class="text-muted mb-1">Tips</div>
+      <ul class="space-y-1 list-disc pl-4">
+        <li>Tulis versi ID dan EN — toggle di atas.</li>
+        <li>Versi EN opsional. Hanya yang terisi yang akan tampil.</li>
+        <li>Auto-save tiap 3 detik setelah Anda mengetik.</li>
+      </ul>
+    </div>
+  </aside>
+</main>
+
+<script type="module">
+import { Editor } from "https://esm.sh/@tiptap/core@2.6.6";
+import StarterKit from "https://esm.sh/@tiptap/starter-kit@2.6.6";
+import Link from "https://esm.sh/@tiptap/extension-link@2.6.6";
+import Image from "https://esm.sh/@tiptap/extension-image@2.6.6";
+import Placeholder from "https://esm.sh/@tiptap/extension-placeholder@2.6.6";
+import { supabase, slugify, formatDate } from "/shared/supabase.js";
+
+// --- guard: must be logged in
+const { data: { session } } = await supabase.auth.getSession();
+if (!session?.user) {
+  location.href = "/admin/";
+}
+
+// --- state
+const params = new URLSearchParams(location.search);
+let articleId = params.get("id");
+let currentLang = "id";
+let saveTimer = null;
+let isSaving = false;
+
+const state = {
+  slug: "",
+  title_id: "",
+  title_en: "",
+  excerpt_id: "",
+  excerpt_en: "",
+  content_id: null,
+  content_en: null,
+  cover_image_url: "",
+  published: false,
+  published_at: null
+};
+
+// --- editor
+const editor = new Editor({
+  element: document.getElementById("editor"),
+  extensions: [
+    StarterKit.configure({ heading: { levels: [1,2,3] } }),
+    Link.configure({ openOnClick: false, autolink: true, HTMLAttributes: { target: "_blank", rel: "noopener" } }),
+    Image,
+    Placeholder.configure({ placeholder: "Tulis di sini… gunakan toolbar di atas untuk formatting." })
+  ],
+  content: "",
+  onUpdate: () => { scheduleSave(); updateToolbar(); },
+  onSelectionUpdate: updateToolbar
+});
+
+// --- toolbar wiring
+const toolbarBtns = document.querySelectorAll("#toolbar .tb-btn");
+toolbarBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const cmd = btn.dataset.cmd;
+    const c = editor.chain().focus();
+    switch (cmd) {
+      case "bold":         c.toggleBold().run(); break;
+      case "italic":       c.toggleItalic().run(); break;
+      case "h1":           c.toggleHeading({ level: 1 }).run(); break;
+      case "h2":           c.toggleHeading({ level: 2 }).run(); break;
+      case "h3":           c.toggleHeading({ level: 3 }).run(); break;
+      case "bulletList":   c.toggleBulletList().run(); break;
+      case "orderedList":  c.toggleOrderedList().run(); break;
+      case "quote":        c.toggleBlockquote().run(); break;
+      case "code":         c.toggleCodeBlock().run(); break;
+      case "hr":           c.setHorizontalRule().run(); break;
+      case "undo":         c.undo().run(); break;
+      case "redo":         c.redo().run(); break;
+      case "link": {
+        const prev = editor.getAttributes("link").href;
+        const url = prompt("URL link (kosongkan untuk hapus):", prev || "https://");
+        if (url === null) return;
+        if (url === "") c.unsetLink().run();
+        else c.setLink({ href: url }).run();
+        break;
+      }
+      case "image": {
+        const url = prompt("URL gambar:");
+        if (url) c.setImage({ src: url }).run();
+        break;
+      }
+    }
+  });
+});
+
+function updateToolbar() {
+  const map = {
+    bold: editor.isActive("bold"),
+    italic: editor.isActive("italic"),
+    h1: editor.isActive("heading", { level: 1 }),
+    h2: editor.isActive("heading", { level: 2 }),
+    h3: editor.isActive("heading", { level: 3 }),
+    bulletList: editor.isActive("bulletList"),
+    orderedList: editor.isActive("orderedList"),
+    quote: editor.isActive("blockquote"),
+    code: editor.isActive("codeBlock")
+  };
+  toolbarBtns.forEach(btn => {
+    btn.classList.toggle("active", !!map[btn.dataset.cmd]);
+  });
+}
+
+// --- inputs
+const titleInput   = document.getElementById("title-input");
+const excerptInput = document.getElementById("excerpt-input");
+const slugInput    = document.getElementById("slug-input");
+const coverInput   = document.getElementById("cover-input");
+const coverPreview = document.getElementById("cover-preview");
+const slugPreview  = document.getElementById("slug-preview");
+const headerTitle  = document.getElementById("header-title");
+const saveState    = document.getElementById("save-state");
+const statusPill   = document.getElementById("status-pill");
+const publishedAt  = document.getElementById("published-at");
+
+function syncStateFromInputs() {
+  if (currentLang === "id") {
+    state.title_id = titleInput.value;
+    state.excerpt_id = excerptInput.value;
+    state.content_id = editor.getJSON();
+  } else {
+    state.title_en = titleInput.value;
+    state.excerpt_en = excerptInput.value;
+    state.content_en = editor.getJSON();
+  }
+  state.cover_image_url = coverInput.value.trim();
+  if (slugInput.value.trim()) state.slug = slugify(slugInput.value);
+  else if (!state.slug && state.title_id) state.slug = slugify(state.title_id);
+  slugPreview.textContent = state.slug || "…";
+  headerTitle.textContent = state.title_id || state.title_en || "Artikel baru";
+  coverPreview.src = state.cover_image_url || "";
+  coverPreview.classList.toggle("hidden", !state.cover_image_url);
+}
+
+function loadIntoInputs() {
+  if (currentLang === "id") {
+    titleInput.value = state.title_id || "";
+    excerptInput.value = state.excerpt_id || "";
+    editor.commands.setContent(state.content_id || "");
+  } else {
+    titleInput.value = state.title_en || "";
+    excerptInput.value = state.excerpt_en || "";
+    editor.commands.setContent(state.content_en || "");
+  }
+  titleInput.placeholder = currentLang === "id" ? "Judul artikel…" : "Article title…";
+  excerptInput.placeholder = currentLang === "id"
+    ? "Ringkasan singkat (excerpt) — muncul di list artikel & meta description"
+    : "Short summary (excerpt) — shown in article list & meta description";
+}
+
+[titleInput, excerptInput, slugInput, coverInput].forEach(el => {
+  el.addEventListener("input", () => { syncStateFromInputs(); scheduleSave(); });
+});
+
+// --- language toggle
+document.querySelectorAll(".lang-tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    syncStateFromInputs();
+    currentLang = tab.dataset.lang;
+    document.querySelectorAll(".lang-tab").forEach(t => {
+      const active = t.dataset.lang === currentLang;
+      t.classList.toggle("bg-accent", active);
+      t.classList.toggle("text-white", active);
+      t.classList.toggle("text-muted", !active);
+    });
+    loadIntoInputs();
+  });
+});
+
+// --- save / publish
+function scheduleSave() {
+  clearTimeout(saveTimer);
+  saveState.textContent = "• menulis…";
+  saveTimer = setTimeout(saveDraft, 3000);
+}
+
+async function upsertArticle(extra = {}) {
+  syncStateFromInputs();
+  if (!state.slug) {
+    alert("Slug belum ada — isi judul Bahasa Indonesia atau slug manual.");
+    return null;
+  }
+  const payload = {
+    slug: state.slug,
+    title_id: state.title_id || "",
+    title_en: state.title_en || null,
+    excerpt_id: state.excerpt_id || null,
+    excerpt_en: state.excerpt_en || null,
+    content_id: state.content_id,
+    content_en: state.content_en,
+    cover_image_url: state.cover_image_url || null,
+    ...extra
+  };
+  isSaving = true;
+  saveState.textContent = "• menyimpan…";
+
+  let res;
+  if (articleId) {
+    res = await supabase.from("articles").update(payload).eq("id", articleId).select().single();
+  } else {
+    res = await supabase.from("articles").insert(payload).select().single();
+  }
+  isSaving = false;
+  if (res.error) {
+    saveState.textContent = "";
+    alert("Gagal menyimpan: " + res.error.message);
+    return null;
+  }
+  articleId = res.data.id;
+  Object.assign(state, res.data);
+  // update URL without reload
+  if (!params.get("id")) {
+    history.replaceState({}, "", `/admin/editor.html?id=${articleId}`);
+  }
+  saveState.textContent = "✓ tersimpan " + new Date().toLocaleTimeString("id-ID", {hour:"2-digit", minute:"2-digit"});
+  renderStatus();
+  return res.data;
+}
+
+async function saveDraft() { return upsertArticle(); }
+
+document.getElementById("btn-save").addEventListener("click", async () => {
+  await saveDraft();
+});
+
+document.getElementById("btn-publish").addEventListener("click", async () => {
+  syncStateFromInputs();
+  if (!state.title_id) { alert("Judul Bahasa Indonesia wajib diisi."); return; }
+  if (state.published) {
+    if (!confirm("Unpublish artikel ini?")) return;
+    await upsertArticle({ published: false, published_at: null });
+  } else {
+    await upsertArticle({ published: true, published_at: new Date().toISOString() });
+  }
+});
+
+function renderStatus() {
+  if (state.published) {
+    statusPill.textContent = "Published";
+    statusPill.className = "inline-block px-2.5 py-1 rounded text-xs bg-emerald-500/15 text-emerald-300 border border-emerald-500/30";
+    publishedAt.textContent = "Live sejak " + formatDate(state.published_at);
+    document.getElementById("btn-publish").textContent = "Unpublish";
+  } else {
+    statusPill.textContent = "Draft";
+    statusPill.className = "inline-block px-2.5 py-1 rounded text-xs bg-zinc-500/15 text-zinc-300 border border-zinc-500/30";
+    publishedAt.textContent = "";
+    document.getElementById("btn-publish").textContent = "Publish";
+  }
+}
+
+// --- load existing article
+if (articleId) {
+  const { data, error } = await supabase.from("articles").select("*").eq("id", articleId).single();
+  if (error) {
+    alert("Artikel tidak ditemukan: " + error.message);
+    location.href = "/admin/";
+  } else {
+    Object.assign(state, data);
+    slugInput.value = state.slug || "";
+    coverInput.value = state.cover_image_url || "";
+    loadIntoInputs();
+    syncStateFromInputs();
+    renderStatus();
+  }
+} else {
+  loadIntoInputs();
+  renderStatus();
+}
+
+// warn before leaving if unsaved
+window.addEventListener("beforeunload", (e) => {
+  if (saveTimer) { e.preventDefault(); e.returnValue = ""; }
+});
+</script>
+</body>
+</html>

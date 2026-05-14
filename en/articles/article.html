@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Article — Klaut</title>
+<meta name="description" id="meta-desc" content="AI insights from the Klaut team."/>
+<meta name="theme-color" content="#0a0a0a"/>
+<link rel="canonical" id="meta-canonical" href="https://klaut.id/en/articles"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title"       id="meta-og-title"       content="Klaut"/>
+<meta property="og:description" id="meta-og-desc"        content=""/>
+<meta property="og:image"       id="meta-og-image"       content="https://klaut.id/og-image-en.png"/>
+<meta property="og:locale" content="en_US"/>
+<link rel="icon" type="image/png" href="/klaut-K.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'], mono: ['JetBrains Mono','ui-monospace'] },
+        colors: {
+          bg:'#0a0a0a', surface:'#111111', surface2:'#1a1a1a',
+          line:'#262626', linestrong:'#3f3f46',
+          accent:'#6366f1', 'accent-2':'#818cf8', 'accent-deep':'#4f46e5',
+          ink:'#ffffff', muted:'#a1a1aa', dim:'#71717a'
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html,body{background:#0a0a0a;color:#fff;font-family:'Inter',ui-sans-serif,system-ui;}
+  .prose{ font-size: 1.05rem; line-height: 1.75; color:#d4d4d8; }
+  .prose p{ margin: 0 0 1.1em; }
+  .prose h1{ font-size: 2rem; font-weight: 700; margin: 1.6em 0 0.6em; color:#fff; }
+  .prose h2{ font-size: 1.6rem; font-weight: 700; margin: 1.6em 0 0.5em; color:#fff; }
+  .prose h3{ font-size: 1.25rem; font-weight: 600; margin: 1.4em 0 0.4em; color:#fff; }
+  .prose ul, .prose ol{ padding-left: 1.5em; margin: 0 0 1.2em; }
+  .prose ul{ list-style: disc; }
+  .prose ol{ list-style: decimal; }
+  .prose li{ margin: 0.4em 0; }
+  .prose a{ color:#818cf8; text-decoration: underline; text-underline-offset: 3px; }
+  .prose a:hover{ color:#a5b4fc; }
+  .prose strong{ color:#fff; }
+  .prose img{ max-width: 100%; border-radius: 10px; margin: 1.5em 0; border:1px solid #262626; }
+  .prose blockquote{ border-left: 3px solid #6366f1; padding-left: 1.1em; color:#a1a1aa; margin: 1.4em 0; font-style: italic; }
+  .prose pre{ background:#111; border:1px solid #262626; padding: 1em 1.2em; border-radius:10px; font-family:'JetBrains Mono',monospace; font-size:0.9em; overflow-x:auto; margin: 1.4em 0; }
+  .prose code{ background:#1a1a1a; padding:0.15em 0.4em; border-radius:4px; font-family:'JetBrains Mono',monospace; font-size:0.9em; }
+  .prose pre code{ background:transparent; padding:0; }
+  .prose hr{ border:0; border-top:1px solid #262626; margin: 2em 0; }
+</style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+<header class="border-b border-line">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+    <a href="/en/" class="flex items-center gap-2.5">
+      <img src="/klaut-K.png" alt="" class="h-7 w-7"/>
+      <img src="/klaut-wordmark-text.png" alt="Klaut" class="h-5"/>
+    </a>
+    <nav class="hidden md:flex items-center gap-1">
+      <a href="/en/#about"        class="px-4 py-2 text-sm text-muted hover:text-ink">About</a>
+      <a href="/en/#industries"   class="px-4 py-2 text-sm text-muted hover:text-ink">Case Studies</a>
+      <a href="/en/articles"      class="px-4 py-2 text-sm text-white">Articles</a>
+      <a href="/en/faq"           class="px-4 py-2 text-sm text-muted hover:text-ink">FAQ</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <div class="flex items-center rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium">
+        <a id="lang-id-link" href="/articles" class="px-3 py-1.5 rounded-full text-muted hover:text-white">ID</a>
+        <a href="/en/articles" class="px-3 py-1.5 rounded-full bg-white/10 text-white">EN</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="flex-1">
+  <article id="article" class="max-w-3xl mx-auto px-6 lg:px-8 pt-12 pb-24 hidden">
+    <a href="/en/articles" class="text-sm text-muted hover:text-ink">← All articles</a>
+
+    <div id="cover-wrap" class="mt-6 rounded-2xl overflow-hidden border border-line hidden">
+      <img id="cover-img" alt="" class="w-full aspect-[16/9] object-cover"/>
+    </div>
+
+    <div id="date" class="mt-8 text-xs font-mono uppercase tracking-widest text-accent-2"></div>
+    <h1 id="title" class="mt-3 text-3xl md:text-4xl font-bold tracking-tight leading-tight"></h1>
+    <p id="excerpt" class="mt-4 text-lg text-muted leading-relaxed"></p>
+
+    <hr class="my-8 border-line"/>
+
+    <div id="content" class="prose"></div>
+
+    <div class="mt-16 border-t border-line pt-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <a href="/en/articles" class="text-sm text-muted hover:text-ink">← All articles</a>
+      <a href="/en/#cta" class="text-sm text-accent-2 hover:text-white">Talk to the Klaut team →</a>
+    </div>
+  </article>
+
+  <div id="loading" class="max-w-3xl mx-auto px-6 lg:px-8 pt-24 pb-24 text-center text-dim">Loading article…</div>
+
+  <div id="notfound" class="max-w-3xl mx-auto px-6 lg:px-8 pt-24 pb-24 text-center hidden">
+    <div class="text-6xl mb-4">404</div>
+    <h1 class="text-2xl font-bold mb-2">Article not found</h1>
+    <p class="text-muted">The article you're looking for doesn't exist or hasn't been published in English.</p>
+    <a href="/en/articles" class="inline-block mt-6 px-4 py-2 rounded-lg bg-accent hover:bg-accent-deep">See all articles</a>
+  </div>
+</main>
+
+<footer class="border-t border-line">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-xs text-dim">
+    <div class="flex items-center gap-2.5">
+      <img src="/klaut-K.png" alt="" class="h-6 w-6"/>
+      <span>© 2026 Klaut AI</span>
+    </div>
+    <div class="flex gap-6">
+      <a href="/en/" class="hover:text-ink">Home</a>
+      <a href="/en/faq" class="hover:text-ink">FAQ</a>
+      <a href="mailto:hello@klaut.id" class="hover:text-ink">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script type="module">
+import { supabase, tiptapToHtml, formatDate } from "/shared/supabase.js";
+
+const match = location.pathname.match(/^\/en\/articles\/([^\/]+)/);
+const slug  = match ? decodeURIComponent(match[1]) : null;
+
+const loading = document.getElementById("loading");
+const article = document.getElementById("article");
+const notfound = document.getElementById("notfound");
+
+function show(el){ el.classList.remove("hidden"); }
+function hide(el){ el.classList.add("hidden"); }
+
+if (!slug) {
+  hide(loading); show(notfound);
+} else {
+  const { data, error } = await supabase
+    .from("articles")
+    .select("*")
+    .eq("slug", slug)
+    .eq("published", true)
+    .maybeSingle();
+
+  hide(loading);
+
+  if (error || !data || !data.title_en || !data.title_en.trim()) {
+    show(notfound);
+  } else {
+    document.title = `${data.title_en} — Klaut`;
+    document.documentElement.lang = "en";
+
+    const desc = data.excerpt_en || "";
+    document.getElementById("meta-desc").setAttribute("content", desc);
+    document.getElementById("meta-og-title").setAttribute("content", `${data.title_en} — Klaut`);
+    document.getElementById("meta-og-desc").setAttribute("content", desc);
+    document.getElementById("meta-canonical").setAttribute("href", `https://klaut.id/en/articles/${data.slug}`);
+    if (data.cover_image_url) document.getElementById("meta-og-image").setAttribute("content", data.cover_image_url);
+
+    // ID link only if ID version exists (it should, since title_id is required)
+    document.getElementById("lang-id-link").href = `/articles/${data.slug}`;
+
+    if (data.cover_image_url) {
+      document.getElementById("cover-img").src = data.cover_image_url;
+      document.getElementById("cover-img").alt = data.title_en;
+      show(document.getElementById("cover-wrap"));
+    }
+    document.getElementById("date").textContent = formatDate(data.published_at, "en-US");
+    document.getElementById("title").textContent = data.title_en;
+    if (data.excerpt_en) {
+      document.getElementById("excerpt").textContent = data.excerpt_en;
+    } else {
+      document.getElementById("excerpt").style.display = "none";
+    }
+    document.getElementById("content").innerHTML = tiptapToHtml(data.content_en);
+
+    const ld = document.createElement("script");
+    ld.type = "application/ld+json";
+    ld.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": data.title_en,
+      "description": desc,
+      "image": data.cover_image_url || "https://klaut.id/og-image-en.png",
+      "datePublished": data.published_at,
+      "dateModified": data.updated_at,
+      "author": { "@type": "Organization", "name": "Klaut" },
+      "publisher": { "@type": "Organization", "name": "Klaut", "logo": { "@type": "ImageObject", "url": "https://klaut.id/klaut-K.png" } },
+      "mainEntityOfPage": `https://klaut.id/en/articles/${data.slug}`,
+      "inLanguage": "en-US"
+    });
+    document.head.appendChild(ld);
+
+    show(article);
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Articles — Klaut</title>
+<meta name="description" content="Insights, guides, and case studies on enterprise AI from the Klaut team."/>
+<meta name="theme-color" content="#0a0a0a"/>
+<link rel="canonical" href="https://klaut.id/en/articles"/>
+<link rel="alternate" hreflang="id" href="https://klaut.id/articles"/>
+<link rel="alternate" hreflang="en" href="https://klaut.id/en/articles"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Articles — Klaut"/>
+<meta property="og:description" content="Insights and guides on enterprise AI from the Klaut team."/>
+<meta property="og:image" content="https://klaut.id/og-image-en.png"/>
+<meta property="og:locale" content="en_US"/>
+<link rel="icon" type="image/png" href="/klaut-K.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'], mono: ['JetBrains Mono','ui-monospace'] },
+        colors: {
+          bg:'#0a0a0a', surface:'#111111', surface2:'#1a1a1a',
+          line:'#262626', linestrong:'#3f3f46',
+          accent:'#6366f1', 'accent-2':'#818cf8', 'accent-deep':'#4f46e5',
+          ink:'#ffffff', muted:'#a1a1aa', dim:'#71717a'
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html,body{background:#0a0a0a;color:#fff;font-family:'Inter',ui-sans-serif,system-ui;}
+  .card{ transition: transform .2s, border-color .2s; }
+  .card:hover{ transform: translateY(-2px); border-color:#3f3f46; }
+</style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+<header class="border-b border-line">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+    <a href="/en/" class="flex items-center gap-2.5">
+      <img src="/klaut-K.png" alt="" class="h-7 w-7"/>
+      <img src="/klaut-wordmark-text.png" alt="Klaut" class="h-5"/>
+    </a>
+    <nav class="hidden md:flex items-center gap-1">
+      <a href="/en/#about"        class="px-4 py-2 text-sm text-muted hover:text-ink">About</a>
+      <a href="/en/#industries"   class="px-4 py-2 text-sm text-muted hover:text-ink">Case Studies</a>
+      <a href="/en/articles"      class="px-4 py-2 text-sm text-white">Articles</a>
+      <a href="/en/faq"           class="px-4 py-2 text-sm text-muted hover:text-ink">FAQ</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <div class="flex items-center rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium">
+        <a href="/articles"    class="px-3 py-1.5 rounded-full text-muted hover:text-white">ID</a>
+        <a href="/en/articles" class="px-3 py-1.5 rounded-full bg-white/10 text-white">EN</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="flex-1">
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 pt-16 pb-10">
+    <div class="text-xs font-mono uppercase tracking-widest text-accent-2 mb-3">Articles</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight">Insights & guides on AI</h1>
+    <p class="mt-4 text-lg text-muted max-w-2xl">Thinking from the Klaut team on strategy, governance, and implementation of AI in Indonesian enterprises.</p>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-24">
+    <div id="article-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="text-dim col-span-full text-center py-16">Loading articles…</div>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t border-line">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-xs text-dim">
+    <div class="flex items-center gap-2.5">
+      <img src="/klaut-K.png" alt="" class="h-6 w-6"/>
+      <span>© 2026 Klaut AI</span>
+    </div>
+    <div class="flex gap-6">
+      <a href="/en/" class="hover:text-ink">Home</a>
+      <a href="/en/faq" class="hover:text-ink">FAQ</a>
+      <a href="mailto:hello@klaut.id" class="hover:text-ink">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script type="module">
+import { supabase, formatDate } from "/shared/supabase.js";
+
+const grid = document.getElementById("article-grid");
+function escapeHtml(s){ return String(s ?? "").replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+// Only show articles that have an English version (title_en not null/empty)
+const { data, error } = await supabase
+  .from("articles")
+  .select("slug, title_en, excerpt_en, cover_image_url, published_at")
+  .eq("published", true)
+  .not("title_en", "is", null)
+  .order("published_at", { ascending: false });
+
+if (error) {
+  grid.innerHTML = `<div class="text-red-400 col-span-full text-center py-16">Failed to load: ${escapeHtml(error.message)}</div>`;
+} else {
+  const filtered = data.filter(a => a.title_en && a.title_en.trim());
+  if (!filtered.length) {
+    grid.innerHTML = `<div class="text-dim col-span-full text-center py-16">No published articles yet.</div>`;
+  } else {
+    grid.innerHTML = filtered.map(a => `
+      <a href="/en/articles/${escapeHtml(a.slug)}" class="card block border border-line rounded-2xl bg-surface overflow-hidden">
+        ${a.cover_image_url
+          ? `<div class="aspect-[16/9] bg-surface2 overflow-hidden"><img src="${escapeHtml(a.cover_image_url)}" alt="" class="w-full h-full object-cover"/></div>`
+          : `<div class="aspect-[16/9] bg-gradient-to-br from-surface2 to-surface flex items-center justify-center"><img src="/klaut-K.png" alt="" class="h-10 w-10 opacity-30"/></div>`}
+        <div class="p-5">
+          <div class="text-xs font-mono text-dim mb-2">${formatDate(a.published_at, "en-US")}</div>
+          <h2 class="text-lg font-semibold leading-snug">${escapeHtml(a.title_en)}</h2>
+          ${a.excerpt_en ? `<p class="mt-2 text-sm text-muted line-clamp-3">${escapeHtml(a.excerpt_en)}</p>` : ""}
+          <div class="mt-4 text-sm text-accent-2">Read article →</div>
+        </div>
+      </a>
+    `).join("");
+  }
+}
+</script>
+</body>
+</html>

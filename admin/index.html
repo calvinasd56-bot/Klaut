@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Klaut Admin — Artikel</title>
+<link rel="icon" type="image/png" href="/klaut-K.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'], mono: ['JetBrains Mono','ui-monospace'] },
+        colors: {
+          bg:'#0a0a0a', surface:'#111111', surface2:'#1a1a1a',
+          line:'#262626', linestrong:'#3f3f46',
+          accent:'#6366f1', 'accent-2':'#818cf8', 'accent-deep':'#4f46e5',
+          ink:'#ffffff', muted:'#a1a1aa', dim:'#71717a'
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html,body{background:#0a0a0a;color:#fff;font-family:'Inter',ui-sans-serif,system-ui;}
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- LOGIN SCREEN -->
+<section id="login-view" class="hidden min-h-screen items-center justify-center p-6">
+  <div class="w-full max-w-sm border border-line rounded-2xl bg-surface p-8">
+    <div class="flex items-center gap-3 mb-6">
+      <img src="/klaut-K.png" alt="Klaut" class="h-8 w-8"/>
+      <div>
+        <div class="text-sm text-muted">Klaut</div>
+        <div class="text-lg font-semibold">Admin Artikel</div>
+      </div>
+    </div>
+    <form id="login-form" class="space-y-3">
+      <label class="block text-xs text-muted">Email</label>
+      <input type="email" id="email" required class="w-full px-3 py-2 rounded-lg bg-surface2 border border-line focus:border-accent outline-none"/>
+      <label class="block text-xs text-muted mt-3">Password</label>
+      <input type="password" id="password" required class="w-full px-3 py-2 rounded-lg bg-surface2 border border-line focus:border-accent outline-none"/>
+      <button type="submit" class="w-full mt-4 py-2 rounded-lg bg-accent hover:bg-accent-deep font-medium transition">Login</button>
+      <p id="login-error" class="text-red-400 text-sm mt-2 hidden"></p>
+    </form>
+    <p class="text-xs text-dim mt-6">User dikelola lewat Supabase → Authentication → Users.</p>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="app-view" class="hidden">
+  <header class="border-b border-line bg-surface/80 backdrop-blur sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/admin/" class="flex items-center gap-3">
+        <img src="/klaut-K.png" alt="" class="h-7 w-7"/>
+        <span class="font-semibold">Klaut Admin</span>
+      </a>
+      <div class="flex items-center gap-3">
+        <a href="/" class="text-sm text-muted hover:text-ink">↗ Lihat site</a>
+        <span id="user-email" class="text-sm text-dim"></span>
+        <button id="logout-btn" class="text-sm px-3 py-1.5 rounded-md border border-line hover:border-linestrong">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 py-8">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="text-2xl font-bold">Artikel</h1>
+        <p class="text-sm text-muted mt-1">Kelola publikasi untuk klaut.id/articles</p>
+      </div>
+      <a href="/admin/editor.html" class="px-4 py-2 rounded-lg bg-accent hover:bg-accent-deep font-medium transition">+ Artikel baru</a>
+    </div>
+
+    <div class="border border-line rounded-2xl bg-surface overflow-hidden">
+      <table class="w-full text-sm">
+        <thead class="bg-surface2 border-b border-line text-left text-muted">
+          <tr>
+            <th class="px-4 py-3 font-medium">Judul (ID)</th>
+            <th class="px-4 py-3 font-medium">Slug</th>
+            <th class="px-4 py-3 font-medium">Status</th>
+            <th class="px-4 py-3 font-medium">Diperbarui</th>
+            <th class="px-4 py-3 font-medium"></th>
+          </tr>
+        </thead>
+        <tbody id="article-list">
+          <tr><td colspan="5" class="px-4 py-8 text-center text-dim">Memuat…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</section>
+
+<script type="module">
+import { supabase, formatDate } from "/shared/supabase.js";
+
+const loginView = document.getElementById("login-view");
+const appView   = document.getElementById("app-view");
+const loginForm = document.getElementById("login-form");
+const loginErr  = document.getElementById("login-error");
+const userEmail = document.getElementById("user-email");
+const list      = document.getElementById("article-list");
+
+function showLogin() { loginView.classList.remove("hidden"); loginView.classList.add("flex"); appView.classList.add("hidden"); }
+function showApp()   { loginView.classList.add("hidden"); loginView.classList.remove("flex"); appView.classList.remove("hidden"); }
+
+async function loadArticles() {
+  list.innerHTML = `<tr><td colspan="5" class="px-4 py-8 text-center text-dim">Memuat…</td></tr>`;
+  const { data, error } = await supabase
+    .from("articles")
+    .select("id, slug, title_id, published, published_at, updated_at")
+    .order("updated_at", { ascending: false });
+
+  if (error) {
+    list.innerHTML = `<tr><td colspan="5" class="px-4 py-8 text-center text-red-400">${error.message}</td></tr>`;
+    return;
+  }
+  if (!data.length) {
+    list.innerHTML = `<tr><td colspan="5" class="px-4 py-12 text-center text-dim">Belum ada artikel. Klik "Artikel baru" untuk mulai.</td></tr>`;
+    return;
+  }
+  list.innerHTML = data.map(a => `
+    <tr class="border-b border-line last:border-0 hover:bg-surface2/50">
+      <td class="px-4 py-3">
+        <a href="/admin/editor.html?id=${a.id}" class="font-medium hover:text-accent-2">${escapeHtml(a.title_id || "(tanpa judul)")}</a>
+      </td>
+      <td class="px-4 py-3 text-dim font-mono text-xs">${escapeHtml(a.slug || "—")}</td>
+      <td class="px-4 py-3">
+        ${a.published
+          ? `<span class="px-2 py-0.5 rounded text-xs bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">Published</span>`
+          : `<span class="px-2 py-0.5 rounded text-xs bg-zinc-500/15 text-zinc-300 border border-zinc-500/30">Draft</span>`}
+      </td>
+      <td class="px-4 py-3 text-muted">${formatDate(a.updated_at)}</td>
+      <td class="px-4 py-3 text-right">
+        ${a.published ? `<a href="/articles/${a.slug}" target="_blank" class="text-xs text-muted hover:text-ink mr-3">↗ Lihat</a>` : ""}
+        <button data-del="${a.id}" class="text-xs text-red-400 hover:text-red-300">Hapus</button>
+      </td>
+    </tr>
+  `).join("");
+
+  list.querySelectorAll("[data-del]").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      if (!confirm("Hapus artikel ini?")) return;
+      const { error } = await supabase.from("articles").delete().eq("id", btn.dataset.del);
+      if (error) alert(error.message);
+      else loadArticles();
+    });
+  });
+}
+
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+loginForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  loginErr.classList.add("hidden");
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) {
+    loginErr.textContent = error.message;
+    loginErr.classList.remove("hidden");
+  }
+});
+
+document.getElementById("logout-btn").addEventListener("click", async () => {
+  await supabase.auth.signOut();
+});
+
+supabase.auth.onAuthStateChange((_event, session) => {
+  if (session?.user) {
+    userEmail.textContent = session.user.email;
+    showApp();
+    loadArticles();
+  } else {
+    showLogin();
+  }
+});
+
+// Initial check
+const { data: { session } } = await supabase.auth.getSession();
+if (session?.user) {
+  userEmail.textContent = session.user.email;
+  showApp();
+  loadArticles();
+} else {
+  showLogin();
+}
+</script>
+</body>
+</html>
