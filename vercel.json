@@ -3,12 +3,17 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/artikel",              "destination": "/artikel/index.html" },
-    { "source": "/artikel/:slug",        "destination": "/artikel/article.html" },
-    { "source": "/en/articles",          "destination": "/en/articles/index.html" },
-    { "source": "/en/articles/:slug",    "destination": "/en/articles/article.html" },
-    { "source": "/admin",                "destination": "/admin/index.html" },
-    { "source": "/admin/editor",         "destination": "/admin/editor.html" }
+    { "source": "/artikel",                     "destination": "/artikel/index.html" },
+    { "source": "/artikel/:slug",               "destination": "/artikel/article.html" },
+    { "source": "/en/articles",                 "destination": "/en/articles/index.html" },
+    { "source": "/en/articles/:slug",           "destination": "/en/articles/article.html" },
+    { "source": "/case-studies",                "destination": "/case-studies/index.html" },
+    { "source": "/case-studies/:slug",          "destination": "/case-studies/case-study.html" },
+    { "source": "/en/case-studies",             "destination": "/en/case-studies/index.html" },
+    { "source": "/en/case-studies/:slug",       "destination": "/en/case-studies/case-study.html" },
+    { "source": "/admin",                       "destination": "/admin/index.html" },
+    { "source": "/admin/editor",                "destination": "/admin/editor.html" },
+    { "source": "/admin/case-study-editor",     "destination": "/admin/case-study-editor.html" }
   ],
   "redirects": [
     { "source": "/articles",         "destination": "/artikel",          "permanent": true },

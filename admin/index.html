@@ -70,30 +70,68 @@
   </header>
 
   <main class="max-w-6xl mx-auto px-6 py-8">
-    <div class="flex items-center justify-between mb-6">
-      <div>
-        <h1 class="text-2xl font-bold">Artikel</h1>
-        <p class="text-sm text-muted mt-1">Kelola publikasi untuk klaut.id/artikel</p>
-      </div>
-      <a href="/admin/editor.html" class="px-4 py-2 rounded-lg bg-accent hover:bg-accent-deep font-medium transition">+ Artikel baru</a>
+    <!-- Tabs -->
+    <div class="flex items-center gap-1 mb-6 border border-line rounded-lg p-1 bg-surface w-fit">
+      <button data-tab="articles"     class="tab-btn px-4 py-1.5 rounded-md text-sm font-medium bg-accent text-white">Artikel</button>
+      <button data-tab="case-studies" class="tab-btn px-4 py-1.5 rounded-md text-sm text-muted hover:text-ink">Case studies</button>
     </div>
 
-    <div class="border border-line rounded-2xl bg-surface overflow-hidden">
-      <table class="w-full text-sm">
-        <thead class="bg-surface2 border-b border-line text-left text-muted">
-          <tr>
-            <th class="px-4 py-3 font-medium">Judul (ID)</th>
-            <th class="px-4 py-3 font-medium">Slug</th>
-            <th class="px-4 py-3 font-medium">Status</th>
-            <th class="px-4 py-3 font-medium">Diperbarui</th>
-            <th class="px-4 py-3 font-medium"></th>
-          </tr>
-        </thead>
-        <tbody id="article-list">
-          <tr><td colspan="5" class="px-4 py-8 text-center text-dim">Memuat…</td></tr>
-        </tbody>
-      </table>
-    </div>
+    <!-- ARTICLES TAB -->
+    <section id="tab-articles" class="tab-panel">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="text-2xl font-bold">Artikel</h1>
+          <p class="text-sm text-muted mt-1">Kelola publikasi untuk klaut.id/artikel</p>
+        </div>
+        <a href="/admin/editor.html" class="px-4 py-2 rounded-lg bg-accent hover:bg-accent-deep font-medium transition">+ Artikel baru</a>
+      </div>
+
+      <div class="border border-line rounded-2xl bg-surface overflow-hidden">
+        <table class="w-full text-sm">
+          <thead class="bg-surface2 border-b border-line text-left text-muted">
+            <tr>
+              <th class="px-4 py-3 font-medium">Judul (ID)</th>
+              <th class="px-4 py-3 font-medium">Slug</th>
+              <th class="px-4 py-3 font-medium">Status</th>
+              <th class="px-4 py-3 font-medium">Diperbarui</th>
+              <th class="px-4 py-3 font-medium"></th>
+            </tr>
+          </thead>
+          <tbody id="article-list">
+            <tr><td colspan="5" class="px-4 py-8 text-center text-dim">Memuat…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CASE STUDIES TAB -->
+    <section id="tab-case-studies" class="tab-panel hidden">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="text-2xl font-bold">Case studies</h1>
+          <p class="text-sm text-muted mt-1">Kelola publikasi untuk klaut.id/case-studies</p>
+        </div>
+        <a href="/admin/case-study-editor.html" class="px-4 py-2 rounded-lg bg-accent hover:bg-accent-deep font-medium transition">+ Case study baru</a>
+      </div>
+
+      <div class="border border-line rounded-2xl bg-surface overflow-hidden">
+        <table class="w-full text-sm">
+          <thead class="bg-surface2 border-b border-line text-left text-muted">
+            <tr>
+              <th class="px-4 py-3 font-medium">Judul (ID)</th>
+              <th class="px-4 py-3 font-medium">Tipe</th>
+              <th class="px-4 py-3 font-medium">Industri</th>
+              <th class="px-4 py-3 font-medium">Status</th>
+              <th class="px-4 py-3 font-medium">Diperbarui</th>
+              <th class="px-4 py-3 font-medium"></th>
+            </tr>
+          </thead>
+          <tbody id="case-study-list">
+            <tr><td colspan="6" class="px-4 py-8 text-center text-dim">Memuat…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </main>
 </section>
 
@@ -105,27 +143,78 @@ const appView   = document.getElementById("app-view");
 const loginForm = document.getElementById("login-form");
 const loginErr  = document.getElementById("login-error");
 const userEmail = document.getElementById("user-email");
-const list      = document.getElementById("article-list");
+const articleList    = document.getElementById("article-list");
+const caseStudyList  = document.getElementById("case-study-list");
 
 function showLogin() { loginView.classList.remove("hidden"); loginView.classList.add("flex"); appView.classList.add("hidden"); }
 function showApp()   { loginView.classList.add("hidden"); loginView.classList.remove("flex"); appView.classList.remove("hidden"); }
 
+function escapeHtml(s){ return String(s ?? "").replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+// ---------- Tabs --------------------------------------------
+const TAB_LABELS = {
+  "service_line": {
+    consultation:   "Consultation",
+    build_agents:   "Build Agents",
+    audited_code:   "Audited Code",
+    on_premise:     "On-Premise"
+  },
+  "industry": {
+    financial_services:    "Financial Services",
+    inventory_supply:      "Inventory & Supply",
+    healthcare:            "Healthcare",
+    energy:                "Energy",
+    government:            "Government",
+    professional_services: "Professional Services"
+  },
+  "doc_type": {
+    case_study:  "Case Study",
+    audit:       "Audit",
+    whitepaper:  "Whitepaper",
+    roadmap:     "Roadmap",
+    reference:   "Reference",
+    attestation: "Attestation",
+    brief:       "Brief",
+    template:    "Template",
+    spec:        "Spec",
+    rubric:      "Rubric",
+    protocol:    "Protocol"
+  }
+};
+
+function activateTab(tab) {
+  document.querySelectorAll(".tab-btn").forEach(b => {
+    const active = b.dataset.tab === tab;
+    b.classList.toggle("bg-accent", active);
+    b.classList.toggle("text-white", active);
+    b.classList.toggle("text-muted", !active);
+  });
+  document.querySelectorAll(".tab-panel").forEach(p => p.classList.add("hidden"));
+  document.getElementById("tab-" + tab).classList.remove("hidden");
+  if (location.hash !== "#" + tab) history.replaceState({}, "", "#" + tab);
+}
+
+document.querySelectorAll(".tab-btn").forEach(b => {
+  b.addEventListener("click", () => activateTab(b.dataset.tab));
+});
+
+// ---------- Articles ----------------------------------------
 async function loadArticles() {
-  list.innerHTML = `<tr><td colspan="5" class="px-4 py-8 text-center text-dim">Memuat…</td></tr>`;
+  articleList.innerHTML = `<tr><td colspan="5" class="px-4 py-8 text-center text-dim">Memuat…</td></tr>`;
   const { data, error } = await supabase
     .from("articles")
     .select("id, slug, title_id, published, published_at, updated_at")
     .order("updated_at", { ascending: false });
 
   if (error) {
-    list.innerHTML = `<tr><td colspan="5" class="px-4 py-8 text-center text-red-400">${error.message}</td></tr>`;
+    articleList.innerHTML = `<tr><td colspan="5" class="px-4 py-8 text-center text-red-400">${escapeHtml(error.message)}</td></tr>`;
     return;
   }
   if (!data.length) {
-    list.innerHTML = `<tr><td colspan="5" class="px-4 py-12 text-center text-dim">Belum ada artikel. Klik "Artikel baru" untuk mulai.</td></tr>`;
+    articleList.innerHTML = `<tr><td colspan="5" class="px-4 py-12 text-center text-dim">Belum ada artikel. Klik "Artikel baru" untuk mulai.</td></tr>`;
     return;
   }
-  list.innerHTML = data.map(a => `
+  articleList.innerHTML = data.map(a => `
     <tr class="border-b border-line last:border-0 hover:bg-surface2/50">
       <td class="px-4 py-3">
         <a href="/admin/editor.html?id=${a.id}" class="font-medium hover:text-accent-2">${escapeHtml(a.title_id || "(tanpa judul)")}</a>
@@ -139,22 +228,67 @@ async function loadArticles() {
       <td class="px-4 py-3 text-muted">${formatDate(a.updated_at)}</td>
       <td class="px-4 py-3 text-right">
         ${a.published ? `<a href="/artikel/${a.slug}" target="_blank" class="text-xs text-muted hover:text-ink mr-3">↗ Lihat</a>` : ""}
-        <button data-del="${a.id}" class="text-xs text-red-400 hover:text-red-300">Hapus</button>
+        <button data-del-article="${a.id}" class="text-xs text-red-400 hover:text-red-300">Hapus</button>
       </td>
     </tr>
   `).join("");
 
-  list.querySelectorAll("[data-del]").forEach(btn => {
+  articleList.querySelectorAll("[data-del-article]").forEach(btn => {
     btn.addEventListener("click", async () => {
       if (!confirm("Hapus artikel ini?")) return;
-      const { error } = await supabase.from("articles").delete().eq("id", btn.dataset.del);
+      const { error } = await supabase.from("articles").delete().eq("id", btn.dataset.delArticle);
       if (error) alert(error.message);
       else loadArticles();
     });
   });
 }
 
-function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+// ---------- Case studies ------------------------------------
+async function loadCaseStudies() {
+  caseStudyList.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-dim">Memuat…</td></tr>`;
+  const { data, error } = await supabase
+    .from("case_studies")
+    .select("id, slug, title_id, doc_type, industry, published, updated_at")
+    .order("updated_at", { ascending: false });
+
+  if (error) {
+    caseStudyList.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-red-400">${escapeHtml(error.message)}</td></tr>`;
+    return;
+  }
+  if (!data.length) {
+    caseStudyList.innerHTML = `<tr><td colspan="6" class="px-4 py-12 text-center text-dim">Belum ada case study. Klik "Case study baru" untuk mulai.</td></tr>`;
+    return;
+  }
+  caseStudyList.innerHTML = data.map(c => `
+    <tr class="border-b border-line last:border-0 hover:bg-surface2/50">
+      <td class="px-4 py-3">
+        <a href="/admin/case-study-editor.html?id=${c.id}" class="font-medium hover:text-accent-2">${escapeHtml(c.title_id || "(tanpa judul)")}</a>
+        <div class="text-xs text-dim font-mono mt-0.5">${escapeHtml(c.slug || "—")}</div>
+      </td>
+      <td class="px-4 py-3 text-muted text-xs">${escapeHtml(TAB_LABELS.doc_type[c.doc_type] || c.doc_type || "—")}</td>
+      <td class="px-4 py-3 text-muted text-xs">${escapeHtml(TAB_LABELS.industry[c.industry] || c.industry || "—")}</td>
+      <td class="px-4 py-3">
+        ${c.published
+          ? `<span class="px-2 py-0.5 rounded text-xs bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">Published</span>`
+          : `<span class="px-2 py-0.5 rounded text-xs bg-zinc-500/15 text-zinc-300 border border-zinc-500/30">Draft</span>`}
+      </td>
+      <td class="px-4 py-3 text-muted">${formatDate(c.updated_at)}</td>
+      <td class="px-4 py-3 text-right">
+        ${c.published ? `<a href="/case-studies/${c.slug}" target="_blank" class="text-xs text-muted hover:text-ink mr-3">↗ Lihat</a>` : ""}
+        <button data-del-cs="${c.id}" class="text-xs text-red-400 hover:text-red-300">Hapus</button>
+      </td>
+    </tr>
+  `).join("");
+
+  caseStudyList.querySelectorAll("[data-del-cs]").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      if (!confirm("Hapus case study ini? PDF di Storage TIDAK ikut terhapus.")) return;
+      const { error } = await supabase.from("case_studies").delete().eq("id", btn.dataset.delCs);
+      if (error) alert(error.message);
+      else loadCaseStudies();
+    });
+  });
+}
 
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -172,11 +306,19 @@ document.getElementById("logout-btn").addEventListener("click", async () => {
   await supabase.auth.signOut();
 });
 
+function bootApp() {
+  showApp();
+  // Restore tab from URL hash, default ke "articles"
+  const tab = (location.hash || "#articles").slice(1);
+  activateTab(["articles", "case-studies"].includes(tab) ? tab : "articles");
+  loadArticles();
+  loadCaseStudies();
+}
+
 supabase.auth.onAuthStateChange((_event, session) => {
   if (session?.user) {
     userEmail.textContent = session.user.email;
-    showApp();
-    loadArticles();
+    bootApp();
   } else {
     showLogin();
   }
@@ -186,8 +328,7 @@ supabase.auth.onAuthStateChange((_event, session) => {
 const { data: { session } } = await supabase.auth.getSession();
 if (session?.user) {
   userEmail.textContent = session.user.email;
-  showApp();
-  loadArticles();
+  bootApp();
 } else {
   showLogin();
 }

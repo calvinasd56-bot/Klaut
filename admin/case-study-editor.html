@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Case Study Editor — Klaut Admin</title>
+<link rel="icon" type="image/png" href="/klaut-K.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'], mono: ['JetBrains Mono','ui-monospace'] },
+        colors: {
+          bg:'#0a0a0a', surface:'#111111', surface2:'#1a1a1a',
+          line:'#262626', linestrong:'#3f3f46',
+          accent:'#6366f1', 'accent-2':'#818cf8', 'accent-deep':'#4f46e5',
+          ink:'#ffffff', muted:'#a1a1aa', dim:'#71717a'
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html,body{background:#0a0a0a;color:#fff;font-family:'Inter',ui-sans-serif,system-ui;}
+  .ProseMirror{ min-height: 320px; outline: none; }
+  .ProseMirror p{ margin: 0 0 0.9em; line-height: 1.7; color: #e4e4e7; }
+  .ProseMirror h1{ font-size: 1.9rem; font-weight: 700; margin: 1.2em 0 0.5em; }
+  .ProseMirror h2{ font-size: 1.5rem; font-weight: 700; margin: 1.1em 0 0.5em; }
+  .ProseMirror h3{ font-size: 1.2rem; font-weight: 600; margin: 1em 0 0.4em; }
+  .ProseMirror ul, .ProseMirror ol{ padding-left: 1.4em; margin: 0 0 1em; }
+  .ProseMirror ul{ list-style: disc; }
+  .ProseMirror ol{ list-style: decimal; }
+  .ProseMirror li{ margin: 0.25em 0; }
+  .ProseMirror a{ color: #818cf8; text-decoration: underline; }
+  .ProseMirror img{ max-width: 100%; border-radius: 8px; margin: 1em 0; }
+  .ProseMirror blockquote{ border-left: 3px solid #3f3f46; padding-left: 1em; color: #a1a1aa; margin: 1em 0; }
+  .ProseMirror pre{ background:#1a1a1a; border:1px solid #262626; padding: 0.8em 1em; border-radius:8px; font-family: 'JetBrains Mono', monospace; font-size: 0.9em; overflow-x:auto; }
+  .ProseMirror p.is-editor-empty:first-child::before{
+    content: attr(data-placeholder); color: #52525b; float: left; height: 0; pointer-events: none;
+  }
+  .tb-btn{ padding: 0.4rem 0.6rem; border-radius: 0.4rem; color:#a1a1aa; transition: all 0.15s; font-size: 0.85rem; }
+  .tb-btn:hover{ background:#1a1a1a; color:#fff; }
+  .tb-btn.active{ background:#6366f1; color:#fff; }
+  .tb-sep{ width:1px; height: 1.2rem; background:#262626; margin: 0 0.25rem; }
+  select{ background-image: linear-gradient(45deg, transparent 50%, #a1a1aa 50%), linear-gradient(135deg, #a1a1aa 50%, transparent 50%); background-position: calc(100% - 14px) 50%, calc(100% - 9px) 50%; background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; appearance: none; }
+  .related-pill{ display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.55rem; border: 1px solid #262626; border-radius: 0.5rem; background:#1a1a1a; font-size: 0.8rem; }
+  .related-pill button{ color:#a1a1aa; }
+  .related-pill button:hover{ color:#ef4444; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="border-b border-line bg-surface/80 backdrop-blur sticky top-0 z-20">
+  <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3 min-w-0">
+      <a href="/admin/#case-studies" class="text-muted hover:text-ink shrink-0">← Kembali</a>
+      <span class="text-dim shrink-0">/</span>
+      <span id="header-title" class="font-medium truncate">Case study baru</span>
+      <span id="save-state" class="text-xs text-dim shrink-0"></span>
+    </div>
+    <div class="flex items-center gap-2 shrink-0">
+      <button id="btn-save"    class="px-3 py-1.5 rounded-md border border-line hover:border-linestrong text-sm">Simpan draft</button>
+      <button id="btn-publish" class="px-3 py-1.5 rounded-md bg-accent hover:bg-accent-deep text-sm font-medium">Publish</button>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-6 py-8 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
+
+  <!-- EDITOR COLUMN -->
+  <section>
+    <!-- Language toggle -->
+    <div class="flex items-center gap-1 mb-4 border border-line rounded-lg p-1 bg-surface w-fit">
+      <button data-lang="id" class="lang-tab px-3 py-1.5 rounded-md text-sm font-medium bg-accent text-white">Bahasa Indonesia</button>
+      <button data-lang="en" class="lang-tab px-3 py-1.5 rounded-md text-sm text-muted hover:text-ink">English</button>
+    </div>
+
+    <!-- Title -->
+    <input id="title-input" type="text" placeholder="Judul case study…"
+      class="w-full bg-transparent border-0 text-3xl font-bold focus:outline-none placeholder-dim mb-3"/>
+
+    <!-- Excerpt -->
+    <textarea id="excerpt-input" rows="3" placeholder="Ringkasan singkat — muncul di kartu listing & meta description"
+      class="w-full bg-transparent border-0 border-b border-line text-muted focus:outline-none resize-none mb-4 pb-2"></textarea>
+
+    <!-- Toolbar -->
+    <div id="toolbar" class="flex flex-wrap items-center gap-1 p-2 border border-line rounded-t-lg bg-surface sticky top-[73px] z-10">
+      <button class="tb-btn font-bold" data-cmd="bold" title="Bold (Ctrl+B)">B</button>
+      <button class="tb-btn italic"    data-cmd="italic" title="Italic (Ctrl+I)">I</button>
+      <div class="tb-sep"></div>
+      <button class="tb-btn" data-cmd="h1" title="Heading 1">H1</button>
+      <button class="tb-btn" data-cmd="h2" title="Heading 2">H2</button>
+      <button class="tb-btn" data-cmd="h3" title="Heading 3">H3</button>
+      <div class="tb-sep"></div>
+      <button class="tb-btn" data-cmd="bulletList" title="Bullet list">• List</button>
+      <button class="tb-btn" data-cmd="orderedList" title="Numbered list">1. List</button>
+      <div class="tb-sep"></div>
+      <button class="tb-btn" data-cmd="link" title="Link">🔗 Link</button>
+      <button class="tb-btn" data-cmd="image" title="Insert image">🖼 Gambar</button>
+      <button class="tb-btn" data-cmd="quote" title="Blockquote">❝ Quote</button>
+      <button class="tb-btn" data-cmd="code" title="Code block">{} Code</button>
+      <button class="tb-btn" data-cmd="hr" title="Divider">— Divider</button>
+      <div class="tb-sep"></div>
+      <button class="tb-btn" data-cmd="undo" title="Undo (Ctrl+Z)">↶</button>
+      <button class="tb-btn" data-cmd="redo" title="Redo (Ctrl+Shift+Z)">↷</button>
+    </div>
+
+    <!-- Editor -->
+    <div id="editor" class="border border-line border-t-0 rounded-b-lg bg-surface px-5 py-4"></div>
+
+    <p class="mt-3 text-xs text-dim">Konten Tiptap di sini muncul di halaman detail case study. Kalau dikosongkan, halaman detail hanya menampilkan ringkasan, klasifikasi, dan tombol download PDF.</p>
+  </section>
+
+  <!-- SIDEBAR -->
+  <aside class="space-y-5">
+
+    <!-- Status -->
+    <div class="border border-line rounded-xl bg-surface p-4">
+      <div class="text-xs uppercase tracking-wider text-dim mb-3">Status</div>
+      <div id="status-pill" class="inline-block px-2.5 py-1 rounded text-xs bg-zinc-500/15 text-zinc-300 border border-zinc-500/30">Draft</div>
+      <div id="published-at" class="text-xs text-muted mt-3"></div>
+    </div>
+
+    <!-- Slug -->
+    <div class="border border-line rounded-xl bg-surface p-4">
+      <label class="block text-xs uppercase tracking-wider text-dim mb-2">Slug</label>
+      <input id="slug-input" type="text" placeholder="auto-generate dari judul"
+        class="w-full px-3 py-2 rounded-lg bg-surface2 border border-line focus:border-accent outline-none text-sm font-mono"/>
+      <p class="text-xs text-dim mt-2">URL: <span class="text-muted">klaut.id/case-studies/<span id="slug-preview">…</span></span></p>
+    </div>
+
+    <!-- KLASIFIKASI -->
+    <div class="border border-line rounded-xl bg-surface p-4 space-y-3">
+      <div class="text-xs uppercase tracking-wider text-accent-2 font-semibold">Klasifikasi</div>
+
+      <div>
+        <label class="block text-xs text-muted mb-1">Tipe dokumen</label>
+        <select id="doc-type" class="w-full pr-8 px-3 py-2 rounded-lg bg-surface2 border border-line focus:border-accent outline-none text-sm">
+          <option value="">— pilih —</option>
+          <option value="case_study">Case Study</option>
+          <option value="audit">Audit</option>
+          <option value="whitepaper">Whitepaper</option>
+          <option value="roadmap">Roadmap</option>
+          <option value="reference">Reference</option>
+          <option value="attestation">Attestation</option>
+          <option value="brief">Brief</option>
+          <option value="template">Template</option>
+          <option value="spec">Spec</option>
+          <option value="rubric">Rubric</option>
+          <option value="protocol">Protocol</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs text-muted mb-1">Service line</label>
+        <select id="service-line" class="w-full pr-8 px-3 py-2 rounded-lg bg-surface2 border border-line focus:border-accent outline-none text-sm">
+          <option value="">— pilih —</option>
+          <option value="consultation">AI Consultation — Foundation</option>
+          <option value="build_agents">Build AI Agents</option>
+          <option value="audited_code">Audited Code</option>
+          <option value="on_premise">On-Premise Build</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs text-muted mb-1">Industri</label>
+        <select id="industry" class="w-full pr-8 px-3 py-2 rounded-lg bg-surface2 border border-line focus:border-accent outline-none text-sm">
+          <option value="">— pilih —</option>
+          <option value="financial_services">Financial Services</option>
+          <option value="inventory_supply">Inventory & Supply Chain</option>
+          <option value="healthcare">Healthcare & Life Sciences</option>
+          <option value="energy">Energy & Resources</option>
+          <option value="government">Government & Public Sector</option>
+          <option value="professional_services">Professional Services</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs text-muted mb-1">Agent class</label>
+        <select id="agent-class" class="w-full pr-8 px-3 py-2 rounded-lg bg-surface2 border border-line focus:border-accent outline-none text-sm">
+          <option value="">— pilih —</option>
+          <option value="doc_extraction">Document Extraction</option>
+          <option value="workflow_classification">Workflow Classification</option>
+          <option value="autonomous_research">Autonomous Research</option>
+          <option value="rag">RAG Knowledge Systems</option>
+          <option value="on_prem_llm">On-Premise LLM</option>
+          <option value="multi_agent">Multi-Agent Orchestration</option>
+          <option value="eval_observability">Eval & Observability</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- METADATA -->
+    <div class="border border-line rounded-xl bg-surface p-4 space-y-3">
+      <div class="text-xs uppercase tracking-wider text-accent-2 font-semibold">Metadata</div>
+
+      <div>
+        <label class="block text-xs text-muted mb-1">Client label</label>
+        <input id="client-label" type="text" placeholder="Tier-1 retail bank, Jakarta"
+          class="w-full px-3 py-2 rounded-lg bg-surface2 border border-line focus:border-accent outline-none text-sm"/>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="block text-xs text-muted mb-1">Geografi</label>
+          <input id="geography" type="text" placeholder="Jakarta"
+            class="w-full px-3 py-2 rounded-lg bg-surface2 border border-line focus:border-accent outline-none text-sm"/>
+        </div>
+        <div>
+          <label class="block text-xs text-muted mb-1">Halaman</label>
+          <input id="page-count" type="number" min="1" placeholder="24"
+            class="w-full px-3 py-2 rounded-lg bg-surface2 border border-line focus:border-accent outline-none text-sm"/>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="block text-xs text-muted mb-1">Vintage (bulan)</label>
+          <input id="vintage-date" type="date"
+            class="w-full px-3 py-2 rounded-lg bg-surface2 border border-line focus:border-accent outline-none text-sm"/>
+        </div>
+        <div>
+          <label class="block text-xs text-muted mb-1">Versi</label>
+          <input id="version" type="text" placeholder="v2.1"
+            class="w-full px-3 py-2 rounded-lg bg-surface2 border border-line focus:border-accent outline-none text-sm"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- PDF upload -->
+    <div class="border border-line rounded-xl bg-surface p-4 space-y-3">
+      <div class="text-xs uppercase tracking-wider text-accent-2 font-semibold">PDF</div>
+      <p class="text-xs text-dim">Satu file PDF dipakai untuk versi ID & EN.</p>
+
+      <div id="pdf-status" class="text-xs text-muted">Belum ada PDF.</div>
+
+      <div class="flex gap-2">
+        <label class="px-3 py-1.5 rounded-md border border-line hover:border-linestrong text-sm cursor-pointer">
+          <input id="pdf-file" type="file" accept="application/pdf" class="hidden"/>
+          Upload PDF
+        </label>
+        <button id="pdf-remove" class="px-3 py-1.5 rounded-md text-sm text-red-400 hover:text-red-300 hidden">Hapus</button>
+      </div>
+      <div id="pdf-progress" class="text-xs text-accent-2 hidden">Mengunggah…</div>
+    </div>
+
+    <!-- Cover image -->
+    <div class="border border-line rounded-xl bg-surface p-4">
+      <label class="block text-xs uppercase tracking-wider text-dim mb-2">Cover image URL</label>
+      <input id="cover-input" type="url" placeholder="https://…"
+        class="w-full px-3 py-2 rounded-lg bg-surface2 border border-line focus:border-accent outline-none text-sm"/>
+      <img id="cover-preview" alt="" class="mt-3 rounded-lg w-full hidden"/>
+      <p class="text-xs text-dim mt-2">Juga dipakai sebagai gambar preview Google & sosmed.</p>
+    </div>
+
+    <!-- Featured per cluster -->
+    <div class="border border-line rounded-xl bg-surface p-4 space-y-2">
+      <div class="text-xs uppercase tracking-wider text-accent-2 font-semibold">Featured (hero card)</div>
+      <p class="text-xs text-dim mb-2">Tandai jadi hero card di tiap cluster.</p>
+      <label class="flex items-center gap-2 text-sm cursor-pointer">
+        <input id="feat-service" type="checkbox" class="rounded border-line bg-surface2"/>
+        <span>Di cluster <em>by service</em></span>
+      </label>
+      <label class="flex items-center gap-2 text-sm cursor-pointer">
+        <input id="feat-industry" type="checkbox" class="rounded border-line bg-surface2"/>
+        <span>Di cluster <em>by industry</em></span>
+      </label>
+      <label class="flex items-center gap-2 text-sm cursor-pointer">
+        <input id="feat-system" type="checkbox" class="rounded border-line bg-surface2"/>
+        <span>Di cluster <em>by system</em></span>
+      </label>
+    </div>
+
+    <!-- Related articles -->
+    <div class="border border-line rounded-xl bg-surface p-4">
+      <div class="text-xs uppercase tracking-wider text-accent-2 font-semibold mb-2">Related articles</div>
+      <p class="text-xs text-dim mb-3">Artikel yang membahas case study ini.</p>
+
+      <select id="article-picker" class="w-full pr-8 px-3 py-2 rounded-lg bg-surface2 border border-line focus:border-accent outline-none text-sm mb-3">
+        <option value="">+ Tambah artikel…</option>
+      </select>
+
+      <div id="related-list" class="flex flex-wrap gap-2"></div>
+    </div>
+
+    <!-- SEO panel -->
+    <div class="border border-line rounded-xl bg-surface p-4">
+      <div class="flex items-center justify-between mb-3">
+        <div class="text-xs uppercase tracking-wider text-accent-2 font-semibold">SEO</div>
+      </div>
+
+      <label class="block text-xs text-muted mb-1">SEO title <span class="text-dim font-normal">(opsional)</span></label>
+      <input id="seo-title-input" type="text"
+        class="w-full px-3 py-2 rounded-lg bg-surface2 border border-line focus:border-accent outline-none text-sm"/>
+      <p class="text-xs text-dim mt-1"><span id="seo-title-count">0</span>/60 karakter. Kosongkan untuk pakai judul.</p>
+
+      <label class="block text-xs text-muted mb-1 mt-4">Meta description <span class="text-dim font-normal">(opsional)</span></label>
+      <textarea id="seo-desc-input" rows="3"
+        class="w-full px-3 py-2 rounded-lg bg-surface2 border border-line focus:border-accent outline-none text-sm resize-none"></textarea>
+      <p class="text-xs text-dim mt-1"><span id="seo-desc-count">0</span>/155 karakter. Kosongkan untuk pakai excerpt.</p>
+
+      <label class="block text-xs text-muted mb-1 mt-4">Author</label>
+      <input id="author-input" type="text" placeholder="Klaut"
+        class="w-full px-3 py-2 rounded-lg bg-surface2 border border-line focus:border-accent outline-none text-sm"/>
+
+      <label class="flex items-center gap-2 mt-4 cursor-pointer">
+        <input id="noindex-input" type="checkbox" class="rounded border-line bg-surface2"/>
+        <span class="text-sm">Sembunyikan dari Google <span class="text-dim text-xs">(noindex)</span></span>
+      </label>
+    </div>
+  </aside>
+</main>
+
+<script type="module">
+import { Editor } from "https://esm.sh/@tiptap/core@2.6.6";
+import StarterKit from "https://esm.sh/@tiptap/starter-kit@2.6.6";
+import Link from "https://esm.sh/@tiptap/extension-link@2.6.6";
+import Image from "https://esm.sh/@tiptap/extension-image@2.6.6";
+import Placeholder from "https://esm.sh/@tiptap/extension-placeholder@2.6.6";
+import { supabase, slugify, formatDate, truncate } from "/shared/supabase.js";
+
+// --- guard
+const { data: { session } } = await supabase.auth.getSession();
+if (!session?.user) location.href = "/admin/";
+
+// --- state
+const params = new URLSearchParams(location.search);
+let caseStudyId = params.get("id");
+let currentLang = "id";
+let saveTimer = null;
+let isSaving = false;
+let allArticles = [];  // untuk picker
+
+const state = {
+  slug: "",
+  doc_type: "", service_line: "", industry: "", agent_class: "",
+  client_label: "", geography: "", page_count: null, vintage_date: null, version: "",
+  pdf_url: null,
+  cover_image_url: "",
+  featured_in_service: false, featured_in_industry: false, featured_in_system: false,
+  title_id: "", title_en: "",
+  excerpt_id: "", excerpt_en: "",
+  content_id: null, content_en: null,
+  seo_title_id: "", seo_title_en: "",
+  seo_description_id: "", seo_description_en: "",
+  author: "Klaut",
+  noindex: false,
+  published: false,
+  published_at: null,
+  related_article_ids: []
+};
+
+// --- editor
+const editor = new Editor({
+  element: document.getElementById("editor"),
+  extensions: [
+    StarterKit.configure({ heading: { levels: [1,2,3] } }),
+    Link.configure({ openOnClick: false, autolink: true, HTMLAttributes: { target: "_blank", rel: "noopener" } }),
+    Image,
+    Placeholder.configure({ placeholder: "Narasi case study — opsional. Boleh kosong kalau PDF saja yang dipublish." })
+  ],
+  content: "",
+  onUpdate: () => { scheduleSave(); updateToolbar(); },
+  onSelectionUpdate: updateToolbar
+});
+
+// --- toolbar
+const toolbarBtns = document.querySelectorAll("#toolbar .tb-btn");
+toolbarBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const cmd = btn.dataset.cmd;
+    const c = editor.chain().focus();
+    switch (cmd) {
+      case "bold":         c.toggleBold().run(); break;
+      case "italic":       c.toggleItalic().run(); break;
+      case "h1":           c.toggleHeading({ level: 1 }).run(); break;
+      case "h2":           c.toggleHeading({ level: 2 }).run(); break;
+      case "h3":           c.toggleHeading({ level: 3 }).run(); break;
+      case "bulletList":   c.toggleBulletList().run(); break;
+      case "orderedList":  c.toggleOrderedList().run(); break;
+      case "quote":        c.toggleBlockquote().run(); break;
+      case "code":         c.toggleCodeBlock().run(); break;
+      case "hr":           c.setHorizontalRule().run(); break;
+      case "undo":         c.undo().run(); break;
+      case "redo":         c.redo().run(); break;
+      case "link": {
+        const prev = editor.getAttributes("link").href;
+        const url = prompt("URL link:", prev || "https://");
+        if (url === null) return;
+        if (url === "") c.unsetLink().run();
+        else c.setLink({ href: url }).run();
+        break;
+      }
+      case "image": {
+        const url = prompt("URL gambar:");
+        if (url) c.setImage({ src: url }).run();
+        break;
+      }
+    }
+  });
+});
+
+function updateToolbar() {
+  const map = {
+    bold: editor.isActive("bold"), italic: editor.isActive("italic"),
+    h1: editor.isActive("heading", { level: 1 }),
+    h2: editor.isActive("heading", { level: 2 }),
+    h3: editor.isActive("heading", { level: 3 }),
+    bulletList: editor.isActive("bulletList"),
+    orderedList: editor.isActive("orderedList"),
+    quote: editor.isActive("blockquote"),
+    code: editor.isActive("codeBlock")
+  };
+  toolbarBtns.forEach(btn => btn.classList.toggle("active", !!map[btn.dataset.cmd]));
+}
+
+// --- inputs
+const $ = (id) => document.getElementById(id);
+const titleInput   = $("title-input");
+const excerptInput = $("excerpt-input");
+const slugInput    = $("slug-input");
+const slugPreview  = $("slug-preview");
+const coverInput   = $("cover-input");
+const coverPreview = $("cover-preview");
+const headerTitle  = $("header-title");
+const saveState    = $("save-state");
+const statusPill   = $("status-pill");
+const publishedAt  = $("published-at");
+
+const docTypeSel    = $("doc-type");
+const serviceLineSel= $("service-line");
+const industrySel   = $("industry");
+const agentClassSel = $("agent-class");
+
+const clientLabel = $("client-label");
+const geography   = $("geography");
+const pageCount   = $("page-count");
+const vintageDate = $("vintage-date");
+const versionIn   = $("version");
+
+const featService  = $("feat-service");
+const featIndustry = $("feat-industry");
+const featSystem   = $("feat-system");
+
+const seoTitleInput = $("seo-title-input");
+const seoDescInput  = $("seo-desc-input");
+const authorInput   = $("author-input");
+const noindexInput  = $("noindex-input");
+const seoTitleCount = $("seo-title-count");
+const seoDescCount  = $("seo-desc-count");
+
+const pdfFile      = $("pdf-file");
+const pdfStatus    = $("pdf-status");
+const pdfRemove    = $("pdf-remove");
+const pdfProgress  = $("pdf-progress");
+
+const articlePicker = $("article-picker");
+const relatedList   = $("related-list");
+
+// --- state ↔ inputs sync
+function syncStateFromInputs() {
+  if (currentLang === "id") {
+    state.title_id = titleInput.value;
+    state.excerpt_id = excerptInput.value;
+    state.content_id = editor.getJSON();
+    state.seo_title_id = seoTitleInput.value;
+    state.seo_description_id = seoDescInput.value;
+  } else {
+    state.title_en = titleInput.value;
+    state.excerpt_en = excerptInput.value;
+    state.content_en = editor.getJSON();
+    state.seo_title_en = seoTitleInput.value;
+    state.seo_description_en = seoDescInput.value;
+  }
+  state.doc_type     = docTypeSel.value || null;
+  state.service_line = serviceLineSel.value || null;
+  state.industry     = industrySel.value || null;
+  state.agent_class  = agentClassSel.value || null;
+  state.client_label = clientLabel.value.trim() || null;
+  state.geography    = geography.value.trim() || null;
+  state.page_count   = pageCount.value ? parseInt(pageCount.value, 10) : null;
+  state.vintage_date = vintageDate.value || null;
+  state.version      = versionIn.value.trim() || null;
+  state.featured_in_service  = !!featService.checked;
+  state.featured_in_industry = !!featIndustry.checked;
+  state.featured_in_system   = !!featSystem.checked;
+  state.cover_image_url = coverInput.value.trim();
+  state.author = authorInput.value.trim() || "Klaut";
+  state.noindex = !!noindexInput.checked;
+  if (slugInput.value.trim()) state.slug = slugify(slugInput.value);
+  else if (!state.slug && state.title_id) state.slug = slugify(state.title_id);
+  slugPreview.textContent = state.slug || "…";
+  headerTitle.textContent = state.title_id || state.title_en || "Case study baru";
+  coverPreview.src = state.cover_image_url || "";
+  coverPreview.classList.toggle("hidden", !state.cover_image_url);
+  renderSeoCounts();
+}
+
+function loadIntoInputs() {
+  if (currentLang === "id") {
+    titleInput.value = state.title_id || "";
+    excerptInput.value = state.excerpt_id || "";
+    seoTitleInput.value = state.seo_title_id || "";
+    seoDescInput.value = state.seo_description_id || "";
+    editor.commands.setContent(state.content_id || "");
+  } else {
+    titleInput.value = state.title_en || "";
+    excerptInput.value = state.excerpt_en || "";
+    seoTitleInput.value = state.seo_title_en || "";
+    seoDescInput.value = state.seo_description_en || "";
+    editor.commands.setContent(state.content_en || "");
+  }
+  titleInput.placeholder = currentLang === "id" ? "Judul case study…" : "Case study title…";
+  excerptInput.placeholder = currentLang === "id"
+    ? "Ringkasan singkat — muncul di kartu listing & meta description"
+    : "Short summary — shown in card listing & meta description";
+  renderSeoCounts();
+}
+
+function renderSeoCounts() {
+  seoTitleCount.textContent = (seoTitleInput.value || "").length;
+  seoDescCount.textContent  = (seoDescInput.value  || "").length;
+  seoTitleCount.classList.toggle("text-amber-400", seoTitleInput.value.length > 60);
+  seoDescCount.classList.toggle("text-amber-400",  seoDescInput.value.length  > 155);
+}
+
+// Wire up
+[titleInput, excerptInput, slugInput, coverInput,
+ seoTitleInput, seoDescInput, authorInput,
+ clientLabel, geography, pageCount, vintageDate, versionIn].forEach(el => {
+  el.addEventListener("input", () => { syncStateFromInputs(); scheduleSave(); });
+});
+[docTypeSel, serviceLineSel, industrySel, agentClassSel].forEach(el => {
+  el.addEventListener("change", () => { syncStateFromInputs(); scheduleSave(); });
+});
+[noindexInput, featService, featIndustry, featSystem].forEach(el => {
+  el.addEventListener("change", () => { syncStateFromInputs(); scheduleSave(); });
+});
+
+// --- lang toggle
+document.querySelectorAll(".lang-tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    syncStateFromInputs();
+    currentLang = tab.dataset.lang;
+    document.querySelectorAll(".lang-tab").forEach(t => {
+      const active = t.dataset.lang === currentLang;
+      t.classList.toggle("bg-accent", active);
+      t.classList.toggle("text-white", active);
+      t.classList.toggle("text-muted", !active);
+    });
+    loadIntoInputs();
+  });
+});
+
+// --- PDF upload
+function renderPdfStatus() {
+  if (state.pdf_url) {
+    const filename = state.pdf_url.split("/").pop().split("?")[0];
+    pdfStatus.innerHTML = `<a href="${state.pdf_url}" target="_blank" class="text-accent-2 hover:underline break-all">${filename}</a>`;
+    pdfRemove.classList.remove("hidden");
+  } else {
+    pdfStatus.textContent = "Belum ada PDF.";
+    pdfRemove.classList.add("hidden");
+  }
+}
+
+pdfFile.addEventListener("change", async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (!state.slug) {
+    alert("Isi judul atau slug dulu sebelum upload PDF — slug dipakai sebagai nama file.");
+    pdfFile.value = "";
+    return;
+  }
+  pdfProgress.classList.remove("hidden");
+  const path = `${state.slug}-${Date.now()}.pdf`;
+  const { error } = await supabase.storage
+    .from("case-study-pdfs")
+    .upload(path, file, { contentType: "application/pdf", upsert: false });
+  if (error) {
+    pdfProgress.classList.add("hidden");
+    alert("Gagal upload: " + error.message);
+    pdfFile.value = "";
+    return;
+  }
+  const { data: pub } = supabase.storage.from("case-study-pdfs").getPublicUrl(path);
+  state.pdf_url = pub.publicUrl;
+  pdfProgress.classList.add("hidden");
+  pdfFile.value = "";
+  renderPdfStatus();
+  scheduleSave();
+});
+
+pdfRemove.addEventListener("click", () => {
+  if (!confirm("Lepaskan PDF dari case study ini? (File di Storage tidak ikut terhapus.)")) return;
+  state.pdf_url = null;
+  renderPdfStatus();
+  scheduleSave();
+});
+
+// --- Related articles picker
+async function loadArticlesForPicker() {
+  const { data } = await supabase
+    .from("articles")
+    .select("id, title_id, title_en, slug, published")
+    .order("updated_at", { ascending: false });
+  allArticles = data || [];
+  rebuildArticlePicker();
+}
+
+function rebuildArticlePicker() {
+  const selected = new Set(state.related_article_ids);
+  const opts = allArticles
+    .filter(a => !selected.has(a.id))
+    .map(a => `<option value="${a.id}">${escapeHtml(a.title_id || a.title_en || a.slug)}${a.published ? "" : " (draft)"}</option>`);
+  articlePicker.innerHTML = `<option value="">+ Tambah artikel…</option>` + opts.join("");
+}
+
+function renderRelated() {
+  if (!state.related_article_ids.length) {
+    relatedList.innerHTML = `<div class="text-xs text-dim">Belum ada artikel terkait.</div>`;
+    return;
+  }
+  relatedList.innerHTML = state.related_article_ids.map(id => {
+    const a = allArticles.find(x => x.id === id);
+    const label = a ? (a.title_id || a.title_en || a.slug) : "(artikel tidak ditemukan)";
+    return `<span class="related-pill">
+      <span class="truncate max-w-[180px]">${escapeHtml(label)}</span>
+      <button data-unlink="${id}" title="Lepas">×</button>
+    </span>`;
+  }).join("");
+  relatedList.querySelectorAll("[data-unlink]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      state.related_article_ids = state.related_article_ids.filter(x => x !== btn.dataset.unlink);
+      rebuildArticlePicker();
+      renderRelated();
+      scheduleSave();
+    });
+  });
+}
+
+articlePicker.addEventListener("change", () => {
+  const id = articlePicker.value;
+  if (!id) return;
+  if (!state.related_article_ids.includes(id)) {
+    state.related_article_ids.push(id);
+  }
+  articlePicker.value = "";
+  rebuildArticlePicker();
+  renderRelated();
+  scheduleSave();
+});
+
+// --- save / publish
+function scheduleSave() {
+  clearTimeout(saveTimer);
+  saveState.textContent = "• menulis…";
+  saveTimer = setTimeout(saveDraft, 3000);
+}
+
+async function upsertCaseStudy(extra = {}) {
+  syncStateFromInputs();
+  if (!state.slug) {
+    alert("Slug belum ada — isi judul atau slug manual.");
+    return null;
+  }
+  const payload = {
+    slug: state.slug,
+    doc_type: state.doc_type, service_line: state.service_line,
+    industry: state.industry, agent_class: state.agent_class,
+    client_label: state.client_label, geography: state.geography,
+    page_count: state.page_count, vintage_date: state.vintage_date, version: state.version,
+    pdf_url: state.pdf_url, cover_image_url: state.cover_image_url || null,
+    featured_in_service: state.featured_in_service,
+    featured_in_industry: state.featured_in_industry,
+    featured_in_system: state.featured_in_system,
+    title_id: state.title_id || "",
+    title_en: state.title_en || null,
+    excerpt_id: state.excerpt_id || null,
+    excerpt_en: state.excerpt_en || null,
+    content_id: state.content_id, content_en: state.content_en,
+    seo_title_id: state.seo_title_id || null, seo_title_en: state.seo_title_en || null,
+    seo_description_id: state.seo_description_id || null, seo_description_en: state.seo_description_en || null,
+    author: state.author || "Klaut",
+    noindex: !!state.noindex,
+    ...extra
+  };
+  isSaving = true;
+  saveState.textContent = "• menyimpan…";
+
+  let res;
+  if (caseStudyId) {
+    res = await supabase.from("case_studies").update(payload).eq("id", caseStudyId).select().single();
+  } else {
+    res = await supabase.from("case_studies").insert(payload).select().single();
+  }
+  if (res.error) {
+    isSaving = false;
+    saveState.textContent = "";
+    alert("Gagal menyimpan: " + res.error.message);
+    return null;
+  }
+  caseStudyId = res.data.id;
+  Object.assign(state, res.data);
+
+  // Sync related articles (delete all, re-insert)
+  await supabase.from("case_study_articles").delete().eq("case_study_id", caseStudyId);
+  if (state.related_article_ids.length) {
+    const rows = state.related_article_ids.map((article_id, i) => ({
+      case_study_id: caseStudyId, article_id, position: i
+    }));
+    const { error: relErr } = await supabase.from("case_study_articles").insert(rows);
+    if (relErr) {
+      isSaving = false;
+      alert("Gagal simpan related articles: " + relErr.message);
+    }
+  }
+
+  isSaving = false;
+  if (!params.get("id")) history.replaceState({}, "", `/admin/case-study-editor.html?id=${caseStudyId}`);
+  saveState.textContent = "✓ tersimpan " + new Date().toLocaleTimeString("id-ID", {hour:"2-digit", minute:"2-digit"});
+  renderStatus();
+  return res.data;
+}
+
+async function saveDraft() { return upsertCaseStudy(); }
+
+$("btn-save").addEventListener("click", async () => { await saveDraft(); });
+
+$("btn-publish").addEventListener("click", async () => {
+  syncStateFromInputs();
+  if (!state.title_id) { alert("Judul Bahasa Indonesia wajib diisi."); return; }
+  if (state.published) {
+    if (!confirm("Unpublish case study ini?")) return;
+    await upsertCaseStudy({ published: false, published_at: null });
+  } else {
+    await upsertCaseStudy({ published: true, published_at: new Date().toISOString() });
+  }
+});
+
+function renderStatus() {
+  if (state.published) {
+    statusPill.textContent = "Published";
+    statusPill.className = "inline-block px-2.5 py-1 rounded text-xs bg-emerald-500/15 text-emerald-300 border border-emerald-500/30";
+    publishedAt.textContent = "Live sejak " + formatDate(state.published_at);
+    $("btn-publish").textContent = "Unpublish";
+  } else {
+    statusPill.textContent = "Draft";
+    statusPill.className = "inline-block px-2.5 py-1 rounded text-xs bg-zinc-500/15 text-zinc-300 border border-zinc-500/30";
+    publishedAt.textContent = "";
+    $("btn-publish").textContent = "Publish";
+  }
+}
+
+function escapeHtml(s){ return String(s ?? "").replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+// --- load existing
+await loadArticlesForPicker();
+
+if (caseStudyId) {
+  const { data, error } = await supabase.from("case_studies").select("*").eq("id", caseStudyId).single();
+  if (error) {
+    alert("Case study tidak ditemukan: " + error.message);
+    location.href = "/admin/#case-studies";
+  } else {
+    Object.assign(state, data);
+    slugInput.value = state.slug || "";
+    coverInput.value = state.cover_image_url || "";
+    authorInput.value = state.author || "Klaut";
+    noindexInput.checked = !!state.noindex;
+    docTypeSel.value     = state.doc_type     || "";
+    serviceLineSel.value = state.service_line || "";
+    industrySel.value    = state.industry     || "";
+    agentClassSel.value  = state.agent_class  || "";
+    clientLabel.value = state.client_label || "";
+    geography.value   = state.geography || "";
+    pageCount.value   = state.page_count ?? "";
+    vintageDate.value = state.vintage_date || "";
+    versionIn.value   = state.version || "";
+    featService.checked  = !!state.featured_in_service;
+    featIndustry.checked = !!state.featured_in_industry;
+    featSystem.checked   = !!state.featured_in_system;
+
+    // Load related articles
+    const { data: rel } = await supabase
+      .from("case_study_articles")
+      .select("article_id, position")
+      .eq("case_study_id", caseStudyId)
+      .order("position", { ascending: true });
+    state.related_article_ids = (rel || []).map(r => r.article_id);
+
+    loadIntoInputs();
+    syncStateFromInputs();
+    renderStatus();
+    renderPdfStatus();
+    rebuildArticlePicker();
+    renderRelated();
+  }
+} else {
+  authorInput.value = "Klaut";
+  loadIntoInputs();
+  renderStatus();
+  renderPdfStatus();
+  renderRelated();
+}
+
+// warn unsaved
+window.addEventListener("beforeunload", (e) => {
+  if (saveTimer) { e.preventDefault(); e.returnValue = ""; }
+});
+</script>
+</body>
+</html>
