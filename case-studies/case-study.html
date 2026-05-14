@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Case Study — Klaut</title>
+<meta name="description" id="meta-desc" content="Case study Klaut."/>
+<meta name="theme-color" content="#0B0B10"/>
+<link rel="canonical" id="meta-canonical" href="https://klaut.id/case-studies"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title"       id="meta-og-title"       content="Klaut"/>
+<meta property="og:description" id="meta-og-desc"        content=""/>
+<meta property="og:image"       id="meta-og-image"       content="https://klaut.id/og-image.png"/>
+<meta property="og:locale" content="id_ID"/>
+<link rel="icon" type="image/png" href="/klaut-K.png"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+
+<style>
+:root {
+  --bg:#0B0B10; --panel:#131319; --panel-2:#1A1A22;
+  --line:#23232E; --line-strong:#34344A;
+  --text:#E8E8EE; --muted:#8A8A98; --dim:#5E5E6E;
+  --accent:#6B5FE4; --accent-soft:rgba(107,95,228,0.12); --accent-glow:rgba(107,95,228,0.55);
+  --green:#4ADE80; --amber:#F5B544; --red:#EF6F6C;
+  --serif:'IBM Plex Sans','Inter',-apple-system,sans-serif;
+  --sans:'Inter',-apple-system,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --maxw:1120px; --gutter:32px; --rule:1px solid var(--line);
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--text); }
+body { margin: 0; font-family: var(--sans); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+.page { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+
+/* Site nav */
+.sitenav { border-bottom: var(--rule); }
+.sitenav__inner { display: flex; align-items: center; justify-content: space-between; padding: 14px var(--gutter); max-width: var(--maxw); margin: 0 auto; }
+.sitenav__brand img { height: 22px; }
+.sitenav__links { display: flex; gap: 4px; }
+.sitenav__links a { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 10px; color: var(--muted); border-radius: 2px; }
+.sitenav__links a:hover, .sitenav__links a.active { color: var(--text); }
+.sitenav__lang { display: inline-flex; border: 1px solid var(--line); border-radius: 2px; overflow: hidden; }
+.sitenav__lang a { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; padding: 5px 10px; color: var(--muted); }
+.sitenav__lang a.active { background: var(--accent-soft); color: var(--text); }
+
+/* Crumb */
+.crumb { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 24px 0; }
+.crumb a:hover { color: var(--text); }
+
+/* Article header */
+.head { padding: 16px 0 40px; border-bottom: var(--rule); display: grid; grid-template-columns: 1fr 280px; gap: 56px; }
+.head__main { min-width: 0; }
+.head__pillrow { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+.pill { display: inline-block; border: 1px solid var(--line); padding: 4px 8px; border-radius: 2px; color: var(--muted); }
+.pill[data-pill="audit"] { color: var(--amber); border-color: rgba(245,181,68,0.35); }
+.pill[data-pill="case_study"] { color: var(--green); border-color: rgba(74,222,128,0.35); }
+.pill[data-pill="whitepaper"] { color: var(--accent); border-color: rgba(107,95,228,0.45); }
+.head__title { font-family: var(--serif); font-weight: 600; font-size: clamp(36px, 5vw, 60px); line-height: 1.04; letter-spacing: -0.035em; margin: 0 0 18px; }
+.head__title em { font-style: normal; font-weight: 300; color: var(--muted); }
+.head__excerpt { font-family: var(--serif); font-size: clamp(16px, 1.5vw, 19px); line-height: 1.55; color: var(--muted); max-width: 60ch; margin: 0; }
+
+/* Side meta panel */
+.meta { border: 1px solid var(--line); padding: 24px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; }
+.meta__row { display: grid; grid-template-columns: 90px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.meta__row:last-of-type { border-bottom: 0; }
+.meta__k { color: var(--dim); text-transform: uppercase; letter-spacing: 0.12em; }
+.meta__v { color: var(--text); font-family: var(--sans); font-size: 14px; letter-spacing: -0.01em; }
+.btn-dl { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 18px; padding: 12px 16px; border: 1px solid var(--accent); color: var(--text); background: var(--accent-soft); font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 2px; transition: background 200ms; }
+.btn-dl:hover { background: var(--accent); color: #fff; }
+.btn-dl svg { width: 13px; height: 13px; }
+
+@media (max-width: 900px) {
+  .head { grid-template-columns: 1fr; gap: 28px; }
+}
+
+/* Prose (Tiptap content) */
+.prose { padding: 56px 0; max-width: 70ch; font-family: var(--sans); font-size: 16px; line-height: 1.75; color: var(--text); }
+.prose:empty { display: none; }
+.prose p { margin: 0 0 1.2em; color: #D4D4DC; }
+.prose h1 { font-family: var(--serif); font-size: 2rem; font-weight: 600; margin: 1.6em 0 0.6em; letter-spacing: -0.025em; }
+.prose h2 { font-family: var(--serif); font-size: 1.55rem; font-weight: 600; margin: 1.6em 0 0.5em; letter-spacing: -0.02em; }
+.prose h3 { font-family: var(--serif); font-size: 1.2rem; font-weight: 600; margin: 1.4em 0 0.4em; }
+.prose ul, .prose ol { padding-left: 1.5em; margin: 0 0 1.2em; }
+.prose ul { list-style: disc; }
+.prose ol { list-style: decimal; }
+.prose li { margin: 0.4em 0; }
+.prose a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.prose strong { color: #fff; }
+.prose img { max-width: 100%; border-radius: 6px; margin: 1.5em 0; border: 1px solid var(--line); }
+.prose blockquote { border-left: 3px solid var(--accent); padding-left: 1.1em; color: var(--muted); margin: 1.4em 0; font-family: var(--serif); font-style: italic; }
+.prose pre { background: var(--panel); border: 1px solid var(--line); padding: 1em 1.2em; border-radius: 6px; font-family: var(--mono); font-size: 0.9em; overflow-x: auto; margin: 1.4em 0; }
+.prose code { background: var(--panel); padding: 0.15em 0.4em; border-radius: 3px; font-family: var(--mono); font-size: 0.9em; }
+.prose hr { border: 0; border-top: 1px solid var(--line); margin: 2em 0; }
+
+/* Related articles */
+.related { padding: 56px 0; border-top: var(--rule); }
+.related:empty { display: none; }
+.related__label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+.related__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.rel-card { display: flex; flex-direction: column; padding: 20px; border: 1px solid var(--line); transition: background 220ms, border-color 200ms; }
+.rel-card:hover { background: var(--panel); border-color: var(--line-strong); }
+.rel-card__date { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.rel-card__title { font-family: var(--serif); font-size: 17px; font-weight: 600; line-height: 1.3; letter-spacing: -0.02em; margin: 0 0 8px; }
+.rel-card__excerpt { font-size: 13px; color: var(--muted); line-height: 1.5; margin: 0; }
+.rel-card__arrow { margin-top: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--accent); }
+
+/* Foot */
+.foot { padding: 32px 0 80px; border-top: var(--rule); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.foot a:hover { color: var(--text); }
+
+.loading-strip, .notfound { padding: 96px var(--gutter); text-align: center; color: var(--dim); font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
+.notfound h1 { font-family: var(--serif); font-size: 64px; color: var(--text); letter-spacing: -0.04em; margin: 0 0 16px; }
+.notfound p { color: var(--muted); margin: 0 0 24px; }
+.notfound a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="sitenav__inner">
+    <a href="/" class="sitenav__brand"><img src="/klaut-wordmark-text.png" alt="Klaut"/></a>
+    <div class="sitenav__links">
+      <a href="/#about">Tentang</a>
+      <a href="/case-studies" class="active">Case Studies</a>
+      <a href="/artikel">Artikel</a>
+      <a href="/faq">FAQ</a>
+    </div>
+    <div class="sitenav__lang">
+      <a href="" id="lang-id-link" class="active">ID</a>
+      <a href="" id="lang-en-link">EN</a>
+    </div>
+  </div>
+</nav>
+
+<div id="loading" class="loading-strip">Memuat case study…</div>
+
+<article id="article" class="page" style="display:none">
+  <div class="crumb"><a href="/case-studies">← Direktori</a></div>
+
+  <header class="head">
+    <div class="head__main">
+      <div class="head__pillrow" id="pillrow"></div>
+      <h1 class="head__title" id="title"></h1>
+      <p class="head__excerpt" id="excerpt"></p>
+    </div>
+    <aside>
+      <div class="meta" id="meta-panel"></div>
+    </aside>
+  </header>
+
+  <div id="content" class="prose"></div>
+
+  <section id="related" class="related"></section>
+
+  <div class="foot">
+    <a href="/case-studies">← Direktori</a>
+    <a href="/#cta">Bicara dengan tim Klaut →</a>
+  </div>
+</article>
+
+<div id="notfound" class="notfound" style="display:none">
+  <h1>404</h1>
+  <p>Case study yang Anda cari tidak ada atau belum dipublikasikan.</p>
+  <a href="/case-studies">Lihat direktori →</a>
+</div>
+
+<script type="module">
+import { supabase, tiptapToHtml, formatDate } from "/shared/supabase.js";
+
+const LANG = "id";
+
+const SERVICE_LABEL = { consultation:'AI Consultation', build_agents:'Build AI Agents', audited_code:'Audited Code', on_premise:'On-Premise Build' };
+const INDUSTRY_LABEL = { financial_services:'Financial Services', inventory_supply:'Inventory & Supply', healthcare:'Healthcare', energy:'Energy', government:'Government', professional_services:'Professional Services' };
+const AGENT_LABEL = { doc_extraction:'Document Extraction', workflow_classification:'Workflow Classification', autonomous_research:'Autonomous Research', rag:'RAG', on_prem_llm:'On-Premise LLM', multi_agent:'Multi-Agent Orchestration', eval_observability:'Eval & Observability' };
+const DOC_TYPE_LABEL = { case_study:'Case Study', audit:'Audit', whitepaper:'Whitepaper', roadmap:'Roadmap', reference:'Reference', attestation:'Attestation', brief:'Brief', template:'Template', spec:'Spec', rubric:'Rubric', protocol:'Protocol' };
+
+const match = location.pathname.match(/^\/case-studies\/([^\/]+)/);
+const slug = match ? decodeURIComponent(match[1]) : null;
+
+const $ = (id) => document.getElementById(id);
+function escapeHtml(s){ return String(s ?? "").replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function escapeAttr(s){ return escapeHtml(s); }
+function formatVintage(iso){ if(!iso) return ""; try{ return new Date(iso).toLocaleDateString("id-ID",{year:"numeric",month:"long"}); } catch{ return ""; } }
+function renderTitleWithEm(t) {
+  const e = escapeHtml(t);
+  const i = e.indexOf(" — ");
+  return i > 0 ? e.slice(0, i) + ' — <em>' + e.slice(i + 3) + '</em>' : e;
+}
+
+if (!slug) {
+  $("loading").style.display = "none";
+  $("notfound").style.display = "block";
+} else {
+  const { data, error } = await supabase
+    .from("case_studies")
+    .select("*")
+    .eq("slug", slug)
+    .eq("published", true)
+    .maybeSingle();
+
+  $("loading").style.display = "none";
+
+  if (error || !data) {
+    $("notfound").style.display = "block";
+  } else {
+    const title   = data.title_id || data.title_en || "(tanpa judul)";
+    const excerpt = data.excerpt_id || data.excerpt_en || "";
+    const content = data.content_id || data.content_en;
+
+    // SEO
+    const pageTitle = (data.seo_title_id || title) + " — Klaut";
+    const pageDesc  = data.seo_description_id || excerpt;
+    document.title = pageTitle;
+    $("meta-desc").setAttribute("content", pageDesc);
+    $("meta-og-title").setAttribute("content", pageTitle);
+    $("meta-og-desc").setAttribute("content", pageDesc);
+    $("meta-canonical").setAttribute("href", `https://klaut.id/case-studies/${data.slug}`);
+    if (data.cover_image_url) $("meta-og-image").setAttribute("content", data.cover_image_url);
+    if (data.noindex) {
+      const r = document.createElement("meta"); r.name = "robots"; r.content = "noindex, nofollow";
+      document.head.appendChild(r);
+    }
+
+    // Language toggle: ID active, EN goes to /en/case-studies/{slug} only if title_en exists
+    $("lang-id-link").href = `/case-studies/${data.slug}`;
+    if (data.title_en) {
+      $("lang-en-link").href = `/en/case-studies/${data.slug}`;
+    } else {
+      $("lang-en-link").style.display = "none";
+    }
+
+    // Head
+    const pills = [];
+    const dt = data.doc_type;
+    if (dt) pills.push(`<span class="pill" data-pill="${escapeAttr(dt)}">${escapeHtml(DOC_TYPE_LABEL[dt] || dt)}</span>`);
+    if (data.industry) pills.push(`<span class="pill">${escapeHtml(INDUSTRY_LABEL[data.industry] || data.industry)}</span>`);
+    if (data.service_line) pills.push(`<span class="pill">${escapeHtml(SERVICE_LABEL[data.service_line] || data.service_line)}</span>`);
+    if (data.agent_class) pills.push(`<span class="pill">${escapeHtml(AGENT_LABEL[data.agent_class] || data.agent_class)}</span>`);
+    $("pillrow").innerHTML = pills.join("");
+
+    $("title").innerHTML = renderTitleWithEm(title);
+    if (excerpt) $("excerpt").textContent = excerpt; else $("excerpt").style.display = "none";
+
+    // Meta panel
+    const rows = [];
+    if (data.client_label) rows.push(["Klien", escapeHtml(data.client_label)]);
+    if (data.geography)    rows.push(["Lokasi", escapeHtml(data.geography)]);
+    if (data.page_count)   rows.push(["Halaman", `${data.page_count} pp`]);
+    if (data.vintage_date) rows.push(["Vintage", escapeHtml(formatVintage(data.vintage_date))]);
+    if (data.version)      rows.push(["Versi", escapeHtml(data.version)]);
+    if (data.published_at) rows.push(["Dipublikasi", escapeHtml(formatDate(data.published_at))]);
+
+    let metaHtml = rows.map(([k,v]) => `<div class="meta__row"><div class="meta__k">${k}</div><div class="meta__v">${v}</div></div>`).join("");
+
+    if (data.pdf_url) {
+      metaHtml += `
+        <a href="${escapeAttr(data.pdf_url)}" target="_blank" rel="noopener" class="btn-dl">
+          Download PDF
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg>
+        </a>`;
+    }
+    $("meta-panel").innerHTML = metaHtml;
+
+    // Tiptap content (kalau ada)
+    if (content) {
+      $("content").innerHTML = tiptapToHtml(content);
+    } else {
+      $("content").remove();
+    }
+
+    // Related articles via join table
+    const { data: rel } = await supabase
+      .from("case_study_articles")
+      .select("article_id, position, articles:article_id(slug, title_id, title_en, excerpt_id, excerpt_en, published_at, published)")
+      .eq("case_study_id", data.id)
+      .order("position", { ascending: true });
+
+    const relatedArticles = (rel || [])
+      .map(r => r.articles)
+      .filter(a => a && a.published);
+
+    if (relatedArticles.length) {
+      $("related").innerHTML = `
+        <div class="related__label">Artikel terkait</div>
+        <div class="related__grid">
+          ${relatedArticles.map(a => `
+            <a class="rel-card" href="/artikel/${escapeAttr(a.slug)}">
+              <div class="rel-card__date">${escapeHtml(formatDate(a.published_at))}</div>
+              <h3 class="rel-card__title">${escapeHtml(a.title_id || a.title_en || a.slug)}</h3>
+              ${a.excerpt_id || a.excerpt_en ? `<p class="rel-card__excerpt">${escapeHtml(a.excerpt_id || a.excerpt_en)}</p>` : ""}
+              <span class="rel-card__arrow">Baca →</span>
+            </a>
+          `).join("")}
+        </div>
+      `;
+    } else {
+      $("related").remove();
+    }
+
+    // JSON-LD
+    const ld = document.createElement("script");
+    ld.type = "application/ld+json";
+    ld.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": title,
+      "description": pageDesc,
+      "image": data.cover_image_url || "https://klaut.id/og-image.png",
+      "datePublished": data.published_at,
+      "dateModified": data.updated_at,
+      "author": { "@type": "Organization", "name": data.author || "Klaut" },
+      "publisher": { "@type": "Organization", "name": "Klaut", "logo": { "@type": "ImageObject", "url": "https://klaut.id/klaut-K.png" } },
+      "mainEntityOfPage": `https://klaut.id/case-studies/${data.slug}`,
+      "inLanguage": "id-ID"
+    });
+    document.head.appendChild(ld);
+
+    $("article").style.display = "block";
+  }
+}
+</script>
+</body>
+</html>

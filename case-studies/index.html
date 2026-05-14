@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Direktori — Klaut · Issue 01</title>
+<meta name="description" content="Setiap laporan, audit, dan case study yang dikirim Klaut. Diindeks tiga cara, bisa diunduh sebagai PDF." />
+<link rel="canonical" href="https://klaut.id/case-studies" />
+<link rel="alternate" hreflang="id" href="https://klaut.id/case-studies" />
+<link rel="alternate" hreflang="en" href="https://klaut.id/en/case-studies" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Direktori — Klaut" />
+<meta property="og:description" content="Setiap laporan, audit, dan case study yang dikirim Klaut." />
+<meta property="og:image" content="https://klaut.id/og-image.png" />
+<meta property="og:locale" content="id_ID" />
+<link rel="icon" type="image/png" href="/klaut-K.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --bg:           #0B0B10;
+  --panel:        #131319;
+  --panel-2:      #1A1A22;
+  --line:         #23232E;
+  --line-strong:  #34344A;
+  --text:         #E8E8EE;
+  --muted:        #8A8A98;
+  --dim:          #5E5E6E;
+  --accent:       #6B5FE4;
+  --accent-soft:  rgba(107, 95, 228, 0.12);
+  --accent-glow:  rgba(107, 95, 228, 0.55);
+  --green:        #4ADE80;
+  --amber:        #F5B544;
+  --red:          #EF6F6C;
+
+  --serif:  'IBM Plex Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --sans:   'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --mono:   'IBM Plex Mono', ui-monospace, Menlo, monospace;
+
+  --maxw:   1240px;
+  --gutter: 32px;
+  --rule:   1px solid var(--line);
+}
+
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--text); }
+body {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+::selection { background: rgba(107,95,228,0.35); color: #fff; }
+a { color: inherit; text-decoration: none; }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+
+.page { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+
+/* Site nav strip */
+.sitenav { border-bottom: var(--rule); }
+.sitenav__inner { display: flex; align-items: center; justify-content: space-between; padding: 14px var(--gutter); max-width: var(--maxw); margin: 0 auto; }
+.sitenav__brand { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.sitenav__brand img { height: 22px; }
+.sitenav__links { display: flex; gap: 4px; }
+.sitenav__links a { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 10px; color: var(--muted); border-radius: 2px; }
+.sitenav__links a:hover, .sitenav__links a.active { color: var(--text); }
+.sitenav__lang { display: inline-flex; border: 1px solid var(--line); border-radius: 2px; overflow: hidden; }
+.sitenav__lang a { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; padding: 5px 10px; color: var(--muted); }
+.sitenav__lang a.active { background: var(--accent-soft); color: var(--text); }
+
+/* Masthead */
+.masthead { padding-top: 32px; }
+.masthead__bar { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 16px; border-bottom: var(--rule); }
+.brand { font-family: var(--serif); font-weight: 600; font-size: 18px; letter-spacing: -0.02em; display: inline-flex; align-items: baseline; gap: 10px; text-transform: uppercase; }
+.brand__mark { display: inline-block; width: 10px; height: 10px; background: var(--accent); transform: translateY(1px); }
+.issue { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.issue span + span::before { content: " · "; color: var(--dim); }
+.masthead__rule { height: 6px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-top: -1px; }
+.masthead__title { display: grid; grid-template-columns: 1fr; gap: 24px; padding: 56px 0 24px; border-bottom: var(--rule); }
+.masthead__eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.masthead__eyebrow .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-right: 8px; transform: translateY(-1px); }
+.masthead__h1 { font-family: var(--serif); font-weight: 600; font-style: normal; font-size: clamp(56px, 9.5vw, 144px); line-height: 0.95; letter-spacing: -0.045em; margin: 0; color: var(--text); }
+.masthead__h1 em { font-style: normal; font-weight: 300; color: var(--muted); }
+.masthead__deck { font-family: var(--serif); font-weight: 400; font-size: clamp(18px, 1.9vw, 22px); line-height: 1.45; letter-spacing: -0.01em; color: var(--muted); max-width: 64ch; margin: 0; }
+.masthead__deck em { color: var(--text); font-style: normal; font-weight: 500; }
+.masthead__meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; padding: 18px 0; border-bottom: var(--rule); font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.masthead__meta > div { padding-right: 16px; }
+.masthead__meta b { display: block; font-weight: 500; color: var(--text); font-size: 18px; letter-spacing: -0.01em; text-transform: none; font-family: var(--sans); margin-bottom: 2px; }
+@media (max-width: 700px) { .masthead__meta { grid-template-columns: repeat(2, 1fr); gap: 16px 0; } }
+
+/* Filter bar */
+.filterbar { position: sticky; top: 0; z-index: 20; background: rgba(11,11,16,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: var(--rule); margin-top: 0; }
+.filterbar__inner { display: flex; align-items: center; gap: 24px; padding: 14px var(--gutter); max-width: var(--maxw); margin: 0 auto; }
+.filterbar__label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); flex-shrink: 0; }
+.filterbar__chips { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; flex: 1; }
+.filterbar__chips::-webkit-scrollbar { display: none; }
+.chip { appearance: none; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: transparent; border: 1px solid var(--line); padding: 7px 12px; border-radius: 2px; cursor: pointer; white-space: nowrap; transition: color 180ms, border-color 180ms, background 180ms; }
+.chip:hover { color: var(--text); border-color: var(--line-strong); }
+.chip[aria-selected="true"] { color: var(--text); border-color: var(--accent); background: var(--accent-soft); }
+.filterbar__select { display: none; }
+@media (max-width: 700px) { .filterbar__chips { display: none; } .filterbar__select { display: block; flex: 1; background: var(--panel); border: 1px solid var(--line); color: var(--text); font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 12px; border-radius: 2px; } }
+
+/* Cluster */
+.cluster { padding: 96px 0 64px; border-bottom: var(--rule); }
+.cluster__head { display: grid; grid-template-columns: 220px 1fr; gap: 48px; padding-bottom: 64px; }
+.cluster__num { font-family: var(--serif); font-weight: 600; font-style: normal; font-size: clamp(72px, 11vw, 152px); line-height: 0.85; letter-spacing: -0.05em; color: var(--text); font-feature-settings: "tnum" 1, "lnum" 1; }
+.cluster__num small { display: block; font-family: var(--mono); font-style: normal; font-weight: 500; font-size: 11px; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px; line-height: 1; }
+.cluster__desc { padding-top: 16px; }
+.cluster__title { font-family: var(--serif); font-weight: 600; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.08; letter-spacing: -0.03em; margin: 0 0 20px; max-width: 22ch; }
+.cluster__title em { font-style: normal; font-weight: 300; color: var(--muted); }
+.cluster__lede { font-size: 16px; line-height: 1.55; color: var(--muted); max-width: 56ch; margin: 0 0 28px; }
+.cluster__count { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border-top: var(--rule); padding-top: 14px; display: flex; gap: 32px; flex-wrap: wrap; }
+.cluster__count b { color: var(--text); font-weight: 500; font-family: var(--sans); font-size: 14px; letter-spacing: -0.01em; text-transform: none; margin-right: 4px; }
+@media (max-width: 1100px) { .cluster__head { grid-template-columns: 160px 1fr; gap: 24px; } }
+@media (max-width: 700px) { .cluster { padding: 64px 0 48px; } .cluster__head { grid-template-columns: 1fr; gap: 16px; padding-bottom: 40px; } .cluster__num { font-size: 96px; } }
+
+/* Section (sub-cluster) */
+.section { padding: 8px 0 56px; }
+.section__head { display: grid; grid-template-columns: 220px 1fr; gap: 48px; padding: 24px 0; border-top: 1px solid var(--line); }
+.section__num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding-top: 4px; }
+.section__title { font-family: var(--serif); font-weight: 600; font-size: 24px; line-height: 1.18; letter-spacing: -0.025em; margin: 0 0 6px; }
+.section__title em { font-style: normal; font-weight: 300; color: var(--muted); }
+.section__sub { font-size: 14px; color: var(--muted); margin: 0; max-width: 64ch; }
+.section__sub .ok { color: var(--green); font-weight: 500; }
+.section__sub .no { color: var(--red); font-weight: 500; }
+.section__rule { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 10px; display: inline-block; }
+@media (max-width: 1100px) { .section__head { grid-template-columns: 100px 1fr; gap: 24px; } }
+@media (max-width: 700px) { .section__head { grid-template-columns: 1fr; gap: 4px; } }
+
+/* Grid + Cards */
+.grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0; border-top: var(--rule); border-left: var(--rule); }
+.grid:empty { display: none; }
+.card { grid-column: span 4; position: relative; display: flex; flex-direction: column; min-height: 240px; padding: 24px 24px 20px; border-right: var(--rule); border-bottom: var(--rule); color: var(--text); transition: background 220ms, transform 180ms ease-out; isolation: isolate; }
+.card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left center; transition: transform 200ms ease-out; }
+.card:hover { background: var(--panel); transform: translateY(-1px); }
+.card:hover::before { transform: scaleX(1); }
+.card.is-hidden { display: none; }
+.card.is-wide { grid-column: span 6; }
+.card.is-feature { grid-column: span 12; min-height: 220px; padding: 36px 36px 28px; background: linear-gradient(180deg, var(--panel) 0%, var(--bg) 100%); }
+.card.is-feature::before { width: 3px; }
+.card__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 28px; }
+.card__idx { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.08em; }
+.card__pill { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid var(--line); padding: 3px 7px 2px; border-radius: 2px; color: var(--muted); white-space: nowrap; }
+.card__pill[data-pill="audit"]      { color: var(--amber); border-color: rgba(245,181,68,0.35); }
+.card__pill[data-pill="case_study"] { color: var(--green); border-color: rgba(74,222,128,0.35); }
+.card__pill[data-pill="whitepaper"] { color: var(--accent); border-color: rgba(107,95,228,0.45); }
+.card__title { font-family: var(--serif); font-weight: 600; font-size: 19px; line-height: 1.25; letter-spacing: -0.022em; margin: 0 0 10px; text-wrap: balance; }
+.card.is-feature .card__title { font-size: 30px; line-height: 1.12; letter-spacing: -0.035em; max-width: 26ch; }
+.card__title em { font-style: normal; font-weight: 400; color: var(--muted); }
+.card__desc { font-size: 14px; line-height: 1.5; color: var(--muted); margin: 0; max-width: 52ch; flex: 1; }
+.card.is-feature .card__desc { font-size: 16px; max-width: 64ch; }
+.card__foot { margin-top: 20px; padding-top: 14px; border-top: var(--rule); display: flex; justify-content: space-between; align-items: center; gap: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--muted); }
+.card__meta { display: flex; flex-wrap: wrap; gap: 0 8px; }
+.card__meta span + span::before { content: "· "; color: var(--dim); margin-right: 4px; }
+.card__dl { color: var(--muted); transition: color 180ms; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.1em; }
+.card:hover .card__dl { color: var(--accent); text-shadow: 0 0 12px var(--accent-glow); }
+.card__dl svg { width: 11px; height: 11px; transition: transform 200ms; }
+.card:hover .card__dl svg { transform: translateY(2px); }
+@media (max-width: 1100px) { .card { grid-column: span 6; } .card.is-wide { grid-column: span 6; } .card.is-feature { grid-column: span 12; padding: 28px 24px; } .card.is-feature .card__title { font-size: 28px; } }
+@media (max-width: 700px) { .grid { border-left: 0; } .card { grid-column: span 12 !important; border-left: 0; padding: 22px 20px; min-height: 0; } .card.is-feature { padding: 24px 20px; } .card.is-feature .card__title { font-size: 24px; } }
+
+/* Pull quote */
+.pullquote { display: grid; grid-template-columns: 220px 1fr; gap: 48px; padding: 56px 0 56px; border-top: var(--rule); }
+.pullquote__tag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding-top: 24px; }
+.pullquote__body { font-family: var(--serif); font-weight: 500; font-style: normal; font-size: clamp(24px, 3.2vw, 38px); line-height: 1.18; letter-spacing: -0.03em; color: var(--text); max-width: 32ch; margin: 0 0 18px; }
+.pullquote__body::before { content: "— "; font-style: normal; color: var(--accent); margin-right: 4px; }
+.pullquote__attr { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+@media (max-width: 1100px) { .pullquote { grid-template-columns: 160px 1fr; gap: 24px; } }
+@media (max-width: 700px) { .pullquote { grid-template-columns: 1fr; gap: 8px; padding: 40px 0; } .pullquote__tag { padding-top: 0; } }
+
+/* Empty state */
+.empty { padding: 56px 0; text-align: center; color: var(--dim); font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* Colophon */
+.colophon { border-top: var(--rule); padding: 32px 0 64px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.colophon b { display: block; color: var(--text); font-family: var(--sans); font-size: 13px; letter-spacing: -0.01em; text-transform: none; font-weight: 500; margin-bottom: 6px; }
+.colophon p { margin: 0; max-width: 30ch; }
+@media (max-width: 700px) { .colophon { grid-template-columns: 1fr; gap: 24px; } }
+
+/* Loading shimmer */
+.loading-strip { padding: 96px var(--gutter); text-align: center; color: var(--dim); font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* Print */
+@media print {
+  :root { --bg:#fff; --panel:#fff; --panel-2:#f4f4f4; --line:#c8c8c8; --line-strong:#888; --text:#111; --muted:#444; --dim:#777; --accent:#2a2a2a; --accent-soft:transparent; --accent-glow:transparent; }
+  body { font-size: 11pt; }
+  .sitenav, .filterbar { display: none; }
+  .masthead__h1 { font-size: 84pt; }
+  .card { break-inside: avoid; min-height: 0; }
+  .card::before { display: none; }
+  .pullquote__body { font-size: 22pt; }
+  .cluster { padding: 24pt 0; border-bottom: 1px solid #aaa; }
+}
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="sitenav__inner">
+    <a href="/" class="sitenav__brand"><img src="/klaut-wordmark-text.png" alt="Klaut"/></a>
+    <div class="sitenav__links">
+      <a href="/#about">Tentang</a>
+      <a href="/case-studies" class="active">Case Studies</a>
+      <a href="/artikel">Artikel</a>
+      <a href="/faq">FAQ</a>
+    </div>
+    <div class="sitenav__lang">
+      <a href="/case-studies" class="active">ID</a>
+      <a href="/en/case-studies">EN</a>
+    </div>
+  </div>
+</nav>
+
+<header class="masthead page" role="banner">
+  <div class="masthead__bar">
+    <div class="brand"><span class="brand__mark" aria-hidden="true"></span>Klaut</div>
+    <div class="issue"><span>Issue 01</span><span>Mei 2026</span><span>Jakarta</span></div>
+  </div>
+  <div class="masthead__rule" aria-hidden="true"></div>
+
+  <div class="masthead__title">
+    <p class="masthead__eyebrow"><span class="dot" aria-hidden="true"></span>Daftar bacaan · Diperbarui bulanan</p>
+    <h1 class="masthead__h1">Direktori<em>.</em></h1>
+    <p class="masthead__deck">Setiap laporan, audit, dan case study yang sudah dikirim Klaut — <em>diindeks tiga cara</em>, di-set serif, bisa diunduh sebagai PDF. Pakai untuk briefing direksi, scope procurement, atau dibaca di pesawat.</p>
+  </div>
+
+  <div class="masthead__meta" id="masthead-meta">
+    <div><b id="cnt-docs">—</b>Dokumen di file</div>
+    <div><b id="cnt-services">04</b>Service line</div>
+    <div><b id="cnt-industries">06</b>Industri</div>
+    <div><b id="cnt-agents">07</b>Agent class</div>
+  </div>
+</header>
+
+<nav class="filterbar" role="navigation" aria-label="Filter dokumen">
+  <div class="filterbar__inner">
+    <span class="filterbar__label">Filter</span>
+    <div class="filterbar__chips" id="filter-chips" role="tablist" aria-label="Filter berdasarkan industri">
+      <button class="chip" role="tab" aria-selected="true" data-filter="all">Semua</button>
+    </div>
+    <select class="filterbar__select" id="filter-select" aria-label="Filter berdasarkan industri">
+      <option value="all">Semua kategori</option>
+    </select>
+  </div>
+</nav>
+
+<main class="page" id="directory">
+  <div class="loading-strip" id="loading">Memuat direktori…</div>
+</main>
+
+<footer class="colophon page">
+  <div><b>Klaut · Jakarta</b><p>PT Klaut Sistem Cerdas · Wisma 46, Kota BNI<br/>klaut.id · Issue 01</p></div>
+  <div><b>Di-set dengan IBM Plex &amp; Inter</b><p>Body 15px · Garis #23232E<br/>Aksen tunggal: indigo 6B5FE4</p></div>
+  <div><b>Issue 01 / Mei 2026</b><p>Daftar bacaan. Diperbarui bulanan.<br/>Dicetak dalam skema warna ini secara tidak sengaja.</p></div>
+</footer>
+
+<script type="module">
+import { supabase } from "/shared/supabase.js";
+
+const LANG = "id";
+
+// ============== Taksonomi (urutan + copy editorial) ==============
+const SERVICE_LINES = [
+  { key: "consultation", num: "01.1",
+    title: 'AI Consultation — <em>Foundation</em>',
+    sub:   'Discovery berbayar, readiness audit, dan roadmap 12 bulan. Kami menagih untuk ini karena ini-lah pekerjaannya.',
+    rule:  'Fixed fee · USD 8–24K' },
+  { key: "build_agents", num: "01.2",
+    title: '<strong>Build</strong> AI Agents',
+    sub:   'Custom agentic system, copilot, document & workflow agent. Dikirim dengan eval harness dan kill-switch.',
+    rule:  'Siklus 6–14 minggu' },
+  { key: "audited_code", num: "01.3",
+    title: '<strong>Audited</strong> Code',
+    sub:   'Security, ketahanan prompt-injection, atestasi supply chain. Klaut tanda tangan suratnya; klien bisa tunjukkan ke regulator.',
+    rule:  'OWASP LLM Top 10 · STRIDE · LINDDUN' },
+  { key: "on_premise", num: "01.4",
+    title: '<strong>On-Premise</strong> Build',
+    sub:   'Deployment self-hosted, air-gap, untuk industri ter-regulasi. Saat data tidak boleh keluar gedung dan regulator akan datang.',
+    rule:  'H100 · Sovereign DC · UU PDP' }
+];
+
+const INDUSTRIES = [
+  { key: "financial_services",    num: "02.1", title: '<strong>Financial</strong> Services',
+    sub: 'Bank, multifinance, asuransi, payments. Siklus engagement terpanjang, acceptance criteria terketat, pekerjaan yang paling berguna.',
+    rule: 'OJK-adjacent · UU PDP' },
+  { key: "inventory_supply",      num: "02.2", title: '<strong>Inventory &amp;</strong> Supply Chain',
+    sub: 'Manufaktur, FMCG, logistik, retail operations. Routing demand signal, klasifikasi SKU, reporting distributor.',
+    rule: '14 kategori live' },
+  { key: "healthcare",            num: "02.3", title: '<strong>Healthcare &amp;</strong> Life Sciences',
+    sub: 'Dokumentasi klinis, prior-authorisation, triase pharmacovigilance. Tier-risiko, sensitif PII.',
+    rule: 'UU PDP · Surat edaran Kemenkes' },
+  { key: "energy",                num: "02.4", title: '<strong>Energy &amp;</strong> Resources',
+    sub: 'Klasifikasi laporan lapangan, retrieval dokumen aset, review kontrak. Sebagian besar operator upstream.',
+    rule: 'Upstream' },
+  { key: "government",            num: "02.5", title: '<strong>Government &amp;</strong> Public Sector',
+    sub: 'Deployment air-gapped, retrieval policy, triase layanan warga. Procurement sesuai buku.',
+    rule: 'On-prem' },
+  { key: "professional_services", num: "02.6", title: '<strong>Professional</strong> Services',
+    sub: 'Hukum, akuntansi, advisory. Research agent, document review, retrieval deal-room.',
+    rule: 'Lihat Cluster 03' }
+];
+
+const AGENT_CLASSES = [
+  { key: "doc_extraction",          num: "03.1", title: '<strong>Document Extraction</strong> Agents',
+    sub: '<span class="ok">Deploy ketika</span> dokumen relatif terstruktur dan biaya satu field salah masih terbatas. <span class="no">Jangan</span> ketika satu field salah-ekstrak bisa memindahkan uang secara irreversible tanpa manusia di loop.',
+    rule: 'Financial Services · Legal · Healthcare' },
+  { key: "workflow_classification", num: "03.2", title: '<strong>Workflow Classification</strong> Agents',
+    sub: '<span class="ok">Deploy ketika</span> kategori sudah stabil dan misroute 5% bisa dipulihkan downstream. <span class="no">Jangan</span> ketika taksonominya masih diperdebatkan.',
+    rule: 'Inventory · Operations · Customer Service' },
+  { key: "autonomous_research",     num: "03.3", title: '<strong>Autonomous Research</strong> Agents',
+    sub: '<span class="ok">Deploy ketika</span> ada reviewer senior yang akan baca output-nya. <span class="no">Jangan</span> ketika output langsung ke klien atau regulator.',
+    rule: 'Professional Services · Strategy' },
+  { key: "rag",                     num: "03.4", title: '<strong>RAG</strong> Knowledge Systems',
+    sub: '<span class="ok">Deploy ketika</span> korpusnya curated dan user-nya internal. <span class="no">Jangan</span> ketika korpus adalah open web dan user adalah customer.',
+    rule: 'Internal Ops · Policy · Compliance' },
+  { key: "on_prem_llm",             num: "03.5", title: '<strong>On-Premise</strong> LLM Deployments',
+    sub: '<span class="ok">Deploy ketika</span> data tidak boleh keluar gedung. <span class="no">Jangan</span> ketika satu-satunya alasan adalah fashion; managed endpoint dengan SLA biasanya lebih murah.',
+    rule: 'Banking core · Defence-adjacent · Government' },
+  { key: "multi_agent",             num: "03.6", title: '<strong>Multi-Agent</strong> Orchestration',
+    sub: '<span class="ok">Deploy ketika</span> workflow punya hand-off yang jelas dan kill-switch yang dapat ditoleransi. <span class="no">Jangan</span> ketika satu agent sudah cukup — sebagian besar memang cukup.',
+    rule: 'Supervisor / Worker · Back-office automation' },
+  { key: "eval_observability",      num: "03.7", title: '<strong>Evaluation &amp; Observability</strong> Harnesses',
+    sub: '<span class="ok">Deploy</span> di setiap sistem di atas. <span class="no">Jangan</span> ship tanpa ini. Tidak ada pengecualian yang kami tanda-tangani.',
+    rule: 'Universal · Versioned per release' }
+];
+
+const DOC_TYPE_LABEL = {
+  case_study: 'Case Study', audit: 'Audit', whitepaper: 'Whitepaper', roadmap: 'Roadmap',
+  reference: 'Reference', attestation: 'Attestation', brief: 'Brief', template: 'Template',
+  spec: 'Spec', rubric: 'Rubric', protocol: 'Protocol'
+};
+
+const INDUSTRY_FILTER_LABEL = {
+  financial_services: 'Financial Services',
+  inventory_supply: 'Inventory & Supply',
+  healthcare: 'Healthcare',
+  energy: 'Energy',
+  government: 'Government',
+  professional_services: 'Professional Services'
+};
+
+const PULL_QUOTES = [
+  { tag: 'Prinsip operasi · Do',   body: 'Discovery itu produk. Tagih untuknya.',                   attr: 'Klaut · Internal Playbook, §1.2' },
+  { tag: 'Prinsip operasi · Don\'t', body: 'Sekitar 60% AI work yang diminta sebenarnya tidak perlu dikerjakan.', attr: 'Klaut · Internal Playbook, §2.0 — On scoping' },
+  { tag: 'Prinsip operasi · Do',   body: 'Kami sepakati rubrik dulu sebelum tulis kode.',          attr: 'Klaut · Internal Playbook, §3.1 — On evaluation' }
+];
+
+const CLUSTERS = [
+  { id: 'c01', num: '01', tag: 'Cluster 01',
+    title: 'Berdasarkan <em>service</em>.',
+    lede: 'Empat lini pekerjaan. Setiap satu adalah deliverable diskret, scope tetap, dengan artefak yang Anda baca setelah meeting. Foundation work duluan karena yang lain tidak penting kalau yang dibangun ternyata salah.',
+    field: 'service_line', featuredField: 'featured_in_service', taxonomy: SERVICE_LINES },
+  { id: 'c02', num: '02', tag: 'Cluster 02',
+    title: 'Berdasarkan <em>industri</em>.',
+    lede: 'Dokumen yang sama, di-rak-ulang per vertikal. Kami bekerja di industri ter-regulasi di mana biaya kesalahan bukan tagihan model — melainkan denda, recall, atau regulator di pintu. Kontrak PT-to-PT. UU PDP compliance. BANI arbitrase kalau perlu.',
+    field: 'industry', featuredField: 'featured_in_industry', taxonomy: INDUSTRIES },
+  { id: 'c03', num: '03', tag: 'Cluster 03',
+    title: 'Berdasarkan <em>sistem</em>.',
+    lede: 'Tujuh arketipe agent dan vertikal yang benar-benar cocok. Setiap kartu kelas memuat baris deploy-when / don\'t-deploy-when. Eval-and-observability harness muncul di bawah setiap sistem di atas; itu tidak opsional.',
+    field: 'agent_class', featuredField: 'featured_in_system', taxonomy: AGENT_CLASSES }
+];
+
+// ============== Helpers ==============
+const $ = (id) => document.getElementById(id);
+function escapeHtml(s){ return String(s ?? "").replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function escapeAttr(s){ return escapeHtml(s); }
+
+const DOWNLOAD_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg>';
+
+function formatVintage(iso) {
+  if (!iso) return "";
+  try {
+    const d = new Date(iso);
+    return d.toLocaleDateString("id-ID", { year: "numeric", month: "short" });
+  } catch { return ""; }
+}
+
+function pickTitle(doc) {
+  return (LANG === "id" ? doc.title_id : (doc.title_en || doc.title_id)) || "(tanpa judul)";
+}
+function pickExcerpt(doc) {
+  return (LANG === "id" ? doc.excerpt_id : (doc.excerpt_en || doc.excerpt_id)) || "";
+}
+
+// Split "Title — Subtitle" → render subtitle as <em>
+function renderTitleWithEm(rawTitle) {
+  const t = escapeHtml(rawTitle);
+  const idx = t.indexOf(" — ");
+  if (idx > 0) {
+    return t.slice(0, idx) + ' — <em>' + t.slice(idx + 3) + '</em>';
+  }
+  return t;
+}
+
+function renderCard(doc, idx, total, featured) {
+  const title = renderTitleWithEm(pickTitle(doc));
+  const desc  = escapeHtml(pickExcerpt(doc));
+  const pillKey = doc.doc_type || "case_study";
+  const pillLabel = DOC_TYPE_LABEL[pillKey] || (doc.doc_type ? doc.doc_type.replace(/_/g, " ") : "Dokumen");
+  const pillSuffix = doc.pdf_url ? " · PDF" : "";
+
+  const meta = [];
+  if (doc.client_label) meta.push(escapeHtml(doc.client_label));
+  if (doc.page_count)   meta.push(`${doc.page_count} pp`);
+  const versionLine = [doc.version, formatVintage(doc.vintage_date)].filter(Boolean).join(" · ");
+  if (versionLine) meta.push(escapeHtml(versionLine));
+
+  const cls = ["card"];
+  if (featured) cls.push("is-feature");
+  const idxLabel = featured ? `${String(idx).padStart(2,"0")} / ${total} — Featured` : `${String(idx).padStart(2,"0")} / ${total}`;
+  const dataTypes = doc.industry ? escapeAttr(doc.industry) : "";
+
+  const href = `/case-studies/${escapeAttr(doc.slug)}`;
+  const dlLabel = doc.pdf_url ? "Download" : "Baca";
+
+  return `
+    <a class="${cls.join(" ")}" href="${href}" data-types="${dataTypes}" aria-label="${escapeAttr(pickTitle(doc))}">
+      <div class="card__head">
+        <span class="card__idx">${idxLabel}</span>
+        <span class="card__pill" data-pill="${escapeAttr(pillKey)}">${escapeHtml(pillLabel)}${pillSuffix}</span>
+      </div>
+      <h4 class="card__title">${title}</h4>
+      <p class="card__desc">${desc}</p>
+      <div class="card__foot">
+        <div class="card__meta">${meta.map(m => `<span>${m}</span>`).join("")}</div>
+        <span class="card__dl">${dlLabel}${DOWNLOAD_ICON}</span>
+      </div>
+    </a>
+  `;
+}
+
+function renderCluster(cluster, docs) {
+  const inCluster = docs.filter(d => d[cluster.field]);
+  const totalCount = inCluster.length;
+
+  const sectionsHtml = cluster.taxonomy.map(tax => {
+    const sub = inCluster.filter(d => d[cluster.field] === tax.key);
+    if (!sub.length) return "";
+    // Featured first, rest in vintage order
+    sub.sort((a, b) => {
+      if (!!b[cluster.featuredField] - !!a[cluster.featuredField] !== 0)
+        return !!b[cluster.featuredField] - !!a[cluster.featuredField];
+      const da = a.vintage_date || a.published_at || "";
+      const db = b.vintage_date || b.published_at || "";
+      return db.localeCompare(da);
+    });
+
+    return `
+      <article class="section" aria-labelledby="${cluster.id}-${tax.key}">
+        <header class="section__head">
+          <div class="section__num">${tax.num}</div>
+          <div>
+            <h3 class="section__title" id="${cluster.id}-${tax.key}">${tax.title}</h3>
+            <p class="section__sub">${tax.sub}</p>
+            <span class="section__rule">${sub.length} dokumen · ${tax.rule}</span>
+          </div>
+        </header>
+        <div class="grid">
+          ${sub.map((d, i) => renderCard(d, i + 1, sub.length, !!d[cluster.featuredField])).join("")}
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  const taxonomyCount = cluster.taxonomy.length;
+  const fieldLabel = cluster.field === "service_line" ? "services"
+                    : cluster.field === "industry" ? "industri"
+                    : "agent classes";
+
+  return `
+    <section class="cluster" id="${cluster.id}" aria-labelledby="${cluster.id}-title">
+      <header class="cluster__head">
+        <div class="cluster__num"><small>${cluster.tag}</small>${cluster.num}</div>
+        <div class="cluster__desc">
+          <h2 class="cluster__title" id="${cluster.id}-title">${cluster.title}</h2>
+          <p class="cluster__lede">${cluster.lede}</p>
+          <div class="cluster__count">
+            <span><b>${totalCount}</b>dokumen</span>
+            <span><b>${taxonomyCount}</b>${fieldLabel}</span>
+          </div>
+        </div>
+      </header>
+      ${sectionsHtml || `<div class="empty">Belum ada dokumen di cluster ini.</div>`}
+    </section>
+  `;
+}
+
+function renderPullQuote(q) {
+  return `
+    <aside class="pullquote">
+      <div class="pullquote__tag">${escapeHtml(q.tag)}</div>
+      <div>
+        <p class="pullquote__body">${escapeHtml(q.body)}</p>
+        <div class="pullquote__attr">${escapeHtml(q.attr)}</div>
+      </div>
+    </aside>
+  `;
+}
+
+// ============== Fetch + render ==============
+const { data: docs, error } = await supabase
+  .from("case_studies")
+  .select("id, slug, doc_type, service_line, industry, agent_class, client_label, geography, page_count, vintage_date, version, pdf_url, featured_in_service, featured_in_industry, featured_in_system, title_id, title_en, excerpt_id, excerpt_en, published_at")
+  .eq("published", true);
+
+const directory = $("directory");
+
+if (error) {
+  directory.innerHTML = `<div class="empty">Gagal memuat: ${escapeHtml(error.message)}</div>`;
+} else if (!docs || !docs.length) {
+  directory.innerHTML = `<div class="empty">Belum ada dokumen yang dipublikasikan.</div>`;
+} else {
+  // Update masthead counts
+  $("cnt-docs").textContent = docs.length;
+
+  // Render 3 clusters with pull quotes between
+  directory.innerHTML =
+    renderCluster(CLUSTERS[0], docs) + renderPullQuote(PULL_QUOTES[0]) +
+    renderCluster(CLUSTERS[1], docs) + renderPullQuote(PULL_QUOTES[1]) +
+    renderCluster(CLUSTERS[2], docs) + renderPullQuote(PULL_QUOTES[2]);
+
+  // Build filter chips from industries actually present
+  const presentIndustries = [...new Set(docs.map(d => d.industry).filter(Boolean))];
+  const chips = $("filter-chips");
+  const select = $("filter-select");
+  presentIndustries.forEach(ind => {
+    const label = INDUSTRY_FILTER_LABEL[ind] || ind;
+    chips.insertAdjacentHTML("beforeend",
+      `<button class="chip" role="tab" aria-selected="false" data-filter="${escapeAttr(ind)}">${escapeHtml(label)}</button>`);
+    select.insertAdjacentHTML("beforeend",
+      `<option value="${escapeAttr(ind)}">${escapeHtml(label)}</option>`);
+  });
+
+  // Wire filter
+  function applyFilter(value) {
+    document.querySelectorAll(".card").forEach(c => {
+      const types = (c.getAttribute("data-types") || "").split(/\s+/);
+      const match = value === "all" || types.indexOf(value) !== -1;
+      c.classList.toggle("is-hidden", !match);
+    });
+    document.querySelectorAll(".chip").forEach(ch => {
+      ch.setAttribute("aria-selected", ch.dataset.filter === value ? "true" : "false");
+    });
+    if (select.value !== value) select.value = value;
+  }
+  chips.addEventListener("click", e => {
+    const b = e.target.closest(".chip");
+    if (b) applyFilter(b.dataset.filter);
+  });
+  select.addEventListener("change", () => applyFilter(select.value));
+
+  // Smooth scroll for in-page anchors
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener("click", e => {
+      const id = a.getAttribute("href").slice(1);
+      const el = document.getElementById(id);
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: "smooth", block: "start" }); }
+    });
+  });
+}
+</script>
+</body>
+</html>
