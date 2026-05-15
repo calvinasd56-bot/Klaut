@@ -9,7 +9,7 @@
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/"/>
-    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/"/>
   </url>
   <url>
@@ -42,12 +42,12 @@
 
   <!-- Bahasa Indonesia (/id/) -->
   <url>
-    <loc>https://klaut.id/id/</loc>
+    <loc>https://klaut.id/id</loc>
     <lastmod>2026-05-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/"/>
-    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/"/>
   </url>
   <url>
