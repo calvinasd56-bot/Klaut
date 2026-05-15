@@ -6,9 +6,9 @@
 <title>Artikel — Klaut</title>
 <meta name="description" content="Wawasan, panduan, dan studi kasus AI dari tim Klaut untuk pemimpin bisnis di Indonesia."/>
 <meta name="theme-color" content="#0a0a0a"/>
-<link rel="canonical" href="https://klaut.id/artikel"/>
-<link rel="alternate" hreflang="id" href="https://klaut.id/artikel"/>
-<link rel="alternate" hreflang="en" href="https://klaut.id/en/articles"/>
+<link rel="canonical" href="https://klaut.id/id/artikel"/>
+<link rel="alternate" hreflang="id" href="https://klaut.id/id/artikel"/>
+<link rel="alternate" hreflang="en" href="https://klaut.id/articles"/>
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="Artikel — Klaut"/>
 <meta property="og:description" content="Wawasan, panduan, dan studi kasus AI dari tim Klaut."/>
@@ -44,20 +44,20 @@
 
 <header class="border-b border-line">
   <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-2.5">
+    <a href="/id/" class="flex items-center gap-2.5">
       <img src="/klaut-K.png" alt="" class="h-7 w-7"/>
       <img src="/klaut-wordmark-text.png" alt="Klaut" class="h-5"/>
     </a>
     <nav class="hidden md:flex items-center gap-1">
-      <a href="/#about"        class="px-4 py-2 text-sm text-muted hover:text-ink">Tentang</a>
-      <a href="/#industries"   class="px-4 py-2 text-sm text-muted hover:text-ink">Studi Kasus</a>
-      <a href="/artikel"       class="px-4 py-2 text-sm text-white">Artikel</a>
-      <a href="/faq"           class="px-4 py-2 text-sm text-muted hover:text-ink">FAQ</a>
+      <a href="/id/#about"        class="px-4 py-2 text-sm text-muted hover:text-ink">Tentang</a>
+      <a href="/id/#industries"   class="px-4 py-2 text-sm text-muted hover:text-ink">Studi Kasus</a>
+      <a href="/id/artikel"       class="px-4 py-2 text-sm text-white">Artikel</a>
+      <a href="/id/faq"           class="px-4 py-2 text-sm text-muted hover:text-ink">FAQ</a>
     </nav>
     <div class="flex items-center gap-3">
       <div class="flex items-center rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium">
-        <a href="/artikel"     class="px-3 py-1.5 rounded-full bg-white/10 text-white">ID</a>
-        <a href="/en/articles" class="px-3 py-1.5 rounded-full text-muted hover:text-white">EN</a>
+        <a href="/id/artikel"     class="px-3 py-1.5 rounded-full bg-white/10 text-white">ID</a>
+        <a href="/articles" class="px-3 py-1.5 rounded-full text-muted hover:text-white">EN</a>
       </div>
     </div>
   </div>
@@ -84,8 +84,8 @@
       <span>© 2026 Klaut AI</span>
     </div>
     <div class="flex gap-6">
-      <a href="/" class="hover:text-ink">Beranda</a>
-      <a href="/faq" class="hover:text-ink">FAQ</a>
+      <a href="/id/" class="hover:text-ink">Beranda</a>
+      <a href="/id/faq" class="hover:text-ink">FAQ</a>
       <a href="mailto:hello@klaut.id" class="hover:text-ink">Kontak</a>
     </div>
   </div>
@@ -110,7 +110,7 @@ if (error) {
   grid.innerHTML = `<div class="text-dim col-span-full text-center py-16">Belum ada artikel yang dipublikasikan.</div>`;
 } else {
   grid.innerHTML = data.map(a => `
-    <a href="/artikel/${escapeHtml(a.slug)}" class="card block border border-line rounded-2xl bg-surface overflow-hidden">
+    <a href="/id/artikel/${escapeHtml(a.slug)}" class="card block border border-line rounded-2xl bg-surface overflow-hidden">
       ${a.cover_image_url
         ? `<div class="aspect-[16/9] bg-surface2 overflow-hidden"><img src="${escapeHtml(a.cover_image_url)}" alt="" class="w-full h-full object-cover"/></div>`
         : `<div class="aspect-[16/9] bg-gradient-to-br from-surface2 to-surface flex items-center justify-center"><img src="/klaut-K.png" alt="" class="h-10 w-10 opacity-30"/></div>`}

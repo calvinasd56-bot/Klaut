@@ -1,0 +1,1136 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Klaut — Audit Pra-Peluncuran (ID) · Live</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+    --line:#262626; --linestrong:#3f3f46;
+    --accent:#6366f1; --accent2:#818cf8; --accent-deep:#4f46e5; --accent-bg:rgba(99,102,241,.12);
+    --ink:#fff; --muted:#a1a1aa; --dim:#71717a; --faint:#52525b;
+    --ok:#22c55e; --warn:#f59e0b; --bad:#ef4444;
+    --p0:#ef4444; --p1:#f59e0b; --p2:#818cf8;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Inter',ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent2);text-decoration:none}
+  a:hover{color:#fff}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+  .topbar{position:sticky;top:0;z-index:30;background:rgba(10,10,10,.82);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+  .topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px;max-width:1180px;margin:0 auto}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.01em}
+  .brand-mark{width:22px;height:22px;border-radius:5px;background:linear-gradient(135deg,#6366f1,#2D1B69);display:grid;place-items:center;font-family:var(--mono);font-size:11px;color:#fff;font-weight:700}
+  .brand-label{font-size:13px;color:var(--muted)}
+  .brand-label b{color:#fff;font-weight:600}
+  .topbar-actions{display:flex;align-items:center;gap:10px}
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:9999px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--muted)}
+  .pill .dot{width:6px;height:6px;border-radius:9999px;background:var(--accent2);box-shadow:0 0 12px var(--accent2)}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:8px;font-weight:500;font-size:13px;border:0;cursor:pointer;transition:all .18s}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{background:var(--accent-deep);transform:translateY(-1px)}
+  .btn-ghost{background:rgba(255,255,255,.04);color:#fff;border:1px solid rgba(255,255,255,.12)}
+  .btn-ghost:hover{background:rgba(255,255,255,.08)}
+
+  .hdr{padding:42px 0 26px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent2)}
+  .hdr h1{font-size:clamp(28px,4vw,42px);font-weight:600;letter-spacing:-.02em;margin:10px 0 8px;line-height:1.05}
+  .hdr .lede{color:var(--muted);max-width:720px;line-height:1.6;margin:0}
+  .meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:11px;color:var(--dim)}
+  .meta span{padding:5px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+
+  .scorestrip{margin-top:26px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .scorebox{background:var(--surface);padding:18px 18px 16px}
+  .scorebox .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+  .scorebox .v{font-size:26px;font-weight:600;letter-spacing:-.02em}
+  .verdict-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 11px;border-radius:9999px;font-size:11px;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;background:rgba(239,68,68,.12);color:var(--bad);border:1px solid rgba(239,68,68,.3);margin-top:14px}
+
+  .tabs-shell{position:sticky;top:53px;z-index:25;background:rgba(10,10,10,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);margin-top:28px}
+  .tabs{display:flex;gap:4px;overflow-x:auto;max-width:1180px;margin:0 auto;padding:0 12px;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{padding:14px 16px;background:transparent;border:0;color:var(--muted);font-size:13.5px;font-weight:500;font-family:inherit;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s}
+  .tab:hover{color:#fff}
+  .tab.active{color:#fff;border-bottom-color:var(--accent2)}
+  .tab .count{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:9999px;font-family:var(--mono);font-size:10px;background:rgba(255,255,255,.06);color:var(--dim)}
+  .tab.active .count{background:rgba(99,102,241,.18);color:var(--accent2)}
+
+  .panel{display:none;padding:36px 0 80px}
+  .panel.active{display:block}
+  .panel h2{font-size:24px;font-weight:600;letter-spacing:-.01em;margin:0 0 6px}
+  .panel .panel-lede{color:var(--muted);max-width:720px;margin:0 0 24px;line-height:1.6}
+
+  .find{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px 22px;margin-bottom:14px;display:grid;grid-template-columns:auto 1fr;gap:18px;transition:border-color .18s,opacity .18s}
+  .find.resolved{opacity:.52;border-color:var(--linestrong)}
+  .find.resolved .find-title{text-decoration:line-through;text-decoration-color:rgba(255,255,255,.3)}
+  .find-check{margin-top:3px}
+  .find-check input{width:20px;height:20px;cursor:pointer;accent-color:var(--accent)}
+
+  .find-head{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+  .find-title{font-size:15.5px;font-weight:600;letter-spacing:-.005em;line-height:1.35;margin:0}
+  .sev{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid}
+  .sev-p0{background:rgba(239,68,68,.1);color:#fca5a5;border-color:rgba(239,68,68,.35)}
+  .sev-p1{background:rgba(245,158,11,.08);color:#fcd34d;border-color:rgba(245,158,11,.3)}
+  .sev-p2{background:rgba(129,140,248,.08);color:var(--accent2);border-color:rgba(129,140,248,.3)}
+  .find-loc{font-family:var(--mono);font-size:10.5px;color:var(--dim);letter-spacing:.04em}
+
+  .find-body{font-size:13.5px;color:var(--muted);line-height:1.65}
+  .find-body p{margin:0 0 10px}
+  .find-body p:last-child{margin-bottom:0}
+  .find-body .label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:14px;margin-bottom:5px}
+  .find-body code{font-family:var(--mono);font-size:12px;background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;color:#e4e4e7}
+  .find-body .quote{border-left:2px solid var(--linestrong);padding-left:12px;color:#d4d4d8;font-style:italic;margin:6px 0}
+  .find-body .fix{color:#fff}
+
+  .find-actions{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+  .find-actions a{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:6px;border:1px solid var(--line);background:rgba(255,255,255,.02);color:var(--muted);font-size:12px;font-weight:500;transition:all .15s}
+  .find-actions a:hover{border-color:rgba(99,102,241,.45);color:#fff;background:rgba(99,102,241,.08)}
+
+  .es-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0 28px}
+  .es-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+  .es-card .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+  .es-card .v{font-size:30px;font-weight:600;letter-spacing:-.02em;line-height:1}
+  .es-card .v.p0{color:#fca5a5}
+  .es-card .v.p1{color:#fcd34d}
+  .es-card .v.p2{color:var(--accent2)}
+  .es-card .desc{color:var(--muted);font-size:12.5px;margin-top:6px;line-height:1.5}
+  .es-prose{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:24px 26px;line-height:1.7;color:#d4d4d8;font-size:14.5px}
+  .es-prose p{margin:0 0 14px}
+  .es-prose p:last-child{margin-bottom:0}
+  .es-prose strong{color:#fff}
+
+  .rmap{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+  .rmap-col{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px 22px}
+  .rmap-col h3{margin:0 0 4px;font-size:15px;font-weight:600;letter-spacing:-.005em}
+  .rmap-col .when{font-family:var(--mono);font-size:10.5px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+  .rmap-col ul{list-style:none;padding:0;margin:0}
+  .rmap-col li{padding:9px 0;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px;line-height:1.5}
+  .rmap-col li:first-child{border-top:0;padding-top:0}
+  .rmap-col.p0{border-color:rgba(239,68,68,.3)}
+  .rmap-col.p0 h3{color:#fca5a5}
+  .rmap-col.p1 h3{color:#fcd34d}
+  .rmap-col.p2 h3{color:var(--accent2)}
+
+  .prog{position:relative;width:160px;height:6px;background:var(--surface2);border-radius:9999px;overflow:hidden}
+  .prog-bar{position:absolute;top:0;left:0;bottom:0;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:9999px;transition:width .35s cubic-bezier(.2,.8,.2,1)}
+  .prog-label{font-family:var(--mono);font-size:11px;color:var(--muted)}
+
+  @media(max-width:880px){
+    .scorestrip{grid-template-columns:repeat(2,1fr)}
+    .es-grid{grid-template-columns:1fr 1fr}
+    .rmap{grid-template-columns:1fr}
+    .topbar-actions .pill,.topbar-actions .prog,.topbar-actions .prog-label{display:none}
+  }
+  @media(max-width:560px){
+    .find{grid-template-columns:1fr;gap:10px}
+    .scorestrip{grid-template-columns:1fr 1fr}
+    .es-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================ TOP BAR ============================ -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-mark">K</div>
+      <div>
+        <div><b>Klaut</b> <span class="brand-label">Audit Pra-Peluncuran · Bahasa Indonesia</span></div>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <span class="prog-label" id="progLabel">0 dari 35 selesai</span>
+      <div class="prog"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
+      <span class="pill"><span class="dot"></span> Live · terhubung ke index.html</span>
+      <a href="./index.html" target="_blank" rel="noopener" class="btn btn-ghost">Buka situs →</a>
+      <button class="btn btn-primary" id="resetBtn" title="Hapus semua centang">Reset</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================ HEADER ============================ -->
+<header class="hdr">
+  <div class="wrap">
+    <div class="eyebrow">Internal · QA Pra-Peluncuran</div>
+    <h1>Situs ini belum siap diluncurkan.</h1>
+    <p class="lede">Ini daftar yang ada di meja saya sampai versi Bahasa siap publik. Setiap item di bawah harus diperbaiki, ditunda dengan alasan tertulis, atau saya tanda-tangani sebelum landing ini terbuka untuk traffic. Centang setiap kotak saat pekerjaannya selesai. Progress bar di atas menampilkan apa yang sudah benar-benar selesai — bukan apa yang direncanakan.</p>
+    <div class="meta">
+      <span>DIAUDIT · klaut-landing/index.html</span>
+      <span>OWNER · Calvin Wong</span>
+      <span>TANGGAL · 2026-05-14</span>
+      <span>STAGE · Pra-pendapatan, pra-traffic</span>
+    </div>
+
+    <div class="scorestrip">
+      <div class="scorebox">
+        <div class="k">Total Temuan</div>
+        <div class="v">35</div>
+      </div>
+      <div class="scorebox">
+        <div class="k">P0 · Blocker peluncuran</div>
+        <div class="v" style="color:#fca5a5">8</div>
+      </div>
+      <div class="scorebox">
+        <div class="k">P1 · Pembunuh kredibilitas</div>
+        <div class="v" style="color:#fcd34d">12</div>
+      </div>
+      <div class="scorebox">
+        <div class="k">P2 · Pemolesan</div>
+        <div class="v" style="color:var(--accent2)">15</div>
+      </div>
+    </div>
+
+    <div class="verdict-badge"><span style="width:6px;height:6px;border-radius:9999px;background:var(--bad)"></span> Tahan peluncuran · selesaikan P0 + P1 dulu</div>
+  </div>
+</header>
+
+<!-- ============================ TABS ============================ -->
+<div class="tabs-shell">
+  <div class="tabs" role="tablist">
+    <button class="tab active" data-tab="exec">Ringkasan Eksekutif</button>
+    <button class="tab" data-tab="typos">Typo &amp; Tata Bahasa <span class="count">8</span></button>
+    <button class="tab" data-tab="copy">Copy &amp; Pemilihan Kata <span class="count">8</span></button>
+    <button class="tab" data-tab="design">Desain &amp; UX <span class="count">7</span></button>
+    <button class="tab" data-tab="message">Pesan &amp; Gaya AI-Writing <span class="count">6</span></button>
+    <button class="tab" data-tab="scale">Skalabilitas <span class="count">6</span></button>
+    <button class="tab" data-tab="verdict">Verdict &amp; Roadmap</button>
+  </div>
+</div>
+
+<!-- ============================ EXECUTIVE SUMMARY ============================ -->
+<section class="panel active" id="panel-exec">
+  <div class="wrap">
+    <h2>Apa yang saya lihat saat membuka situs ini sebagai calon klien.</h2>
+    <p class="panel-lede">Struktur sudah ada. Cerita belum. Tiga kelas masalah menahan peluncuran — angka palsu untuk bukti yang belum kita miliki, nama produk yang berbeda di tiga tempat berbeda, dan kesalahan kecil tata bahasa yang akan ikut masuk ke setiap screenshot yang diambil orang.</p>
+
+    <div class="es-grid">
+      <div class="es-card">
+        <div class="k">Blocker Peluncuran</div>
+        <div class="v p0">8</div>
+        <div class="desc">Selesaikan sebelum traffic apa pun. Angka "diterapkan" yang fiktif, link mati, fragmen kalimat di copy yang dekat headline.</div>
+      </div>
+      <div class="es-card">
+        <div class="k">Pembunuh Kredibilitas</div>
+        <div class="v p1">12</div>
+        <div class="desc">Selesaikan sebelum traffic berbayar atau PR. Penamaan layanan yang berbeda dengan strategy doc, frasa hype yang dilarang, "anda" huruf kecil.</div>
+      </div>
+      <div class="es-card">
+        <div class="k">Pemolesan</div>
+        <div class="v p2">15</div>
+        <div class="desc">Dalam 30 hari. Studi kasus nyata, isi halaman FAQ, analytics, form lead, privacy/terms, lokalisasi marquee.</div>
+      </div>
+    </div>
+
+    <div class="es-prose">
+      <p><strong>Tiga hal yang membuat halaman ini belum boleh publik.</strong></p>
+      <p>Pertama — di bagian Industries, tile Inventory Management menampilkan <code>7 DITERAPKAN</code> dan Marketplace menampilkan <code>4 DITERAPKAN</code>. Kita belum mengirimkan tujuh deployment inventory. Kita belum mengirimkan empat deployment marketplace. Prospek yang minta lihat satu saja akan menutup percakapan dengan kita terlihat berbohong. Hapus hari ini, atau ganti dengan angka yang bisa dipertahankan di telepon.</p>
+      <p>Kedua — grid empat layanan memakai <code>Konsultasi / Chief AI Officer / Klaut Governance / Audit</code>. Footer memakai variasi berbeda. Strategy doc (klaud.md) menamai keempat komponen sebagai <code>Foundation / Chief AI Officer / Klaut Governance / Flow</code>. Tiga kosakata berbeda untuk produk yang sama, di dalam satu situs. Pilih satu set nama dan terapkan ke seluruh halaman, footer, navigasi, deck, dan email signature.</p>
+      <p>Ketiga — subjudul hero adalah <code>Konsultasi · Rancang · Deploy</code>. Bagian Alur Transformasi AI menampilkan enam fase: <code>Konsultasi / Diagnosa / Design / Bangun / Deploy / Otonomi</code>. Pembaca menggulir satu kali dan pesan sudah berubah bentuk. Selaraskan keduanya.</p>
+      <p>Sisa temuan adalah turunan dari ketiga hal itu. Yang di tab "Typo &amp; Tata Bahasa" adalah hal yang akan terlihat di screenshot pertama. Yang di tab "Pesan &amp; AI-Writing" menentukan apakah halaman ini terdengar seperti Klaut atau seperti homepage setiap vendor AI lain. Yang di tab "Skalabilitas" adalah apa yang patah saat traffic benar-benar datang — tidak ada form lead, tidak ada analytics, tidak ada FAQ yang sudah terisi, tidak ada studi kasus untuk orang yang klik "Studi Kasus".</p>
+      <p>Estimasi waktu menutup P0 + P1: dua sesi kerja fokus. Estimasi sampai semua P2 selesai dan kita pede membuka publik: dua sampai tiga minggu.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TYPOS & GRAMMAR ============================ -->
+<section class="panel" id="panel-typos">
+  <div class="wrap">
+    <h2>Typo &amp; Tata Bahasa</h2>
+    <p class="panel-lede">Kesalahan kecil, biaya besar. Typo di body text masih bisa dimaafkan. Fragmen kalimat di judul service card terbaca sebagai kecerobohan — kebalikan persis dari posisi yang sedang kita bayar untuk dibangun.</p>
+
+    <!-- T1 -->
+    <article class="find" data-id="T1" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">"anda" huruf kecil di seluruh halaman.</h3>
+          <span class="find-loc">Site-wide · banyak titik</span>
+        </div>
+        <div class="find-body">
+          <p>Konvensi Bahasa Indonesia formal: <code>Anda</code> selalu kapital sebagai bentuk hormat. Di halaman ini muncul sebagai huruf kecil di setidaknya empat tempat — judul CAO (<em>"hidup anda lebih mudah"</em>), Flow phase 1 (<em>"perusahaan anda"</em>), Flow phase 6 (<em>"Upscale perusahaan anda"</em>), dan deskripsi CAO (<em>"kebutuhan anda"</em>).</p>
+          <p>Untuk klien enterprise dan UMKM Indonesia, ini langsung terbaca sebagai tidak diproof.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Cari-dan-ganti seluruh kata <code>anda</code> menjadi <code>Anda</code> di seluruh file index.html.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#cao" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- T2 -->
+    <article class="find" data-id="T2" data-sev="p0">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p0">P0</span>
+          <h3 class="find-title">"Audit kode untuk memastikan AI agent Anda tidak menjadi terminator di masa depan."</h3>
+          <span class="find-loc">#ecosystems · kartu Audit</span>
+        </div>
+        <div class="find-body">
+          <p>Dua masalah. Pertama — kalimatnya fragmen tanpa kata kerja utama (frase nomina yang dimodifikasi infinitif). Kedua — "menjadi terminator" adalah lelucon. Sisa situs diposisikan untuk procurement officer di perusahaan menengah. Lelucon itu tidak selamat di hadapan audiens tersebut.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">"Kami mengaudit setiap baris kode dan setiap alur keputusan agent agar sistem yang Anda deploy tetap berada di bawah kendali Anda."</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#ecosystems" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- T3 -->
+    <article class="find" data-id="T3" data-sev="p0">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p0">P0</span>
+          <h3 class="find-title">"Upscale perusahaan anda menjadi automated."</h3>
+          <span class="find-loc">#flow · Fase 06 · Otonomi</span>
+        </div>
+        <div class="find-body">
+          <p>Tiga masalah dalam satu kalimat pendek. <code>Upscale</code> dan <code>automated</code> adalah kata Inggris yang ditempel ke kalimat Indonesia tanpa konversi. <code>anda</code> huruf kecil. Tidak ada titik di akhir. Ini fase terakhir dari alur kita — kalimat yang seharusnya menutup janji enam-fase.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">"Kembangkan perusahaan Anda menjadi enterprise yang berjalan otonom."</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#flow" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- T4 -->
+    <article class="find" data-id="T4" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">Comma splice + huruf kecil setelah tanda tanya di kartu "Deploy sesuai kebutuhan".</h3>
+          <span class="find-loc">#why · kartu 2</span>
+        </div>
+        <div class="find-body">
+          <p class="quote">"Butuh customer service? kami siap. Hanya butuh CRM? tidak masalah. Butuh seluruh ekosistem kami? hubungi kami sekarang"</p>
+          <p>Setiap klausa setelah tanda tanya dimulai dengan huruf kecil. Klausa terakhir tidak punya titik. Register-nya melompat dari nada enterprise yang dibangun di seluruh halaman menjadi obrolan chat customer service.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">"Butuh customer service? Beres. Butuh CRM saja? Bisa. Butuh seluruh ekosistem? Ayo bicara."</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#why" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- T5 -->
+    <article class="find" data-id="T5" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">Tidak ada preposisi + bentuk plural di kartu Klaut Governance.</h3>
+          <span class="find-loc">#ecosystems · kartu Klaut Governance</span>
+        </div>
+        <div class="find-body">
+          <p class="quote">"Membangun AI agent, sepenuhnya dijalankan oleh kami. Anda mendapat akses dashboard dan laporan lengkap, tanpa ribet."</p>
+          <p>Dua isu. Kalimat pertama adalah fragmen — "Membangun" sebagai gerund tanpa subjek. "Akses dashboard" hilang preposisi <em>"ke"</em>. Laporan bulanan akan diberikan berulang, jadi bentuk tunggal terdengar seperti satu laporan saja.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">"Kami membangun dan mengoperasikan AI agent untuk Anda. Anda dapat akses <strong>ke</strong> dashboard dan laporan rutin, tanpa repot."</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#ecosystems" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- T6 -->
+    <article class="find" data-id="T6" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">"Identifikasi titik masalah dan merancang solusi."</h3>
+          <span class="find-loc">#flow · Fase 02 · Diagnosa</span>
+        </div>
+        <div class="find-body">
+          <p>Struktur paralel rusak. <code>Identifikasi</code> adalah bentuk nomina/imperatif sementara <code>merancang</code> adalah bentuk verbal aktif. Pembaca yang teliti akan melihat ini sebagai kalimat yang tidak diperiksa.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">"Mengidentifikasi titik masalah dan merancang solusi." — atau bentuk imperatif paralel: <em>"Identifikasi titik masalah, rancang solusinya."</em></p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#flow" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- T7 -->
+    <article class="find" data-id="T7" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">Tidak ada titik di akhir paragraf kartu "Konsultasi Gratis".</h3>
+          <span class="find-loc">#why · kartu 1</span>
+        </div>
+        <div class="find-body">
+          <p class="quote">"Konsultasi pertama Anda gratis. Kami siap membantu Anda memahami apa yang Anda butuhkan. Secangkir kopi selalu diterima dengan senang hati"</p>
+          <p>Kalimat terakhir tanpa titik. Frasa "diterima dengan senang hati" juga sedikit terlalu panjang untuk efek yang ingin dicapai.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">"Konsultasi pertama gratis. Kami bantu Anda memahami apa yang dibutuhkan. Secangkir kopi selalu disambut."</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#why" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- T8 -->
+    <article class="find" data-id="T8" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">"Membangun AI agent, dikelola oleh Anda, dikembangkan untuk setiap lapisan manajemen di perusahaan"</h3>
+          <span class="find-loc">#ecosystems · kartu Chief AI Officer</span>
+        </div>
+        <div class="find-body">
+          <p>Fragmen tanpa subjek (siapa yang "membangun"?). Tidak ada titik di akhir. Frasa "lapisan manajemen di perusahaan" agak berputar.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">"Kami membangun AI agent untuk dikelola oleh tim Anda — dirancang agar relevan di setiap level manajemen."</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#ecosystems" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================ COPY & WORDING ============================ -->
+<section class="panel" id="panel-copy">
+  <div class="wrap">
+    <h2>Copy &amp; Pemilihan Kata</h2>
+    <p class="panel-lede">Sebuah landing page adalah satu argumen yang berkelanjutan. Setiap bagian memperkuat pesan atau membantahnya. Saat ini halaman ini membantah dirinya sendiri dalam satu kali scroll.</p>
+
+    <!-- C1 -->
+    <article class="find" data-id="C1" data-sev="p0">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p0">P0</span>
+          <h3 class="find-title">"Konsultasi · Rancang · Deploy" tidak cocok dengan alur sebenarnya.</h3>
+          <span class="find-loc">Hero · subjudul vs. #flow</span>
+        </div>
+        <div class="find-body">
+          <p>Hero menjanjikan engagement tiga langkah. Bagian Alur Transformasi menampilkan enam fase: Konsultasi / Diagnosa / Design / Bangun / Deploy / Otonomi. Pembaca scroll satu kali dan ceritanya sudah berubah bentuk.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Pilih satu model. Preferensi saya: alur enam-fase lebih dekat ke yang benar-benar kita lakukan — ganti subjudul hero menjadi empat klausa pendek: <code>"Konsultasi. Diagnosa. Bangun. Operasikan."</code></p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#top" target="_blank" rel="noopener">Lihat hero →</a>
+          <a href="./index.html#flow" target="_blank" rel="noopener">Lihat alur →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- C2 -->
+    <article class="find" data-id="C2" data-sev="p0">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p0">P0</span>
+          <h3 class="find-title">Tiga nama berbeda untuk arsitektur empat-layanan.</h3>
+          <span class="find-loc">#ecosystems vs. footer vs. strategy doc</span>
+        </div>
+        <div class="find-body">
+          <p>Grid Ekosistem mencantumkan <code>Konsultasi / Chief AI Officer / Klaut Governance / Audit</code>. Footer mencantumkan <code>Konsultasi / Chief AI Officer / Governance / Audit</code>. Strategy doc internal (klaud.md) mendefinisikan keempat komponen sebagai <code>Foundation / Chief AI Officer / Klaut Governance / Flow</code>.</p>
+          <p>Inkonsistensi tunggal paling merusak di seluruh situs. Pembaca yang membandingkan grid, footer, dan one-pager yang kita kirim akan melihat tiga kosakata berbeda untuk produk yang sama.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Kunci empat nama. Rekomendasi saya: selaraskan dengan strategy doc — <strong>Foundation / Chief AI Officer / Klaut Governance / Flow</strong> — dan pakai kata persis tersebut di grid, footer, navigasi, setiap email signature. Atau, jika kita pertahankan "Audit" untuk produk keempat, update klaud.md agar match. Boleh ke arah mana saja, tapi pilih satu.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#ecosystems" target="_blank" rel="noopener">Lihat grid →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- C3 -->
+    <article class="find" data-id="C3" data-sev="p0">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p0">P0</span>
+          <h3 class="find-title">Angka "DITERAPKAN" palsu di tile Industries.</h3>
+          <span class="find-loc">#industries · Inventory + Marketplace</span>
+        </div>
+        <div class="find-body">
+          <p>Dua kartu industry menampilkan <code>7 DITERAPKAN</code> dan <code>4 DITERAPKAN</code>. Kita pra-pendapatan. Prospek yang bertanya <em>"Boleh saya lihat salah satu dari tujuh deployment inventory itu?"</em> menutup percakapan dengan kita terlihat berbohong.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Hapus angkanya. Kalau perlu sinyal di sana, ganti dengan sesuatu yang bisa dipertahankan: <code>"STACK PARTNER SIAP"</code>, <code>"DALAM PEMBANGUNAN"</code>, atau hilangkan baris metadata sama sekali sampai punya angka beneran.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#industries" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- C4 -->
+    <article class="find" data-id="C4" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">Link "Lihat hasil →" tidak ke mana-mana.</h3>
+          <span class="find-loc">#industries · semua enam tile</span>
+        </div>
+        <div class="find-body">
+          <p>Setiap kartu industry punya affordance "Lihat hasil →". Tidak satu pun yang terhubung ke tujuan apa pun. Hover mengindikasikan klik; klik mengindikasikan tidak ada apa-apa.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Hubungkan tile ke halaman studi kasus nyata (yang belum kita punya), atau hilangkan affordance-nya. Membiarkan link mati di hari peluncuran memberi kesan kita tidak menguji situs sendiri.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#industries" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- C5 -->
+    <article class="find" data-id="C5" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">CTA "Studi Kasus" mengarah ke grid layanan, bukan studi kasus.</h3>
+          <span class="find-loc">Hero · CTA sekunder</span>
+        </div>
+        <div class="find-body">
+          <p>CTA sekunder di hero adalah <code>"Studi Kasus"</code> dengan <code>href="#ecosystems"</code>. Bagian ecosystems adalah grid empat-layanan. Tidak ada studi kasus di halaman ini.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Sampai halaman studi kasus dibuat, ubah tulisan tombol menjadi <code>"Cara kami bekerja"</code> dengan anchor yang sama. Atau hapus saja CTA sekunder dan biarkan <code>"Hubungi Kami"</code> membawa aksinya.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#top" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- C6 -->
+    <article class="find" data-id="C6" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">"Karir" dan "Kerja Sama" di footer mengarah ke anchor yang salah.</h3>
+          <span class="find-loc">Footer · kolom Perusahaan</span>
+        </div>
+        <div class="find-body">
+          <p><code>Karir</code> link ke <code>#cao</code> (bagian Chief AI Officer). <code>Kerja Sama</code> link ke <code>#flow</code> (bagian Alur Transformasi enam-fase). Tidak satu pun anchor yang sesuai dengan label yang ditampilkan.</p>
+          <p><code>Kontak Media</code> adalah <code>href="#"</code> — link mati ke atas halaman.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Hapus Karir, Kerja Sama, dan Kontak Media dari footer sampai kita punya halaman atau jalur kontak nyata untuk masing-masing. Ganti dengan satu kolom <code>"Kontak"</code> yang link ke <code>mailto:</code>.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#" target="_blank" rel="noopener">Lihat footer →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- C7 -->
+    <article class="find" data-id="C7" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">Judul tile Industry campur Inggris dan Indonesia.</h3>
+          <span class="find-loc">#industries · seluruh grid</span>
+        </div>
+        <div class="find-body">
+          <p>Enam tile, dua bahasa: <code>Financial Services</code>, <code>Inventory Management &amp; ERP</code>, <code>Sales &amp; Customer Service</code>, <code>Marketplace</code> (semua Inggris) — sementara <code>Administrasi</code> dan <code>Legal &amp; Dokumen</code> (Indonesia). Halaman ini sudah berada di <code>klaut.id/</code>, versi <code>lang="id"</code>. Konsistensi bahasa harus penuh.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Terjemahkan seluruh judul: <em>"Jasa Keuangan", "Manajemen Inventaris &amp; ERP", "Penjualan &amp; Layanan Pelanggan", "Marketplace"</em>. Atau, jika "Marketplace" sudah jadi kata pinjaman yang lazim, pertahankan tapi terjemahkan yang lain.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#industries" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- C8 -->
+    <article class="find" data-id="C8" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">"HARGA · Sesuai permintaan" dan "TEKNOLOGI · Berdasarkan pilihan" tidak memberi tahu pembaca apa pun.</h3>
+          <span class="find-loc">#about · stat grid</span>
+        </div>
+        <div class="find-body">
+          <p>Empat kata yang artinya bisa "kami akan beri penawaran" atau "kami belum tahu". Untuk pembeli pasar menengah, opasitas harga adalah sinyal friksi. Mereka tidak minta rate card publik. Mereka minta perkiraan kasar sebelum menghabiskan 30 menit di telepon.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Ganti dengan kisaran harga yang tidak mengikat: <code>"Engagement mulai Rp X juta"</code> untuk produk Foundation. Kalau memang belum mau publish angka, hapus tile Harga seluruhnya — lebih baik tidak ada daripada vague.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#about" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================ DESIGN & UX ============================ -->
+<section class="panel" id="panel-design">
+  <div class="wrap">
+    <h2>Desain &amp; UX</h2>
+    <p class="panel-lede">Secara visual halaman ini bekerja. Masalahnya satu lapisan di bawah desain — affordance yang rusak, icon yang tidak match, sisa artifact developer di HTML, dan infrastruktur yang belum ada untuk procurement enterprise.</p>
+
+    <!-- D1 -->
+    <article class="find" data-id="D1" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">Icon di tile Industry tidak sesuai dengan kontennya.</h3>
+          <span class="find-loc">#industries · beberapa tile</span>
+        </div>
+        <div class="find-body">
+          <p>Tile "Inventory Management &amp; ERP" memakai <strong>icon hati</strong>. Tile "Sales &amp; Customer Service" memakai <strong>icon atap pabrik</strong>. Komentar HTML di atas masing-masing kartu masih bertuliskan <code>&lt;!-- Healthcare --&gt;</code>, <code>&lt;!-- Manufacturing --&gt;</code>, <code>&lt;!-- Public Sector --&gt;</code> — sisa dari daftar industry sebelumnya.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Ganti icon agar sesuai konten (kotak untuk inventory, headset untuk sales/CS, dokumen untuk legal, etalase untuk marketplace). Hapus juga komentar HTML yatim sekalian.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#industries" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- D2 -->
+    <article class="find" data-id="D2" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">Ritme footer di tile Industry rusak.</h3>
+          <span class="find-loc">#industries · grid</span>
+        </div>
+        <div class="find-body">
+          <p>Dua dari enam tile menampilkan angka "DITERAPKAN" (yang akan kita hapus per <code>C3</code>). Empat tile menampilkan kosong di tempat yang sama. Hasilnya grid dengan dua tile berbobot visual lebih berat dan empat lebih ringan, tanpa alasan semantik.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Setelah angka palsu dihapus (C3), beri setiap tile footer yang sama — misalnya tag kecil <code>"Tersedia untuk engagement"</code>, atau hilangkan baris bawah di seluruh tile.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#industries" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- D3 -->
+    <article class="find" data-id="D3" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">Tidak ada tag analytics di halaman.</h3>
+          <span class="find-loc">&lt;head&gt;</span>
+        </div>
+        <div class="find-body">
+          <p>Saya cek bagian head — structured data Organization dan WebSite ada. Tidak ada GA4, Plausible, Posthog, atau script pengukuran lain. Meluncurkan halaman ini tanpa analytics berarti kita tidak tahu apakah pengunjung bounce di hero, di grid layanan, atau di CTA.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Pilih satu. Plausible adalah opsi paling ringan untuk landing marketing — tidak butuh cookie banner di kebanyakan yurisdiksi (termasuk Indonesia di bawah UU PDP), cukup satu script tag. Pasang sebelum traffic.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html" target="_blank" rel="noopener">Lihat halaman →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- D4 -->
+    <article class="find" data-id="D4" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">Tidak ada link Kebijakan Privasi atau Ketentuan.</h3>
+          <span class="find-loc">Footer</span>
+        </div>
+        <div class="find-body">
+          <p>Review procurement enterprise akan menolak vendor tanpa notice privasi yang dipublikasikan. UU PDP Indonesia mengharuskan pemberitahuan pemrosesan data pribadi. Untuk audiens di Indonesia dan reach internasional via halaman EN, ini wajib.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Tambahkan link Privasi dan Ketentuan di footer. Publikasikan kebijakan-nya meskipun pendek — notice privasi satu halaman lebih baik daripada tidak ada policy di hari peluncuran.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#" target="_blank" rel="noopener">Lihat footer →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- D5 -->
+    <article class="find" data-id="D5" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">"2025 . Jakarta" dengan spasi nyasar, dan tahunnya tidak match dengan strategy doc.</h3>
+          <span class="find-loc">#about · stat grid · tile Didirikan</span>
+        </div>
+        <div class="find-body">
+          <p>Tile Didirikan bertulis <code>"2025 . Jakarta"</code> dengan konstruksi spasi-titik-spasi. Strategy doc mencantumkan tahun pendirian sebagai <code>2026</code>.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Konsolidasi ke satu tahun. Pakai <code>"Didirikan 2026 · Jakarta"</code> dengan middle dot tipografis (·), konsisten dengan eyebrow label lain di situs.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#about" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- D6 -->
+    <article class="find" data-id="D6" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">Kontras hero di mobile — verifikasi di perangkat nyata.</h3>
+          <span class="find-loc">CSS · @media (max-width: 767px)</span>
+        </div>
+        <div class="find-body">
+          <p>Video hero di mobile turun ke opacity .55 dengan overlay gelap di atasnya. Di layar HP terang di bawah sinar matahari, kontras H1 bisa mendekati batas WCAG AA.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Tes di HP beneran di bawah sinar matahari — bukan hanya di browser dev tools. Kalau kontrasnya pas-pasan, hilangkan video hero di mobile dan ganti dengan gradient statis.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#top" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- D7 -->
+    <article class="find" data-id="D7" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">Label statistik hero — spasi nyasar dan kapitalisasi tidak konsisten.</h3>
+          <span class="find-loc">Hero · metric strip</span>
+        </div>
+        <div class="find-body">
+          <p>Label "/ Hemat " punya spasi nyasar di akhir. Empat label memakai konvensi kapitalisasi berbeda — semua kata kapital ("Lebih Dari", "Hingga", "Hemat", "Siaga"), tapi di Indonesia formal hanya kata pertama yang dikapitalisasi dalam label seperti ini.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Trim spasi nyasar. Normalisasi label: <code>"Hingga"</code>, <code>"Lebih dari"</code>, <code>"Hemat"</code>, <code>"Standby"</code> — atau pilih konvensi title case yang konsisten untuk semuanya.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#top" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================ MESSAGE & AI-WRITING ============================ -->
+<section class="panel" id="panel-message">
+  <div class="wrap">
+    <h2>Pesan &amp; Gaya AI-Writing</h2>
+    <p class="panel-lede">Aturan anti-AI-writing yang saya tulis adalah standarnya. Kalau ada kalimat di situs yang gagal lolos aturan itu, dia tinggal di tab ini sampai dia ditulis ulang. Bahasa hype, frasa performatif, tumpukan tiga adjektif berturut — semua di-flag di sini.</p>
+
+    <!-- M1 -->
+    <article class="find" data-id="M1" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">"Menyelaraskan hubungan Manusia &amp; AI untuk masa depan yang lebih baik."</h3>
+          <span class="find-loc">#about · kalimat pembuka</span>
+        </div>
+        <div class="find-body">
+          <p>Ini bahasa marketing aspiratif yang persis dilarang oleh aturan menulis. Tidak mengatakan apa-apa secara konkret. Cabut kalimat ini dari halaman dan halaman tidak kehilangan informasi sedikit pun.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Ganti dengan satu kalimat yang menyatakan apa yang kita kirimkan. Contoh: <em>"Kami merancang, membangun, dan mengoperasikan stack AI yang tidak bisa dirakit sendiri oleh perusahaan menengah."</em></p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#about" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- M2 -->
+    <article class="find" data-id="M2" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">"Manusia &amp; AI · Bekerja dalam harmoni."</h3>
+          <span class="find-loc">#cta · h2</span>
+        </div>
+        <div class="find-body">
+          <p>Headline CTA terakhir. Terbaca seperti chorus pitch vendor generik. Kita menutup halaman dengan kalimat paling forgettable yang ada di seluruh halaman.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Akhiri dengan penawaran, bukan slogan. Contoh: <em>"Beritahu apa yang ingin Anda perbaiki. Kami akan beritahu apakah AI adalah bentuk jawaban yang tepat."</em></p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#cta" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- M3 -->
+    <article class="find" data-id="M3" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">"enterprise" / "berkelas enterprise" / "skala enterprise" / "kelas enterprise" — empat varian, satu kata hype.</h3>
+          <span class="find-loc">Site-wide</span>
+        </div>
+        <div class="find-body">
+          <p>Kata muncul di title, meta description, H1 hero, paragraf About, tiga tile industry, dan section CAO — dalam empat bentuk berbeda. Saat satu descriptor membawa setiap section di halaman, dia berhenti bekerja sebagai pembeda.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Pertahankan "enterprise" di hero, meta, dan satu kalimat anchor. Ganti sisanya dengan hal spesifik yang dideskripsikan (workflow keuangan, sistem procurement, knowledge base) supaya pembaca dapat informasi alih-alih repetisi.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html" target="_blank" rel="noopener">Lihat halaman →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- M4 -->
+    <article class="find" data-id="M4" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">"Framework governance yang teruji di lingkungan teregulasi."</h3>
+          <span class="find-loc">#about · paragraf 2</span>
+        </div>
+        <div class="find-body">
+          <p>Klaim kuat. Kalau procurement officer atau wartawan bertanya <em>lingkungan teregulasi mana dan ujian apa yang sudah dilewati</em>, kita harus punya jawaban yang bersih. Pada tahap pra-pendapatan, ini klaim yang belum bisa kita substansiasi.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Dukung klaim dengan referensi spesifik (deployment customer service AI dari partner kita, atau framework regulasi tertentu yang kita rancangkan), atau ganti dengan kalimat yang lebih lunak: <em>"dirancang menghadapi batasan governance yang nyata di industri teregulasi."</em></p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#about" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- M5 -->
+    <article class="find" data-id="M5" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">Marquee buzzword — sembilan kategori Inggris di halaman Indonesia.</h3>
+          <span class="find-loc">Hero · marquee</span>
+        </div>
+        <div class="find-body">
+          <p>Sembilan label kategori generik scroll loop: Workflow Automation / AI Workforce / Document Intelligence / Operational AI / Enterprise Search / AI Governance / Agent Orchestration / Autonomous Systems / Knowledge Infrastructure.</p>
+          <p>Setengahnya belum kita kirimkan. Semuanya muncul di situs setiap kompetitor. Di halaman Indonesia, semuanya juga dalam bahasa Inggris — pembeli UMKM Indonesia akan baca tanpa mengerti.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Pangkas jadi empat sampai lima item yang benar-benar kita kirimkan, dan terjemahkan ke Bahasa Indonesia. Atau ganti marquee dengan baris logo klien begitu kita punya logo klien untuk dipasang.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#top" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- M6 -->
+    <article class="find" data-id="M6" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">"Banyak orang mengira AI akan menggantikan pekerjaan dan bisnis mereka…"</h3>
+          <span class="find-loc">#why · kartu kutipan</span>
+        </div>
+        <div class="find-body">
+          <p>Kutipan dicantumkan atas nama saya. Framing-nya adalah talking point paling generik di industri AI saat ini. Kalau ada kutipan yang nempel di situs di bawah nama saya, dia harus mengatakan sesuatu yang spesifik untuk cara Klaut bekerja — bukan reassurance konsensus.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Ganti dengan kutipan yang menyatakan sesuatu yang benar-benar diyakini Klaut — dan yang tidak akan dicuri kompetitor mana pun. Contoh: <em>"Kami tidak menjual AI. Kami menjual disiplin untuk memilih AI mana yang justru tidak boleh dideploy."</em></p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#why" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================ SCALABILITY ============================ -->
+<section class="panel" id="panel-scale">
+  <div class="wrap">
+    <h2>Skalabilitas</h2>
+    <p class="panel-lede">Apa yang patah saat traffic benar-benar datang? Lead capture, kualifikasi, kedalaman konten, leverage SEO. Ini tidak menghentikan peluncuran hari pertama — tapi membatasi pertumbuhan dari minggu kedua dan seterusnya.</p>
+
+    <!-- S1 -->
+    <article class="find" data-id="S1" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">Lead capture hanya mailto.</h3>
+          <span class="find-loc">Semua CTA</span>
+        </div>
+        <div class="find-body">
+          <p>Setiap jalur konversi di situs membuka klien email default pengguna. Itu bekerja untuk lima inbound pertama. Tidak bekerja untuk lima puluh pertama. Tidak ada intake terstruktur, tidak ada pertanyaan kualifikasi, tidak ada handoff kalender, tidak ada CRM hook.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Tambahkan form lead nyata di CTA terakhir — tiga field saja (nama, perusahaan, kebutuhan). Salurkan ke satu inbox + CRM (tier gratis HubSpot sudah cukup untuk stage satu). Pertahankan satu "Kirim email" sebagai fallback untuk pembeli yang lebih suka begitu.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#cta" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- S2 -->
+    <article class="find" data-id="S2" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">Link FAQ di navigasi, tapi status halamannya belum jelas.</h3>
+          <span class="find-loc">Nav · /faq</span>
+        </div>
+        <div class="find-body">
+          <p>Navigasi Bahasa link ke <code>/faq</code>. Kalau halaman itu belum ada atau belum diuji terhadap pertanyaan yang benar-benar muncul di panggilan, link-nya membuang traffic.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Verifikasi halaman FAQ ter-render. Isi dengan delapan sampai dua belas pertanyaan yang benar-benar muncul di percakapan awal — kisaran harga, durasi engagement, hubungan dengan vendor, lokasi penyimpanan data, ketentuan kontrak.</p>
+        </div>
+        <div class="find-actions">
+          <a href="/id/faq" target="_blank" rel="noopener">Coba FAQ →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- S3 -->
+    <article class="find" data-id="S3" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">Tidak ada studi kasus — dan situs menjanjikannya di tiga tempat.</h3>
+          <span class="find-loc">Hero CTA + nav + #industries</span>
+        </div>
+        <div class="find-body">
+          <p>CTA sekunder hero: "Studi Kasus". Navigasi: "Studi Kasus". Setiap tile industry: "Lihat hasil →". Tiga sinyal bukti yang belum kita miliki.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Sampai ada satu studi kasus nyata yang live, ganti setiap permukaan "studi kasus" menjadi "Cara kami bekerja" atau "Industri" atau hapus. Satu studi kasus pendek dan nyata (bahkan dari deployment customer service AI partner, kalau bisa dipakai) bobotnya melebihi enam tile industry.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#industries" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- S4 -->
+    <article class="find" data-id="S4" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">Tidak ada capture newsletter atau Substack.</h3>
+          <span class="find-loc">Site-wide</span>
+        </div>
+        <div class="find-body">
+          <p>Strategi konten yang ditetapkan menamai Substack sebagai channel thought-leadership dan email sebagai metode kontak utama. Tidak ada permukaan capture di homepage. Siapa pun yang suka halaman tapi belum siap booking call akan pergi tanpa cara untuk kita follow-up.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Tambahkan satu form email capture friksi rendah di dekat footer: <em>"Kami menulis satu catatan singkat per bulan tentang AI mana yang sudah dan belum siap untuk enterprise."</em></p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#" target="_blank" rel="noopener">Lihat footer →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- S5 -->
+    <article class="find" data-id="S5" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">Statistik hero — bold dan tanpa sumber.</h3>
+          <span class="find-loc">Hero · metric strip</span>
+        </div>
+        <div class="find-body">
+          <p>Empat angka mendasari hero: <code>70%</code> pengurangan beban kerja, <code>5X</code> lebih cepat, <code>60%</code> pengurangan biaya, <code>24/7</code> uptime. Tidak ada footnote, tidak ada sumber, tidak ada caveat "hingga" yang terlihat menonjol di scan pertama.</p>
+          <p>Saat skala — begitu angka-angka ini di-screenshot ke deck oleh orang lain — kita harus bisa mempertahankannya atau menariknya ke klaim yang bisa di-sumber.</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Untuk tiap metrik, link ke footnote metodologi atau parafrase: <em>"biasanya mengurangi beban kerja operasional 40–70%"</em>, <em>"klien melaporkan eksekusi 3–5× lebih cepat pada workflow terotomasi"</em>. Angka kecil yang bisa kita pertahankan kalah dari angka besar yang tidak.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#top" target="_blank" rel="noopener">Lihat di situs →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- S6 -->
+    <article class="find" data-id="S6" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">SEO — hanya Organization + WebSite schema, dan keyword tidak men-target Bahasa.</h3>
+          <span class="find-loc">&lt;head&gt; · JSON-LD + meta keywords</span>
+        </div>
+        <div class="find-body">
+          <p>Leverage SEO yang kita biarkan tidak terpakai. Schema Service untuk masing-masing dari empat produk akan membantu kita muncul untuk "konsultan AI Jakarta" / "AI untuk UMKM" / "Chief AI Officer Indonesia". Schema FAQ (begitu halaman /faq selesai) memberi kita rich snippets di Google.</p>
+          <p>Meta keywords ada tapi campur Bahasa-Inggris: <code>"solusi AI enterprise, AI agent Indonesia, konsultan AI"</code> bagus — tapi tidak ada keyword target geografis kunci seperti "AI Jakarta", "implementasi AI Indonesia", "AI agent UMKM".</p>
+          <span class="label">Perbaikan</span>
+          <p class="fix">Tambahkan Service JSON-LD untuk Foundation, Chief AI Officer, Klaut Governance, dan Flow (atau apa pun yang kita namai setelah C2). Tambahkan FAQPage schema saat /faq final. Perluas meta keywords ke kata kunci geografis yang konsumen Indonesia benar-benar cari.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html" target="_blank" rel="noopener">Lihat halaman →</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================ VERDICT & ROADMAP ============================ -->
+<section class="panel" id="panel-verdict">
+  <div class="wrap">
+    <h2>Verdict &amp; Roadmap</h2>
+    <p class="panel-lede">Satu paragraf verdict, tiga kolom kerja, satu definisi selesai. Apa pun yang tidak di kolom P0 tidak menahan peluncuran — tapi semua yang di P0 menahannya.</p>
+
+    <div class="es-prose" style="margin-bottom:26px">
+      <p><strong>Verdict.</strong> Landing Bahasa belum siap untuk traffic publik. Desain visual bekerja. Struktur bekerja. Kontennya yang menjadi celah — tiga konvensi penamaan yang saling bertabrakan untuk arsitektur empat-layanan yang sama, dua angka deployment palsu, empat kesalahan kecil tata bahasa di copy yang satu screenshot lagi sampai di channel Slack kompetitor. Tidak satu pun perbaikan ini sulit. Semuanya perlu.</p>
+      <p><strong>Definisi selesai untuk peluncuran.</strong> Setiap kotak P0 di audit ini ter-centang. Setiap kotak P1 ter-centang atau punya alasan tertulis untuk ditunda, di-log di dokumen project. Progress bar di atas halaman ini menunjukkan setidaknya <code>20 dari 35 selesai</code> — yang merupakan matematika dari menutup semua P0 plus semua P1 — sebelum kita pindahkan marketing dari "soft launch" ke apa pun yang berbayar.</p>
+    </div>
+
+    <div class="rmap">
+      <div class="rmap-col p0">
+        <h3>P0 · Blocker peluncuran</h3>
+        <div class="when">Sebelum traffic apa pun · kerja hari ini</div>
+        <ul>
+          <li>Hapus <code>7 DITERAPKAN</code> dan <code>4 DITERAPKAN</code> dari tile industry. (C3)</li>
+          <li>Pilih satu set empat nama layanan. Terapkan ke grid, footer, nav, setiap dokumen. (C2)</li>
+          <li>Selaraskan subjudul hero dengan alur sebenarnya — tiga langkah atau enam, bukan keduanya. (C1)</li>
+          <li>Tulis ulang kartu Audit. Buang lelucon "terminator". (T2)</li>
+          <li>Perbaiki fase 6 Otonomi: ganti "Upscale" dan "automated" jadi Bahasa. (T3)</li>
+          <li>Cari-dan-ganti seluruh <code>anda</code> menjadi <code>Anda</code>. (T1)</li>
+          <li>Perbaiki kartu Klaut Governance: "akses <strong>ke</strong> dashboard". (T5)</li>
+          <li>Tulis ulang kartu Why "Deploy sesuai kebutuhan" — kapitalisasi + tanda baca. (T4)</li>
+        </ul>
+      </div>
+      <div class="rmap-col p1">
+        <h3>P1 · Pembunuh kredibilitas</h3>
+        <div class="when">Sebelum traffic berbayar atau PR · minggu ini</div>
+        <ul>
+          <li>Perbaiki atau hapus link Karir / Kerja Sama / Kontak Media di footer. (C6)</li>
+          <li>Pasang kembali atau ganti nama CTA "Studi Kasus" di hero. (C5)</li>
+          <li>Sambungkan atau hapus setiap "Lihat hasil →". (C4)</li>
+          <li>Terjemahkan judul tile industry agar konsisten Bahasa. (C7)</li>
+          <li>Tulis ulang "Menyelaraskan hubungan Manusia &amp; AI…" (M1)</li>
+          <li>Tulis ulang h2 CTA: "Manusia &amp; AI Bekerja dalam harmoni." (M2)</li>
+          <li>Putuskan apakah "teruji di lingkungan teregulasi" tetap — kalau iya, beri sumber. (M4)</li>
+          <li>Pangkas marquee buzzword dan terjemahkan ke Bahasa. (M5)</li>
+          <li>Tulis ulang fase 2 Diagnosa agar struktur paralel: "Mengidentifikasi… merancang…" (T6)</li>
+          <li>Tulis ulang kartu Chief AI Officer agar tidak fragmen. (T8)</li>
+          <li>Perbaiki icon tile industry + hapus komentar HTML yatim. (D1)</li>
+          <li>Normalisasi footer tile industry — bentuk sama di setiap tile. (D2)</li>
+          <li>Pasang analytics. (D3)</li>
+          <li>Publikasikan Privasi + Ketentuan. (D4)</li>
+          <li>Pasang form lead nyata di balik "Hubungi Kami". (S1)</li>
+          <li>Verifikasi halaman /faq ada dan terisi. (S2)</li>
+          <li>Pastikan ada minimal satu studi kasus sebelum traffic berbayar. (S3)</li>
+        </ul>
+      </div>
+      <div class="rmap-col p2">
+        <h3>P2 · Pemolesan</h3>
+        <div class="when">Dalam 30 hari · periode soft-launch</div>
+        <ul>
+          <li>Ganti tile "HARGA · Sesuai permintaan" jadi kisaran harga atau hapus. (C8)</li>
+          <li>Perbaiki typo kecil: titik di akhir kartu Konsultasi Gratis. (T7)</li>
+          <li>Rekonsiliasi tahun pendirian (2025 vs 2026) dan rapikan tipografi. (D5)</li>
+          <li>Verifikasi kontras hero mobile di perangkat nyata. (D6)</li>
+          <li>Trim spasi nyasar di label stat hero + normalisasi case. (D7)</li>
+          <li>Kurangi frekuensi "enterprise" / "berkelas enterprise" jadi separuhnya. (M3)</li>
+          <li>Ganti kutipan homepage dengan sesuatu khas Klaut. (M6)</li>
+          <li>Tambahkan capture newsletter / Substack. (S4)</li>
+          <li>Beri caveat atau sumber pada statistik hero. (S5)</li>
+          <li>Tambah Service + FAQ JSON-LD, perluas meta keywords geo. (S6)</li>
+          <li>Cek kesetaraan struktur dengan versi EN — angka, tile, copy sama-sama up to date.</li>
+          <li>Baca ulang akhir dengan strategy doc terbuka di sebelah.</li>
+          <li>Sign-off review: saya baca halaman keras-keras dari atas ke bawah, dan tidak terhenti.</li>
+          <li>Tes preview Open Graph (LinkedIn, WhatsApp) sebelum traffic.</li>
+          <li>Periksa LCP, FID, CLS di PageSpeed Insights dan beresi yang masuk zona merah.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  const STORAGE_KEY = 'klaut.audit.id.checks.v1';
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.panel');
+
+  tabs.forEach(t => t.addEventListener('click', () => {
+    tabs.forEach(x => x.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('panel-' + t.dataset.tab).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }));
+
+  const findings = document.querySelectorAll('.find');
+  const total = findings.length;
+  const progBar = document.getElementById('progBar');
+  const progLabel = document.getElementById('progLabel');
+
+  function loadState(){
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+    catch(e){ return {}; }
+  }
+  function saveState(state){
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){}
+  }
+  function updateProgress(){
+    const state = loadState();
+    let done = 0;
+    findings.forEach(f => {
+      const id = f.dataset.id;
+      const cb = f.querySelector('input[type=checkbox]');
+      const isDone = !!state[id];
+      cb.checked = isDone;
+      f.classList.toggle('resolved', isDone);
+      if (isDone) done++;
+    });
+    const pct = total ? Math.round((done/total)*100) : 0;
+    progBar.style.width = pct + '%';
+    progLabel.textContent = done + ' dari ' + total + ' selesai';
+  }
+
+  findings.forEach(f => {
+    const id = f.dataset.id;
+    const cb = f.querySelector('input[type=checkbox]');
+    cb.addEventListener('change', () => {
+      const state = loadState();
+      if (cb.checked) state[id] = true;
+      else delete state[id];
+      saveState(state);
+      updateProgress();
+    });
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    if (!confirm('Hapus semua centang?')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    updateProgress();
+  });
+
+  updateProgress();
+})();
+</script>
+</body>
+</html>

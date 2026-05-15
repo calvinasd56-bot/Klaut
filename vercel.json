@@ -2,21 +2,29 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
-    { "source": "/artikel",                     "destination": "/artikel/index.html" },
-    { "source": "/artikel/:slug",               "destination": "/artikel/article.html" },
-    { "source": "/en/articles",                 "destination": "/en/articles/index.html" },
-    { "source": "/en/articles/:slug",           "destination": "/en/articles/article.html" },
-    { "source": "/case-studies",                "destination": "/case-studies/index.html" },
-    { "source": "/case-studies/:slug",          "destination": "/case-studies/case-study.html" },
-    { "source": "/en/case-studies",             "destination": "/en/case-studies/index.html" },
-    { "source": "/en/case-studies/:slug",       "destination": "/en/case-studies/case-study.html" },
-    { "source": "/admin",                       "destination": "/admin/index.html" },
-    { "source": "/admin/editor",                "destination": "/admin/editor.html" },
-    { "source": "/admin/case-study-editor",     "destination": "/admin/case-study-editor.html" }
-  ],
   "redirects": [
-    { "source": "/articles",         "destination": "/artikel",          "permanent": true },
-    { "source": "/articles/:slug",   "destination": "/artikel/:slug",    "permanent": true }
+    { "source": "/en",                       "destination": "/",                       "permanent": true },
+    { "source": "/en/faq",                   "destination": "/faq",                    "permanent": true },
+    { "source": "/en/articles",              "destination": "/articles",               "permanent": true },
+    { "source": "/en/articles/:slug",        "destination": "/articles/:slug",         "permanent": true },
+    { "source": "/en/case-studies",          "destination": "/case-studies",           "permanent": true },
+    { "source": "/en/case-studies/:slug",    "destination": "/case-studies/:slug",     "permanent": true },
+    { "source": "/en/audit-live",            "destination": "/audit-live",             "permanent": true },
+    { "source": "/artikel",                  "destination": "/id/artikel",             "permanent": true },
+    { "source": "/artikel/:slug",            "destination": "/id/artikel/:slug",       "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/articles",                 "destination": "/articles/index.html" },
+    { "source": "/articles/:slug",           "destination": "/articles/article.html" },
+    { "source": "/case-studies",             "destination": "/case-studies/index.html" },
+    { "source": "/case-studies/:slug",       "destination": "/case-studies/case-study.html" },
+    { "source": "/id",                       "destination": "/id/index.html" },
+    { "source": "/id/artikel",               "destination": "/id/artikel/index.html" },
+    { "source": "/id/artikel/:slug",         "destination": "/id/artikel/article.html" },
+    { "source": "/id/case-studies",          "destination": "/id/case-studies/index.html" },
+    { "source": "/id/case-studies/:slug",    "destination": "/id/case-studies/case-study.html" },
+    { "source": "/admin",                    "destination": "/admin/index.html" },
+    { "source": "/admin/editor",             "destination": "/admin/editor.html" },
+    { "source": "/admin/case-study-editor",  "destination": "/admin/case-study-editor.html" }
   ]
 }

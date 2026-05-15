@@ -1,17 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Case Study — Klaut</title>
-<meta name="description" id="meta-desc" content="Klaut case study."/>
+<meta name="description" id="meta-desc" content="Case study Klaut."/>
 <meta name="theme-color" content="#0B0B10"/>
-<link rel="canonical" id="meta-canonical" href="https://klaut.id/en/case-studies"/>
+<link rel="canonical" id="meta-canonical" href="https://klaut.id/id/case-studies"/>
 <meta property="og:type" content="article"/>
 <meta property="og:title"       id="meta-og-title"       content="Klaut"/>
 <meta property="og:description" id="meta-og-desc"        content=""/>
-<meta property="og:image"       id="meta-og-image"       content="https://klaut.id/og-image-en.png"/>
-<meta property="og:locale" content="en_US"/>
+<meta property="og:image"       id="meta-og-image"       content="https://klaut.id/og-image.png"/>
+<meta property="og:locale" content="id_ID"/>
 <link rel="icon" type="image/png" href="/klaut-K.png"/>
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -37,6 +37,7 @@ a { color: inherit; text-decoration: none; }
 a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
 .page { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
 
+/* Site nav */
 .sitenav { border-bottom: var(--rule); }
 .sitenav__inner { display: flex; align-items: center; justify-content: space-between; padding: 14px var(--gutter); max-width: var(--maxw); margin: 0 auto; }
 .sitenav__brand img { height: 22px; }
@@ -47,9 +48,11 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outlin
 .sitenav__lang a { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; padding: 5px 10px; color: var(--muted); }
 .sitenav__lang a.active { background: var(--accent-soft); color: var(--text); }
 
+/* Crumb */
 .crumb { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 24px 0; }
 .crumb a:hover { color: var(--text); }
 
+/* Article header */
 .head { padding: 16px 0 40px; border-bottom: var(--rule); display: grid; grid-template-columns: 1fr 280px; gap: 56px; }
 .head__main { min-width: 0; }
 .head__pillrow { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
@@ -61,6 +64,7 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outlin
 .head__title em { font-style: normal; font-weight: 300; color: var(--muted); }
 .head__excerpt { font-family: var(--serif); font-size: clamp(16px, 1.5vw, 19px); line-height: 1.55; color: var(--muted); max-width: 60ch; margin: 0; }
 
+/* Side meta panel */
 .meta { border: 1px solid var(--line); padding: 24px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; }
 .meta__row { display: grid; grid-template-columns: 90px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--line); }
 .meta__row:last-of-type { border-bottom: 0; }
@@ -69,8 +73,12 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outlin
 .btn-dl { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 18px; padding: 12px 16px; border: 1px solid var(--accent); color: var(--text); background: var(--accent-soft); font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 2px; transition: background 200ms; }
 .btn-dl:hover { background: var(--accent); color: #fff; }
 .btn-dl svg { width: 13px; height: 13px; }
-@media (max-width: 900px) { .head { grid-template-columns: 1fr; gap: 28px; } }
 
+@media (max-width: 900px) {
+  .head { grid-template-columns: 1fr; gap: 28px; }
+}
+
+/* Prose (Tiptap content) */
 .prose { padding: 56px 0; max-width: 70ch; font-family: var(--sans); font-size: 16px; line-height: 1.75; color: var(--text); }
 .prose:empty { display: none; }
 .prose p { margin: 0 0 1.2em; color: #D4D4DC; }
@@ -89,6 +97,7 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outlin
 .prose code { background: var(--panel); padding: 0.15em 0.4em; border-radius: 3px; font-family: var(--mono); font-size: 0.9em; }
 .prose hr { border: 0; border-top: 1px solid var(--line); margin: 2em 0; }
 
+/* Related articles */
 .related { padding: 56px 0; border-top: var(--rule); }
 .related:empty { display: none; }
 .related__label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
@@ -100,6 +109,7 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outlin
 .rel-card__excerpt { font-size: 13px; color: var(--muted); line-height: 1.5; margin: 0; }
 .rel-card__arrow { margin-top: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--accent); }
 
+/* Foot */
 .foot { padding: 32px 0 80px; border-top: var(--rule); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
 .foot a:hover { color: var(--text); }
 
@@ -113,24 +123,24 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outlin
 
 <nav class="sitenav">
   <div class="sitenav__inner">
-    <a href="/en" class="sitenav__brand"><img src="/klaut-wordmark-text.png" alt="Klaut"/></a>
+    <a href="/id/" class="sitenav__brand"><img src="/klaut-wordmark-text.png" alt="Klaut"/></a>
     <div class="sitenav__links">
-      <a href="/en#about">About</a>
-      <a href="/en/case-studies" class="active">Case Studies</a>
-      <a href="/en/articles">Articles</a>
-      <a href="/en/faq">FAQ</a>
+      <a href="/id/#about">Tentang</a>
+      <a href="/id/case-studies" class="active">Case Studies</a>
+      <a href="/id/artikel">Artikel</a>
+      <a href="/id/faq">FAQ</a>
     </div>
     <div class="sitenav__lang">
-      <a href="" id="lang-id-link">ID</a>
-      <a href="" id="lang-en-link" class="active">EN</a>
+      <a href="" id="lang-id-link" class="active">ID</a>
+      <a href="" id="lang-en-link">EN</a>
     </div>
   </div>
 </nav>
 
-<div id="loading" class="loading-strip">Loading case study…</div>
+<div id="loading" class="loading-strip">Memuat case study…</div>
 
 <article id="article" class="page" style="display:none">
-  <div class="crumb"><a href="/en/case-studies">← Directory</a></div>
+  <div class="crumb"><a href="/id/case-studies">← Direktori</a></div>
 
   <header class="head">
     <div class="head__main">
@@ -148,32 +158,34 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outlin
   <section id="related" class="related"></section>
 
   <div class="foot">
-    <a href="/en/case-studies">← Directory</a>
-    <a href="/en#cta">Talk to the Klaut team →</a>
+    <a href="/id/case-studies">← Direktori</a>
+    <a href="/id/#cta">Bicara dengan tim Klaut →</a>
   </div>
 </article>
 
 <div id="notfound" class="notfound" style="display:none">
   <h1>404</h1>
-  <p>The case study you're looking for doesn't exist or isn't published.</p>
-  <a href="/en/case-studies">View directory →</a>
+  <p>Case study yang Anda cari tidak ada atau belum dipublikasikan.</p>
+  <a href="/id/case-studies">Lihat direktori →</a>
 </div>
 
 <script type="module">
 import { supabase, tiptapToHtml, formatDate } from "/shared/supabase.js";
+
+const LANG = "id";
 
 const SERVICE_LABEL = { consultation:'AI Consultation', build_agents:'Build AI Agents', audited_code:'Audited Code', on_premise:'On-Premise Build' };
 const INDUSTRY_LABEL = { financial_services:'Financial Services', inventory_supply:'Inventory & Supply', healthcare:'Healthcare', energy:'Energy', government:'Government', professional_services:'Professional Services' };
 const AGENT_LABEL = { doc_extraction:'Document Extraction', workflow_classification:'Workflow Classification', autonomous_research:'Autonomous Research', rag:'RAG', on_prem_llm:'On-Premise LLM', multi_agent:'Multi-Agent Orchestration', eval_observability:'Eval & Observability' };
 const DOC_TYPE_LABEL = { case_study:'Case Study', audit:'Audit', whitepaper:'Whitepaper', roadmap:'Roadmap', reference:'Reference', attestation:'Attestation', brief:'Brief', template:'Template', spec:'Spec', rubric:'Rubric', protocol:'Protocol' };
 
-const match = location.pathname.match(/^\/en\/case-studies\/([^\/]+)/);
+const match = location.pathname.match(/^\/case-studies\/([^\/]+)/);
 const slug = match ? decodeURIComponent(match[1]) : null;
 
 const $ = (id) => document.getElementById(id);
 function escapeHtml(s){ return String(s ?? "").replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
 function escapeAttr(s){ return escapeHtml(s); }
-function formatVintage(iso){ if(!iso) return ""; try{ return new Date(iso).toLocaleDateString("en-US",{year:"numeric",month:"long"}); } catch{ return ""; } }
+function formatVintage(iso){ if(!iso) return ""; try{ return new Date(iso).toLocaleDateString("id-ID",{year:"numeric",month:"long"}); } catch{ return ""; } }
 function renderTitleWithEm(t) {
   const e = escapeHtml(t);
   const i = e.indexOf(" — ");
@@ -196,30 +208,33 @@ if (!slug) {
   if (error || !data) {
     $("notfound").style.display = "block";
   } else {
-    const title   = data.title_en || data.title_id || "(untitled)";
-    const excerpt = data.excerpt_en || data.excerpt_id || "";
-    const content = data.content_en || data.content_id;
+    const title   = data.title_id || data.title_en || "(tanpa judul)";
+    const excerpt = data.excerpt_id || data.excerpt_en || "";
+    const content = data.content_id || data.content_en;
 
-    const pageTitle = (data.seo_title_en || title) + " — Klaut";
-    const pageDesc  = data.seo_description_en || excerpt;
+    // SEO
+    const pageTitle = (data.seo_title_id || title) + " — Klaut";
+    const pageDesc  = data.seo_description_id || excerpt;
     document.title = pageTitle;
     $("meta-desc").setAttribute("content", pageDesc);
     $("meta-og-title").setAttribute("content", pageTitle);
     $("meta-og-desc").setAttribute("content", pageDesc);
-    $("meta-canonical").setAttribute("href", `https://klaut.id/en/case-studies/${data.slug}`);
+    $("meta-canonical").setAttribute("href", `https://klaut.id/id/case-studies/${data.slug}`);
     if (data.cover_image_url) $("meta-og-image").setAttribute("content", data.cover_image_url);
     if (data.noindex) {
       const r = document.createElement("meta"); r.name = "robots"; r.content = "noindex, nofollow";
       document.head.appendChild(r);
     }
 
-    $("lang-en-link").href = `/en/case-studies/${data.slug}`;
-    if (data.title_id) {
-      $("lang-id-link").href = `/case-studies/${data.slug}`;
+    // Language toggle: ID active, EN goes to /case-studies/{slug} only if title_en exists
+    $("lang-id-link").href = `/case-studies/${data.slug}`;
+    if (data.title_en) {
+      $("lang-en-link").href = `/case-studies/${data.slug}`;
     } else {
-      $("lang-id-link").style.display = "none";
+      $("lang-en-link").style.display = "none";
     }
 
+    // Head
     const pills = [];
     const dt = data.doc_type;
     if (dt) pills.push(`<span class="pill" data-pill="${escapeAttr(dt)}">${escapeHtml(DOC_TYPE_LABEL[dt] || dt)}</span>`);
@@ -231,15 +246,17 @@ if (!slug) {
     $("title").innerHTML = renderTitleWithEm(title);
     if (excerpt) $("excerpt").textContent = excerpt; else $("excerpt").style.display = "none";
 
+    // Meta panel
     const rows = [];
-    if (data.client_label) rows.push(["Client", escapeHtml(data.client_label)]);
-    if (data.geography)    rows.push(["Geography", escapeHtml(data.geography)]);
-    if (data.page_count)   rows.push(["Pages", `${data.page_count} pp`]);
+    if (data.client_label) rows.push(["Klien", escapeHtml(data.client_label)]);
+    if (data.geography)    rows.push(["Lokasi", escapeHtml(data.geography)]);
+    if (data.page_count)   rows.push(["Halaman", `${data.page_count} pp`]);
     if (data.vintage_date) rows.push(["Vintage", escapeHtml(formatVintage(data.vintage_date))]);
-    if (data.version)      rows.push(["Version", escapeHtml(data.version)]);
-    if (data.published_at) rows.push(["Published", escapeHtml(formatDate(data.published_at, "en-US"))]);
+    if (data.version)      rows.push(["Versi", escapeHtml(data.version)]);
+    if (data.published_at) rows.push(["Dipublikasi", escapeHtml(formatDate(data.published_at))]);
 
     let metaHtml = rows.map(([k,v]) => `<div class="meta__row"><div class="meta__k">${k}</div><div class="meta__v">${v}</div></div>`).join("");
+
     if (data.pdf_url) {
       metaHtml += `
         <a href="${escapeAttr(data.pdf_url)}" target="_blank" rel="noopener" class="btn-dl">
@@ -249,12 +266,14 @@ if (!slug) {
     }
     $("meta-panel").innerHTML = metaHtml;
 
+    // Tiptap content (kalau ada)
     if (content) {
       $("content").innerHTML = tiptapToHtml(content);
     } else {
       $("content").remove();
     }
 
+    // Related articles via join table
     const { data: rel } = await supabase
       .from("case_study_articles")
       .select("article_id, position, articles:article_id(slug, title_id, title_en, excerpt_id, excerpt_en, published_at, published)")
@@ -267,14 +286,14 @@ if (!slug) {
 
     if (relatedArticles.length) {
       $("related").innerHTML = `
-        <div class="related__label">Related articles</div>
+        <div class="related__label">Artikel terkait</div>
         <div class="related__grid">
           ${relatedArticles.map(a => `
-            <a class="rel-card" href="/en/articles/${escapeAttr(a.slug)}">
-              <div class="rel-card__date">${escapeHtml(formatDate(a.published_at, "en-US"))}</div>
-              <h3 class="rel-card__title">${escapeHtml(a.title_en || a.title_id || a.slug)}</h3>
-              ${a.excerpt_en || a.excerpt_id ? `<p class="rel-card__excerpt">${escapeHtml(a.excerpt_en || a.excerpt_id)}</p>` : ""}
-              <span class="rel-card__arrow">Read →</span>
+            <a class="rel-card" href="/id/artikel/${escapeAttr(a.slug)}">
+              <div class="rel-card__date">${escapeHtml(formatDate(a.published_at))}</div>
+              <h3 class="rel-card__title">${escapeHtml(a.title_id || a.title_en || a.slug)}</h3>
+              ${a.excerpt_id || a.excerpt_en ? `<p class="rel-card__excerpt">${escapeHtml(a.excerpt_id || a.excerpt_en)}</p>` : ""}
+              <span class="rel-card__arrow">Baca →</span>
             </a>
           `).join("")}
         </div>
@@ -283,6 +302,7 @@ if (!slug) {
       $("related").remove();
     }
 
+    // JSON-LD
     const ld = document.createElement("script");
     ld.type = "application/ld+json";
     ld.textContent = JSON.stringify({
@@ -290,13 +310,13 @@ if (!slug) {
       "@type": "Article",
       "headline": title,
       "description": pageDesc,
-      "image": data.cover_image_url || "https://klaut.id/og-image-en.png",
+      "image": data.cover_image_url || "https://klaut.id/og-image.png",
       "datePublished": data.published_at,
       "dateModified": data.updated_at,
       "author": { "@type": "Organization", "name": data.author || "Klaut" },
       "publisher": { "@type": "Organization", "name": "Klaut", "logo": { "@type": "ImageObject", "url": "https://klaut.id/klaut-K.png" } },
-      "mainEntityOfPage": `https://klaut.id/en/case-studies/${data.slug}`,
-      "inLanguage": "en-US"
+      "mainEntityOfPage": `https://klaut.id/id/case-studies/${data.slug}`,
+      "inLanguage": "id-ID"
     });
     document.head.appendChild(ld);
 

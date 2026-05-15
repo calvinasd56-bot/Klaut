@@ -1,25 +1,1705 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Case Studies - Klaut</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Directory — Klaut · Issue 01</title>
+<meta name="description" content="A reading list of every report, audit, and case study Klaut has shipped. Click to download." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   TOKENS — locked from dashboard/index.html
+   ============================================================ */
+:root {
+  --bg:           #0B0B10;
+  --panel:        #131319;
+  --panel-2:      #1A1A22;
+  --line:         #23232E;
+  --line-strong:  #34344A;
+  --text:         #E8E8EE;
+  --muted:        #8A8A98;
+  --dim:          #5E5E6E;
+  --accent:       #6B5FE4;
+  --accent-soft:  rgba(107, 95, 228, 0.12);
+  --accent-glow:  rgba(107, 95, 228, 0.55);
+  --green:        #4ADE80;
+  --amber:        #F5B544;
+  --red:          #EF6F6C;
+
+  --serif:  'IBM Plex Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --sans:   'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --mono:   'IBM Plex Mono', ui-monospace, Menlo, monospace;
+
+  --maxw:   1240px;
+  --gutter: 32px;
+  --rule:   1px solid var(--line);
+}
+
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--text); }
+body {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+::selection { background: rgba(107,95,228,0.35); color: #fff; }
+
+a { color: inherit; text-decoration: none; }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   PAGE WRAP
+   ============================================================ */
+.page {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ============================================================
+   MASTHEAD
+   ============================================================ */
+.masthead {
+  padding-top: 32px;
+}
+.masthead__bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 16px;
+  border-bottom: var(--rule);
+}
+.brand {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  text-transform: uppercase;
+}
+.brand__mark {
+  display: inline-block;
+  width: 10px; height: 10px;
+  background: var(--accent);
+  transform: translateY(1px);
+}
+.issue {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.issue span + span::before { content: " · "; color: var(--dim); }
+
+.masthead__rule {
+  height: 6px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin-top: -1px;
+}
+
+.masthead__title {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  padding: 56px 0 24px;
+  border-bottom: var(--rule);
+}
+.masthead__eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.masthead__eyebrow .dot {
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); margin-right: 8px; transform: translateY(-1px);
+}
+.masthead__h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-style: normal;
+  font-size: clamp(56px, 9.5vw, 144px);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  margin: 0;
+  color: var(--text);
+}
+.masthead__h1 em {
+  font-style: normal;
+  font-weight: 300;
+  color: var(--muted);
+}
+.masthead__deck {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(18px, 1.9vw, 22px);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  color: var(--muted);
+  max-width: 64ch;
+  margin: 0;
+}
+.masthead__deck em { color: var(--text); font-style: normal; font-weight: 500; }
+
+.masthead__meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  padding: 18px 0;
+  border-bottom: var(--rule);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.masthead__meta > div { padding-right: 16px; }
+.masthead__meta b {
+  display: block;
+  font-weight: 500;
+  color: var(--text);
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  font-family: var(--sans);
+  margin-bottom: 2px;
+}
+
+@media (max-width: 700px) {
+  .masthead__meta { grid-template-columns: repeat(2, 1fr); gap: 16px 0; }
+}
+
+/* ============================================================
+   FILTER RAIL
+   ============================================================ */
+.filterbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(11,11,16,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: var(--rule);
+  margin-top: 0;
+}
+.filterbar__inner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 14px var(--gutter);
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+.filterbar__label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.filterbar__chips {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex: 1;
+}
+.filterbar__chips::-webkit-scrollbar { display: none; }
+.chip {
+  appearance: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 7px 12px;
+  border-radius: 2px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 180ms, border-color 180ms, background 180ms;
+}
+.chip:hover { color: var(--text); border-color: var(--line-strong); }
+.chip[aria-selected="true"] {
+  color: var(--text);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.filterbar__hotkey {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--dim);
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+}
+.filterbar__hotkey kbd {
+  font-family: var(--mono);
+  font-size: 10px;
+  border: 1px solid var(--line);
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: var(--muted);
+  background: var(--panel);
+}
+.filterbar__select { display: none; }
+
+@media (max-width: 700px) {
+  .filterbar__chips, .filterbar__hotkey { display: none; }
+  .filterbar__select {
+    display: block;
+    flex: 1;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 8px 12px;
+    border-radius: 2px;
+  }
+}
+
+/* ============================================================
+   CLUSTER
+   ============================================================ */
+.cluster {
+  padding: 96px 0 64px;
+  border-bottom: var(--rule);
+}
+.cluster__head {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 48px;
+  padding-bottom: 64px;
+}
+.cluster__num {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-style: normal;
+  font-size: clamp(72px, 11vw, 152px);
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  color: var(--text);
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+.cluster__num small {
+  display: block;
+  font-family: var(--mono);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+.cluster__desc {
+  padding-top: 16px;
+}
+.cluster__title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 3.6vw, 44px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin: 0 0 20px;
+  max-width: 22ch;
+}
+.cluster__title em { font-style: normal; font-weight: 300; color: var(--muted); }
+.cluster__lede {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 56ch;
+  margin: 0 0 28px;
+}
+.cluster__count {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-top: var(--rule);
+  padding-top: 14px;
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.cluster__count b {
+  color: var(--text);
+  font-weight: 500;
+  font-family: var(--sans);
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  margin-right: 4px;
+}
+
+@media (max-width: 1100px) {
+  .cluster__head { grid-template-columns: 160px 1fr; gap: 24px; }
+}
+@media (max-width: 700px) {
+  .cluster { padding: 64px 0 48px; }
+  .cluster__head { grid-template-columns: 1fr; gap: 16px; padding-bottom: 40px; }
+  .cluster__num { font-size: 96px; }
+}
+
+/* Subsection (a service / industry / agent class) */
+.section {
+  padding: 8px 0 56px;
+}
+.section__head {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 48px;
+  padding: 24px 0;
+  border-top: 1px solid var(--line);
+}
+.section__num {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 4px;
+}
+.section__title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  margin: 0 0 6px;
+}
+.section__title em { font-style: normal; font-weight: 300; color: var(--muted); }
+.section__sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+  max-width: 64ch;
+}
+.section__rule {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+@media (max-width: 1100px) {
+  .section__head { grid-template-columns: 100px 1fr; gap: 24px; }
+}
+@media (max-width: 700px) {
+  .section__head { grid-template-columns: 1fr; gap: 4px; }
+}
+
+/* ============================================================
+   GRID + CARDS
+   ============================================================ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0;
+  border-top: var(--rule);
+  border-left: var(--rule);
+}
+.card {
+  grid-column: span 4;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 240px;
+  padding: 24px 24px 20px;
+  border-right: var(--rule);
+  border-bottom: var(--rule);
+  color: var(--text);
+  transition: background 220ms, transform 180ms ease-out;
+  isolation: isolate;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 200ms ease-out;
+}
+.card:hover {
+  background: var(--panel);
+  transform: translateY(-1px);
+}
+.card:hover::before { transform: scaleX(1); }
+.card.is-hidden { display: none; }
+
+.card.is-wide { grid-column: span 6; }
+.card.is-feature {
+  grid-column: span 12;
+  min-height: 220px;
+  padding: 36px 36px 28px;
+  background: linear-gradient(180deg, var(--panel) 0%, var(--bg) 100%);
+}
+.card.is-feature::before { width: 3px; }
+
+.card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.card__idx {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+.card__pill {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+  padding: 3px 7px 2px;
+  border-radius: 2px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.card__pill[data-pill="audit"]      { color: var(--amber); border-color: rgba(245,181,68,0.35); }
+.card__pill[data-pill="case-study"] { color: var(--green); border-color: rgba(74,222,128,0.35); }
+.card__pill[data-pill="whitepaper"] { color: var(--accent); border-color: rgba(107,95,228,0.45); }
+
+.card__title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 1.25;
+  letter-spacing: -0.022em;
+  margin: 0 0 10px;
+  text-wrap: balance;
+}
+.card.is-feature .card__title {
+  font-size: 30px;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  max-width: 26ch;
+}
+.card__title em { font-style: normal; font-weight: 400; color: var(--muted); }
+
+.card__desc {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0;
+  max-width: 52ch;
+  flex: 1;
+}
+.card.is-feature .card__desc { font-size: 16px; max-width: 64ch; }
+
+.card__foot {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 8px;
+}
+.card__meta span + span::before { content: "· "; color: var(--dim); margin-right: 4px; }
+.card__dl {
+  color: var(--muted);
+  transition: color 180ms;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.card:hover .card__dl { color: var(--accent); text-shadow: 0 0 12px var(--accent-glow); }
+.card__dl svg { width: 11px; height: 11px; transition: transform 200ms; }
+.card:hover .card__dl svg { transform: translateY(2px); }
+
+@media (max-width: 1100px) {
+  .card { grid-column: span 6; }
+  .card.is-wide { grid-column: span 6; }
+  .card.is-feature { grid-column: span 12; padding: 28px 24px; }
+  .card.is-feature .card__title { font-size: 28px; }
+}
+@media (max-width: 700px) {
+  .grid { border-left: 0; }
+  .card { grid-column: span 12 !important; border-left: 0; padding: 22px 20px; min-height: 0; }
+  .card.is-feature { padding: 24px 20px; }
+  .card.is-feature .card__title { font-size: 24px; }
+}
+
+/* ============================================================
+   PULL QUOTE
+   ============================================================ */
+.pullquote {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 48px;
+  padding: 56px 0 56px;
+  border-top: var(--rule);
+}
+.pullquote__tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 24px;
+}
+.pullquote__body {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-style: normal;
+  font-size: clamp(24px, 3.2vw, 38px);
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  max-width: 32ch;
+  margin: 0 0 18px;
+}
+.pullquote__body::before {
+  content: "— ";
+  font-style: normal;
+  color: var(--accent);
+  margin-right: 4px;
+}
+.pullquote__attr {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+@media (max-width: 1100px) { .pullquote { grid-template-columns: 160px 1fr; gap: 24px; } }
+@media (max-width: 700px)  { .pullquote { grid-template-columns: 1fr; gap: 8px; padding: 40px 0; } .pullquote__tag { padding-top: 0; } }
+
+/* ============================================================
+   FOOTER / COLOPHON
+   ============================================================ */
+.colophon {
+  border-top: var(--rule);
+  padding: 32px 0 64px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.colophon b {
+  display: block;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.colophon p { margin: 0; max-width: 30ch; }
+@media (max-width: 700px) { .colophon { grid-template-columns: 1fr; gap: 24px; } }
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+@media print {
+  :root {
+    --bg: #ffffff; --panel: #ffffff; --panel-2: #f4f4f4;
+    --line: #c8c8c8; --line-strong: #888;
+    --text: #111; --muted: #444; --dim: #777;
+    --accent: #2a2a2a; --accent-soft: transparent; --accent-glow: transparent;
+  }
+  body { font-size: 11pt; }
+  .filterbar, .filterbar__hotkey { display: none; }
+  .masthead__h1 { font-size: 84pt; }
+  .card { break-inside: avoid; min-height: 0; }
+  .card::before { display: none; }
+  .pullquote__body { font-size: 22pt; }
+  .cluster { padding: 24pt 0; border-bottom: 1px solid #aaa; }
+  a { color: inherit; text-decoration: none; }
+  .card__dl svg { display: none; }
+}
+</style>
 </head>
 <body>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="about-us.html">About Us</a>
-        <a href="case-studies.html">Case Studies</a>
-        <a href="contact.html">Contact</a>
-    </nav>
-    <h1>Case Studies</h1>
-    <p>Explore our success stories and real-world examples of projects.</p>
-    <!-- You can add cards or sections for each case study below -->
-    <div class="case-study">
-        <h2>Sample Project Title</h2>
-        <p>Short description of what made this project a success.</p>
+
+<header class="masthead page" role="banner">
+  <div class="masthead__bar">
+    <div class="brand"><span class="brand__mark" aria-hidden="true"></span>Klaut</div>
+    <div class="issue">
+      <span>Issue 01</span><span>May 2026</span><span>Jakarta</span>
     </div>
-    <script src="script.js"></script>
+  </div>
+  <div class="masthead__rule" aria-hidden="true"></div>
+
+  <div class="masthead__title">
+    <p class="masthead__eyebrow"><span class="dot" aria-hidden="true"></span>A reading list · Updated monthly</p>
+    <h1 class="masthead__h1">The <em>Directory</em>.</h1>
+    <p class="masthead__deck">Every report, audit, and case study Klaut has shipped — <em>indexed three ways</em>, set in serif, downloadable as PDF. Use it to brief a board, scope a procurement, or read on the plane.</p>
+  </div>
+
+  <div class="masthead__meta">
+    <div><b>34</b>Documents on file</div>
+    <div><b>04</b>Service lines</div>
+    <div><b>06</b>Industries</div>
+    <div><b>07</b>Agent classes</div>
+  </div>
+</header>
+
+<nav class="filterbar" role="navigation" aria-label="Document filter">
+  <div class="filterbar__inner">
+    <span class="filterbar__label">Filter</span>
+    <div class="filterbar__chips" role="tablist" aria-label="Filter by category">
+      <button class="chip" role="tab" aria-selected="true"  data-filter="all">All</button>
+      <button class="chip" role="tab" aria-selected="false" data-filter="financial-service">Financial Service</button>
+      <button class="chip" role="tab" aria-selected="false" data-filter="crm">CRM</button>
+      <button class="chip" role="tab" aria-selected="false" data-filter="inventory-erp">Inventory &amp; ERP</button>
+      <button class="chip" role="tab" aria-selected="false" data-filter="legal">Legal</button>
+      <button class="chip" role="tab" aria-selected="false" data-filter="marketplace">Marketplace</button>
+      <button class="chip" role="tab" aria-selected="false" data-filter="administration">Administration</button>
+    </div>
+    <select class="filterbar__select" aria-label="Filter by category">
+      <option value="all">All categories</option>
+      <option value="financial-service">Financial Service</option>
+      <option value="crm">CRM</option>
+      <option value="inventory-erp">Inventory &amp; ERP</option>
+      <option value="legal">Legal</option>
+      <option value="marketplace">Marketplace</option>
+      <option value="administration">Administration</option>
+    </select>
+    <span class="filterbar__hotkey"><kbd>/</kbd> filter &nbsp; <kbd>←</kbd><kbd>→</kbd> nav</span>
+  </div>
+</nav>
+
+<main class="page" id="directory">
+
+  <!-- ============================================================
+       CLUSTER 01 — BY SERVICE
+       ============================================================ -->
+  <section class="cluster" id="c01" aria-labelledby="c01-title">
+    <header class="cluster__head">
+      <div class="cluster__num"><small>Cluster 01</small>01</div>
+      <div class="cluster__desc">
+        <h2 class="cluster__title" id="c01-title">By <em>service</em>.</h2>
+        <p class="cluster__lede">Four lines of work. Each one is a discrete deliverable, fixed-scope, with the artefact you read after the meeting. Foundation work comes first because the rest doesn't matter if the wrong thing is being built.</p>
+        <div class="cluster__count">
+          <span><b>12</b>documents</span>
+          <span><b>04</b>services</span>
+          <span><b>2024–2026</b>vintage</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Service 1.1 — AI Consultation -->
+    <article class="section" aria-labelledby="s11">
+      <header class="section__head">
+        <div class="section__num">01.1</div>
+        <div>
+          <h3 class="section__title" id="s11">AI Consultation — <em>Foundation</em></h3>
+          <p class="section__sub">Paid discovery, readiness audit, and 12-month roadmap. We charge for it because it is the work.</p>
+          <span class="section__rule">3 documents · Fixed fee · USD 8–24k</span>
+        </div>
+      </header>
+      <div class="grid">
+
+        <a class="card is-feature" href="./assets/roadmap-deliverable-insurance.pdf" download
+           data-types="financial-service"
+           aria-label="Download: Roadmap Deliverable — Insurance Pilot, PDF, 64 pages">
+          <div class="card__head">
+            <span class="card__idx">01 / 12 — Featured</span>
+            <span class="card__pill" data-pill="whitepaper">Whitepaper · PDF</span>
+          </div>
+          <h4 class="card__title">Roadmap Deliverable — <em>Insurance Pilot</em></h4>
+          <p class="card__desc">The document the client actually pays for. Methodology, scoring rubric, dependency map, and a 12-month sequencing plan across underwriting, claims, and policy admin. Contains the model selection matrix and the line items we recommended cutting. Does <em>not</em> contain pricing, vendor lock-in clauses, or a "transformation narrative".</p>
+          <div class="card__foot">
+            <div class="card__meta">
+              <span>AI Consultation</span><span>Insurance, Jakarta</span><span>64 pp</span><span>v2.1 · Mar 2026</span>
+            </div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card" href="./assets/foundation-audit-multifinance.pdf" download
+           data-types="financial-service"
+           aria-label="Download: Foundation Audit, Multifinance Indonesia, PDF, 28 pages">
+          <div class="card__head">
+            <span class="card__idx">02 / 12</span>
+            <span class="card__pill" data-pill="audit">Audit · PDF</span>
+          </div>
+          <h4 class="card__title">Foundation Audit — <em>Multifinance Indonesia</em></h4>
+          <p class="card__desc">Workflow decomposition and AI value mapping across collections, KYC, and disbursement. Scores 41 sub-processes against feasibility and P&amp;L impact.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Multifinance</span><span>28 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card" href="./assets/readiness-map-fmcg.pdf" download
+           data-types="inventory-erp"
+           aria-label="Download: Readiness Map, FMCG Distribution, PDF">
+          <div class="card__head">
+            <span class="card__idx">03 / 12</span>
+            <span class="card__pill" data-pill="audit">Audit · PDF</span>
+          </div>
+          <h4 class="card__title">Readiness Map — <em>FMCG Distribution</em></h4>
+          <p class="card__desc">180-day prioritisation of where AI moves a P&amp;L line versus where it stalls on data hygiene. Two recommendations to deprioritise.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>FMCG, Surabaya</span><span>22 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+      </div>
+    </article>
+
+    <!-- Service 1.2 — Build AI Agents -->
+    <article class="section" aria-labelledby="s12">
+      <header class="section__head">
+        <div class="section__num">01.2</div>
+        <div>
+          <h3 class="section__title" id="s12">Build <em>AI Agents</em></h3>
+          <p class="section__sub">Custom agentic systems, copilots, document and workflow agents. Shipped with eval harness and a kill-switch.</p>
+          <span class="section__rule">3 case studies · 6–14 week cycles</span>
+        </div>
+      </header>
+      <div class="grid">
+
+        <a class="card is-wide" href="./assets/doc-extraction-trade-finance.pdf" download
+           data-types="financial-service"
+           aria-label="Download: Document Extraction Agent, Trade Finance, PDF, 24 pages">
+          <div class="card__head">
+            <span class="card__idx">04 / 12</span>
+            <span class="card__pill" data-pill="case-study">Case Study · PDF</span>
+          </div>
+          <h4 class="card__title">Document Extraction Agent — <em>Trade Finance</em></h4>
+          <p class="card__desc">Bills of lading, letters of credit, commercial invoices. Records accuracy on 1,400-document hold-out set, P95 latency, fallback policy when the OCR confidence drops below 0.82, and the three failure modes we chose not to fix.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Tier-1 retail bank, Jakarta</span><span>24 pp</span><span>Jan 2026</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card is-wide" href="./assets/workflow-classification-inventory.pdf" download
+           data-types="inventory-erp"
+           aria-label="Download: Workflow Classification Agent, Inventory Ops, PDF">
+          <div class="card__head">
+            <span class="card__idx">05 / 12</span>
+            <span class="card__pill" data-pill="case-study">Case Study · PDF</span>
+          </div>
+          <h4 class="card__title">Workflow Classification Agent — <em>Inventory Ops</em></h4>
+          <p class="card__desc">SKU-level demand signal routing across 14 distributor categories. Includes the eval harness, the regression set we run on every model bump, and the rule fallback for the long tail.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>FMCG distributor</span><span>18 pp</span><span>Nov 2025</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card" href="./assets/supervisor-worker-back-office.pdf" download
+           data-types="financial-service administration"
+           aria-label="Download: Supervisor / Worker Orchestration, Back-Office, PDF">
+          <div class="card__head">
+            <span class="card__idx">06 / 12</span>
+            <span class="card__pill" data-pill="case-study">Case Study · PDF</span>
+          </div>
+          <h4 class="card__title">Supervisor / Worker Orchestration — <em>Back-Office</em></h4>
+          <p class="card__desc">Multi-agent graph for invoice reconciliation. Kill-switch, human-review fallback, audit log schema.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Multifinance holding</span><span>20 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+      </div>
+    </article>
+
+    <!-- Service 1.3 — Audited Code -->
+    <article class="section" aria-labelledby="s13">
+      <header class="section__head">
+        <div class="section__num">01.3</div>
+        <div>
+          <h3 class="section__title" id="s13">Audited <em>Code</em></h3>
+          <p class="section__sub">Security, prompt-injection resistance, supply-chain attestation. Klaut signs the letter; the client can show it to the regulator.</p>
+          <span class="section__rule">3 documents · OWASP LLM Top 10 · STRIDE · LINDDUN</span>
+        </div>
+      </header>
+      <div class="grid">
+
+        <a class="card" href="./assets/audit-report-cs-ai.pdf" download
+           data-types="crm"
+           aria-label="Download: Audit Report, Internal Customer-Service AI, PDF">
+          <div class="card__head">
+            <span class="card__idx">07 / 12</span>
+            <span class="card__pill" data-pill="audit">Audit · PDF</span>
+          </div>
+          <h4 class="card__title">Audit Report — <em>Internal Customer-Service AI</em></h4>
+          <p class="card__desc">OWASP LLM Top 10 against a live deployment. Prompt-injection results across 240 vectors, SBOM, severity table, and the three findings we marked accepted-risk.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Telco, Jakarta</span><span>32 pp</span><span>Feb 2026</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card" href="./assets/threat-model-doc-extraction.docx" download
+           data-types="financial-service"
+           aria-label="Download: Threat Model, Document Extraction Agent, DOCX">
+          <div class="card__head">
+            <span class="card__idx">08 / 12</span>
+            <span class="card__pill" data-pill="audit">Audit · DOCX</span>
+          </div>
+          <h4 class="card__title">Threat Model — <em>Document Extraction Agent</em></h4>
+          <p class="card__desc">STRIDE and LINDDUN applied to a RAG-tooled agent. Mitigation register, residual-risk register, and the section on what we cannot mitigate without changing the product.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Trade Finance pilot</span><span>14 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card" href="./assets/attestation-v1.4.pdf" download
+           data-types="administration"
+           aria-label="Download: Attestation Letter, Release v1.4, PDF">
+          <div class="card__head">
+            <span class="card__idx">09 / 12</span>
+            <span class="card__pill" data-pill="whitepaper">Attestation · PDF</span>
+          </div>
+          <h4 class="card__title">Attestation Letter — <em>Release v1.4</em></h4>
+          <p class="card__desc">The signed letter Klaut delivers with every shipped release. Build provenance, dependency hashes, eval results at release, and the scope of what is attested.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Template + signed copy</span><span>4 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+      </div>
+    </article>
+
+    <!-- Service 1.4 — On-Premise Build -->
+    <article class="section" aria-labelledby="s14">
+      <header class="section__head">
+        <div class="section__num">01.4</div>
+        <div>
+          <h3 class="section__title" id="s14">On-Premise <em>Build</em></h3>
+          <p class="section__sub">Self-hosted, air-gap-capable, regulated deployments. For when the data cannot leave the building and the regulator will visit.</p>
+          <span class="section__rule">3 documents · H100 · Sovereign DC · UU PDP</span>
+        </div>
+      </header>
+      <div class="grid">
+
+        <a class="card is-wide" href="./assets/feasibility-sovereign-banking.pdf" download
+           data-types="financial-service"
+           aria-label="Download: Feasibility Study, Sovereign Banking Deployment, PDF">
+          <div class="card__head">
+            <span class="card__idx">10 / 12</span>
+            <span class="card__pill" data-pill="whitepaper">Whitepaper · PDF</span>
+          </div>
+          <h4 class="card__title">Feasibility Study — <em>Sovereign Banking Deployment</em></h4>
+          <p class="card__desc">GPU sizing across three workload profiles, quantization trade-off table, the air-gap update procedure we recommend, and the two procurement risks the client should price into the PO.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Tier-1 retail bank</span><span>38 pp</span><span>NTT DC, Jakarta</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card is-wide" href="./assets/ref-arch-70b-h100.pdf" download
+           data-types="administration"
+           aria-label="Download: Reference Architecture, 70B-class on H100, PDF">
+          <div class="card__head">
+            <span class="card__idx">11 / 12</span>
+            <span class="card__pill" data-pill="whitepaper">Reference · PDF</span>
+          </div>
+          <h4 class="card__title">Reference Architecture — <em>70B-class on H100</em></h4>
+          <p class="card__desc">Single-node, multi-node, and HA topologies. Costs in IDR and USD by deployment shape. Includes the configuration we recommend against.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Vendor-neutral</span><span>26 pp</span><span>v1.3</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card" href="./assets/acceptance-test-protocol.xlsx" download
+           data-types="administration"
+           aria-label="Download: Acceptance Test Protocol, XLSX">
+          <div class="card__head">
+            <span class="card__idx">12 / 12</span>
+            <span class="card__pill" data-pill="audit">Protocol · XLSX</span>
+          </div>
+          <h4 class="card__title">Acceptance Test <em>Protocol</em></h4>
+          <p class="card__desc">The protocol Klaut signs before any on-prem PO is countersigned. 84 test cases, sign-off matrix, and the rollback gate.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Template</span><span>12 sheets</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+      </div>
+    </article>
+
+    <!-- Pull quote 01 -->
+    <aside class="pullquote">
+      <div class="pullquote__tag">Operating principle · Do</div>
+      <div>
+        <p class="pullquote__body">Discovery is a product. Charge for it.</p>
+        <div class="pullquote__attr">Klaut · Internal Playbook, §1.2</div>
+      </div>
+    </aside>
+
+  </section>
+
+  <!-- ============================================================
+       CLUSTER 02 — BY INDUSTRY
+       ============================================================ -->
+  <section class="cluster" id="c02" aria-labelledby="c02-title">
+    <header class="cluster__head">
+      <div class="cluster__num"><small>Cluster 02</small>02</div>
+      <div class="cluster__desc">
+        <h2 class="cluster__title" id="c02-title">By <em>industry</em>.</h2>
+        <p class="cluster__lede">The same documents, re-shelved by vertical. We work in regulated industries where the cost of being wrong is not the model bill — it is a fine, a recall, or a regulator at the door. PT-to-PT contracts. UU PDP compliance. BANI arbitration if it comes to that.</p>
+        <div class="cluster__count">
+          <span><b>14</b>documents</span>
+          <span><b>06</b>verticals</span>
+          <span><b>Jakarta · Surabaya · Singapore</b>geos</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Industry 2.1 — Financial Services -->
+    <article class="section" aria-labelledby="s21">
+      <header class="section__head">
+        <div class="section__num">02.1</div>
+        <div>
+          <h3 class="section__title" id="s21">Financial <em>Services</em></h3>
+          <p class="section__sub">Banks, multifinance, insurance, payments. The longest engagement cycles, the strictest acceptance criteria, the most useful work.</p>
+          <span class="section__rule">5 documents · OJK-adjacent · UU PDP</span>
+        </div>
+      </header>
+      <div class="grid">
+
+        <a class="card is-feature" href="./assets/foundation-audit-mandiri.pdf" download
+           data-types="financial-service"
+           aria-label="Download: Foundation Audit, Bank Mandiri Pilot, PDF">
+          <div class="card__head">
+            <span class="card__idx">01 / 14 — Featured</span>
+            <span class="card__pill" data-pill="audit">Audit · PDF</span>
+          </div>
+          <h4 class="card__title">Foundation Audit — <em>Tier-1 Retail Bank, Jakarta</em></h4>
+          <p class="card__desc">Workflow scoring and AI readiness map for the retail-banking onboarding journey. Decomposes 62 customer-facing workflows, scores each on feasibility, value, and regulatory exposure, and recommends a four-quarter sequence. The appendix lists the 18 workflows we recommended against pursuing and the reasoning for each.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Tier-1 retail bank, Jakarta</span><span>Onboarding</span><span>54 pp</span><span>Apr 2026</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card is-wide" href="./assets/doc-extraction-trade-finance.pdf" download
+           data-types="financial-service"
+           aria-label="Download: Document Extraction Agent, Trade Finance, PDF">
+          <div class="card__head">
+            <span class="card__idx">02 / 14</span>
+            <span class="card__pill" data-pill="case-study">Case Study · PDF</span>
+          </div>
+          <h4 class="card__title">Document Extraction — <em>Trade Finance LCs</em></h4>
+          <p class="card__desc">Letters of credit, bills of lading, commercial invoices. Accuracy on a 1,400-document hold-out, fallback policy below 0.82 confidence, and the three failure modes we chose not to fix.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Retail bank, Jakarta</span><span>24 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card is-wide" href="./assets/foundation-audit-multifinance.pdf" download
+           data-types="financial-service"
+           aria-label="Download: Foundation Audit, Multifinance Indonesia, PDF">
+          <div class="card__head">
+            <span class="card__idx">03 / 14</span>
+            <span class="card__pill" data-pill="audit">Audit · PDF</span>
+          </div>
+          <h4 class="card__title">Foundation Audit — <em>Multifinance</em></h4>
+          <p class="card__desc">Workflow decomposition across collections, KYC, and disbursement. 41 sub-processes scored against feasibility and P&amp;L impact.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Multifinance holding</span><span>28 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card" href="./assets/roadmap-deliverable-insurance.pdf" download
+           data-types="financial-service"
+           aria-label="Download: Roadmap Deliverable, Insurance, PDF">
+          <div class="card__head">
+            <span class="card__idx">04 / 14</span>
+            <span class="card__pill" data-pill="whitepaper">Roadmap · PDF</span>
+          </div>
+          <h4 class="card__title">Roadmap — <em>Insurance</em></h4>
+          <p class="card__desc">12-month sequencing across underwriting, claims, policy admin. Model selection matrix and the line items we recommended cutting.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Insurance, Jakarta</span><span>64 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card" href="./assets/feasibility-sovereign-banking.pdf" download
+           data-types="financial-service"
+           aria-label="Download: Feasibility Study, Sovereign Banking, PDF">
+          <div class="card__head">
+            <span class="card__idx">05 / 14</span>
+            <span class="card__pill" data-pill="whitepaper">Whitepaper · PDF</span>
+          </div>
+          <h4 class="card__title">Sovereign Banking — <em>Feasibility</em></h4>
+          <p class="card__desc">GPU sizing, quantization trade-off, and the air-gap update procedure for a tier-1 retail bank on-prem deployment.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>NTT DC, Jakarta</span><span>38 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card" href="./assets/supervisor-worker-back-office.pdf" download
+           data-types="financial-service administration"
+           aria-label="Download: Supervisor Worker Back-Office, PDF">
+          <div class="card__head">
+            <span class="card__idx">06 / 14</span>
+            <span class="card__pill" data-pill="case-study">Case Study · PDF</span>
+          </div>
+          <h4 class="card__title">Back-Office — <em>Reconciliation</em></h4>
+          <p class="card__desc">Supervisor/worker orchestration for invoice reconciliation at a multifinance holding. Kill-switch and human-review fallback.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Multifinance</span><span>20 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+      </div>
+    </article>
+
+    <!-- Industry 2.2 — Inventory & Supply Chain -->
+    <article class="section" aria-labelledby="s22">
+      <header class="section__head">
+        <div class="section__num">02.2</div>
+        <div>
+          <h3 class="section__title" id="s22">Inventory &amp; <em>Supply Chain</em></h3>
+          <p class="section__sub">Manufacturing, FMCG, logistics, retail operations. Demand signal routing, SKU-level classification, distributor reporting.</p>
+          <span class="section__rule">3 documents · 14 categories live</span>
+        </div>
+      </header>
+      <div class="grid">
+
+        <a class="card is-wide" href="./assets/workflow-classification-inventory.pdf" download
+           data-types="inventory-erp"
+           aria-label="Download: Workflow Classification, Inventory Ops, PDF">
+          <div class="card__head">
+            <span class="card__idx">07 / 14</span>
+            <span class="card__pill" data-pill="case-study">Case Study · PDF</span>
+          </div>
+          <h4 class="card__title">Workflow Classification — <em>FMCG Distributor</em></h4>
+          <p class="card__desc">SKU-level demand signal routing across 14 distributor categories. Eval harness, regression set, and the rule-based fallback for the long tail.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>FMCG, Surabaya</span><span>18 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card is-wide" href="./assets/readiness-map-fmcg.pdf" download
+           data-types="inventory-erp"
+           aria-label="Download: Readiness Map, FMCG, PDF">
+          <div class="card__head">
+            <span class="card__idx">08 / 14</span>
+            <span class="card__pill" data-pill="audit">Audit · PDF</span>
+          </div>
+          <h4 class="card__title">Readiness Map — <em>FMCG</em></h4>
+          <p class="card__desc">Where AI moves a P&amp;L line versus where it stalls on data hygiene. Two recommendations to deprioritise and the reasoning for each.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>FMCG distributor</span><span>22 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card" href="./assets/logistics-research-brief.docx" download
+           data-types="inventory-erp"
+           aria-label="Download: Logistics Research Brief, DOCX">
+          <div class="card__head">
+            <span class="card__idx">09 / 14</span>
+            <span class="card__pill" data-pill="whitepaper">Brief · DOCX</span>
+          </div>
+          <h4 class="card__title">Logistics Research — <em>Route Anomaly Brief</em></h4>
+          <p class="card__desc">A short brief for a 3PL operator on what an autonomous research agent can and cannot tell you about anomalous route data.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>3PL, Jakarta</span><span>8 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+      </div>
+    </article>
+
+    <!-- Industry 2.3-2.6 (compact) -->
+    <article class="section" aria-labelledby="s23">
+      <header class="section__head">
+        <div class="section__num">02.3</div>
+        <div>
+          <h3 class="section__title" id="s23">Healthcare &amp; <em>Life Sciences</em></h3>
+          <p class="section__sub">Clinical documentation, prior-authorisation, pharmacovigilance triage. Risk-tiered, PII-sensitive.</p>
+          <span class="section__rule">2 documents · UU PDP · MoH circular</span>
+        </div>
+      </header>
+      <div class="grid">
+
+        <a class="card is-wide" href="./assets/clinical-doc-extraction.pdf" download
+           data-types="administration"
+           aria-label="Download: Clinical Document Extraction, PDF">
+          <div class="card__head">
+            <span class="card__idx">10 / 14</span>
+            <span class="card__pill" data-pill="case-study">Case Study · PDF</span>
+          </div>
+          <h4 class="card__title">Clinical Document Extraction — <em>Hospital Network</em></h4>
+          <p class="card__desc">Structured-field extraction from discharge summaries across three hospitals. Includes the PII-handling protocol and the two field types we excluded.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Hospital network, Jakarta</span><span>20 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card is-wide" href="./assets/pharma-rag-audit.pdf" download
+           data-types="administration"
+           aria-label="Download: Pharma RAG Audit, PDF">
+          <div class="card__head">
+            <span class="card__idx">11 / 14</span>
+            <span class="card__pill" data-pill="audit">Audit · PDF</span>
+          </div>
+          <h4 class="card__title">Pharmacovigilance RAG — <em>Audit</em></h4>
+          <p class="card__desc">Audit of a knowledge-retrieval system over a pharmacovigilance corpus. Citation faithfulness, hallucination rate, and the four queries we recommend never serving.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Pharma, regional</span><span>26 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+      </div>
+    </article>
+
+    <article class="section" aria-labelledby="s24">
+      <header class="section__head">
+        <div class="section__num">02.4</div>
+        <div>
+          <h3 class="section__title" id="s24">Energy &amp; <em>Resources</em></h3>
+          <p class="section__sub">Field-report classification, asset-document retrieval, contract review. Mostly upstream operators.</p>
+          <span class="section__rule">1 document · Upstream</span>
+        </div>
+      </header>
+      <div class="grid">
+
+        <a class="card is-feature" href="./assets/upstream-field-report-classifier.pdf" download
+           data-types="administration"
+           aria-label="Download: Upstream Field Report Classifier, PDF">
+          <div class="card__head">
+            <span class="card__idx">12 / 14</span>
+            <span class="card__pill" data-pill="case-study">Case Study · PDF</span>
+          </div>
+          <h4 class="card__title">Field-Report Classifier — <em>Upstream Operator</em></h4>
+          <p class="card__desc">Routing 11,000 field reports per quarter into a six-class taxonomy with a 0.94 macro-F1 against a hand-labelled hold-out. Includes the exception path for reports the model flags as low-confidence and the weekly review cadence the operator's HSE team runs against them.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Upstream, Kalimantan</span><span>22 pp</span><span>Dec 2025</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+      </div>
+    </article>
+
+    <article class="section" aria-labelledby="s25">
+      <header class="section__head">
+        <div class="section__num">02.5</div>
+        <div>
+          <h3 class="section__title" id="s25">Government &amp; <em>Public Sector</em></h3>
+          <p class="section__sub">Air-gapped deployments, policy retrieval, citizen-services triage. Procurement-by-the-book.</p>
+          <span class="section__rule">1 document · On-prem</span>
+        </div>
+      </header>
+      <div class="grid">
+
+        <a class="card is-wide" href="./assets/ref-arch-70b-h100.pdf" download
+           data-types="administration"
+           aria-label="Download: Reference Architecture, 70B on H100, PDF">
+          <div class="card__head">
+            <span class="card__idx">13 / 14</span>
+            <span class="card__pill" data-pill="whitepaper">Reference · PDF</span>
+          </div>
+          <h4 class="card__title">70B-class on H100 — <em>Reference Architecture</em></h4>
+          <p class="card__desc">Vendor-neutral reference for sovereign deployments. Single-node, multi-node, HA. Costs in IDR and USD. Includes the configuration we recommend against.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Sovereign DC</span><span>26 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card is-wide" href="./assets/policy-rag-pilot.pdf" download
+           data-types="administration"
+           aria-label="Download: Policy RAG Pilot, PDF">
+          <div class="card__head">
+            <span class="card__idx">14 / 14</span>
+            <span class="card__pill" data-pill="case-study">Case Study · PDF</span>
+          </div>
+          <h4 class="card__title">Policy Retrieval — <em>Ministerial Pilot</em></h4>
+          <p class="card__desc">RAG over a 12,000-document policy corpus. Citation faithfulness, eval set, and the queries the system is explicitly configured to refuse.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Ministry pilot</span><span>18 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+      </div>
+    </article>
+
+    <article class="section" aria-labelledby="s26">
+      <header class="section__head">
+        <div class="section__num">02.6</div>
+        <div>
+          <h3 class="section__title" id="s26">Professional <em>Services</em></h3>
+          <p class="section__sub">Legal, accounting, advisory. Research agents, document review, deal-room retrieval.</p>
+          <span class="section__rule">Indexed elsewhere · See cluster 03</span>
+        </div>
+      </header>
+      <div class="grid">
+
+        <a class="card" href="./assets/legal-research-agent-case.pdf" download
+           data-types="legal"
+           aria-label="Download: Legal Research Agent, Case Study, PDF">
+          <div class="card__head">
+            <span class="card__idx">+1</span>
+            <span class="card__pill" data-pill="case-study">Case Study · PDF</span>
+          </div>
+          <h4 class="card__title">Legal Research Agent — <em>Mid-tier Firm</em></h4>
+          <p class="card__desc">Autonomous research over Indonesian case law and BANI archives. Includes the deliverable template and the five query shapes the agent declines.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Law firm, Jakarta</span><span>16 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card" href="./assets/audit-firm-doc-review.pdf" download
+           data-types="legal administration"
+           aria-label="Download: Audit Firm Document Review, PDF">
+          <div class="card__head">
+            <span class="card__idx">+2</span>
+            <span class="card__pill" data-pill="case-study">Case Study · PDF</span>
+          </div>
+          <h4 class="card__title">Audit-Firm Document Review</h4>
+          <p class="card__desc">Working-paper extraction across an engagement archive. Reviewer-in-the-loop pattern, sampling protocol, and the partner sign-off gate.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Big-4 audit firm</span><span>14 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card" href="./assets/advisory-engagement-template.docx" download
+           data-types="legal administration"
+           aria-label="Download: Advisory Engagement Template, DOCX">
+          <div class="card__head">
+            <span class="card__idx">+3</span>
+            <span class="card__pill" data-pill="whitepaper">Template · DOCX</span>
+          </div>
+          <h4 class="card__title">Advisory Engagement — <em>Template</em></h4>
+          <p class="card__desc">The blank engagement template Klaut uses with advisory partners. Scope, exclusions, acceptance criteria, and termination clauses.</p>
+          <div class="card__foot">
+            <div class="card__meta"><span>Template</span><span>10 pp</span></div>
+            <span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span>
+          </div>
+        </a>
+
+      </div>
+    </article>
+
+    <!-- Pull quote 02 -->
+    <aside class="pullquote">
+      <div class="pullquote__tag">Operating principle · Don't</div>
+      <div>
+        <p class="pullquote__body">Around 60% of the AI work we're asked to do shouldn't be done.</p>
+        <div class="pullquote__attr">Klaut · Internal Playbook, §2.0 — On scoping</div>
+      </div>
+    </aside>
+
+  </section>
+
+  <!-- ============================================================
+       CLUSTER 03 — BY SYSTEM
+       ============================================================ -->
+  <section class="cluster" id="c03" aria-labelledby="c03-title" style="border-bottom:0">
+    <header class="cluster__head">
+      <div class="cluster__num"><small>Cluster 03</small>03</div>
+      <div class="cluster__desc">
+        <h2 class="cluster__title" id="c03-title">By <em>system</em>.</h2>
+        <p class="cluster__lede">Seven agent archetypes and the verticals they actually fit. Every class card carries a deploy-when / don't-deploy-when line. The eval-and-observability harness shows up under every system above; it is not optional.</p>
+        <div class="cluster__count">
+          <span><b>07</b>agent classes</span>
+          <span><b>15</b>shipped instances</span>
+          <span><b>1</b>universal harness</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- 03.1 Document Extraction -->
+    <article class="section" aria-labelledby="s31">
+      <header class="section__head">
+        <div class="section__num">03.1</div>
+        <div>
+          <h3 class="section__title" id="s31">Document Extraction <em>Agents</em></h3>
+          <p class="section__sub"><b style="color:var(--green);font-weight:500">Deploy when</b> the document is structured-ish and the cost of a wrong field is bounded. <b style="color:var(--red);font-weight:500">Don't</b> when a single mis-extracted field can move money irreversibly without a human in the loop.</p>
+          <span class="section__rule">Financial Services · Legal · Healthcare</span>
+        </div>
+      </header>
+      <div class="grid">
+
+        <a class="card is-wide" href="./assets/doc-extraction-trade-finance.pdf" download data-types="financial-service" aria-label="Download: Trade Finance Extraction, PDF">
+          <div class="card__head"><span class="card__idx">01 / 15</span><span class="card__pill" data-pill="case-study">Case Study</span></div>
+          <h4 class="card__title">Trade Finance LCs &amp; B/Ls</h4>
+          <p class="card__desc">Bank deployment. 1,400-doc hold-out, P95 latency, fallback at 0.82.</p>
+          <div class="card__foot"><div class="card__meta"><span>Financial Services</span><span>24 pp</span></div><span class="card__dl">PDF<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span></div>
+        </a>
+
+        <a class="card is-wide" href="./assets/clinical-doc-extraction.pdf" download data-types="administration" aria-label="Download: Clinical Extraction, PDF">
+          <div class="card__head"><span class="card__idx">02 / 15</span><span class="card__pill" data-pill="case-study">Case Study</span></div>
+          <h4 class="card__title">Clinical Discharge Summaries</h4>
+          <p class="card__desc">Hospital network. PII protocol, excluded field types, reviewer-in-the-loop.</p>
+          <div class="card__foot"><div class="card__meta"><span>Healthcare</span><span>20 pp</span></div><span class="card__dl">PDF<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span></div>
+        </a>
+
+        <a class="card" href="./assets/audit-firm-doc-review.pdf" download data-types="legal administration" aria-label="Download: Audit Firm Doc Review, PDF">
+          <div class="card__head"><span class="card__idx">03 / 15</span><span class="card__pill" data-pill="case-study">Case Study</span></div>
+          <h4 class="card__title">Audit Working Papers</h4>
+          <p class="card__desc">Big-4 engagement archive. Sampling protocol and partner sign-off gate.</p>
+          <div class="card__foot"><div class="card__meta"><span>Professional Services</span><span>14 pp</span></div><span class="card__dl">PDF<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span></div>
+        </a>
+
+      </div>
+    </article>
+
+    <!-- 03.2 Workflow Classification -->
+    <article class="section" aria-labelledby="s32">
+      <header class="section__head">
+        <div class="section__num">03.2</div>
+        <div>
+          <h3 class="section__title" id="s32">Workflow Classification <em>Agents</em></h3>
+          <p class="section__sub"><b style="color:var(--green);font-weight:500">Deploy when</b> categories are stable and a 5% misroute is recoverable downstream. <b style="color:var(--red);font-weight:500">Don't</b> when the taxonomy is still being argued about.</p>
+          <span class="section__rule">Inventory · Operations · Customer Service</span>
+        </div>
+      </header>
+      <div class="grid">
+
+        <a class="card is-feature" href="./assets/workflow-classification-inventory.pdf" download data-types="inventory-erp" aria-label="Download: Workflow Classification, Inventory, PDF">
+          <div class="card__head"><span class="card__idx">04 / 15 — Featured</span><span class="card__pill" data-pill="case-study">Case Study · PDF</span></div>
+          <h4 class="card__title">SKU Demand Routing — <em>FMCG Distributor</em></h4>
+          <p class="card__desc">14 categories live, eval harness shipped, regression set frozen at v1.0. Includes the rule-based fallback for the long tail and the monthly recalibration cadence. Documented limit: classification breaks down on the bottom 4% of SKUs with fewer than 12 historical signals; those route to a human queue by design.</p>
+          <div class="card__foot"><div class="card__meta"><span>FMCG, Surabaya</span><span>18 pp</span><span>v1.0 · Nov 2025</span></div><span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span></div>
+        </a>
+
+        <a class="card is-wide" href="./assets/cs-triage-classifier.pdf" download data-types="crm" aria-label="Download: CS Triage Classifier, PDF">
+          <div class="card__head"><span class="card__idx">05 / 15</span><span class="card__pill" data-pill="case-study">Case Study</span></div>
+          <h4 class="card__title">Customer-Service Triage</h4>
+          <p class="card__desc">Inbound ticket routing across 9 queues at a telco. Confidence threshold and escalation path documented.</p>
+          <div class="card__foot"><div class="card__meta"><span>Customer Service</span><span>14 pp</span></div><span class="card__dl">PDF<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span></div>
+        </a>
+
+        <a class="card is-wide" href="./assets/ops-routing-classifier.pdf" download data-types="administration crm" aria-label="Download: Ops Routing Classifier, PDF">
+          <div class="card__head"><span class="card__idx">06 / 15</span><span class="card__pill" data-pill="case-study">Case Study</span></div>
+          <h4 class="card__title">Back-Office Exception Routing</h4>
+          <p class="card__desc">Routing finance-ops exceptions to the right reviewer queue. Schema, SLA budget, and the audit trail format.</p>
+          <div class="card__foot"><div class="card__meta"><span>Operations</span><span>12 pp</span></div><span class="card__dl">PDF<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span></div>
+        </a>
+
+      </div>
+    </article>
+
+    <!-- 03.3 Autonomous Research -->
+    <article class="section" aria-labelledby="s33">
+      <header class="section__head">
+        <div class="section__num">03.3</div>
+        <div>
+          <h3 class="section__title" id="s33">Autonomous Research <em>Agents</em></h3>
+          <p class="section__sub"><b style="color:var(--green);font-weight:500">Deploy when</b> a senior reviewer will read the output. <b style="color:var(--red);font-weight:500">Don't</b> when the output goes straight to a client or a regulator.</p>
+          <span class="section__rule">Professional Services · Strategy</span>
+        </div>
+      </header>
+      <div class="grid">
+
+        <a class="card" href="./assets/legal-research-agent-case.pdf" download data-types="legal" aria-label="Download: Legal Research, PDF">
+          <div class="card__head"><span class="card__idx">07 / 15</span><span class="card__pill" data-pill="case-study">Case Study</span></div>
+          <h4 class="card__title">Legal Research Agent</h4>
+          <p class="card__desc">Indonesian case law plus BANI archives. Five query shapes the agent declines by design.</p>
+          <div class="card__foot"><div class="card__meta"><span>Law firm</span><span>16 pp</span></div><span class="card__dl">PDF<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span></div>
+        </a>
+
+        <a class="card" href="./assets/strategy-deal-room-research.pdf" download data-types="administration" aria-label="Download: Strategy Deal Room Research, PDF">
+          <div class="card__head"><span class="card__idx">08 / 15</span><span class="card__pill" data-pill="case-study">Case Study</span></div>
+          <h4 class="card__title">Deal-Room Research</h4>
+          <p class="card__desc">Pre-mandate research for a regional PE house. Source-grounding rules and the rejection clause.</p>
+          <div class="card__foot"><div class="card__meta"><span>Strategy</span><span>14 pp</span></div><span class="card__dl">PDF<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span></div>
+        </a>
+
+        <a class="card" href="./assets/logistics-research-brief.docx" download data-types="inventory-erp" aria-label="Download: Logistics Research Brief, DOCX">
+          <div class="card__head"><span class="card__idx">09 / 15</span><span class="card__pill" data-pill="whitepaper">Brief · DOCX</span></div>
+          <h4 class="card__title">Logistics Route-Anomaly Brief</h4>
+          <p class="card__desc">A short reader on what an autonomous research agent can and cannot tell you about anomalous route data.</p>
+          <div class="card__foot"><div class="card__meta"><span>Logistics</span><span>8 pp</span></div><span class="card__dl">DOCX<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span></div>
+        </a>
+
+      </div>
+    </article>
+
+    <!-- 03.4 RAG -->
+    <article class="section" aria-labelledby="s34">
+      <header class="section__head">
+        <div class="section__num">03.4</div>
+        <div>
+          <h3 class="section__title" id="s34">RAG <em>Knowledge Systems</em></h3>
+          <p class="section__sub"><b style="color:var(--green);font-weight:500">Deploy when</b> the corpus is curated and the user is internal. <b style="color:var(--red);font-weight:500">Don't</b> when the corpus is the open web and the user is a customer.</p>
+          <span class="section__rule">Internal Ops · Policy · Compliance</span>
+        </div>
+      </header>
+      <div class="grid">
+
+        <a class="card is-wide" href="./assets/policy-rag-pilot.pdf" download data-types="administration" aria-label="Download: Policy RAG Pilot, PDF">
+          <div class="card__head"><span class="card__idx">10 / 15</span><span class="card__pill" data-pill="case-study">Case Study</span></div>
+          <h4 class="card__title">Ministerial Policy Retrieval</h4>
+          <p class="card__desc">12,000-document policy corpus. Citation faithfulness rules and the queries the system is configured to refuse.</p>
+          <div class="card__foot"><div class="card__meta"><span>Public Sector</span><span>18 pp</span></div><span class="card__dl">PDF<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span></div>
+        </a>
+
+        <a class="card is-wide" href="./assets/pharma-rag-audit.pdf" download data-types="administration" aria-label="Download: Pharma RAG Audit, PDF">
+          <div class="card__head"><span class="card__idx">11 / 15</span><span class="card__pill" data-pill="audit">Audit</span></div>
+          <h4 class="card__title">Pharmacovigilance RAG — <em>Audit</em></h4>
+          <p class="card__desc">Citation faithfulness, hallucination rate, and the four queries we recommend never serving.</p>
+          <div class="card__foot"><div class="card__meta"><span>Healthcare</span><span>26 pp</span></div><span class="card__dl">PDF<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span></div>
+        </a>
+
+      </div>
+    </article>
+
+    <!-- 03.5 On-prem LLM -->
+    <article class="section" aria-labelledby="s35">
+      <header class="section__head">
+        <div class="section__num">03.5</div>
+        <div>
+          <h3 class="section__title" id="s35">On-Premise <em>LLM Deployments</em></h3>
+          <p class="section__sub"><b style="color:var(--green);font-weight:500">Deploy when</b> the data cannot leave the building. <b style="color:var(--red);font-weight:500">Don't</b> when the only reason is fashion; an SLA-backed managed endpoint is usually cheaper.</p>
+          <span class="section__rule">Banking core · Defence-adjacent · Government</span>
+        </div>
+      </header>
+      <div class="grid">
+
+        <a class="card is-wide" href="./assets/feasibility-sovereign-banking.pdf" download data-types="financial-service" aria-label="Download: Sovereign Banking Feasibility, PDF">
+          <div class="card__head"><span class="card__idx">12 / 15</span><span class="card__pill" data-pill="whitepaper">Whitepaper</span></div>
+          <h4 class="card__title">Sovereign Banking — <em>Feasibility</em></h4>
+          <p class="card__desc">GPU sizing, quantization trade-off, air-gap update procedure. Two procurement risks the client should price in.</p>
+          <div class="card__foot"><div class="card__meta"><span>Banking core</span><span>38 pp</span></div><span class="card__dl">PDF<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span></div>
+        </a>
+
+        <a class="card is-wide" href="./assets/ref-arch-70b-h100.pdf" download data-types="administration" aria-label="Download: Reference Architecture 70B H100, PDF">
+          <div class="card__head"><span class="card__idx">13 / 15</span><span class="card__pill" data-pill="whitepaper">Reference</span></div>
+          <h4 class="card__title">70B-class on H100</h4>
+          <p class="card__desc">Single-node, multi-node, HA. Costs in IDR and USD. The configuration we recommend against.</p>
+          <div class="card__foot"><div class="card__meta"><span>Sovereign DC</span><span>26 pp</span></div><span class="card__dl">PDF<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span></div>
+        </a>
+
+      </div>
+    </article>
+
+    <!-- 03.6 Multi-Agent Orchestration -->
+    <article class="section" aria-labelledby="s36">
+      <header class="section__head">
+        <div class="section__num">03.6</div>
+        <div>
+          <h3 class="section__title" id="s36">Multi-Agent <em>Orchestration</em></h3>
+          <p class="section__sub"><b style="color:var(--green);font-weight:500">Deploy when</b> the workflow has clear hand-offs and a tolerable kill-switch. <b style="color:var(--red);font-weight:500">Don't</b> when a single agent does the job — most of the time it does.</p>
+          <span class="section__rule">Supervisor / Worker · Back-office automation</span>
+        </div>
+      </header>
+      <div class="grid">
+
+        <a class="card is-feature" href="./assets/supervisor-worker-back-office.pdf" download data-types="financial-service administration" aria-label="Download: Supervisor Worker Back-Office, PDF">
+          <div class="card__head"><span class="card__idx">14 / 15 — Featured</span><span class="card__pill" data-pill="case-study">Case Study · PDF</span></div>
+          <h4 class="card__title">Supervisor / Worker — <em>Invoice Reconciliation</em></h4>
+          <p class="card__desc">Multi-agent graph for back-office reconciliation at a multifinance holding. Kill-switch, human-review fallback, audit-log schema. Documents the two failure modes that justified the architecture and the one where a single agent would have been simpler.</p>
+          <div class="card__foot"><div class="card__meta"><span>Multifinance</span><span>20 pp</span><span>v1.2 · Feb 2026</span></div><span class="card__dl">Download<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span></div>
+        </a>
+
+      </div>
+    </article>
+
+    <!-- 03.7 Eval / Obs -->
+    <article class="section" aria-labelledby="s37">
+      <header class="section__head">
+        <div class="section__num">03.7</div>
+        <div>
+          <h3 class="section__title" id="s37">Evaluation &amp; Observability <em>Harnesses</em></h3>
+          <p class="section__sub"><b style="color:var(--green);font-weight:500">Deploy</b> on every system above. <b style="color:var(--red);font-weight:500">Don't</b> ship without one. There is no exception we will sign off on.</p>
+          <span class="section__rule">Universal · Versioned per release</span>
+        </div>
+      </header>
+      <div class="grid">
+
+        <a class="card is-wide" href="./assets/eval-harness-spec.pdf" download data-types="administration" aria-label="Download: Eval Harness Spec, PDF">
+          <div class="card__head"><span class="card__idx">15 / 15</span><span class="card__pill" data-pill="whitepaper">Spec · PDF</span></div>
+          <h4 class="card__title">Eval Harness — <em>Specification</em></h4>
+          <p class="card__desc">The harness we ship with every system. Regression sets, drift checks, observability schema, and the release gate.</p>
+          <div class="card__foot"><div class="card__meta"><span>Universal</span><span>22 pp</span><span>v3.0</span></div><span class="card__dl">PDF<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span></div>
+        </a>
+
+        <a class="card is-wide" href="./assets/eval-harness-rubric.xlsx" download data-types="administration" aria-label="Download: Eval Harness Rubric, XLSX">
+          <div class="card__head"><span class="card__idx">+1</span><span class="card__pill" data-pill="audit">Rubric · XLSX</span></div>
+          <h4 class="card__title">Eval Rubric — <em>Working Sheet</em></h4>
+          <p class="card__desc">The scoring sheet auditors fill in at release. Pass/fail thresholds, weightings, and the override clause.</p>
+          <div class="card__foot"><div class="card__meta"><span>Universal</span><span>9 sheets</span></div><span class="card__dl">XLSX<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4v14m0 0l-5-5m5 5l5-5M4 20h16"/></svg></span></div>
+        </a>
+
+      </div>
+    </article>
+
+    <!-- Pull quote 03 -->
+    <aside class="pullquote">
+      <div class="pullquote__tag">Operating principle · Do</div>
+      <div>
+        <p class="pullquote__body">We agree the rubric before we write code.</p>
+        <div class="pullquote__attr">Klaut · Internal Playbook, §3.1 — On evaluation</div>
+      </div>
+    </aside>
+
+  </section>
+
+</main>
+
+<footer class="colophon page">
+  <div>
+    <b>Klaut · Jakarta</b>
+    PT Klaut Sistem Cerdas · Wisma 46, Kota BNI<br/>
+    klaut.id · Issue 01
+  </div>
+  <div>
+    <b>Set in Inter &amp; Fraunces</b>
+    Body 15px · Hairlines #23232E<br/>
+    Single accent: indigo 6B5FE4
+  </div>
+  <div>
+    <b>Issue 01 / May 2026</b>
+    A reading list. Updated monthly.<br/>
+    Printed in this colour scheme by accident.
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ----------- FILTER ----------- */
+  var chips  = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  var cards  = Array.prototype.slice.call(document.querySelectorAll('.card'));
+  var sel    = document.querySelector('.filterbar__select');
+
+  function applyFilter(value) {
+    cards.forEach(function (c) {
+      var types = (c.getAttribute('data-types') || '').split(/\s+/);
+      var match = value === 'all' || types.indexOf(value) !== -1;
+      c.classList.toggle('is-hidden', !match);
+    });
+    chips.forEach(function (ch) {
+      ch.setAttribute('aria-selected', ch.dataset.filter === value ? 'true' : 'false');
+    });
+    if (sel && sel.value !== value) sel.value = value;
+  }
+
+  chips.forEach(function (ch) {
+    ch.addEventListener('click', function () { applyFilter(ch.dataset.filter); });
+  });
+  if (sel) sel.addEventListener('change', function () { applyFilter(sel.value); });
+
+  /* ----------- SMOOTH SCROLL ----------- */
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href').slice(1);
+      var el = document.getElementById(id);
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  /* ----------- KEYBOARD NAV ----------- */
+  document.addEventListener('keydown', function (e) {
+    // "/" focuses the first chip
+    if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      var first = document.querySelector('.chip');
+      if (first) first.focus();
+      return;
+    }
+    // Arrow keys move between visible cards when one is focused
+    var visible = cards.filter(function (c) { return !c.classList.contains('is-hidden'); });
+    var active  = document.activeElement;
+    if (visible.indexOf(active) === -1) return;
+    var i = visible.indexOf(active);
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      var next = visible[Math.min(i + 1, visible.length - 1)];
+      if (next) next.focus();
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      var prev = visible[Math.max(i - 1, 0)];
+      if (prev) prev.focus();
+    }
+  });
+
+  /* ----------- KEYBOARD NAV ON CHIPS (left/right) ----------- */
+  chips.forEach(function (ch, idx) {
+    ch.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); chips[(idx+1) % chips.length].focus(); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); chips[(idx-1+chips.length) % chips.length].focus(); }
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); ch.click(); }
+    });
+  });
+
+  /* ----------- PREVENT MISSING-FILE NOISE ON CLICK ----------- */
+  // Placeholder PDFs may 404 — that's expected. Don't navigate away during preview.
+  cards.forEach(function (c) {
+    c.addEventListener('click', function (e) {
+      // Allow keyboard activation and download attribute to do their thing;
+      // suppress only the noisy navigation on preview if anchor target missing.
+      var href = c.getAttribute('href');
+      if (!href || href.indexOf('./assets/') !== 0) return;
+      // Let the browser attempt the download. If it 404s, browser shows its own error.
+    }, false);
+  });
+
+})();
+</script>
+
 </body>
 </html>

@@ -1,40 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- English (default, root) -->
   <url>
     <loc>https://klaut.id/</loc>
-    <lastmod>2026-05-14</lastmod>
+    <lastmod>2026-05-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/en/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/"/>
-  </url>
-  <url>
-    <loc>https://klaut.id/en/</loc>
-    <lastmod>2026-05-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/en/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/"/>
   </url>
   <url>
     <loc>https://klaut.id/faq</loc>
-    <lastmod>2026-05-14</lastmod>
+    <lastmod>2026-05-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/faq"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/en/faq"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/faq"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/faq"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/faq"/>
   </url>
   <url>
-    <loc>https://klaut.id/en/faq</loc>
-    <lastmod>2026-05-14</lastmod>
+    <loc>https://klaut.id/articles</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/articles"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/artikel"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/articles"/>
+  </url>
+  <url>
+    <loc>https://klaut.id/case-studies</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/case-studies"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/case-studies"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/case-studies"/>
+  </url>
+
+  <!-- Bahasa Indonesia (/id/) -->
+  <url>
+    <loc>https://klaut.id/id/</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/"/>
+  </url>
+  <url>
+    <loc>https://klaut.id/id/faq</loc>
+    <lastmod>2026-05-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/faq"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/en/faq"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/faq"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/faq"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/faq"/>
   </url>
+  <url>
+    <loc>https://klaut.id/id/artikel</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/articles"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/artikel"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/articles"/>
+  </url>
+  <url>
+    <loc>https://klaut.id/id/case-studies</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/case-studies"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/case-studies"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/case-studies"/>
+  </url>
+
 </urlset>

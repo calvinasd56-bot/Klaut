@@ -1,0 +1,1158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Klaut — Pre-Launch Audit (EN) · Live</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a;
+    --line:#262626; --linestrong:#3f3f46;
+    --accent:#6366f1; --accent2:#818cf8; --accent-deep:#4f46e5; --accent-bg:rgba(99,102,241,.12);
+    --ink:#fff; --muted:#a1a1aa; --dim:#71717a; --faint:#52525b;
+    --ok:#22c55e; --warn:#f59e0b; --bad:#ef4444;
+    --p0:#ef4444; --p1:#f59e0b; --p2:#818cf8;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Inter',ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent2);text-decoration:none}
+  a:hover{color:#fff}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:30;background:rgba(10,10,10,.82);backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px;max-width:1180px;margin:0 auto}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.01em}
+  .brand-mark{width:22px;height:22px;border-radius:5px;background:linear-gradient(135deg,#6366f1,#2D1B69);display:grid;place-items:center;font-family:var(--mono);font-size:11px;color:#fff;font-weight:700}
+  .brand-label{font-size:13px;color:var(--muted)}
+  .brand-label b{color:#fff;font-weight:600}
+  .topbar-actions{display:flex;align-items:center;gap:10px}
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:9999px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--muted)}
+  .pill .dot{width:6px;height:6px;border-radius:9999px;background:var(--accent2);box-shadow:0 0 12px var(--accent2)}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:8px;font-weight:500;font-size:13px;border:0;cursor:pointer;transition:all .18s}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{background:var(--accent-deep);transform:translateY(-1px)}
+  .btn-ghost{background:rgba(255,255,255,.04);color:#fff;border:1px solid rgba(255,255,255,.12)}
+  .btn-ghost:hover{background:rgba(255,255,255,.08)}
+
+  /* ---------- Header ---------- */
+  .hdr{padding:42px 0 26px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent2)}
+  .hdr h1{font-size:clamp(28px,4vw,42px);font-weight:600;letter-spacing:-.02em;margin:10px 0 8px;line-height:1.05}
+  .hdr .lede{color:var(--muted);max-width:720px;line-height:1.6;margin:0}
+  .meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:11px;color:var(--dim)}
+  .meta span{padding:5px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+
+  /* ---------- Score strip ---------- */
+  .scorestrip{
+    margin-top:26px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden
+  }
+  .scorebox{background:var(--surface);padding:18px 18px 16px}
+  .scorebox .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+  .scorebox .v{font-size:26px;font-weight:600;letter-spacing:-.02em}
+  .scorebox .v small{font-size:13px;color:var(--muted);font-weight:400;margin-left:6px}
+  .verdict-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 11px;border-radius:9999px;font-size:11px;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;background:rgba(239,68,68,.12);color:var(--bad);border:1px solid rgba(239,68,68,.3);margin-top:14px}
+
+  /* ---------- Tabs ---------- */
+  .tabs-shell{position:sticky;top:53px;z-index:25;background:rgba(10,10,10,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);margin-top:28px}
+  .tabs{display:flex;gap:4px;overflow-x:auto;max-width:1180px;margin:0 auto;padding:0 12px;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{
+    padding:14px 16px;background:transparent;border:0;color:var(--muted);font-size:13.5px;font-weight:500;font-family:inherit;
+    cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s
+  }
+  .tab:hover{color:#fff}
+  .tab.active{color:#fff;border-bottom-color:var(--accent2)}
+  .tab .count{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:9999px;font-family:var(--mono);font-size:10px;background:rgba(255,255,255,.06);color:var(--dim)}
+  .tab.active .count{background:rgba(99,102,241,.18);color:var(--accent2)}
+
+  /* ---------- Panels ---------- */
+  .panel{display:none;padding:36px 0 80px}
+  .panel.active{display:block}
+  .panel h2{font-size:24px;font-weight:600;letter-spacing:-.01em;margin:0 0 6px}
+  .panel .panel-lede{color:var(--muted);max-width:720px;margin:0 0 24px;line-height:1.6}
+
+  /* ---------- Cards (findings) ---------- */
+  .find{
+    background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px 22px;margin-bottom:14px;
+    display:grid;grid-template-columns:auto 1fr;gap:18px;transition:border-color .18s,opacity .18s
+  }
+  .find.resolved{opacity:.52;border-color:var(--linestrong)}
+  .find.resolved .find-title{text-decoration:line-through;text-decoration-color:rgba(255,255,255,.3)}
+
+  .find-check{margin-top:3px}
+  .find-check input{width:20px;height:20px;cursor:pointer;accent-color:var(--accent)}
+
+  .find-head{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+  .find-title{font-size:15.5px;font-weight:600;letter-spacing:-.005em;line-height:1.35;margin:0}
+  .sev{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid}
+  .sev-p0{background:rgba(239,68,68,.1);color:#fca5a5;border-color:rgba(239,68,68,.35)}
+  .sev-p1{background:rgba(245,158,11,.08);color:#fcd34d;border-color:rgba(245,158,11,.3)}
+  .sev-p2{background:rgba(129,140,248,.08);color:var(--accent2);border-color:rgba(129,140,248,.3)}
+  .find-loc{font-family:var(--mono);font-size:10.5px;color:var(--dim);letter-spacing:.04em}
+
+  .find-body{font-size:13.5px;color:var(--muted);line-height:1.65}
+  .find-body p{margin:0 0 10px}
+  .find-body p:last-child{margin-bottom:0}
+  .find-body .label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:14px;margin-bottom:5px}
+  .find-body code{font-family:var(--mono);font-size:12px;background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;color:#e4e4e7}
+  .find-body .quote{border-left:2px solid var(--linestrong);padding-left:12px;color:#d4d4d8;font-style:italic;margin:6px 0}
+  .find-body .fix{color:#fff}
+
+  .find-actions{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+  .find-actions a{
+    display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:6px;
+    border:1px solid var(--line);background:rgba(255,255,255,.02);color:var(--muted);
+    font-size:12px;font-weight:500;transition:all .15s
+  }
+  .find-actions a:hover{border-color:rgba(99,102,241,.45);color:#fff;background:rgba(99,102,241,.08)}
+
+  /* ---------- Exec summary specific ---------- */
+  .es-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0 28px}
+  .es-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+  .es-card .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+  .es-card .v{font-size:30px;font-weight:600;letter-spacing:-.02em;line-height:1}
+  .es-card .v.p0{color:#fca5a5}
+  .es-card .v.p1{color:#fcd34d}
+  .es-card .v.p2{color:var(--accent2)}
+  .es-card .desc{color:var(--muted);font-size:12.5px;margin-top:6px;line-height:1.5}
+  .es-prose{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:24px 26px;line-height:1.7;color:#d4d4d8;font-size:14.5px}
+  .es-prose p{margin:0 0 14px}
+  .es-prose p:last-child{margin-bottom:0}
+  .es-prose strong{color:#fff}
+
+  /* ---------- Roadmap ---------- */
+  .rmap{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+  .rmap-col{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px 22px}
+  .rmap-col h3{margin:0 0 4px;font-size:15px;font-weight:600;letter-spacing:-.005em}
+  .rmap-col .when{font-family:var(--mono);font-size:10.5px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+  .rmap-col ul{list-style:none;padding:0;margin:0}
+  .rmap-col li{padding:9px 0;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px;line-height:1.5}
+  .rmap-col li:first-child{border-top:0;padding-top:0}
+  .rmap-col.p0{border-color:rgba(239,68,68,.3)}
+  .rmap-col.p0 h3{color:#fca5a5}
+  .rmap-col.p1 h3{color:#fcd34d}
+  .rmap-col.p2 h3{color:var(--accent2)}
+
+  /* ---------- Progress bar in topbar ---------- */
+  .prog{position:relative;width:160px;height:6px;background:var(--surface2);border-radius:9999px;overflow:hidden}
+  .prog-bar{position:absolute;top:0;left:0;bottom:0;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:9999px;transition:width .35s cubic-bezier(.2,.8,.2,1)}
+  .prog-label{font-family:var(--mono);font-size:11px;color:var(--muted)}
+
+  @media(max-width:880px){
+    .scorestrip{grid-template-columns:repeat(2,1fr)}
+    .es-grid{grid-template-columns:1fr 1fr}
+    .rmap{grid-template-columns:1fr}
+    .topbar-actions .pill,.topbar-actions .prog,.topbar-actions .prog-label{display:none}
+  }
+  @media(max-width:560px){
+    .find{grid-template-columns:1fr;gap:10px}
+    .scorestrip{grid-template-columns:1fr 1fr}
+    .es-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================ TOP BAR ============================ -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-mark">K</div>
+      <div>
+        <div><b>Klaut</b> <span class="brand-label">Pre-Launch Audit · English</span></div>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <span class="prog-label" id="progLabel">0 of 35 resolved</span>
+      <div class="prog"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
+      <span class="pill"><span class="dot"></span> Live · linked to index.html</span>
+      <a href="./index.html" target="_blank" rel="noopener" class="btn btn-ghost">Open site →</a>
+      <button class="btn btn-primary" id="resetBtn" title="Clear all check marks">Reset</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================ HEADER ============================ -->
+<header class="hdr">
+  <div class="wrap">
+    <div class="eyebrow">Internal · Pre-Launch QA</div>
+    <h1>The website is not launch-ready.</h1>
+    <p class="lede">This is what stays on my desk until it ships clean. Every item below is something I want fixed, deferred with a reason, or signed off on before the English landing goes public. Tick each box as the work clears. The progress bar at the top reflects what is actually done — not what is planned.</p>
+    <div class="meta">
+      <span>AUDITED · klaut-landing/index.html</span>
+      <span>OWNER · Calvin Wong</span>
+      <span>DATE · 2026-05-14</span>
+      <span>STAGE · Pre-revenue, pre-traffic</span>
+    </div>
+
+    <div class="scorestrip">
+      <div class="scorebox">
+        <div class="k">Total Findings</div>
+        <div class="v">35</div>
+      </div>
+      <div class="scorebox">
+        <div class="k">P0 · Launch-blockers</div>
+        <div class="v" style="color:#fca5a5">8</div>
+      </div>
+      <div class="scorebox">
+        <div class="k">P1 · Credibility-killers</div>
+        <div class="v" style="color:#fcd34d">12</div>
+      </div>
+      <div class="scorebox">
+        <div class="k">P2 · Polish</div>
+        <div class="v" style="color:var(--accent2)">15</div>
+      </div>
+    </div>
+
+    <div class="verdict-badge"><span style="width:6px;height:6px;border-radius:9999px;background:var(--bad)"></span> Hold launch · close P0 + P1 first</div>
+  </div>
+</header>
+
+<!-- ============================ TABS ============================ -->
+<div class="tabs-shell">
+  <div class="tabs" role="tablist">
+    <button class="tab active" data-tab="exec">Executive Summary</button>
+    <button class="tab" data-tab="typos">Typos &amp; Grammar <span class="count">8</span></button>
+    <button class="tab" data-tab="copy">Copy &amp; Wording <span class="count">8</span></button>
+    <button class="tab" data-tab="design">Design &amp; UX <span class="count">7</span></button>
+    <button class="tab" data-tab="message">Message &amp; AI-Writing <span class="count">6</span></button>
+    <button class="tab" data-tab="scale">Scalability <span class="count">6</span></button>
+    <button class="tab" data-tab="verdict">Verdict &amp; Roadmap</button>
+  </div>
+</div>
+
+<!-- ============================ EXECUTIVE SUMMARY ============================ -->
+<section class="panel active" id="panel-exec">
+  <div class="wrap">
+    <h2>What I see when I open the site as a customer.</h2>
+    <p class="panel-lede">The structure is there. The story isn't yet. Three classes of problem are blocking launch — fabricated proof points, copy that drifts from our own positioning doc, and small grammar slips that will follow us into every screenshot anyone takes.</p>
+
+    <div class="es-grid">
+      <div class="es-card">
+        <div class="k">Launch-Blockers</div>
+        <div class="v p0">8</div>
+        <div class="desc">Fix these before any traffic. False shipping counts, dead links, fragments in headline copy.</div>
+      </div>
+      <div class="es-card">
+        <div class="k">Credibility-Killers</div>
+        <div class="v p1">12</div>
+        <div class="desc">Fix before paid traffic or PR. Service-name drift vs. the strategy doc, banned hype phrases, mismatched icons.</div>
+      </div>
+      <div class="es-card">
+        <div class="k">Polish</div>
+        <div class="v p2">15</div>
+        <div class="desc">Within 30 days. Real case study, FAQ content, analytics, lead form, privacy/terms.</div>
+      </div>
+    </div>
+
+    <div class="es-prose">
+      <p><strong>Top three things keeping this off the public web.</strong></p>
+      <p>One — the Industries section shows <code>7 SHIPPED</code> under Inventory Management and <code>4 SHIPPED</code> under Marketplace. We have not shipped seven inventory engagements. We have not shipped four marketplace engagements. Any prospect who asks for one will catch us. Remove them today, or replace them with a number we can defend on a call.</p>
+      <p>Two — the four-service grid uses <code>Consulting / Chief AI Officer / Klaut Governance / Audit</code>. The founding strategy doc names the four components <code>Foundation / Chief AI Officer / Klaut Governance / Flow</code>. The footer uses a third variant. Pick one set of four names and apply it everywhere — the site, the pitch deck, every email signature.</p>
+      <p>Three — the hero subhead reads <code>Consult, Construct, Deploy</code>. The flow section walks through six phases: <code>Consult / Diagnose / Design / Build / Deploy / Autonomy</code>. A visitor scrolls one screen and the message has already changed shape. Match them.</p>
+      <p>Everything else on this audit is downstream of those three. The grammar fixes are visible-in-a-screenshot stuff. The AI-writing flags are about whether the page sounds like Klaut or sounds like every other AI vendor's homepage. The scalability findings are about what breaks when traffic actually arrives — no lead form, no analytics, no FAQ, no case study to show the people who click "Explore case studies."</p>
+      <p>Estimated work to close P0 + P1: two focused sessions. Estimated time to clear P2 and reach a confident public launch: two to three weeks.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TYPOS & GRAMMAR ============================ -->
+<section class="panel" id="panel-typos">
+  <div class="wrap">
+    <h2>Typos &amp; Grammar</h2>
+    <p class="panel-lede">Small errors, big tax. A typo in body copy is forgivable. A fragment in a service card headline reads as carelessness — which is the exact opposite of the positioning we are paying for.</p>
+
+    <!-- T1 -->
+    <article class="find" data-id="T1" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">"Enterprise Grade" in the H1, "Enterprise-Grade" in the meta tags.</h3>
+          <span class="find-loc">Hero · &lt;h1&gt;</span>
+        </div>
+        <div class="find-body">
+          <p>The H1 reads <code>Enterprise Grade AI Solutions</code>. The page title, OG title and meta description all read <code>Enterprise-Grade</code>. SEO previews and the actual page will disagree visually.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Hyphenate everywhere — H1 included. <code>Enterprise-Grade AI Solutions</code>.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#top" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- T2 -->
+    <article class="find" data-id="T2" data-sev="p0">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p0">P0</span>
+          <h3 class="find-title">Sentence fragment in the About copy.</h3>
+          <span class="find-loc">#about · paragraph 2</span>
+        </div>
+        <div class="find-body">
+          <p class="quote">"Klaut, vertically-integrated transformation ecosystem. We pair embedded AI agents with production engineering…"</p>
+          <p>The first sentence is missing its verb. It reads like a noun phrase someone forgot to finish.</p>
+          <span class="label">Fix</span>
+          <p class="fix">"Klaut <strong>is a</strong> vertically-integrated transformation ecosystem. We pair embedded AI agents with production engineering, applied research, and a governance framework battle-tested in regulated environments."</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#about" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- T3 -->
+    <article class="find" data-id="T3" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">"A cup of coffee is always welcomed."</h3>
+          <span class="find-loc">#why · Free Consultation card</span>
+        </div>
+        <div class="find-body">
+          <p>Should be <code>welcome</code>, not <code>welcomed</code>. "Welcome" is the state (the cup of coffee is welcome). "Welcomed" is the past-tense action (someone welcomed it).</p>
+          <span class="label">Fix</span>
+          <p class="fix">"A cup of coffee is always welcome."</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#why" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- T4 -->
+    <article class="find" data-id="T4" data-sev="p0">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p0">P0</span>
+          <h3 class="find-title">"We reply your message as a human, not robot."</h3>
+          <span class="find-loc">Final CTA · subhead</span>
+        </div>
+        <div class="find-body">
+          <p>Two grammar slips in one sentence we use to literally say <em>we communicate well</em>. Missing preposition and missing article.</p>
+          <span class="label">Fix</span>
+          <p class="fix">"We reply <strong>to</strong> your message like a human, not <strong>a</strong> robot."</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#cta" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- T5 -->
+    <article class="find" data-id="T5" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">Comma splices and lowercase starts in the Why cards.</h3>
+          <span class="find-loc">#why · "Deploy as you need" card</span>
+        </div>
+        <div class="find-body">
+          <p class="quote">"You need customer service? we got it. You only need CRM? no problem. You need everything in our ecosystem? we are here to talk"</p>
+          <p>Every clause after a question mark starts lowercase. The final clause has no terminal punctuation. "We got it" is a register break — the rest of the site speaks like an enterprise firm; this clause speaks like a help-desk chat reply.</p>
+          <span class="label">Fix</span>
+          <p class="fix">"Need customer service? Done. Need CRM only? Done. Need the full ecosystem? Let's talk."</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#why" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- T6 -->
+    <article class="find" data-id="T6" data-sev="p0">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p0">P0</span>
+          <h3 class="find-title">"Code audit to make sure your AI agent will not become a terminator in the future."</h3>
+          <span class="find-loc">#ecosystems · Audit card</span>
+        </div>
+        <div class="find-body">
+          <p>Two problems. One — the sentence is a fragment with no verb (it's a noun phrase modified by an infinitive). Two — "become a terminator" is a joke. The rest of the site is positioned for procurement officers at mid-market enterprises. The joke does not survive that audience.</p>
+          <span class="label">Fix</span>
+          <p class="fix">"We audit every line of code and every agent decision path so the system you deploy stays under your control."</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#ecosystems" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- T7 -->
+    <article class="find" data-id="T7" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">Missing articles on the Governance card.</h3>
+          <span class="find-loc">#ecosystems · Klaut Governance card</span>
+        </div>
+        <div class="find-body">
+          <p class="quote">"Build custom agents, fully run by us. You will have access to dashboard and full report, no hassle."</p>
+          <p>"Access to dashboard" needs an article. "Full report" should likely be plural — reports come on a cadence, not once.</p>
+          <span class="label">Fix</span>
+          <p class="fix">"You will have access to <strong>a</strong> dashboard and <strong>full reports</strong>, with no hassle on your side."</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#ecosystems" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- T8 -->
+    <article class="find" data-id="T8" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">"From a cup of coffee, to autonomous system."</h3>
+          <span class="find-loc">#flow · section subhead</span>
+        </div>
+        <div class="find-body">
+          <p>Missing the article on the second noun. Also, the comma is doing odd work — read it aloud and the pause lands wrong.</p>
+          <span class="label">Fix</span>
+          <p class="fix">"From a cup of coffee to an autonomous system."</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#flow" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================ COPY & WORDING ============================ -->
+<section class="panel" id="panel-copy">
+  <div class="wrap">
+    <h2>Copy &amp; Wording</h2>
+    <p class="panel-lede">A landing page is one sustained argument. Every section either reinforces the message or contradicts it. Right now the site contradicts itself within one scroll.</p>
+
+    <!-- C1 -->
+    <article class="find" data-id="C1" data-sev="p0">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p0">P0</span>
+          <h3 class="find-title">"Consult, Construct, Deploy" doesn't match the actual flow.</h3>
+          <span class="find-loc">Hero · subhead vs. #flow</span>
+        </div>
+        <div class="find-body">
+          <p>The hero promises a three-step engagement. The Flow section walks through six phases: Consult / Diagnose / Design / Build / Deploy / Autonomy. A reader scrolls once and the story has changed.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Decide which is the canonical model. If three, kill the six-phase section. If six, rewrite the hero subhead. My preference: the six-phase model is closer to what we actually do — rewrite the hero to <code>"Consult. Diagnose. Build. Operate."</code> as four short clauses.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#top" target="_blank" rel="noopener">View hero →</a>
+          <a href="./index.html#flow" target="_blank" rel="noopener">View flow →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- C2 -->
+    <article class="find" data-id="C2" data-sev="p0">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p0">P0</span>
+          <h3 class="find-title">Three different names for the four-service architecture.</h3>
+          <span class="find-loc">#ecosystems vs. footer vs. strategy doc</span>
+        </div>
+        <div class="find-body">
+          <p>The Ecosystems grid lists <code>Consulting / Chief AI Officer / Klaut Governance / Audit</code>. The footer lists <code>Consult / Chief AI Officer / Governance / Audit</code>. The internal strategy doc (klaud.md) defines the four components as <code>Foundation / Chief AI Officer / Klaut Governance / Flow</code>.</p>
+          <p>This is the most damaging single inconsistency on the site. A reader who looks at the grid, then the footer, then a one-pager we send them will see three different vocabularies for the same offering.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Lock the four names. My recommendation: align the site with the strategy doc — <strong>Foundation / Chief AI Officer / Klaut Governance / Flow</strong> — and use those exact words in the grid, the footer, every nav, and every email signature. If we keep "Audit" for the fourth product, then update klaud.md to match. Either direction, but pick one.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#ecosystems" target="_blank" rel="noopener">View grid →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- C3 -->
+    <article class="find" data-id="C3" data-sev="p0">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p0">P0</span>
+          <h3 class="find-title">Fake shipping counts on Industry tiles.</h3>
+          <span class="find-loc">#industries · Inventory + Marketplace</span>
+        </div>
+        <div class="find-body">
+          <p>Two industry cards display <code>7 SHIPPED</code> and <code>4 SHIPPED</code>. We are pre-revenue. A prospect who asks <em>"Can I see one of the seven inventory deployments?"</em> ends the conversation with us looking like liars.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Remove the counts. If we want a signal there, replace with something we can defend: <code>"PARTNER STACK READY"</code>, <code>"IN BUILD"</code>, or strip the metadata row entirely until we have a real number.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#industries" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- C4 -->
+    <article class="find" data-id="C4" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">"View work →" links go nowhere.</h3>
+          <span class="find-loc">#industries · all six tiles</span>
+        </div>
+        <div class="find-body">
+          <p>Every industry card has a "View work →" affordance. None of them are wired to a destination. A hover signals a click; the click signals nothing.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Either link each tile to a real case-study page (which we don't have yet) or remove the affordance entirely. Leaving it broken at launch creates the impression we don't test our own site.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#industries" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- C5 -->
+    <article class="find" data-id="C5" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">"Explore case studies" CTA leads to the services grid, not case studies.</h3>
+          <span class="find-loc">Hero · secondary CTA</span>
+        </div>
+        <div class="find-body">
+          <p>The hero's secondary CTA is <code>"Explore case studies"</code> with <code>href="#ecosystems"</code>. The ecosystems section is the four-service grid. No case studies exist on the page.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Until a case-study page is built, change the button text to <code>"How we work"</code> and keep the existing anchor. Or remove the secondary CTA entirely and let the primary <code>"Book a call"</code> carry the action.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#top" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- C6 -->
+    <article class="find" data-id="C6" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">Footer "Career" and "Partnership" links point to the wrong anchors.</h3>
+          <span class="find-loc">Footer · Company column</span>
+        </div>
+        <div class="find-body">
+          <p><code>Career</code> links to <code>#cao</code> (the Chief AI Officer section). <code>Partnership</code> links to <code>#flow</code> (the six-phase Transformation Flow). Neither anchor is what the label promises.</p>
+          <p>"Media Contact" is <code>href="#"</code> — a dead link to the top of the page.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Remove Career, Partnership and Media Contact from the footer until we have real pages or contact rails for them. Replace with a single <code>"Contact"</code> column linking to the <code>mailto:</code>.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#" target="_blank" rel="noopener">View footer →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- C7 -->
+    <article class="find" data-id="C7" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">"Deploy your message" is an odd CTA.</h3>
+          <span class="find-loc">#cao · button</span>
+        </div>
+        <div class="find-body">
+          <p>The button reads <code>"Deploy your message"</code>. "Deploy" is our verb for putting AI into production. Applied to an email, the meaning bends — and the reader pauses on the verb instead of clicking.</p>
+          <span class="label">Fix</span>
+          <p class="fix">"Send your brief." or just "Email us."</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#cao" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- C8 -->
+    <article class="find" data-id="C8" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">"PRICING · By demand" tells the reader nothing useful.</h3>
+          <span class="find-loc">#about · stat grid</span>
+        </div>
+        <div class="find-body">
+          <p>Two words that mean either "we'll quote you" or "we don't know yet." For mid-market buyers, pricing opacity is a friction signal. They are not asking for a published rate card. They are asking for an order of magnitude before they spend 30 minutes on a call.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Replace "By demand" with a price band that won't anchor us wrong — for example <code>"Engagements start at $X"</code> for the Foundation product. If we genuinely don't want to publish numbers, remove the Pricing tile entirely rather than leave the vague version.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#about" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================ DESIGN & UX ============================ -->
+<section class="panel" id="panel-design">
+  <div class="wrap">
+    <h2>Design &amp; UX</h2>
+    <p class="panel-lede">Visually the page works. The problems are at the layer below the design — broken affordances, mismatched icons, dev artifacts left in the HTML, and missing infrastructure that any enterprise buyer's procurement team will ask for.</p>
+
+    <!-- D1 -->
+    <article class="find" data-id="D1" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">Industry tile icons don't match the tile content.</h3>
+          <span class="find-loc">#industries · multiple tiles</span>
+        </div>
+        <div class="find-body">
+          <p>The "Inventory Management &amp; ERP" tile uses a <strong>heart icon</strong>. The "Sales &amp; Customer Service" tile uses a <strong>factory roof icon</strong>. The HTML comments above each card still say <code>&lt;!-- Healthcare --&gt;</code>, <code>&lt;!-- Manufacturing --&gt;</code>, <code>&lt;!-- Public Sector --&gt;</code> — leftovers from an earlier industry list.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Replace icons with ones that match the content (boxes for inventory, headset for sales/CS, file for legal, store for marketplace). Strip the orphan HTML comments while we're in there.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#industries" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- D2 -->
+    <article class="find" data-id="D2" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">Industry tile footer rhythm is broken.</h3>
+          <span class="find-loc">#industries · grid</span>
+        </div>
+        <div class="find-body">
+          <p>Two of six tiles show a "SHIPPED" count (which we're removing per <code>C3</code>). Four tiles have a blank where that count would be. The result is a grid with two visually heavier tiles and four lighter ones, with no semantic reason for the asymmetry.</p>
+          <span class="label">Fix</span>
+          <p class="fix">After removing the fake counts (C3), give every tile the same footer — for example a small <code>"Available for engagement"</code> tag, or strip the bottom row entirely on every tile.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#industries" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- D3 -->
+    <article class="find" data-id="D3" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">No analytics tag on the page.</h3>
+          <span class="find-loc">&lt;head&gt;</span>
+        </div>
+        <div class="find-body">
+          <p>I scanned the head — Organization and WebSite structured data are there. There is no GA4, Plausible, Posthog, or any other measurement script. Launching this page without analytics means we can't tell whether visitors bounce on the hero, the services grid, or the CTA.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Pick one. Plausible is the lightest option for a marketing landing — no cookie banner needed in most jurisdictions, single script tag. Install before traffic.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html" target="_blank" rel="noopener">View page →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- D4 -->
+    <article class="find" data-id="D4" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">No Privacy Policy or Terms link.</h3>
+          <span class="find-loc">Footer</span>
+        </div>
+        <div class="find-body">
+          <p>Enterprise procurement reviews fail vendors who don't have a published privacy notice. Indonesian PDP (UU PDP) and EU/UK reach via the English page both expect it.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Add Privacy and Terms links to the footer. Ship the policies even if they are short — a one-page privacy notice is better than no policy at all on launch day.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#" target="_blank" rel="noopener">View footer →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- D5 -->
+    <article class="find" data-id="D5" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">"2025 . Jakarta" with a stray space, and the year doesn't match the strategy doc.</h3>
+          <span class="find-loc">#about · stat grid · Founded tile</span>
+        </div>
+        <div class="find-body">
+          <p>The Founded tile reads <code>"2025 . Jakarta"</code> with a space-period-space construction. The strategy doc lists Founded as <code>2026</code>.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Reconcile to one year. Use <code>"Founded 2026 · Jakarta"</code> with the typographic middle dot (·), consistent with the other eyebrow labels on the site.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#about" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- D6 -->
+    <article class="find" data-id="D6" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">Mobile hero — video opacity .55 with dark overlay. Verify on real devices.</h3>
+          <span class="find-loc">CSS · @media (max-width: 767px)</span>
+        </div>
+        <div class="find-body">
+          <p>The hero video drops to .55 opacity on mobile with a darker overlay stacked on top. On a bright phone in sunlight, that may push the H1 contrast close to the WCAG AA edge.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Test on an actual phone in daylight — not just browser dev tools. If contrast is borderline, drop the hero video on mobile entirely and use a static gradient.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#top" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- D7 -->
+    <article class="find" data-id="D7" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">Hero stat "/ Save " has a trailing space.</h3>
+          <span class="find-loc">Hero · metric strip</span>
+        </div>
+        <div class="find-body">
+          <p>Tiny. The label reads <code>"/ Save "</code> with a hanging space, while the other three labels are clean. Invisible on most screens, but it widens the underline if anyone applies <code>text-decoration</code> later.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Trim the trailing space. Same pass, audit all four labels for consistent capitalization — currently "Up To" / "More Than" / "Save" / "Standby" mix sentence and title case.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#top" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================ MESSAGE & AI-WRITING ============================ -->
+<section class="panel" id="panel-message">
+  <div class="wrap">
+    <h2>Message &amp; AI-Writing</h2>
+    <p class="panel-lede">The anti-AI-writing rules I wrote are the standard. If a sentence on the site would fail those rules, it stays in this section until it gets rewritten. Hype language, performative phrases, three-adjective filler stacks — all flagged here.</p>
+
+    <!-- M1 -->
+    <article class="find" data-id="M1" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">"Harmonizing Human &amp; AI relationship for a better future."</h3>
+          <span class="find-loc">#about · opening line</span>
+        </div>
+        <div class="find-body">
+          <p>This is the exact aspirational marketing language the writing rules forbid. It says nothing concrete. Strip it out of the page and the page loses zero information.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Replace with a sentence that tells the reader what we deliver in one line. Example: <em>"We design, build and operate the AI stack mid-market enterprises can't assemble alone."</em></p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#about" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- M2 -->
+    <article class="find" data-id="M2" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">"Human &amp; AI in Perfect Harmony."</h3>
+          <span class="find-loc">#cta · h2</span>
+        </div>
+        <div class="find-body">
+          <p>The final CTA headline. Reads like the chorus of a generic vendor pitch. We close the page with the most forgettable sentence on it.</p>
+          <span class="label">Fix</span>
+          <p class="fix">End on the offer, not on a slogan. Example: <em>"Tell us what you're trying to fix. We'll tell you whether AI is the right shape of answer."</em></p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#cta" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- M3 -->
+    <article class="find" data-id="M3" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">"Enterprise" is overused.</h3>
+          <span class="find-loc">Site-wide</span>
+        </div>
+        <div class="find-body">
+          <p>The word appears in the title, meta description, hero, About paragraph, three industry tiles, and the CAO section. When a single descriptor carries every section of a page, it stops working as a differentiator.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Keep "enterprise" in the hero, the meta, and one anchoring sentence. Replace the rest with the specific thing being described (financial workflow, procurement system, knowledge base) so the reader gets information instead of repetition.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html" target="_blank" rel="noopener">View page →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- M4 -->
+    <article class="find" data-id="M4" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">"Battle-tested in regulated environments."</h3>
+          <span class="find-loc">#about · paragraph 2</span>
+        </div>
+        <div class="find-body">
+          <p>Strong claim. If a procurement officer or journalist asks <em>which regulated environments and which battles</em>, we need a clean answer. At pre-revenue stage, this is a claim we can't yet substantiate.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Either back the claim with a specific reference (the partner's customer service AI deployments, or a named regulatory framework we've designed against) or replace with a softer phrasing: <em>"designed against the governance constraints regulated industries actually face."</em></p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#about" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- M5 -->
+    <article class="find" data-id="M5" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">The buzzword marquee.</h3>
+          <span class="find-loc">Hero · marquee</span>
+        </div>
+        <div class="find-body">
+          <p>Nine generic category labels scroll past on loop: Workflow Automation / AI Workforce / Document Intelligence / Operational AI / Enterprise Search / AI Governance / Agent Orchestration / Autonomous Systems / Knowledge Infrastructure.</p>
+          <p>Half of these we don't deliver yet. All of them appear on every competitor site. The marquee is doing no work.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Trim to four to five items that map cleanly to actual Klaut capabilities today. Or replace the marquee with a row of logos once we have client logos to put there.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#top" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- M6 -->
+    <article class="find" data-id="M6" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">"Most people think AI will replace their job and business. In fact, it will help you to do better than ever."</h3>
+          <span class="find-loc">#why · quote card</span>
+        </div>
+        <div class="find-body">
+          <p>The quote is attributed to me. Minor: subject-number agreement — <em>their jobs and businesses</em> is the cleaner read. Bigger: the framing is the most generic AI-vendor talking point in circulation. If a quote is going on the site under my name, it should be something specific to how Klaut operates, not the consensus reassurance.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Replace with a quote that says something Klaut actually believes — and that no competitor would steal. Example: <em>"We don't sell AI. We sell the discipline of choosing which AI not to deploy."</em></p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#why" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================ SCALABILITY ============================ -->
+<section class="panel" id="panel-scale">
+  <div class="wrap">
+    <h2>Scalability</h2>
+    <p class="panel-lede">What breaks when traffic actually arrives? Lead capture, qualification, content depth, SEO leverage. These don't block launch on day one — they cap growth from week two onward.</p>
+
+    <!-- S1 -->
+    <article class="find" data-id="S1" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">Lead capture is mailto only.</h3>
+          <span class="find-loc">All CTAs</span>
+        </div>
+        <div class="find-body">
+          <p>Every conversion path on the site opens the user's default mail client. That works for the first five inbounds. It does not work for the first fifty. There is no structured intake, no qualification questions, no calendar handoff, no CRM hook.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Add a real lead form on the final CTA — three fields (name, company, what they need). Pipe it to a single inbox + a CRM (HubSpot free tier is fine for stage one). Keep one "Email instead" as a fallback for buyers who prefer it.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#cta" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- S2 -->
+    <article class="find" data-id="S2" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">FAQ link in nav, but the FAQ page status is unclear.</h3>
+          <span class="find-loc">Nav · /faq</span>
+        </div>
+        <div class="find-body">
+          <p>The English nav links to <code>/faq</code>. If that page doesn't exist or hasn't been pressure-tested against the actual questions we hear on calls, the link is wasted traffic.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Verify the FAQ page renders. Populate it with the eight to twelve questions that actually come up in early conversations — pricing range, engagement length, vendor relationships, data residency, contract terms.</p>
+        </div>
+        <div class="find-actions">
+          <a href="/faq" target="_blank" rel="noopener">Try FAQ →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- S3 -->
+    <article class="find" data-id="S3" data-sev="p1">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p1">P1</span>
+          <h3 class="find-title">No case studies — and the site promises them in two places.</h3>
+          <span class="find-loc">Hero CTA + #industries</span>
+        </div>
+        <div class="find-body">
+          <p>Hero secondary CTA says "Explore case studies." Nav says "Case Studies" (linking to Industries). Industry tiles say "View work →". Three signals of proof we don't have yet.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Until we have one real case study live, rephrase every "case study" surface to "How we work" or "Industries" or remove. One short, real case study (even from the partner's customer service AI deployments, if usable) outweighs all six industry tiles.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#industries" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- S4 -->
+    <article class="find" data-id="S4" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">No newsletter or Substack capture.</h3>
+          <span class="find-loc">Site-wide</span>
+        </div>
+        <div class="find-body">
+          <p>The founding content strategy names Substack as the thought-leadership channel and email as the primary contact method. Neither has a capture surface on the homepage. Anyone who likes the page but isn't ready to book a call leaves without giving us a way to follow up.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Add a single low-friction email capture near the footer: <em>"We write one short note per month about what AI is and isn't ready for in the enterprise."</em></p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#" target="_blank" rel="noopener">View footer →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- S5 -->
+    <article class="find" data-id="S5" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">Hero metrics are bold and unsourced.</h3>
+          <span class="find-loc">Hero · metric strip</span>
+        </div>
+        <div class="find-body">
+          <p>Four numbers anchor the hero: <code>70%</code> workload reduction, <code>5X</code> faster, <code>60%</code> cost reduction, <code>24/7</code> uptime. No footnote, no source, no "up to" caveat on the average reader's first scan (though "/ Up To" appears as the small label above 70%).</p>
+          <p>At scale — once these numbers are screenshotted into pitch decks by other people — we either need to defend them or pull them back to claims we can actually source.</p>
+          <span class="label">Fix</span>
+          <p class="fix">For each metric, either link to a methodology footnote or rephrase: <em>"typically reduces operational workload by 40–70%"</em>, <em>"clients report 3–5× faster execution on automated workflows"</em>. Smaller numbers we can defend beat larger numbers we can't.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html#top" target="_blank" rel="noopener">View on site →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- S6 -->
+    <article class="find" data-id="S6" data-sev="p2">
+      <div class="find-check"><input type="checkbox"/></div>
+      <div>
+        <div class="find-head">
+          <span class="sev sev-p2">P2</span>
+          <h3 class="find-title">Only Organization + WebSite structured data. No Service or FAQ schema.</h3>
+          <span class="find-loc">&lt;head&gt; · JSON-LD</span>
+        </div>
+        <div class="find-body">
+          <p>SEO leverage we leave on the table. Service schema for each of the four products would help us appear for "AI consulting Jakarta" / "Chief AI Officer service" / "AI governance audit". FAQ schema (once the FAQ page is built) gets us rich snippets in Google.</p>
+          <span class="label">Fix</span>
+          <p class="fix">Add Service JSON-LD for Foundation, Chief AI Officer, Klaut Governance, and Flow (or whatever we name them after C2). Add FAQPage schema when /faq is finalized.</p>
+        </div>
+        <div class="find-actions">
+          <a href="./index.html" target="_blank" rel="noopener">View page →</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================ VERDICT & ROADMAP ============================ -->
+<section class="panel" id="panel-verdict">
+  <div class="wrap">
+    <h2>Verdict &amp; Roadmap</h2>
+    <p class="panel-lede">One paragraph of verdict, three columns of work, one definition of done. Anything not in the P0 column does not block launch — but everything in P0 does.</p>
+
+    <div class="es-prose" style="margin-bottom:26px">
+      <p><strong>Verdict.</strong> The English landing is not ready for public traffic. The visual design works. The structure works. The content is the gap — three contradictory naming conventions for the same four-service architecture, two fake shipping counts, four small grammar errors in copy that's one screenshot away from a competitor's Slack channel. None of these are hard fixes. All of them are necessary.</p>
+      <p><strong>Definition of done for launch.</strong> Every P0 box on this audit is checked. Every P1 box is either checked or has a written reason for deferral logged in the project doc. The progress bar at the top of this page reads at least <code>20 of 35 resolved</code> — which is the math of clearing all P0s plus all P1s — before we move marketing off "soft launch" and into anything paid.</p>
+    </div>
+
+    <div class="rmap">
+      <div class="rmap-col p0">
+        <h3>P0 · Launch-blockers</h3>
+        <div class="when">Before any traffic · same-day work</div>
+        <ul>
+          <li>Remove <code>7 SHIPPED</code> and <code>4 SHIPPED</code> from industry tiles. (C3)</li>
+          <li>Pick one set of four service names. Apply to grid, footer, nav, every doc. (C2)</li>
+          <li>Match hero subhead to the actual flow — three steps or six, not both. (C1)</li>
+          <li>Fix the About paragraph fragment (<em>"Klaut is a vertically-integrated…"</em>). (T2)</li>
+          <li>Rewrite the Audit card. Drop the "terminator" joke. (T6)</li>
+          <li>Rewrite the final-CTA subhead: <em>"We reply to your message…"</em> (T4)</li>
+          <li>Repair the Why card capitalisation / comma splices. (T5)</li>
+          <li>Hyphenate "Enterprise-Grade" in the H1 to match meta. (T1)</li>
+        </ul>
+      </div>
+      <div class="rmap-col p1">
+        <h3>P1 · Credibility-killers</h3>
+        <div class="when">Before paid traffic or PR · this week</div>
+        <ul>
+          <li>Repair or remove the footer Career / Partnership / Media Contact links. (C6)</li>
+          <li>Rewire or rename the "Explore case studies" hero CTA. (C5)</li>
+          <li>Wire or remove every "View work →" affordance. (C4)</li>
+          <li>Rewrite "Harmonizing Human &amp; AI relationship for a better future." (M1)</li>
+          <li>Rewrite the final-CTA h2: "Human &amp; AI in Perfect Harmony." (M2)</li>
+          <li>Decide whether "battle-tested in regulated environments" stays — and source it if so. (M4)</li>
+          <li>Fix industry tile icons + strip orphan HTML comments. (D1)</li>
+          <li>Normalise industry tile footers — same shape on every tile. (D2)</li>
+          <li>Install analytics. (D3)</li>
+          <li>Publish Privacy + Terms. (D4)</li>
+          <li>Stand up a real lead form behind "Book a call". (S1)</li>
+          <li>Verify the /faq page exists and is populated. (S2)</li>
+        </ul>
+      </div>
+      <div class="rmap-col p2">
+        <h3>P2 · Polish</h3>
+        <div class="when">Within 30 days · soft-launch period</div>
+        <ul>
+          <li>Rewrite the CAO button: "Send your brief" not "Deploy your message". (C7)</li>
+          <li>Replace "PRICING · By demand" with a price band or remove the tile. (C8)</li>
+          <li>Fix small typo / grammar items: <em>welcome</em>, <em>articles</em>, <em>"to an autonomous system"</em>. (T3, T7, T8)</li>
+          <li>Reconcile founding year (2025 vs. 2026) and clean the typography. (D5)</li>
+          <li>Verify mobile hero contrast on real devices. (D6)</li>
+          <li>Trim trailing space on hero stat label + normalise label case. (D7)</li>
+          <li>Diet the buzzword marquee down to four to five real capabilities. (M5)</li>
+          <li>Replace the homepage quote with something Klaut-specific. (M6)</li>
+          <li>Reduce "enterprise" frequency by half. (M3)</li>
+          <li>Ship one real case study. (S3)</li>
+          <li>Add a newsletter / Substack capture. (S4)</li>
+          <li>Caveat or source the hero metrics. (S5)</li>
+          <li>Add Service + FAQ JSON-LD. (S6)</li>
+          <li>Final read-through with the strategy doc open, side-by-side.</li>
+          <li>Sign-off review: I read the page aloud, top to bottom, and don't flinch.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  const STORAGE_KEY = 'klaut.audit.en.checks.v1';
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.panel');
+
+  // Tabs
+  tabs.forEach(t => t.addEventListener('click', () => {
+    tabs.forEach(x => x.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('panel-' + t.dataset.tab).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }));
+
+  // Findings persistence + progress
+  const findings = document.querySelectorAll('.find');
+  const total = findings.length;
+  const progBar = document.getElementById('progBar');
+  const progLabel = document.getElementById('progLabel');
+
+  function loadState(){
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+    catch(e){ return {}; }
+  }
+  function saveState(state){
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){}
+  }
+  function updateProgress(){
+    const state = loadState();
+    let done = 0;
+    findings.forEach(f => {
+      const id = f.dataset.id;
+      const cb = f.querySelector('input[type=checkbox]');
+      const isDone = !!state[id];
+      cb.checked = isDone;
+      f.classList.toggle('resolved', isDone);
+      if (isDone) done++;
+    });
+    const pct = total ? Math.round((done/total)*100) : 0;
+    progBar.style.width = pct + '%';
+    progLabel.textContent = done + ' of ' + total + ' resolved';
+  }
+
+  findings.forEach(f => {
+    const id = f.dataset.id;
+    const cb = f.querySelector('input[type=checkbox]');
+    cb.addEventListener('change', () => {
+      const state = loadState();
+      if (cb.checked) state[id] = true;
+      else delete state[id];
+      saveState(state);
+      updateProgress();
+    });
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    if (!confirm('Clear all check marks?')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    updateProgress();
+  });
+
+  updateProgress();
+})();
+</script>
+</body>
+</html>
