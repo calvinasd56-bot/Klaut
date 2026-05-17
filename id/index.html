@@ -1224,6 +1224,596 @@
   }
 
   </style>
+
+<style>
+/* =============================================================
+   KLAUT DESIGN TOKENS — scoped :root block for Industries + Coming Next sections
+   Source: colors_and_type.css (only :root; global html/body/::selection/k-* omitted)
+   ============================================================= */
+:root {
+  --bg:          #0a0a0a;
+  --surface:     #111111;
+  --surface-2:   #1a1a1a;
+  --line:        #262626;
+  --line-strong: #3f3f46;
+  --accent:        #6366f1;
+  --accent-2:      #818cf8;
+  --accent-deep:   #4f46e5;
+  --accent-soft:   rgba(99, 102, 241, 0.15);
+  --accent-glow:   rgba(99, 102, 241, 0.45);
+  --ink:         #ffffff;
+  --muted:       #a1a1aa;
+  --dim:         #71717a;
+  --faint:       #52525b;
+  --ok:          #22c55e;
+  --ok-soft:     rgba(34, 197, 94, 0.15);
+  --alarm:       #ef4444;
+  --alarm-soft:  rgba(239, 68, 68, 0.15);
+  --whatsapp:    #25D366;
+  --fg-1:        var(--ink);
+  --fg-2:        var(--muted);
+  --fg-3:        var(--dim);
+  --bg-1:        var(--bg);
+  --bg-2:        var(--surface);
+  --bg-3:        var(--surface-2);
+  --link:        var(--accent-2);
+  --grad-brand:    linear-gradient(135deg, var(--accent), var(--accent-2));
+  --grad-headline: linear-gradient(90deg, #ffffff 0%, #c7d2fe 55%, var(--accent) 100%);
+  --grad-orb-1:    radial-gradient(circle at 30% 30%, var(--accent),   transparent 60%);
+  --grad-orb-2:    radial-gradient(circle at 70% 40%, #8b5cf6,         transparent 60%);
+  --grad-orb-3:    radial-gradient(circle at 50% 50%, #22d3ee,         transparent 60%);
+  --font-sans:   'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:   'JetBrains Mono', ui-monospace, 'Menlo', monospace;
+  --t-display-xl: clamp(56px, 8vw,   128px);
+  --t-display-l:  clamp(40px, 5.5vw,  80px);
+  --t-display-m:  clamp(32px, 4vw,    56px);
+  --t-h1:         clamp(36px, 4.5vw,  64px);
+  --t-h2:         clamp(28px, 3.4vw,  44px);
+  --t-h3:         24px;
+  --t-h4:         20px;
+  --t-body-l:     19px;
+  --t-body:       16px;
+  --t-body-s:     14px;
+  --t-caption:    13px;
+  --t-eyebrow:    12px;
+  --t-micro:      11px;
+  --lh-tight: 0.95;
+  --lh-snug:  1.1;
+  --lh-body:  1.55;
+  --track-tight:   -0.025em;
+  --track-eyebrow: 0.18em;
+  --s-0:  0;
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  20px;
+  --s-6:  24px;
+  --s-7:  32px;
+  --s-8:  40px;
+  --s-9:  56px;
+  --s-10: 72px;
+  --s-11: 96px;
+  --s-12: 128px;
+  --r-input:  8px;
+  --r-button: 8px;
+  --r-card:   12px;
+  --r-modal:  16px;
+  --r-pill:   9999px;
+  --shadow-glow:    0 0 0 1px rgba(99,102,241,0.20), 0 20px 60px -20px rgba(99,102,241,0.45);
+  --shadow-glow-sm: 0 0 0 1px rgba(99,102,241,0.18), 0 8px  32px -12px rgba(99,102,241,0.35);
+  --shadow-card:    0 1px 0 rgba(255,255,255,0.04) inset, 0 24px 60px -28px rgba(0,0,0,0.6);
+  --shadow-modal:   0 32px 80px -20px rgba(0,0,0,0.7);
+  --ease-out:   cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-inout: cubic-bezier(0.4, 0,   0.2, 1);
+  --dur-1: 180ms;
+  --dur-2: 320ms;
+  --dur-3: 600ms;
+  --maxw-content: 1200px;
+  --maxw-wide:    1280px;
+  --gutter:       24px;
+}
+
+/* ============================================================
+   INDUSTRIES SECTION — paste-ready, .industries- scoped
+   ============================================================ */
+.industries-section {
+  position: relative;
+  padding: clamp(80px, 12vw, 144px) var(--gutter);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+.industries-inner {
+  max-width: var(--maxw-content);
+  margin: 0 auto;
+  position: relative;
+}
+.industries-head {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-6);
+  margin-bottom: var(--s-10);
+}
+@media (min-width: 880px) {
+  .industries-head {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: var(--s-8);
+    align-items: end;
+  }
+}
+.industries-eyebrow {
+  font: 500 var(--t-eyebrow)/1 var(--font-mono);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent-2);
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.industries-eyebrow::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 12px var(--accent-glow);
+}
+.industries-title {
+  font: 600 var(--t-display-m)/var(--lh-snug) var(--font-sans);
+  letter-spacing: var(--track-tight);
+  margin: var(--s-5) 0 0;
+  text-wrap: balance;
+}
+.industries-title em {
+  font-style: normal;
+  background: var(--grad-headline);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.industries-sub {
+  font: 400 var(--t-body-l)/1.5 var(--font-sans);
+  color: var(--muted);
+  max-width: 44ch;
+  text-wrap: pretty;
+  margin: 0;
+}
+.industries-stage {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-2);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  overflow: hidden;
+}
+@media (min-width: 880px) {
+  .industries-stage {
+    grid-template-columns: minmax(260px, 320px) 1fr;
+    gap: 0;
+  }
+}
+.industries-tabs {
+  display: flex;
+  flex-direction: column;
+  padding: var(--s-3);
+  border-bottom: 1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.02), transparent 30%),
+    var(--surface);
+}
+@media (min-width: 880px) {
+  .industries-tabs {
+    border-bottom: 0;
+    border-right: 1px solid var(--line);
+    padding: var(--s-4);
+  }
+}
+.industries-tab {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  padding: var(--s-5) var(--s-5);
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--s-4);
+  font-family: var(--font-sans);
+  transition:
+    color var(--dur-1) var(--ease-out),
+    background var(--dur-1) var(--ease-out),
+    transform var(--dur-1) var(--ease-out);
+  position: relative;
+}
+.industries-tab + .industries-tab { margin-top: 2px; }
+.industries-tab:hover { color: var(--ink); background: rgba(255,255,255,0.03); }
+.industries-tab:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent), 0 0 0 4px rgba(99,102,241,0.18);
+}
+.industries-tab-num {
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.06em;
+  color: var(--dim);
+  width: 22px;
+  transition: color var(--dur-1) var(--ease-out);
+}
+.industries-tab-label {
+  font: 500 14px/1.15 var(--font-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: inherit;
+}
+.industries-tab-arrow {
+  color: var(--faint);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity var(--dur-1) var(--ease-out),
+              transform var(--dur-1) var(--ease-out),
+              color var(--dur-1) var(--ease-out);
+}
+.industries-tab:hover .industries-tab-arrow {
+  opacity: 1; transform: translateX(0); color: var(--muted);
+}
+.industries-tab.is-active {
+  background: rgba(99,102,241,0.08);
+  color: var(--ink);
+}
+.industries-tab.is-active::before {
+  content: "";
+  position: absolute;
+  left: 6px; top: 18px; bottom: 18px;
+  width: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+.industries-tab.is-active .industries-tab-num { color: var(--accent-2); }
+.industries-tab.is-active .industries-tab-arrow {
+  opacity: 1; transform: translateX(0); color: var(--accent-2);
+}
+.industries-panel {
+  padding: clamp(28px, 4vw, 56px);
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.industries-panel-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  align-items: center;
+  margin-bottom: var(--s-6);
+}
+.industries-slug {
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  padding: 7px 10px;
+  border-radius: var(--r-pill);
+  background: rgba(99,102,241,0.10);
+  border: 1px solid rgba(99,102,241,0.25);
+}
+.industries-pain {
+  font: 400 12px/1.3 var(--font-mono);
+  color: var(--dim);
+  letter-spacing: 0.02em;
+}
+.industries-pain b {
+  color: var(--muted);
+  font-weight: 500;
+  margin-right: 6px;
+}
+.industries-value {
+  font: 600 clamp(26px, 2.6vw, 36px)/1.18 var(--font-sans);
+  letter-spacing: var(--track-tight);
+  margin: 0 0 var(--s-7);
+  text-wrap: balance;
+  color: var(--ink);
+  max-width: 28ch;
+}
+.industries-value em {
+  font-style: normal;
+  background: var(--grad-headline);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.industries-wins {
+  display: grid;
+  gap: var(--s-4);
+  margin: 0 0 var(--s-8);
+  padding: var(--s-6) 0 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+.industries-win {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: var(--s-4);
+  align-items: baseline;
+}
+.industries-win-num {
+  font: 500 11px/1.4 var(--font-mono);
+  letter-spacing: 0.08em;
+  color: var(--accent-2);
+  padding-top: 3px;
+}
+.industries-win-text {
+  font: 400 16px/1.5 var(--font-sans);
+  color: #e4e4e7;
+  text-wrap: pretty;
+}
+.industries-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: auto;
+  padding-top: var(--s-6);
+  align-items: center;
+}
+.industries-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 20px;
+  border-radius: var(--r-button);
+  background: var(--accent);
+  color: var(--ink);
+  font: 500 14px/1 var(--font-sans);
+  text-decoration: none;
+  border: 0;
+  transition: background var(--dur-1) var(--ease-out),
+              transform var(--dur-1) var(--ease-out),
+              box-shadow var(--dur-1) var(--ease-out);
+}
+.industries-cta:hover {
+  background: var(--accent-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 1px rgba(99,102,241,0.4), 0 12px 32px -8px var(--accent-glow);
+}
+.industries-cta svg { transition: transform var(--dur-1) var(--ease-out); }
+.industries-cta:hover svg { transform: translateX(3px); }
+.industries-cta-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 16px;
+  color: var(--muted);
+  font: 500 14px/1 var(--font-sans);
+  text-decoration: none;
+  border-radius: var(--r-button);
+  transition: color var(--dur-1) var(--ease-out);
+}
+.industries-cta-ghost:hover { color: var(--ink); }
+.industries-panel-content { display: contents; }
+.industries-panel.is-swapping .industries-slug,
+.industries-panel.is-swapping .industries-pain,
+.industries-panel.is-swapping .industries-value,
+.industries-panel.is-swapping .industries-wins,
+.industries-panel.is-swapping .industries-cta-row {
+  opacity: 0;
+  transform: translateY(6px);
+}
+.industries-slug,
+.industries-pain,
+.industries-value,
+.industries-wins,
+.industries-cta-row {
+  transition: opacity var(--dur-2) var(--ease-out),
+              transform var(--dur-2) var(--ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  .industries-slug, .industries-pain, .industries-value,
+  .industries-wins, .industries-cta-row,
+  .industries-tab, .industries-cta { transition: none; }
+}
+
+/* ============================================================
+   COMING NEXT (ROADMAP) SECTION — paste-ready, .upcoming- scoped
+   ============================================================ */
+.upcoming-section {
+  position: relative;
+  padding: clamp(64px, 9vw, 120px) var(--gutter) clamp(80px, 12vw, 144px);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+.upcoming-section::before {
+  content: "";
+  position: absolute;
+  left: 50%; top: 0;
+  width: min(100%, var(--maxw-content));
+  transform: translateX(-50%);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line) 20%, var(--line) 80%, transparent);
+}
+.upcoming-inner {
+  max-width: var(--maxw-content);
+  margin: 0 auto;
+  position: relative;
+}
+.upcoming-head {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-5);
+  margin-bottom: var(--s-10);
+}
+@media (min-width: 880px) {
+  .upcoming-head {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: var(--s-8);
+    align-items: end;
+  }
+}
+.upcoming-eyebrow {
+  font: 500 var(--t-eyebrow)/1 var(--font-mono);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent-2);
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.upcoming-eyebrow::before {
+  content: "";
+  width: 14px; height: 1px;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+.upcoming-title {
+  font: 600 var(--t-display-m)/var(--lh-snug) var(--font-sans);
+  letter-spacing: var(--track-tight);
+  margin: var(--s-5) 0 0;
+  text-wrap: balance;
+}
+.upcoming-title em {
+  font-style: normal;
+  background: var(--grad-headline);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.upcoming-sub {
+  font: 400 var(--t-body-l)/1.5 var(--font-sans);
+  color: var(--muted);
+  max-width: 48ch;
+  text-wrap: pretty;
+  margin: 0;
+}
+.upcoming-timeline { position: relative; }
+.upcoming-rail { display: none; }
+.upcoming-cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-4);
+}
+@media (min-width: 720px) {
+  .upcoming-cols {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--s-5);
+  }
+}
+@media (min-width: 1000px) {
+  .upcoming-cols {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-5);
+    align-items: stretch;
+  }
+}
+.upcoming-col { display: contents; }
+.upcoming-card {
+  position: relative;
+  background: rgba(17,17,17,0.55);
+  border: 1px dashed rgba(255,255,255,0.10);
+  border-radius: var(--r-card);
+  padding: var(--s-7) var(--s-6) var(--s-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+  transition:
+    border-color var(--dur-2) var(--ease-out),
+    background var(--dur-2) var(--ease-out),
+    transform var(--dur-2) var(--ease-out),
+    box-shadow var(--dur-2) var(--ease-out);
+}
+.upcoming-card:hover {
+  transform: translateY(-3px);
+  border-style: solid;
+  border-color: rgba(99,102,241,0.5);
+  background: rgba(17,17,17,0.85);
+  box-shadow: var(--shadow-glow);
+}
+.upcoming-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s-3);
+  margin: 0;
+}
+.upcoming-card-when {
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  padding: 7px 10px 6px;
+  border-radius: var(--r-pill);
+  background: rgba(99,102,241,0.10);
+  border: 1px solid rgba(99,102,241,0.28);
+}
+.upcoming-card-obs {
+  font: 400 11px/1.3 var(--font-mono);
+  letter-spacing: 0.04em;
+  color: var(--dim);
+  text-transform: lowercase;
+}
+.upcoming-card-label {
+  font: 600 26px/1.1 var(--font-sans);
+  letter-spacing: var(--track-tight);
+  margin: 0;
+  color: var(--ink);
+}
+.upcoming-card-tech {
+  margin: 0;
+  padding: var(--s-4) 0;
+  border-top: 1px dashed rgba(255,255,255,0.08);
+  border-bottom: 1px dashed rgba(255,255,255,0.08);
+}
+.upcoming-card-tech-kicker {
+  display: block;
+  font: 500 10px/1 var(--font-mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 8px;
+}
+.upcoming-card-tech-list {
+  font: 500 13px/1.55 var(--font-mono);
+  letter-spacing: 0.01em;
+  color: #d4d4d8;
+}
+.upcoming-card-value {
+  font: 400 15px/1.5 var(--font-sans);
+  color: #e4e4e7;
+  margin: 0;
+  text-wrap: pretty;
+}
+.upcoming-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 500 13px/1 var(--font-sans);
+  color: var(--accent-2);
+  text-decoration: none;
+  padding-top: var(--s-2);
+  margin-top: auto;
+  width: fit-content;
+  transition: color var(--dur-1) var(--ease-out), gap var(--dur-1) var(--ease-out);
+}
+.upcoming-card-cta:hover { color: var(--ink); gap: 12px; }
+.upcoming-card-cta svg { transition: transform var(--dur-1) var(--ease-out); }
+.upcoming-card-cta:hover svg { transform: translateX(2px); }
+.upcoming-range {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: var(--s-3);
+}
+.upcoming-range b {
+  color: var(--accent-2);
+  font-weight: 500;
+}
+@media (min-width: 880px) {
+  .upcoming-range { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .upcoming-card { transition: none; }
+}
+</style>
+
 </head>
 <body class="bg-bg text-ink">
 
@@ -1732,87 +2322,284 @@
 </section>
 
 <!-- =========================================================================
-     INDUSTRY SOLUTIONS
+     INDUSTRI YANG KAMI LAYANI
 ========================================================================= -->
-<section id="industries" class="relative py-32 lg:py-44 scroll-mt-20 border-t border-white/5">
-  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+<section class="industries-section" id="industries" aria-labelledby="industries-title">
+  <div class="industries-inner">
 
-    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16">
-      <div class="reveal max-w-2xl">
-        <div class="eyebrow mb-5">SOLUSI EKOSISTEM</div>
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.05]">Membangun AI agent.<br/>Tempatkan di pekerjaan yang sesuai.</h2>
+    <header class="industries-head">
+      <div>
+        <span class="industries-eyebrow">
+          <span>INDUSTRI / 06</span>
+        </span>
+        <h2 id="industries-title" class="industries-title">
+          Industri <em>yang kami layani.</em>
+        </h2>
       </div>
-      
+      <p class="industries-sub">
+        Satu produk. Enam vertikal. Workflow yang dirancang untuk realita tim Anda — bukan deck best-practice generik.
+      </p>
+    </header>
+
+    <div class="industries-stage" role="presentation">
+
+      <!-- Left: tab list -->
+      <div class="industries-tabs" role="tablist" aria-orientation="vertical" aria-label="Industri">
+        <button type="button" class="industries-tab is-active" role="tab" aria-selected="true" id="ind-tab-finserv" aria-controls="ind-panel" data-target="finserv">
+          <span class="industries-tab-num">01</span>
+          <span class="industries-tab-label">Layanan Keuangan</span>
+          <span class="industries-tab-arrow" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </span>
+        </button>
+        <button type="button" class="industries-tab" role="tab" aria-selected="false" id="ind-tab-ecom" aria-controls="ind-panel" data-target="ecom">
+          <span class="industries-tab-num">02</span>
+          <span class="industries-tab-label">E-commerce</span>
+          <span class="industries-tab-arrow" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </span>
+        </button>
+        <button type="button" class="industries-tab" role="tab" aria-selected="false" id="ind-tab-insurance" aria-controls="ind-panel" data-target="insurance">
+          <span class="industries-tab-num">03</span>
+          <span class="industries-tab-label">Asuransi</span>
+          <span class="industries-tab-arrow" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </span>
+        </button>
+        <button type="button" class="industries-tab" role="tab" aria-selected="false" id="ind-tab-saas" aria-controls="ind-panel" data-target="saas">
+          <span class="industries-tab-num">04</span>
+          <span class="industries-tab-label">Tech / SaaS</span>
+          <span class="industries-tab-arrow" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </span>
+        </button>
+        <button type="button" class="industries-tab" role="tab" aria-selected="false" id="ind-tab-healthcare" aria-controls="ind-panel" data-target="healthcare">
+          <span class="industries-tab-num">05</span>
+          <span class="industries-tab-label">Kesehatan</span>
+          <span class="industries-tab-arrow" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </span>
+        </button>
+        <button type="button" class="industries-tab" role="tab" aria-selected="false" id="ind-tab-education" aria-controls="ind-panel" data-target="education">
+          <span class="industries-tab-num">06</span>
+          <span class="industries-tab-label">Pendidikan</span>
+          <span class="industries-tab-arrow" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </span>
+        </button>
+      </div>
+
+      <!-- Right: detail panel -->
+      <div class="industries-panel" role="tabpanel" id="ind-panel" aria-labelledby="ind-tab-finserv">
+        <div class="industries-panel-meta">
+          <span class="industries-slug" data-bind="slug"></span>
+          <span class="industries-pain">
+            <b>Menutup:</b>
+            <span data-bind="pain"></span>
+          </span>
+        </div>
+
+        <h3 class="industries-value">
+          <span data-bind="value-pre"></span><em><span data-bind="value-hi"></span></em><span data-bind="value-post"></span>
+        </h3>
+
+        <ol class="industries-wins" aria-label="Workflow wins">
+          <li class="industries-win">
+            <span class="industries-win-num">01</span>
+            <span class="industries-win-text" data-bind="win-1"></span>
+          </li>
+          <li class="industries-win">
+            <span class="industries-win-num">02</span>
+            <span class="industries-win-text" data-bind="win-2"></span>
+          </li>
+          <li class="industries-win">
+            <span class="industries-win-num">03</span>
+            <span class="industries-win-text" data-bind="win-3"></span>
+          </li>
+        </ol>
+
+        <div class="industries-cta-row">
+          <a class="industries-cta" href="#">
+            <span data-bind="cta-label"></span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="industries-cta-ghost" href="/contact">
+            Diskusi soal tim Anda
+          </a>
+        </div>
+      </div>
+
     </div>
+  </div>
+</section>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-line rounded-xl overflow-hidden border border-line">
-      <!-- Finance -->
-      <div class="reveal bg-surface p-8 group transition-colors hover:bg-surface2">
-        <div class="icon-tile mb-6">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M9 21v-8h6v8"/></svg>
-        </div>
-        <h3 class="text-xl font-semibold tracking-tight">Financial Services</h3>
-        <p class="mt-3 text-sm text-muted leading-relaxed">Sistem operasional berbasis AI untuk workflow keuangan, otomasi compliance, analisis risiko, pelaporan, dan dukungan keputusan cerdas di lingkungan keuangan enterprise.</p>
-        <div class="mt-6 pt-6 border-t border-line flex items-center justify-between text-xs"><span></span>
-          <span class="text-accent-2 group-hover:translate-x-1 transition">Lihat hasil →</span>
-        </div>
+<!-- =========================================================================
+     SELANJUTNYA
+========================================================================= -->
+<section class="upcoming-section" id="upcoming" aria-labelledby="upcoming-title">
+  <div class="upcoming-inner">
+
+    <header class="upcoming-head">
+      <div>
+        <span class="upcoming-eyebrow">
+          <span>ROADMAP · Q4 2026 → Q3 2027</span>
+        </span>
+        <h2 id="upcoming-title" class="upcoming-title">
+          <em>Selanjutnya.</em>
+        </h2>
+        <span class="upcoming-range" aria-hidden="true">
+          Dari <b>Q4 2026</b> → <b>Q3 2027</b>
+        </span>
       </div>
-      <!-- Healthcare -->
-      <div class="reveal reveal-delay-1 bg-surface p-8 group transition-colors hover:bg-surface2">
-        <div class="icon-tile mb-6">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-7-10a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 5.65-7 10-7 10z"/></svg>
+      <p class="upcoming-sub">
+        Enam industri yang membutuhkan Compass melihat di luar layar. Setiap unlock disebut namanya — teknologinya, bukan janjinya.
+      </p>
+    </header>
+
+    <div class="upcoming-timeline">
+
+      <div class="upcoming-rail" aria-hidden="true"></div>
+
+      <div class="upcoming-cols">
+
+        <!-- Q4 2026 -->
+        <div class="upcoming-col">
+          <article class="upcoming-card">
+            <header class="upcoming-card-meta">
+              <span class="upcoming-card-when">Akan hadir Q4 2026</span>
+              <span class="upcoming-card-obs">skala publik · multi-region</span>
+            </header>
+            <h3 class="upcoming-card-label">BUMN</h3>
+            <p class="upcoming-card-tech">
+              <span class="upcoming-card-tech-kicker">Dibuka oleh</span>
+              <span class="upcoming-card-tech-list">
+                Sovereign cloud · IdP pemerintah BSrE · opsi on-prem · sertifikasi KOMINFO
+              </span>
+            </p>
+            <p class="upcoming-card-value">
+              Intelijen workforce skala publik dengan kedaulatan yang dibutuhkan BUMN Indonesia.
+            </p>
+            <a class="upcoming-card-cta" href="/waitlist?industry=bumn">
+              <span>Gabung waitlist</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+            </a>
+          </article>
         </div>
-        <h3 class="text-xl font-semibold tracking-tight">Inventory Management &amp; ERP</h3>
-        <p class="mt-3 text-sm text-muted leading-relaxed">Integrasikan AI ke operasi inventory, sistem ERP, workflow procurement, dan koordinasi supply chain untuk meningkatkan visibilitas, forecasting, dan efisiensi operasional.</p>
-        <div class="mt-6 pt-6 border-t border-line flex items-center justify-between text-xs">
-          <span class="text-dim font-mono">7 DITERAPKAN</span>
-          <span class="text-accent-2 group-hover:translate-x-1 transition">Lihat hasil →</span>
+
+        <!-- Q1 2027 -->
+        <div class="upcoming-col">
+          <article class="upcoming-card">
+            <header class="upcoming-card-meta">
+              <span class="upcoming-card-when">Akan hadir Q1 2027</span>
+              <span class="upcoming-card-obs">handoff manusia–AI</span>
+            </header>
+            <h3 class="upcoming-card-label">Otomasi</h3>
+            <p class="upcoming-card-tech">
+              <span class="upcoming-card-tech-kicker">Dibuka oleh</span>
+              <span class="upcoming-card-tech-list">
+                Telemetri agent AI · observability handoff manusia–AI · analitik cakupan otomasi
+              </span>
+            </p>
+            <p class="upcoming-card-value">
+              Saat tim Anda bekerja dengan agent AI, Compass mengamati handoff-nya — bukan hanya sisi manusianya, tapi relasinya.
+            </p>
+            <a class="upcoming-card-cta" href="/waitlist?industry=automation">
+              <span>Gabung waitlist</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+            </a>
+          </article>
+
+          <article class="upcoming-card">
+            <header class="upcoming-card-meta">
+              <span class="upcoming-card-when">Akan hadir Q1 2027</span>
+              <span class="upcoming-card-obs">observability per-station</span>
+            </header>
+            <h3 class="upcoming-card-label">Pabrik</h3>
+            <p class="upcoming-card-tech">
+              <span class="upcoming-card-tech-kicker">Dibuka oleh</span>
+              <span class="upcoming-card-tech-list">
+                Ingest PLC + OEE · konektor MES · telemetri per-station · protokol Industry 4.0
+              </span>
+            </p>
+            <p class="upcoming-card-value">
+              Setiap process station terlacak — skill operator dipetakan ke defect rate di level workstation, bukan shift.
+            </p>
+            <a class="upcoming-card-cta" href="/waitlist?industry=factory">
+              <span>Gabung waitlist</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+            </a>
+          </article>
         </div>
-      </div>
-      <!-- Energy -->
-      <div class="reveal reveal-delay-2 bg-surface p-8 group transition-colors hover:bg-surface2">
-        <div class="icon-tile mb-6">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 4 14 12 14 11 22 20 10 12 10 13 2"/></svg>
+
+        <!-- Q2 2027 -->
+        <div class="upcoming-col">
+          <article class="upcoming-card">
+            <header class="upcoming-card-meta">
+              <span class="upcoming-card-when">Akan hadir Q2 2027</span>
+              <span class="upcoming-card-obs">perilaku pengemudi · kepatuhan rute</span>
+            </header>
+            <h3 class="upcoming-card-label">Logistik</h3>
+            <p class="upcoming-card-tech">
+              <span class="upcoming-card-tech-kicker">Dibuka oleh</span>
+              <span class="upcoming-card-tech-list">
+                GPS telematics · waypoint RFID · pemodelan perilaku pengemudi · edge compute di kendaraan
+              </span>
+            </p>
+            <p class="upcoming-card-value">
+              Perilaku pengemudi — bukan hanya jadwalnya. GPS dan RFID masuk ke Compass; Compass mengembangkan pengemudinya.
+            </p>
+            <a class="upcoming-card-cta" href="/waitlist?industry=logistics">
+              <span>Gabung waitlist</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+            </a>
+          </article>
+
+          <article class="upcoming-card">
+            <header class="upcoming-card-meta">
+              <span class="upcoming-card-when">Akan hadir Q2 2027</span>
+              <span class="upcoming-card-obs">first-time-fix · kualitas di pintu</span>
+            </header>
+            <h3 class="upcoming-card-label">Field Services</h3>
+            <p class="upcoming-card-tech">
+              <span class="upcoming-card-tech-kicker">Dibuka oleh</span>
+              <span class="upcoming-card-tech-list">
+                Observasi mobile-edge · sinkronisasi offline · verifikasi lokasi GPS · analisis pola service-record
+              </span>
+            </p>
+            <p class="upcoming-card-value">
+              Pekerjaan yang terjadi di luar kantor — teknisi, engineer, installer — diamati dan dikembangkan tanpa perlu meja kerja.
+            </p>
+            <a class="upcoming-card-cta" href="/waitlist?industry=field-services">
+              <span>Gabung waitlist</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+            </a>
+          </article>
         </div>
-        <h3 class="text-xl font-semibold tracking-tight">Administrasi</h3>
-        <p class="mt-3 text-sm text-muted leading-relaxed">Otomatisasi proses administrasi berulang termasuk penjadwalan, pelaporan, koordinasi internal, approval, dan manajemen operasional enterprise.</p>
-        <div class="mt-6 pt-6 border-t border-line flex items-center justify-between text-xs"><span></span>
-          <span class="text-accent-2 group-hover:translate-x-1 transition">Lihat hasil →</span>
+
+        <!-- Q3 2027 -->
+        <div class="upcoming-col">
+          <article class="upcoming-card">
+            <header class="upcoming-card-meta">
+              <span class="upcoming-card-when">Akan hadir Q3 2027</span>
+              <span class="upcoming-card-obs">keselamatan site · skill crew</span>
+            </header>
+            <h3 class="upcoming-card-label">Konstruksi</h3>
+            <p class="upcoming-card-tech">
+              <span class="upcoming-card-tech-kicker">Dibuka oleh</span>
+              <span class="upcoming-card-tech-list">
+                Wearable safety beacon · telematics alat berat · presence per site-zone · deteksi pola near-miss
+              </span>
+            </p>
+            <p class="upcoming-card-value">
+              Keselamatan dan skill di site — wearable dan telematics alat berat masuk ke Compass; Compass mengembangkan crew tanpa mengawasi mereka.
+            </p>
+            <a class="upcoming-card-cta" href="/waitlist?industry=construction">
+              <span>Gabung waitlist</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+            </a>
+          </article>
         </div>
-      </div>
-      <!-- Manufacturing -->
-      <div class="reveal bg-surface p-8 group transition-colors hover:bg-surface2">
-        <div class="icon-tile mb-6">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l6 4V9l6 4V9l6 4v8z"/></svg>
-        </div>
-        <h3 class="text-xl font-semibold tracking-tight">Sales &amp; Customer Service</h3>
-        <p class="mt-3 text-sm text-muted leading-relaxed">Deploy AI copilot dan sistem dukungan cerdas untuk merampingkan engagement pelanggan, otomatisasi respons, meningkatkan kualifikasi lead, dan menyempurnakan operasi layanan.</p>
-        <div class="mt-6 pt-6 border-t border-line flex items-center justify-between text-xs"><span></span>
-          <span class="text-accent-2 group-hover:translate-x-1 transition">Lihat hasil →</span>
-        </div>
-      </div>
-      <!-- Public Sector -->
-      <div class="reveal reveal-delay-1 bg-surface p-8 group transition-colors hover:bg-surface2">
-        <div class="icon-tile mb-6">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M3 10h18"/><path d="M5 6l7-3 7 3"/><path d="M4 10v11M20 10v11M9 14v5M15 14v5"/></svg>
-        </div>
-        <h3 class="text-xl font-semibold tracking-tight">Legal &amp; Dokumen</h3>
-        <p class="mt-3 text-sm text-muted leading-relaxed">Transformasi kontrak, dokumen hukum, approval, dan dokumen operasional menjadi sistem knowledge enterprise yang terstruktur, mudah dicari, dan dibantu AI.</p>
-        <div class="mt-6 pt-6 border-t border-line flex items-center justify-between text-xs"><span></span>
-          <span class="text-accent-2 group-hover:translate-x-1 transition">Lihat hasil →</span>
-        </div>
-      </div>
-      <!-- Retail -->
-      <div class="reveal reveal-delay-2 bg-surface p-8 group transition-colors hover:bg-surface2">
-        <div class="icon-tile mb-6">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1.5"/><circle cx="18" cy="21" r="1.5"/><path d="M3 3h2l3 13h11l2-9H6"/></svg>
-        </div>
-        <h3 class="text-xl font-semibold tracking-tight">Marketplace</h3>
-        <p class="mt-3 text-sm text-muted leading-relaxed">Bangun operasi marketplace berbasis AI dengan workflow produk yang cerdas, interaksi pelanggan otomatis, analitik operasional, dan koordinasi bisnis yang skalabel.</p>
-        <div class="mt-6 pt-6 border-t border-line flex items-center justify-between text-xs">
-          <span class="text-dim font-mono">4 DITERAPKAN</span>
-          <span class="text-accent-2 group-hover:translate-x-1 transition">Lihat hasil →</span>
-        </div>
+
       </div>
     </div>
   </div>
@@ -2374,6 +3161,270 @@
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
+
+<!-- Industries section: content + tab behavior -->
+<script>
+(function () {
+  const CONTENT = {
+    finserv: {
+      slug: { en: 'FINANCIAL SERVICES', id: 'LAYANAN KEUANGAN' },
+      pain: {
+        en: 'sampling-based QA · stalled regulatory training · agent turnover',
+        id: 'QA berbasis sampling · training regulasi mandek · turnover agent',
+      },
+      value: {
+        en: { pre: 'AI that audits 100% of customer interactions — ',  hi: 'not 5%',  post: ' — without adding QA headcount.' },
+        id: { pre: 'AI yang mengaudit 100% interaksi pelanggan — ',     hi: 'bukan 5%', post: ' — tanpa menambah QA headcount.' },
+      },
+      wins: {
+        en: [
+          'Every call and chat carries an OJK-grade audit trail the inspectorate can open on demand.',
+          'Regulatory training reaches completion because the lessons land inside the work, not on a Friday LMS.',
+          'Agent ramp-up compresses from 60 days to 21 — measured at the queue, not in onboarding decks.',
+        ],
+        id: [
+          'Setiap call dan chat membawa audit trail kelas OJK yang bisa dibuka inspektorat kapan pun.',
+          'Training regulasi benar-benar selesai karena materi muncul di dalam pekerjaan, bukan di LMS hari Jumat.',
+          'Ramp-up agent turun dari 60 hari ke 21 — diukur di antrean, bukan di deck onboarding.',
+        ],
+      },
+      cta: {
+        en: { label: 'See banking case study',     href: '/case-studies/financial-services' },
+        id: { label: 'Lihat case study perbankan', href: '/case-studies/financial-services' },
+      },
+    },
+    ecom: {
+      slug: { en: 'E-COMMERCE', id: 'E-COMMERCE' },
+      pain: {
+        en: 'Harbolnas / 11.11 / Ramadan spikes burning service quality',
+        id: 'lonjakan Harbolnas / 11.11 / Ramadan menggerus kualitas layanan',
+      },
+      value: {
+        en: { pre: 'Onboard 200 seasonal CS agents in ', hi: 'seven days',   post: ', not three weeks.' },
+        id: { pre: 'Onboarding 200 agent CS musiman dalam ', hi: 'tujuh hari', post: ', bukan tiga minggu.' },
+      },
+      wins: {
+        en: [
+          'Seasonal ramp time falls from 21 days to 7 because micro-lessons fire the first time a new agent fumbles a refund flow.',
+          'Refund policy stays consistent across stacked promos — the same answer at 02:00 on 11.11 as at noon on a Tuesday.',
+          'CSAT holds through peak weeks instead of collapsing the moment volume doubles.',
+        ],
+        id: [
+          'Ramp musiman turun dari 21 hari ke 7 karena micro-lesson muncul saat agent baru pertama kali keliru di alur refund.',
+          'Kebijakan refund tetap konsisten lintas promo tumpuk — jawaban yang sama jam 02:00 di 11.11 dan jam 12 siang Selasa.',
+          'CSAT bertahan di minggu peak, bukan ambruk begitu volume berlipat dua.',
+        ],
+      },
+      cta: {
+        en: { label: 'See e-commerce case study',  href: '/case-studies/e-commerce' },
+        id: { label: 'Lihat case study e-commerce', href: '/case-studies/e-commerce' },
+      },
+    },
+    insurance: {
+      slug: { en: 'INSURANCE', id: 'ASURANSI' },
+      pain: {
+        en: 'mis-adjudication risk · fraud surfaced six months late',
+        id: 'risiko mis-adjudikasi · fraud baru muncul enam bulan kemudian',
+      },
+      value: {
+        en: { pre: 'Every claim audited the moment it closes — fraud signals in ', hi: 'week one', post: ', not month six.' },
+        id: { pre: 'Setiap klaim diaudit saat ditutup — sinyal fraud di ',           hi: 'minggu pertama', post: ', bukan bulan keenam.' },
+      },
+      wins: {
+        en: [
+          'Claims adjudication stays consistent across adjusters because the rubric is checked at every decision, not at quarter-end.',
+          'Mis-selling gets flagged at the conversation that caused it — before it reaches the regulator.',
+          'FNOL completeness goes up because the agent gets corrected mid-call, not in a post-mortem.',
+        ],
+        id: [
+          'Adjudikasi klaim konsisten lintas adjuster karena rubrik dicek di setiap keputusan, bukan di akhir kuartal.',
+          'Mis-selling ditandai di percakapan yang menyebabkannya — sebelum sampai ke regulator.',
+          'Kelengkapan FNOL meningkat karena agent dikoreksi di tengah call, bukan di post-mortem.',
+        ],
+      },
+      cta: {
+        en: { label: 'Request workspace for insurance', href: '/workspace/request?industry=insurance' },
+        id: { label: 'Request workspace untuk asuransi', href: '/workspace/request?industry=insurance' },
+      },
+    },
+    saas: {
+      slug: { en: 'TECH / SAAS', id: 'TECH / SAAS' },
+      pain: {
+        en: 'product change outpaces training · CSM headcount math',
+        id: 'perubahan produk lebih cepat dari training · matematika headcount CSM',
+      },
+      value: {
+        en: { pre: 'Customer Success that scales with seat count — ', hi: 'without scaling',  post: ' CSM headcount.' },
+        id: { pre: 'Customer Success yang scale dengan jumlah seat — ', hi: 'tanpa scale',      post: ' jumlah CSM.' },
+      },
+      wins: {
+        en: [
+          'Product knowledge keeps pace with releases because each ship updates the lessons the next morning.',
+          'CSM coaching reaches every account, not just the loudest ten, because the work itself supplies the feedback signal.',
+          'Ticket resolution accuracy rises because Compass catches the wrong answer before the customer reads it.',
+        ],
+        id: [
+          'Pengetahuan produk mengikuti rilis karena setiap ship memperbarui lesson keesokan paginya.',
+          'Coaching CSM menjangkau setiap akun, bukan hanya sepuluh paling vokal, karena sinyal feedback datang dari pekerjaannya sendiri.',
+          'Akurasi resolusi tiket naik karena Compass menangkap jawaban yang salah sebelum pelanggan membacanya.',
+        ],
+      },
+      cta: {
+        en: { label: 'Request workspace for SaaS', href: '/workspace/request?industry=saas' },
+        id: { label: 'Request workspace untuk SaaS', href: '/workspace/request?industry=saas' },
+      },
+    },
+    healthcare: {
+      slug: { en: 'HEALTHCARE', id: 'KESEHATAN' },
+      pain: {
+        en: 'quality measurement that respects clinical autonomy',
+        id: 'pengukuran kualitas yang menghormati otonomi klinis',
+      },
+      value: {
+        en: { pre: 'Patient-experience quality you can prove to the board — ', hi: 'without surveilling',  post: ' clinical staff.' },
+        id: { pre: 'Kualitas pengalaman pasien yang bisa Anda buktikan ke board — ', hi: 'tanpa mengawasi', post: ' staf klinis.' },
+      },
+      wins: {
+        en: [
+          'Front-desk service stays consistent across shifts because the standard is reinforced in the moment, not in a quarterly review.',
+          'Patient communication accuracy rises in admin workflows where Compass operates — clinical conversations stay off-limits.',
+          'Staff development runs on the same loop for non-clinical and clinical roles, with the privacy boundary written into the product.',
+        ],
+        id: [
+          'Layanan front-desk konsisten antar shift karena standar diperkuat saat itu juga, bukan di review kuartalan.',
+          'Akurasi komunikasi pasien naik di alur admin tempat Compass beroperasi — percakapan klinis tetap di luar jangkauan.',
+          'Pengembangan staf berjalan di loop yang sama untuk peran non-klinis dan klinis, dengan batas privasi tertulis di dalam produk.',
+        ],
+      },
+      cta: {
+        en: { label: 'Request workspace for healthcare', href: '/workspace/request?industry=healthcare' },
+        id: { label: 'Request workspace untuk healthcare', href: '/workspace/request?industry=healthcare' },
+      },
+    },
+    education: {
+      slug: { en: 'EDUCATION', id: 'PENDIDIKAN' },
+      pain: {
+        en: 'annual review cycles miss daily teaching reality',
+        id: 'siklus review tahunan luput dari realita mengajar harian',
+      },
+      value: {
+        en: { pre: 'Teachers and student-services staff develop continuously — with feedback that ', hi: 'sticks',   post: '.' },
+        id: { pre: 'Guru dan staf student-services berkembang terus — dengan feedback yang ',       hi: 'melekat', post: '.' },
+      },
+      wins: {
+        en: [
+          'Teacher development is measured per skill, not per annual form, so growth shows up in the classroom.',
+          'Student-services responses stay consistent across campuses because the rubric travels with the conversation.',
+          'Parent communication quality is observed weekly, with corrections landing before the parent sends a second email.',
+        ],
+        id: [
+          'Pengembangan guru diukur per skill, bukan per form tahunan, jadi pertumbuhan terlihat di kelas.',
+          'Respons student-services konsisten antar kampus karena rubrik berjalan bersama percakapan.',
+          'Kualitas komunikasi orang tua dipantau mingguan, dengan koreksi yang mendarat sebelum orang tua mengirim email kedua.',
+        ],
+      },
+      cta: {
+        en: { label: 'Request workspace for education', href: '/workspace/request?industry=education' },
+        id: { label: 'Request workspace untuk pendidikan', href: '/workspace/request?industry=education' },
+      },
+    },
+  };
+
+  const stage = document.querySelector('.industries-stage');
+  if (!stage) return;
+  const panel = document.getElementById('ind-panel');
+  const tabs  = Array.from(stage.querySelectorAll('.industries-tab'));
+
+  // Language is locked to the file — derive from <html lang>
+  const lang = document.documentElement.lang === 'id' ? 'id' : 'en';
+
+  function render(key, { animate = true } = {}) {
+    const data = CONTENT[key];
+    if (!data) return;
+
+    const apply = () => {
+      const set = (sel, val) => {
+        const el = panel.querySelector('[data-bind="' + sel + '"]');
+        if (el) el.textContent = val;
+      };
+      set('slug',       data.slug[lang]);
+      set('pain',       data.pain[lang]);
+      set('value-pre',  data.value[lang].pre);
+      set('value-hi',   data.value[lang].hi);
+      set('value-post', data.value[lang].post);
+      set('win-1',      data.wins[lang][0]);
+      set('win-2',      data.wins[lang][1]);
+      set('win-3',      data.wins[lang][2]);
+
+      const cta      = panel.querySelector('.industries-cta');
+      const ctaLabel = panel.querySelector('[data-bind="cta-label"]');
+      if (ctaLabel) ctaLabel.textContent = data.cta[lang].label;
+      if (cta)      cta.setAttribute('href', data.cta[lang].href);
+
+      // Update "Menutup:" label
+      const closesB = panel.querySelector('.industries-pain b');
+      if (closesB) closesB.textContent = lang === 'id' ? 'Menutup:' : 'Closes:';
+
+      // Update ghost CTA text
+      const ghost = panel.querySelector('.industries-cta-ghost');
+      if (ghost) ghost.textContent = lang === 'id' ? 'Diskusi soal tim Anda' : 'Talk to us about your team';
+
+      panel.setAttribute('aria-labelledby', 'ind-tab-' + key);
+    };
+
+    if (animate) {
+      panel.classList.add('is-swapping');
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          apply();
+          panel.classList.remove('is-swapping');
+        }, 120);
+      });
+    } else {
+      apply();
+    }
+  }
+
+  function activate(key, { focus = false } = {}) {
+    tabs.forEach(t => {
+      const isMatch = t.dataset.target === key;
+      t.classList.toggle('is-active', isMatch);
+      t.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+      t.setAttribute('tabindex', isMatch ? '0' : '-1');
+      if (isMatch && focus) t.focus();
+    });
+    render(key);
+  }
+
+  // Click
+  tabs.forEach(t => {
+    t.addEventListener('click', () => activate(t.dataset.target));
+  });
+
+  // Keyboard nav (Up/Down/Home/End)
+  stage.addEventListener('keydown', (e) => {
+    if (!e.target.classList.contains('industries-tab')) return;
+    const i = tabs.indexOf(e.target);
+    let next = -1;
+    if      (e.key === 'ArrowDown'  || e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+    else if (e.key === 'ArrowUp'    || e.key === 'ArrowLeft')  next = (i - 1 + tabs.length) % tabs.length;
+    else if (e.key === 'Home') next = 0;
+    else if (e.key === 'End')  next = tabs.length - 1;
+    if (next >= 0) {
+      e.preventDefault();
+      activate(tabs[next].dataset.target, { focus: true });
+    }
+  });
+
+  // Initial render — language locked to file
+  render('finserv', { animate: false });
+
+  // Expose for any future host-level language hook
+  window.klautIndustriesSetLang = function (newLang) {
+    // No-op on static per-language files
+  };
+})();
+</script>
 
 </body>
 </html>
