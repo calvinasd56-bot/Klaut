@@ -1,6 +1,18 @@
 User-agent: *
 Allow: /
+
+# OG image source templates — render-only, not for users
 Disallow: /og-template.html
-Disallow: /og-template-en.html
+Disallow: /id/og-template.html
+
+# Admin / editor surfaces (also have meta noindex; defense-in-depth)
+Disallow: /admin/
+Disallow: /admin
+
+# Live audit demo pages — noindexed but blocked from crawl too
+Disallow: /audit-live
+Disallow: /audit-live.html
+Disallow: /id/audit-live-id
+Disallow: /id/audit-live-id.html
 
 Sitemap: https://klaut.id/sitemap.xml
