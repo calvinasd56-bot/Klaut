@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Career — Klaut</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'], mono: ['JetBrains Mono', 'ui-monospace', 'menlo'] },
+        colors: {
+          bg: '#0a0a0a', surface: '#111111', surface2: '#1a1a1a',
+          line: '#262626', 'line-2': '#3f3f46',
+          accent: '#6366f1', 'accent-2': '#818cf8', 'accent-deep': '#4f46e5',
+          ink: '#ffffff', muted: '#a1a1aa', dim: '#71717a', faint: '#52525b',
+        },
+      },
+    },
+  };
+</script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; background: #0a0a0a; color: #fff; }
+
+  /* dot grid backdrop */
+  .dot-grid {
+    background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .grid-fade {
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 50%, transparent 100%);
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 50%, transparent 100%);
+  }
+
+  /* orbs */
+  .orb { position: absolute; border-radius: 9999px; filter: blur(80px); pointer-events: none; }
+  .orb-1 { width: 520px; height: 520px; background: radial-gradient(circle at 30% 30%, #6366f1, transparent 60%); top: -160px; left: -140px; opacity: .45; animation: float 14s ease-in-out infinite; }
+  .orb-2 { width: 460px; height: 460px; background: radial-gradient(circle at 70% 40%, #8b5cf6, transparent 60%); top: 8%; right: -180px; opacity: .35; animation: float 16s ease-in-out infinite reverse; }
+  @keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-14px) } }
+  .no-orbs .orb { display: none; }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 700ms cubic-bezier(0.2,0.8,0.2,1), transform 700ms cubic-bezier(0.2,0.8,0.2,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* cards */
+  .card-hover { transition: transform 240ms cubic-bezier(0.2,0.8,0.2,1), box-shadow 240ms cubic-bezier(0.2,0.8,0.2,1), border-color 240ms; }
+  .card-hover:hover { transform: translateY(-4px); border-color: rgba(99,102,241,0.4); box-shadow: 0 0 0 1px rgba(99,102,241,0.30), 0 30px 80px -30px rgba(99,102,241,0.45); }
+
+  /* buttons */
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 8px; font-weight: 500; font-size: 14px; transition: all 200ms cubic-bezier(0.2,0.8,0.2,1); cursor: pointer; border: 0; }
+  .btn-primary { background: #6366f1; color: #fff; }
+  .btn-primary:hover { background: #4f46e5; box-shadow: 0 0 0 1px rgba(99,102,241,0.4), 0 12px 32px -8px rgba(99,102,241,0.6); transform: translateY(-1px); }
+  .btn-ghost { background: rgba(255,255,255,0.04); color: #fff; border: 1px solid rgba(255,255,255,0.1); }
+  .btn-ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
+  .btn-lg { padding: 14px 24px; font-size: 15px; }
+
+  /* hero gradient clause */
+  .grad-clause {
+    background: linear-gradient(90deg, #ffffff 0%, #c7d2fe 55%, #6366f1 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  ::selection { background: rgba(99,102,241,0.35); color: #fff; }
+
+  /* nav scroll */
+  .nav-scrolled { background: rgba(10,10,10,0.7); backdrop-filter: blur(20px); border-bottom: 1px solid #262626; }
+
+  /* mono eyebrow */
+  .mono-eyebrow { font: 500 12px/1 'JetBrains Mono', monospace; letter-spacing: 0.02em; color: #818cf8; }
+
+  /* hairline dot */
+  .hairline-dot { position: relative; height: 1px; background: #262626; }
+  .hairline-dot::after { content: ''; position: absolute; left: 50%; top: 50%; width: 5px; height: 5px; border-radius: 50%; background: #6366f1; transform: translate(-50%, -50%); box-shadow: 0 0 0 4px #0a0a0a; }
+
+  /* belief / who-fits icon tile */
+  .icon-tile { width: 44px; height: 44px; border-radius: 8px; background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.30); display: grid; place-items: center; }
+
+  /* === Role list === */
+  .role-list { border-top: 1px solid #262626; }
+  .role { position: relative; display: grid; grid-template-columns: 64px 1fr auto; align-items: center; gap: 32px; padding: 32px 8px; border-bottom: 1px solid #262626; transition: background 240ms, padding 240ms; cursor: pointer; }
+  .role:hover { background: rgba(99,102,241,0.04); }
+  .role:hover .role-arrow { color: #818cf8; transform: translateX(4px); }
+  .role-idx { font: 500 12px/1 'JetBrains Mono', monospace; letter-spacing: 0.08em; color: #71717a; padding-left: 8px; }
+  .role-title-row { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .role-title { font-size: 28px; line-height: 1.15; letter-spacing: -0.02em; font-weight: 600; color: #fff; }
+  .role-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+  .role-chip { padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); color: #a1a1aa; font: 500 11.5px/1.3 'Inter', sans-serif; }
+  .role-chip.accent { background: rgba(99,102,241,0.10); border-color: rgba(99,102,241,0.30); color: #c7d2fe; }
+  .role-desc { margin-top: 10px; color: #a1a1aa; font-size: 15px; line-height: 1.55; max-width: 60ch; }
+  .role-arrow { color: #52525b; transition: color 240ms, transform 240ms; }
+  .role-flag { display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px; border-radius: 999px; background: rgba(234,179,8,0.10); border: 1px solid rgba(234,179,8,0.25); color: #fde68a; font: 500 10px/1.2 'JetBrains Mono', monospace; letter-spacing: 0.06em; }
+
+  @media (max-width: 768px) {
+    .role { grid-template-columns: 1fr; gap: 12px; padding: 24px 4px; }
+    .role-idx { padding-left: 0; }
+    .role-title { font-size: 22px; }
+    .role-arrow { justify-self: end; }
+  }
+
+  /* empty state card */
+  .empty-card {
+    background:
+      radial-gradient(ellipse 70% 100% at 50% 0%, rgba(99,102,241,0.10), transparent 60%),
+      #0d0d12;
+    border: 1px dashed rgba(99,102,241,0.30);
+  }
+
+  /* apply block */
+  .apply-card {
+    background:
+      radial-gradient(ellipse 60% 100% at 50% 0%, rgba(99,102,241,0.12), transparent 70%),
+      #0e0e14;
+    border: 1px solid #262626;
+  }
+
+  /* CTA band */
+  .cta-band {
+    background:
+      radial-gradient(ellipse 60% 80% at 80% 50%, rgba(99,102,241,0.18), transparent 70%),
+      radial-gradient(ellipse 50% 70% at 10% 50%, rgba(139,92,246,0.10), transparent 70%),
+      #0d0d12;
+    border: 1px solid rgba(99,102,241,0.25);
+  }
+
+  /* hide roles when empty-state on */
+  .empty-on .role-list { display: none; }
+  .empty-on .empty-state { display: block; }
+  .empty-state { display: none; }
+  .empty-off .role-list { display: block; }
+</style>
+</head>
+<body class="bg-bg text-ink empty-off">
+
+<!-- ============================================================ NAV -->
+<header id="nav" class="fixed top-0 inset-x-0 z-40 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2 group">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-accent-2 grid place-items-center font-bold text-sm">K</div>
+      <span class="font-semibold tracking-tight text-lg">Klaut</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-1">
+      <a href="#" class="px-4 py-2 text-sm text-muted hover:text-ink transition">Home</a>
+      <a href="about.html" class="px-4 py-2 text-sm text-muted hover:text-ink transition">About</a>
+      <a href="#" class="px-4 py-2 text-sm text-muted hover:text-ink transition">Services</a>
+      <a href="#" class="px-4 py-2 text-sm text-muted hover:text-ink transition">Experience</a>
+      <a href="#" class="px-4 py-2 text-sm text-ink transition">Career</a>
+    </nav>
+    <div class="hidden md:flex items-center gap-3">
+      <a href="mailto:hello@klaut.ai" class="btn btn-primary">Email us
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============================================================ HERO -->
+<section data-screen-label="01 Hero" class="relative overflow-hidden">
+  <div class="absolute inset-0 dot-grid grid-fade"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10 pt-36 pb-24 lg:pt-44 lg:pb-32">
+    <div class="reveal mono-eyebrow mb-7">/ Career</div>
+
+    <h1 class="reveal text-6xl md:text-8xl lg:text-[120px] font-semibold tracking-tight leading-[0.95] max-w-5xl">
+      We hire <span class="grad-clause" data-hero-clause>deliberately.</span>
+    </h1>
+
+    <p class="reveal mt-10 max-w-2xl text-lg md:text-xl text-muted leading-relaxed">
+      Klaut stays lean on purpose. We add people behind proven need, not ahead of it — which means every role here carries real weight from day one.
+    </p>
+
+    <div class="reveal mt-10 flex flex-wrap gap-3">
+      <a href="#roles" class="btn btn-primary btn-lg">See open roles
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="5 12 12 19 19 12"/></svg>
+      </a>
+      <a href="mailto:hello@klaut.ai" class="btn btn-ghost btn-lg">Email us
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><polyline points="4 6 12 13 20 6"/></svg>
+      </a>
+    </div>
+
+    <!-- meta strip -->
+    <div class="reveal mt-20 pt-8 border-t border-white/5 grid sm:grid-cols-3 gap-8">
+      <div>
+        <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">Headcount</div>
+        <div class="mt-2 text-2xl font-semibold tracking-tight" data-headcount-display>Single digits</div>
+        <div class="mt-1 text-sm text-muted">By design, not by stage.</div>
+      </div>
+      <div>
+        <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">Open roles</div>
+        <div class="mt-2 text-2xl font-semibold tracking-tight"><span data-open-count>3</span> <span class="text-muted">listed</span></div>
+        <div class="mt-1 text-sm text-muted">Posted only behind proven need.</div>
+      </div>
+      <div>
+        <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">Base</div>
+        <div class="mt-2 text-2xl font-semibold tracking-tight">Jakarta</div>
+        <div class="mt-1 text-sm text-muted">Remote-friendly for engineering.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ HOW WE THINK -->
+<section data-screen-label="02 Team thesis" class="relative border-t border-line">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-28 lg:py-36">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      <div class="lg:col-span-5 reveal lg:sticky lg:top-28">
+        <div class="mono-eyebrow mb-5">/ 01 — Team thesis</div>
+        <h2 class="text-4xl md:text-5xl lg:text-[56px] font-semibold tracking-tight leading-[1.02]">
+          Lean by design — <span class="text-muted">not understaffed.</span>
+        </h2>
+        <div class="mt-8 hairline-dot max-w-xs"></div>
+      </div>
+
+      <div class="lg:col-span-7 reveal">
+        <p class="text-xl md:text-2xl font-light text-ink leading-[1.45] tracking-[-0.01em]">
+          Most early companies hire to feel like a company. We hire when a system can't absorb the work and a person genuinely can.
+        </p>
+        <p class="mt-6 text-lg text-muted leading-[1.65]">
+          That keeps the team small, the ownership high, and the work unambiguous. If you want to be <span class="text-ink">one of many</span>, this isn't the place. If you want <span class="text-ink">your decisions to matter</span>, it is.
+        </p>
+
+        <!-- two-line contrast strip -->
+        <div class="mt-12 grid sm:grid-cols-2 gap-px bg-line rounded-xl overflow-hidden border border-line">
+          <div class="bg-surface p-7">
+            <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">Hiring trigger</div>
+            <div class="mt-3 text-xl font-semibold tracking-tight">A system that can't absorb the work.</div>
+            <div class="mt-2 text-sm text-muted leading-relaxed">Not a roadmap, a board deck, or a quarter.</div>
+          </div>
+          <div class="bg-surface p-7">
+            <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">Hiring constraint</div>
+            <div class="mt-3 text-xl font-semibold tracking-tight">A person who can genuinely close the gap.</div>
+            <div class="mt-2 text-sm text-muted leading-relaxed">Not a seat to fill. A problem to own.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ WHO FITS -->
+<section data-screen-label="03 Who fits" class="relative border-t border-line">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-28 lg:py-32">
+    <div class="reveal max-w-3xl">
+      <div class="mono-eyebrow mb-5">/ 02 — Who fits</div>
+      <h2 class="text-4xl md:text-5xl font-semibold tracking-tight leading-[1.05]">
+        Three traits we don't compromise on.
+      </h2>
+    </div>
+
+    <div class="mt-16 grid md:grid-cols-3 gap-6">
+      <!-- 1 -->
+      <article class="reveal card-hover p-8 lg:p-10 rounded-xl bg-surface border border-line flex flex-col">
+        <div class="icon-tile mb-7">
+          <!-- finish/check -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12l4 4 14-14"/>
+            <path d="M21 12v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8"/>
+          </svg>
+        </div>
+        <h3 class="text-xl lg:text-2xl font-semibold tracking-tight">Generalists who finish.</h3>
+        <p class="mt-3 text-muted leading-relaxed">Comfortable owning a problem end to end without a playbook handed to them.</p>
+        <div class="mt-auto pt-7 border-t border-line flex items-center justify-between">
+          <span class="mono-eyebrow text-[11px]">/ 01</span>
+          <span class="text-xs text-dim font-mono uppercase tracking-[0.18em]">Range</span>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="reveal card-hover p-8 lg:p-10 rounded-xl bg-surface border border-line flex flex-col">
+        <div class="icon-tile mb-7">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/>
+            <ellipse cx="12" cy="12" rx="4" ry="9"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+          </svg>
+        </div>
+        <h3 class="text-xl lg:text-2xl font-semibold tracking-tight">Context-aware.</h3>
+        <p class="mt-3 text-muted leading-relaxed">You understand why emerging-market AI adoption is a different problem from the Silicon Valley version.</p>
+        <div class="mt-auto pt-7 border-t border-line flex items-center justify-between">
+          <span class="mono-eyebrow text-[11px]">/ 02</span>
+          <span class="text-xs text-dim font-mono uppercase tracking-[0.18em]">Judgment</span>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="reveal card-hover p-8 lg:p-10 rounded-xl bg-surface border border-line flex flex-col">
+        <div class="icon-tile mb-7">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="13 6 19 12 13 18"/>
+          </svg>
+        </div>
+        <h3 class="text-xl lg:text-2xl font-semibold tracking-tight">Direct.</h3>
+        <p class="mt-3 text-muted leading-relaxed">You say what you think, write clearly, and don't hide behind process.</p>
+        <div class="mt-auto pt-7 border-t border-line flex items-center justify-between">
+          <span class="mono-eyebrow text-[11px]">/ 03</span>
+          <span class="text-xs text-dim font-mono uppercase tracking-[0.18em]">Voice</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ OPEN ROLES -->
+<section id="roles" data-screen-label="04 Open roles" class="relative border-t border-line">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-28 lg:py-32">
+    <div class="grid lg:grid-cols-12 gap-10 items-end mb-12">
+      <div class="reveal lg:col-span-7">
+        <div class="mono-eyebrow mb-5">/ 03 — Open roles</div>
+        <h2 class="text-4xl md:text-5xl lg:text-[56px] font-semibold tracking-tight leading-[1.02]">
+          What we're hiring for, <span class="text-muted">right now.</span>
+        </h2>
+      </div>
+      <div class="reveal lg:col-span-5">
+        <p class="text-lg text-muted leading-relaxed">
+          Each role lists the work and the shape of the contract. If you're close but not exact, email us anyway — we read every thoughtful message.
+        </p>
+        <div class="mt-5 inline-flex items-center gap-2.5 role-flag" title="To be replaced by Kowi">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="13"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Placeholder — Kowi fills final list
+        </div>
+      </div>
+    </div>
+
+    <!-- Real list -->
+    <div class="role-list">
+      <a class="role" href="mailto:hello@klaut.ai?subject=Application%20%E2%80%94%20AI%20Solutions%20Engineer">
+        <span class="role-idx">/ 01</span>
+        <div>
+          <div class="role-title-row">
+            <h3 class="role-title">AI Solutions Engineer</h3>
+            <div class="role-meta">
+              <span class="role-chip accent">Fractional</span>
+              <span class="role-chip">Jakarta</span>
+              <span class="role-chip">Remote-friendly</span>
+            </div>
+          </div>
+          <p class="role-desc">Embed with one enterprise client at a time. Scope the work, ship the integration, own the eval. You write code; you don't manage people who write code.</p>
+        </div>
+        <span class="role-arrow" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+
+      <a class="role" href="mailto:hello@klaut.ai?subject=Application%20%E2%80%94%20Vendor%20Partnerships">
+        <span class="role-idx">/ 02</span>
+        <div>
+          <div class="role-title-row">
+            <h3 class="role-title">Vendor Partnerships</h3>
+            <div class="role-meta">
+              <span class="role-chip accent">Contract</span>
+              <span class="role-chip">Jakarta</span>
+              <span class="role-chip">Hybrid</span>
+            </div>
+          </div>
+          <p class="role-desc">Build and manage relationships with foundation model and tooling vendors. Negotiate commercial terms that survive a procurement review. Translate vendor capability into client outcomes.</p>
+        </div>
+        <span class="role-arrow" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+
+      <a class="role" href="mailto:hello@klaut.ai?subject=Application%20%E2%80%94%20Founding%20GTM">
+        <span class="role-idx">/ 03</span>
+        <div>
+          <div class="role-title-row">
+            <h3 class="role-title">Founding GTM</h3>
+            <div class="role-meta">
+              <span class="role-chip accent">Full-time</span>
+              <span class="role-chip">Jakarta</span>
+              <span class="role-chip">In-office</span>
+            </div>
+          </div>
+          <p class="role-desc">Own the first commercial motion end-to-end. Inbound triage, sales conversations, scoping calls, contract structure. The job is to say no to seven out of every ten leads — well.</p>
+        </div>
+        <span class="role-arrow" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+    </div>
+
+    <!-- Empty state -->
+    <div class="empty-state">
+      <div class="empty-card rounded-2xl p-12 lg:p-16 text-center max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2 mono-eyebrow mb-6">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent-2"></span>
+          / No open roles
+        </div>
+        <h3 class="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1]">
+          No open roles right now.
+        </h3>
+        <p class="mt-5 text-lg text-muted leading-relaxed max-w-xl mx-auto">
+          We still read every thoughtful email — tell us what you'd own.
+        </p>
+        <a href="mailto:hello@klaut.ai" class="btn btn-primary btn-lg mt-8 inline-flex">
+          Email us
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ HOW TO APPLY -->
+<section data-screen-label="05 How to apply" class="relative border-t border-line">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-28 lg:py-36">
+    <div class="reveal max-w-3xl mx-auto text-center">
+      <div class="mono-eyebrow mb-5 inline-block">/ 04 — How to apply</div>
+      <h2 class="text-4xl md:text-5xl lg:text-[56px] font-semibold tracking-tight leading-[1.02]">
+        No anonymous form.
+      </h2>
+      <p class="mt-8 text-xl md:text-2xl font-light text-ink leading-[1.45] tracking-[-0.01em]">
+        Email us directly with what you'd own and why you're a fit.
+      </p>
+      <p class="mt-5 text-lg text-muted leading-relaxed">
+        A real message beats a polished CV here.
+      </p>
+    </div>
+
+    <div class="reveal apply-card mt-14 max-w-3xl mx-auto rounded-2xl p-8 lg:p-10">
+      <div class="grid md:grid-cols-12 gap-8 items-center">
+        <div class="md:col-span-7">
+          <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim mb-4">What to include</div>
+          <ul class="space-y-3 text-[15px] text-ink/90 leading-relaxed">
+            <li class="flex gap-3"><span class="text-accent-2 font-mono text-sm pt-0.5">→</span>The role you're after, in your own words.</li>
+            <li class="flex gap-3"><span class="text-accent-2 font-mono text-sm pt-0.5">→</span>One problem you've owned end-to-end and shipped.</li>
+            <li class="flex gap-3"><span class="text-accent-2 font-mono text-sm pt-0.5">→</span>Why <span class="text-ink">this</span> shape of company — not a generic intro.</li>
+          </ul>
+        </div>
+        <div class="md:col-span-5 md:border-l md:border-line md:pl-8">
+          <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim mb-3">Send it to</div>
+          <a href="mailto:hello@klaut.ai" class="block text-2xl font-semibold tracking-tight text-ink hover:text-accent-2 transition">hello@klaut.ai</a>
+          <a href="mailto:hello@klaut.ai" class="btn btn-primary mt-6 inline-flex">
+            Email us
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <div class="mt-4 text-xs text-dim font-mono uppercase tracking-[0.18em]">Replies within 3 business days</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ CTA BAND -->
+<section data-screen-label="06 CTA" class="relative">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 pb-28 lg:pb-36">
+    <div class="cta-band relative overflow-hidden rounded-2xl p-10 lg:p-16">
+      <div class="absolute -top-24 -right-24 w-96 h-96 orb" style="background: radial-gradient(circle at 50% 50%, #6366f1, transparent 60%); opacity:.25; position:absolute;"></div>
+      <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+        <div>
+          <div class="mono-eyebrow mb-4">/ Join us</div>
+          <h2 class="text-4xl md:text-5xl lg:text-[56px] font-semibold tracking-tight leading-[1.02] max-w-2xl">
+            Think you'd <span class="grad-clause">fit?</span>
+          </h2>
+          <p class="mt-5 text-muted text-lg max-w-xl leading-relaxed">Tell us what you'd own and why. We're slow to hire — and fast to read a sharp message.</p>
+        </div>
+        <div class="flex flex-col sm:flex-row lg:flex-col gap-3 lg:items-end">
+          <a href="mailto:hello@klaut.ai" class="btn btn-primary btn-lg">Email us
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <div class="text-xs text-dim font-mono uppercase tracking-[0.18em] lg:text-right">hello@klaut.ai</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================================================ FOOTER -->
+<footer class="border-t border-line">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-accent-2 grid place-items-center font-bold text-sm">K</div>
+      <span class="font-semibold tracking-tight">Klaut</span>
+      <span class="text-dim text-sm ml-3">© 2026 · Jakarta</span>
+    </div>
+    <div class="flex items-center gap-6 text-sm text-muted">
+      <a href="#" class="hover:text-ink transition">Privacy</a>
+      <a href="#" class="hover:text-ink transition">Terms</a>
+      <a href="#" class="hover:text-ink transition">Substack</a>
+      <a href="#" class="hover:text-ink transition">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================ TWEAKS -->
+<div id="tweaks-root"></div>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "heroTreatment": "gradient clause",
+    "rolesState": "3 sample roles",
+    "showOrbs": true
+  }/*EDITMODE-END*/;
+
+  function TweaksApp() {
+    const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+    React.useEffect(() => {
+      // hero treatment
+      const clause = document.querySelector('[data-hero-clause]');
+      if (clause) {
+        clause.classList.remove('grad-clause');
+        clause.style.color = '';
+        clause.style.fontFamily = '';
+        clause.style.fontWeight = '';
+        clause.style.letterSpacing = '';
+        if (t.heroTreatment === 'gradient clause') {
+          clause.classList.add('grad-clause');
+        } else if (t.heroTreatment === 'mono accent') {
+          clause.style.color = '#818cf8';
+          clause.style.fontFamily = "'JetBrains Mono', monospace";
+          clause.style.fontWeight = '500';
+          clause.style.letterSpacing = '-0.01em';
+        } else if (t.heroTreatment === 'solid white') {
+          clause.style.color = '#ffffff';
+        }
+      }
+
+      // orbs
+      document.body.classList.toggle('no-orbs', !t.showOrbs);
+
+      // roles state
+      const isEmpty = t.rolesState === 'empty state';
+      document.body.classList.toggle('empty-on', isEmpty);
+      document.body.classList.toggle('empty-off', !isEmpty);
+      const countEl = document.querySelector('[data-open-count]');
+      if (countEl) countEl.textContent = isEmpty ? '0' : '3';
+    }, [t]);
+
+    return (
+      <TweaksPanel title="Tweaks">
+        <TweakSection label="Open roles" />
+        <TweakRadio
+          label="State"
+          value={t.rolesState}
+          options={['3 sample roles', 'empty state']}
+          onChange={(v) => setTweak('rolesState', v)}
+        />
+        <TweakSection label="Hero" />
+        <TweakRadio
+          label="Type treatment"
+          value={t.heroTreatment}
+          options={['gradient clause', 'mono accent', 'solid white']}
+          onChange={(v) => setTweak('heroTreatment', v)}
+        />
+        <TweakToggle
+          label="Background orbs"
+          value={t.showOrbs}
+          onChange={(v) => setTweak('showOrbs', v)}
+        />
+      </TweaksPanel>
+    );
+  }
+
+  const root = ReactDOM.createRoot(document.getElementById('tweaks-root'));
+  root.render(<TweaksApp />);
+</script>
+
+<!-- ============================================================ BEHAVIOR -->
+<script>
+  const nav = document.getElementById('nav');
+  function onScroll() {
+    if (window.scrollY > 8) nav.classList.add('nav-scrolled');
+    else nav.classList.remove('nav-scrolled');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // smooth scroll for in-page anchors (NOT mailto / external)
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (id.length > 1) {
+        const el = document.querySelector(id);
+        if (el) {
+          e.preventDefault();
+          const top = el.getBoundingClientRect().top + window.scrollY - 64;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>
