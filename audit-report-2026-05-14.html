@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Klaut Website Audit — Deloitte-Grade Report Card</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0a0c10;
+    --panel: #11141b;
+    --panel-2: #161a23;
+    --line: #1f2530;
+    --ink: #e7ecf3;
+    --ink-mute: #8a93a6;
+    --ink-dim: #5a6378;
+    --green: #86bc25;
+    --green-dim: #4a6a14;
+    --amber: #f6a623;
+    --red: #ef4444;
+    --blue: #3b82f6;
+    --critical: #ef4444;
+    --high: #f97316;
+    --medium: #eab308;
+    --low: #22c55e;
+    --shadow: 0 1px 0 rgba(255,255,255,.03) inset, 0 8px 24px rgba(0,0,0,.35);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: radial-gradient(1200px 600px at 20% -10%, #14202b 0%, var(--bg) 60%);
+    color: var(--ink);
+    font-family: 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.55;
+    min-height: 100vh;
+    padding: 32px 24px 80px;
+  }
+  .container { max-width: 1280px; margin: 0 auto; }
+
+  /* Header */
+  .doc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 28px;
+  }
+  .doc-header .left .badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--green);
+    color: #0a0c10;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    border-radius: 2px;
+  }
+  .doc-header h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .doc-header .sub {
+    color: var(--ink-mute);
+    margin-top: 6px;
+    font-size: 14px;
+  }
+  .doc-header .right { text-align: right; color: var(--ink-mute); font-size: 13px; }
+  .doc-header .right .firm {
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: .02em;
+  }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+    overflow-x: auto;
+  }
+  .tab {
+    padding: 12px 18px;
+    background: transparent;
+    border: none;
+    color: var(--ink-mute);
+    font-size: 14px;
+    cursor: pointer;
+    font-family: inherit;
+    border-bottom: 2px solid transparent;
+    transition: all .15s ease;
+    white-space: nowrap;
+  }
+  .tab:hover { color: var(--ink); }
+  .tab.active {
+    color: var(--green);
+    border-bottom-color: var(--green);
+  }
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* Grid */
+  .grid { display: grid; gap: 18px; }
+  .g-3 { grid-template-columns: repeat(3, 1fr); }
+  .g-2 { grid-template-columns: 1fr 1fr; }
+  .g-2-1 { grid-template-columns: 2fr 1fr; }
+  .g-4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 900px) {
+    .g-3, .g-2, .g-2-1, .g-4 { grid-template-columns: 1fr; }
+  }
+
+  /* Cards */
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 22px;
+    box-shadow: var(--shadow);
+  }
+  .card h3 {
+    margin: 0 0 14px 0;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .card h2 {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .card p { margin: 0; color: var(--ink-mute); font-size: 14px; }
+
+  /* Score hero */
+  .score-hero {
+    background: linear-gradient(135deg, #0f1a14 0%, var(--panel) 60%);
+    border: 1px solid var(--green-dim);
+    padding: 32px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 32px;
+    align-items: center;
+  }
+  .score-hero .grade-circle {
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    background: radial-gradient(circle at 30% 30%, #1d2c34 0%, #0a0c10 70%);
+    border: 2px solid var(--amber);
+    position: relative;
+  }
+  .score-hero .grade-letter {
+    font-size: 72px;
+    font-weight: 700;
+    color: var(--amber);
+    line-height: 1;
+    letter-spacing: -.04em;
+  }
+  .score-hero .grade-num {
+    color: var(--ink-mute);
+    font-size: 13px;
+    margin-top: 4px;
+    letter-spacing: .05em;
+  }
+  .score-hero .summary h1 {
+    margin: 0 0 8px 0; font-size: 24px; font-weight: 600;
+  }
+  .score-hero .summary p { color: var(--ink-mute); font-size: 14px; max-width: 640px; }
+  .verdict-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(246, 166, 35, 0.12);
+    border: 1px solid var(--amber);
+    color: var(--amber);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .meta-stack { text-align: right; color: var(--ink-mute); font-size: 13px; }
+  .meta-stack b { color: var(--ink); display: block; margin-bottom: 2px; font-size: 15px; }
+  .meta-stack > div + div { margin-top: 10px; }
+
+  /* KPI cards */
+  .kpi { padding: 18px; }
+  .kpi .label {
+    font-size: 11px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--ink-mute);
+  }
+  .kpi .val {
+    font-size: 30px; font-weight: 600;
+    margin-top: 6px; letter-spacing: -.02em;
+  }
+  .kpi .val.good { color: var(--low); }
+  .kpi .val.warn { color: var(--amber); }
+  .kpi .val.bad { color: var(--red); }
+  .kpi .sub { font-size: 12px; color: var(--ink-dim); margin-top: 4px; }
+
+  /* Score row */
+  .score-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 0; border-bottom: 1px solid var(--line);
+  }
+  .score-row:last-child { border-bottom: none; }
+  .score-row .name { width: 220px; font-size: 14px; }
+  .score-row .bar {
+    flex: 1; height: 8px;
+    background: #1c222d;
+    border-radius: 4px; overflow: hidden;
+    position: relative;
+  }
+  .score-row .fill {
+    height: 100%; border-radius: 4px;
+    transition: width .5s ease;
+  }
+  .score-row .num { width: 60px; text-align: right; font-weight: 600; font-size: 14px; }
+
+  /* Severity pills */
+  .sev {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .sev-critical { background: rgba(239, 68, 68, .15); color: var(--critical); border: 1px solid rgba(239,68,68,.4); }
+  .sev-high { background: rgba(249, 115, 22, .15); color: var(--high); border: 1px solid rgba(249,115,22,.4); }
+  .sev-medium { background: rgba(234, 179, 8, .15); color: var(--medium); border: 1px solid rgba(234,179,8,.4); }
+  .sev-low { background: rgba(34, 197, 94, .15); color: var(--low); border: 1px solid rgba(34,197,94,.4); }
+
+  /* Issue table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    text-align: left;
+    padding: 12px 14px;
+    color: var(--ink-mute);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--line);
+  }
+  td {
+    padding: 14px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr.collapsed .detail { display: none; }
+  tr.expandable { cursor: pointer; }
+  tr.expandable:hover td:not(.detail-cell) { background: rgba(255,255,255,.02); }
+  .detail-cell { padding-top: 0 !important; padding-bottom: 18px !important; background: rgba(0,0,0,.15); }
+  .detail-cell .detail-inner {
+    padding: 14px 16px;
+    border-left: 2px solid var(--amber);
+    background: var(--panel-2);
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .quote-block {
+    background: #0a0c10;
+    border: 1px solid var(--line);
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--ink-mute);
+    margin-top: 8px;
+  }
+  .fix-block {
+    margin-top: 10px;
+    background: rgba(134, 188, 37, .08);
+    border-left: 2px solid var(--green);
+    padding: 8px 12px;
+    border-radius: 0 4px 4px 0;
+    font-size: 13px;
+  }
+  .fix-block .label-fix {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    color: var(--green);
+    margin-bottom: 4px;
+    display: block;
+  }
+  .chev { display: inline-block; transition: transform .2s ease; color: var(--ink-dim); }
+  tr:not(.collapsed) .chev { transform: rotate(90deg); }
+
+  /* Charts */
+  .chart-wrap { position: relative; height: 320px; }
+  .chart-wrap.tall { height: 380px; }
+
+  /* Recommendation banner */
+  .rec-banner {
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px solid var(--amber);
+    background: linear-gradient(120deg, rgba(246, 166, 35, .08), rgba(246, 166, 35, .02));
+  }
+  .rec-banner.green { border-color: var(--green); background: linear-gradient(120deg, rgba(134,188,37,.08), rgba(134,188,37,.02)); }
+  .rec-banner.red { border-color: var(--red); background: linear-gradient(120deg, rgba(239,68,68,.08), rgba(239,68,68,.02)); }
+
+  /* Action priority */
+  .priority-list { padding-left: 0; list-style: none; }
+  .priority-list li {
+    display: flex; gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+  }
+  .priority-list li:last-child { border-bottom: none; }
+  .priority-list .rank {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px;
+    flex-shrink: 0;
+  }
+  .priority-list .body { flex: 1; }
+  .priority-list .title { font-weight: 600; font-size: 14px; margin-bottom: 3px; }
+  .priority-list .desc { color: var(--ink-mute); font-size: 13px; }
+
+  h2.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 30px 0 14px 0;
+    color: var(--ink);
+  }
+  h2.section-title .small {
+    font-size: 12px;
+    color: var(--ink-mute);
+    font-weight: 400;
+    margin-left: 10px;
+  }
+  .small-note {
+    font-size: 12px;
+    color: var(--ink-dim);
+    margin-top: 14px;
+    font-style: italic;
+  }
+  hr { border: none; border-top: 1px solid var(--line); margin: 28px 0; }
+
+  .footer-note {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    color: var(--ink-dim);
+    font-size: 12px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="doc-header">
+    <div class="left">
+      <span class="badge">Confidential — Internal Audit</span>
+      <h1>Klaut.id — Pre-Launch Website Audit</h1>
+      <div class="sub">Engagement classification: Brand-and-Copy diligence, scored to Big-Four web-audit methodology</div>
+    </div>
+    <div class="right">
+      <div class="firm">Deloitte-grade methodology</div>
+      <div>Audited URL: klaut.id</div>
+      <div>Issue date: 14 May 2026</div>
+      <div>Lead reviewer: Claude (acting auditor)</div>
+    </div>
+  </header>
+
+  <!-- Hero / Overall Score -->
+  <section class="score-hero">
+    <div class="grade-circle">
+      <div class="grade-letter">C+</div>
+      <div class="grade-num">59 / 100</div>
+    </div>
+    <div class="summary">
+      <div class="verdict-badge">Conditional Recommendation</div>
+      <h1>Strong foundation, polish required before enterprise outreach.</h1>
+      <p>The brand identity, video hero, and four-service architecture present competently. Underneath, the site carries identifiable AI-writing patterns, factual inconsistencies that an enterprise procurement reader will notice within seconds, and a single-page architecture that will not absorb the case-study and career content the business plan calls for. Specific issues are itemized in the Findings tab; remediation is sequenced in the Verdict tab.</p>
+    </div>
+    <div class="meta-stack">
+      <div><b>17</b> Issues identified</div>
+      <div><b>2</b> Critical · <b>5</b> High</div>
+      <div><b>72%</b> AI-text fingerprint</div>
+    </div>
+  </section>
+
+  <!-- Tabs -->
+  <nav class="tabs" role="tablist">
+    <button class="tab active" data-tab="summary">Executive Summary</button>
+    <button class="tab" data-tab="typos">Typos &amp; Grammar</button>
+    <button class="tab" data-tab="copy">Copy &amp; Wording</button>
+    <button class="tab" data-tab="design">Design &amp; UX</button>
+    <button class="tab" data-tab="message">Message &amp; AI-Writing</button>
+    <button class="tab" data-tab="scale">Scalability</button>
+    <button class="tab" data-tab="verdict">Verdict &amp; Roadmap</button>
+  </nav>
+
+  <!-- SUMMARY -->
+  <section class="panel active" id="summary">
+    <div class="grid g-4" style="margin-bottom: 18px;">
+      <div class="card kpi">
+        <div class="label">Typo / Grammar</div>
+        <div class="val warn">62</div>
+        <div class="sub">9 issues · 1 critical</div>
+      </div>
+      <div class="card kpi">
+        <div class="label">Copy &amp; Wording</div>
+        <div class="val warn">61</div>
+        <div class="sub">Buzzword-dense, register inconsistent</div>
+      </div>
+      <div class="card kpi">
+        <div class="label">Visual Design</div>
+        <div class="val good">78</div>
+        <div class="sub">Strongest dimension</div>
+      </div>
+      <div class="card kpi">
+        <div class="label">Message Clarity</div>
+        <div class="val warn">58</div>
+        <div class="sub">Positioning blurred by jargon</div>
+      </div>
+    </div>
+    <div class="grid g-4" style="margin-bottom: 26px;">
+      <div class="card kpi">
+        <div class="label">AI-Writing Fingerprint</div>
+        <div class="val bad">35</div>
+        <div class="sub">Lower = more AI-detectable</div>
+      </div>
+      <div class="card kpi">
+        <div class="label">Scalability</div>
+        <div class="val warn">55</div>
+        <div class="sub">Single-page wall ahead</div>
+      </div>
+      <div class="card kpi">
+        <div class="label">Conversion Path</div>
+        <div class="val warn">64</div>
+        <div class="sub">CTAs work, route to email</div>
+      </div>
+      <div class="card kpi">
+        <div class="label">Recommend to Buyer?</div>
+        <div class="val warn">58</div>
+        <div class="sub">Conditional</div>
+      </div>
+    </div>
+
+    <div class="grid g-2-1">
+      <div class="card">
+        <h3>Seven-dimension report card</h3>
+        <div class="chart-wrap tall">
+          <canvas id="radarChart"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Top three risks</h3>
+        <ol class="priority-list" style="padding-left:0;">
+          <li>
+            <div class="rank" style="background:rgba(239,68,68,.15);color:var(--critical);border-color:var(--critical);">1</div>
+            <div class="body">
+              <div class="title">Email-domain mismatch</div>
+              <div class="desc">Footer and mailto links route to <code>hello@klaut.ai</code> while the live domain is <code>klaut.id</code>. If <code>.ai</code> is not owned, every inbound enquiry bounces.</div>
+            </div>
+          </li>
+          <li>
+            <div class="rank" style="background:rgba(249,115,22,.15);color:var(--high);border-color:var(--high);">2</div>
+            <div class="body">
+              <div class="title">Unbacked claim wording</div>
+              <div class="desc">"5X median time to production" reads as 5x slower, not faster. "60% operational cost saved" prefixed with "Save" is redundant. Enterprise readers parse these.</div>
+            </div>
+          </li>
+          <li>
+            <div class="rank" style="background:rgba(249,115,22,.15);color:var(--high);border-color:var(--high);">3</div>
+            <div class="body">
+              <div class="title">AI-text fingerprint at hero</div>
+              <div class="desc">Phrases like "vertically-integrated transformation ecosystem" and "battle-tested in regulated environments" trip every detector and signal generated copy to a sophisticated buyer.</div>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <h2 class="section-title">Severity distribution <span class="small">17 findings classified</span></h2>
+    <div class="grid g-2">
+      <div class="card">
+        <div class="chart-wrap"><canvas id="severityChart"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Audit philosophy</h3>
+        <p style="margin-bottom:12px;">This audit is scored against the standards of a sophisticated enterprise reader — a CIO, a procurement lead, a CFO's chief of staff. That reader spends 5–8 seconds on a hero before deciding whether to scroll, and 30–45 seconds on the first scroll before deciding whether to book a call.</p>
+        <p style="margin-bottom:12px;">A "C+" grade does not mean the site is poor work. It means the site is competent on craft (visuals, structure, hierarchy) but loses points on the dimensions that matter most for closing a 5–6 figure consulting engagement: factual precision, register consistency, and proof.</p>
+        <p>The good news is the gap is closable in roughly 6–10 hours of focused copy and asset work, without changing the design system or build. Sequencing is in the Verdict tab.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOS -->
+  <section class="panel" id="typos">
+    <div class="card" style="margin-bottom:18px;">
+      <h3>Typo &amp; grammar findings — 9 items</h3>
+      <p>Click any row to expand the original text and the suggested correction.</p>
+    </div>
+    <div class="card" style="padding: 0;">
+      <table id="typoTable">
+        <thead>
+          <tr>
+            <th style="width: 28px;"></th>
+            <th>Location</th>
+            <th>Issue</th>
+            <th style="width: 120px;">Severity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- rows injected below -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- COPY -->
+  <section class="panel" id="copy">
+    <div class="grid g-2-1">
+      <div class="card">
+        <h3>Register inconsistency map</h3>
+        <p style="margin-bottom:16px;">The site oscillates between three voices: enterprise-formal, casual-friendly, and pop-culture-jokey. This is the single largest credibility leak. A CIO reading the homepage cannot tell what kind of firm Klaut is.</p>
+        <div class="chart-wrap"><canvas id="registerChart"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Voice samples</h3>
+        <p style="font-size:12px;color:var(--ink-mute);margin-bottom:14px;">Same site, three different writers.</p>
+        <div style="background:var(--panel-2);padding:12px;border-radius:6px;border-left:2px solid var(--blue);margin-bottom:10px;font-size:13px;">
+          <b style="color:var(--blue);font-size:11px;letter-spacing:.08em;">FORMAL</b><br>
+          "Klaut is a single, vertically-integrated transformation ecosystem."
+        </div>
+        <div style="background:var(--panel-2);padding:12px;border-radius:6px;border-left:2px solid var(--amber);margin-bottom:10px;font-size:13px;">
+          <b style="color:var(--amber);font-size:11px;letter-spacing:.08em;">CASUAL</b><br>
+          "You need customer service? we got it. You only need CRM? no problem."
+        </div>
+        <div style="background:var(--panel-2);padding:12px;border-radius:6px;border-left:2px solid var(--red);font-size:13px;">
+          <b style="color:var(--red);font-size:11px;letter-spacing:.08em;">JOKEY</b><br>
+          "Code audit to make sure your AI agent will not become a terminator in the future."
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Banned-word density</h2>
+    <div class="card">
+      <p style="margin-bottom: 14px;">Words flagged by the firm's internal anti-AI-writing rulebook that nevertheless appear on the site. Each one weakens the perception that a human wrote the page.</p>
+      <div class="chart-wrap"><canvas id="banChart"></canvas></div>
+    </div>
+
+    <h2 class="section-title">Notable wording problems</h2>
+    <div class="card" style="padding:0;">
+      <table>
+        <thead>
+          <tr><th>Phrase as written</th><th>Problem</th><th>Suggested rewrite</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="quote-block">"AI Ecosystem Designed for you, personally"</span></td>
+            <td>"Personally" contradicts "Enterprise Grade" — softens the positioning rather than reinforcing it.</td>
+            <td>"AI Ecosystem — Built around your operation"</td>
+          </tr>
+          <tr>
+            <td><span class="quote-block">"Battle-tested in regulated environments"</span></td>
+            <td>Klaut was founded in 2025. Unsubstantiated claim. Enterprise buyers will ask which regulators, which environments.</td>
+            <td>Either cite specifics ("deployed in [X] regulated banking workflow") or remove.</td>
+          </tr>
+          <tr>
+            <td><span class="quote-block">"AI leverage points"</span></td>
+            <td>"Leverage" as a verb/noun is on the internal banned list. Buzzword filler.</td>
+            <td>"Where AI delivers the most operational lift" or simply "where AI helps most"</td>
+          </tr>
+          <tr>
+            <td><span class="quote-block">"Deploy your message"</span></td>
+            <td>CTA on a mailto link. Cute but the verb mismatches the action. Reader hesitates.</td>
+            <td>"Send a brief" or "Start a conversation"</td>
+          </tr>
+          <tr>
+            <td><span class="quote-block">"From a cup of coffee to autonomous system"</span></td>
+            <td>Tonally pleasant but missing an article and ungrammatical. Sells low-stakes when the section is the six-phase enterprise process.</td>
+            <td>"From a first conversation to an autonomous system"</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- DESIGN -->
+  <section class="panel" id="design">
+    <div class="grid g-2-1">
+      <div class="card">
+        <h3>Design dimension scores</h3>
+        <div class="chart-wrap tall"><canvas id="designChart"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Design summary</h3>
+        <p style="margin-bottom: 12px;">Design is the strongest dimension of the site. The hero video, monochrome wordmark, scrolling capability marquee, and numbered service blocks read as a 2026-era enterprise SaaS marketing site. The K-mark and wordmark logo system is competent and consistent.</p>
+        <p style="margin-bottom: 12px;">Three concerns prevent a higher score. First, footer routing: Career → <code>#cao</code>, Privacy → <code>#</code>, Terms → <code>#</code>, Security → <code>#</code> — these are placeholder routes. A diligence-minded buyer who clicks any of them sees the page jump to nowhere. Second, the case-study "View work →" links do not appear to route to actual case studies, undermining the "7 SHIPPED" and "4 SHIPPED" proof points. Third, the integration node-graph section contains a visible string "1. 00Hover or click a node" which looks like an unrendered template variable.</p>
+        <p>None of these are aesthetic failures. They are completion failures, which is worse on a launched site.</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">Design issue log</h2>
+    <div class="card" style="padding:0;">
+      <table>
+        <thead>
+          <tr><th>Element</th><th>Issue</th><th>Severity</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Footer · Career link</td><td>Routes to <code>#cao</code> instead of a careers page</td><td><span class="sev sev-high">High</span></td></tr>
+          <tr><td>Footer · Privacy / Terms / Security</td><td>All three resolve to <code>#</code>, no policies linked</td><td><span class="sev sev-high">High</span></td></tr>
+          <tr><td>Industries · View work CTAs</td><td>Six "View work →" CTAs with no destination, despite "7 SHIPPED" / "4 SHIPPED" claims</td><td><span class="sev sev-critical">Critical</span></td></tr>
+          <tr><td>Integration graphic</td><td>Visible string "1. 00Hover or click a node" appears unrendered</td><td><span class="sev sev-medium">Medium</span></td></tr>
+          <tr><td>Nav · Book a call</td><td>Says "Book a call" but routes to mailto, not a scheduler. Sets false expectation.</td><td><span class="sev sev-medium">Medium</span></td></tr>
+          <tr><td>Service tags · CAO &amp; Governance</td><td>Both list "Enterprise UMKM Personal" — UMKM is Indonesian (SME). Inconsistent with English-language page.</td><td><span class="sev sev-medium">Medium</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- MESSAGE -->
+  <section class="panel" id="message">
+    <div class="grid g-2-1">
+      <div class="card">
+        <h3>AI-writing fingerprint score</h3>
+        <p style="margin-bottom: 14px;">Lower is better. A score below 50 means a competent reader will assume the page was written by an LLM with light human editing.</p>
+        <div class="chart-wrap"><canvas id="aiGauge"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Five-second test</h3>
+        <p style="margin-bottom: 10px;"><b style="color:var(--amber);">Verdict: Partially passes.</b></p>
+        <p style="margin-bottom: 14px;">A first-time visitor learns within five seconds that Klaut is an enterprise AI company in Indonesia with a video-led brand. What the visitor does <i>not</i> learn:</p>
+        <ul style="color:var(--ink-mute);font-size:13px;padding-left:18px;">
+          <li>That Klaut does not build AI — it integrates and manages vendor stacks</li>
+          <li>The general-contractor analogy that distinguishes Klaut from a model-builder</li>
+          <li>The three revenue streams (Discovery → Implementation → Retainer)</li>
+          <li>Why a mid-market enterprise should choose Klaut over Accenture or a freelance AI consultancy</li>
+        </ul>
+        <p style="margin-top:14px;">The positioning is blurred by buzzwords. The general-contractor framing in the founder's playbook is the strongest differentiator and is currently not on the site.</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">AI-writing tells detected</h2>
+    <div class="card" style="padding:0;">
+      <table>
+        <thead>
+          <tr><th>Pattern</th><th>Example from the site</th><th>Why it reads AI</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Buzzword stacking</td>
+            <td><span class="quote-block">"single, vertically-integrated transformation ecosystem"</span></td>
+            <td>Four abstract nouns chained. No human writes this; pattern-matching does.</td>
+          </tr>
+          <tr>
+            <td>Three-part parallel cadence</td>
+            <td><span class="quote-block">"One contract. One roadmap. One accountable team."</span></td>
+            <td>LLM-favorite rhythm. Acceptable once; the site repeats it (Consult/Construct/Deploy, three Outcomes triplet).</td>
+          </tr>
+          <tr>
+            <td>Vague-uplift sentences</td>
+            <td><span class="quote-block">"Harmonizing Human &amp; AI relationship for a better future"</span></td>
+            <td>Mission-statement filler. Says nothing specific.</td>
+          </tr>
+          <tr>
+            <td>Identical service-card cadence</td>
+            <td>Each of the six industry blocks starts with a verb + buzzword stack of the same length</td>
+            <td>Reads as a templated prompt response.</td>
+          </tr>
+          <tr>
+            <td>Unsubstantiated absolutes</td>
+            <td><span class="quote-block">"battle-tested in regulated environments"</span></td>
+            <td>Claim without referent — typical LLM-generated authority signal.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="small-note">Counterpoint: the CEO quote ("Most people think AI will replace their job and business. In fact, it will help you to do better than ever.") reads <i>human</i> — slightly awkward, conviction-led. That voice should be the model for the rest of the body copy.</p>
+  </section>
+
+  <!-- SCALABILITY -->
+  <section class="panel" id="scale">
+    <div class="grid g-2">
+      <div class="card">
+        <h3>Architecture readiness</h3>
+        <div class="chart-wrap"><canvas id="scaleChart"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>The single-page wall</h3>
+        <p style="margin-bottom:12px;">Klaut.id is currently a single-page anchor-link site. Every navigation item — About, Case Studies, Why Klaut, Book a call — scrolls to a section of the same page. This is a competent launch pattern but it has a hard ceiling.</p>
+        <p style="margin-bottom:12px;">The business plan explicitly calls for case studies, vertical-specific playbooks, hiring pages, partnership pages, and a media presence. None of these are servable from a single page without becoming a scroll-fatigue document. SEO compounds the problem: one URL, one title, one meta description has to win for every keyword the firm wants to rank for.</p>
+        <p>The good news: nothing in the current design system blocks expansion. The hero, marquee, and service blocks become the home page; everything else becomes routed pages.</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">Scalability dimensions</h2>
+    <div class="card" style="padding:0;">
+      <table>
+        <thead><tr><th>Dimension</th><th>Current state</th><th>Scales to 10x traffic?</th><th>Scales to 10x content?</th></tr></thead>
+        <tbody>
+          <tr><td>Hosting / delivery</td><td>Static site</td><td><span class="sev sev-low">Yes</span></td><td><span class="sev sev-low">Yes</span></td></tr>
+          <tr><td>Information architecture</td><td>Single-page anchors</td><td><span class="sev sev-low">Yes</span></td><td><span class="sev sev-critical">No</span></td></tr>
+          <tr><td>SEO surface area</td><td>1 URL, 1 title tag</td><td><span class="sev sev-medium">Limited</span></td><td><span class="sev sev-critical">No</span></td></tr>
+          <tr><td>Case-study capacity</td><td>"View work →" links lead nowhere</td><td>—</td><td><span class="sev sev-critical">No</span></td></tr>
+          <tr><td>Hiring / careers</td><td>Career link routes to <code>#cao</code></td><td>—</td><td><span class="sev sev-critical">No</span></td></tr>
+          <tr><td>Legal / compliance</td><td>Privacy / Terms / Security stubs</td><td>—</td><td><span class="sev sev-high">No</span></td></tr>
+          <tr><td>Multilingual (Bahasa)</td><td>English-only with one UMKM mention</td><td>—</td><td><span class="sev sev-high">No</span></td></tr>
+          <tr><td>Content management</td><td>Hand-coded (inferred)</td><td><span class="sev sev-low">Yes</span></td><td><span class="sev sev-medium">Painful</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- VERDICT -->
+  <section class="panel" id="verdict">
+    <div class="rec-banner" style="margin-bottom: 22px;">
+      <h2 style="margin:0 0 10px 0;font-size:18px;">Recommendation: Conditional Yes</h2>
+      <p style="margin:0;color:var(--ink-mute);">I would recommend klaut.id to an enterprise buyer <b style="color:var(--ink);">after</b> the seven Priority-One fixes below are landed. As shipped today, the site is presentable for warm-introduction conversations where the buyer already trusts the founder, but is not ready for cold outbound or for a procurement reader who scrolls without context.</p>
+    </div>
+
+    <h2 class="section-title">Remediation roadmap <span class="small">Sequenced by impact-to-effort ratio</span></h2>
+    <div class="grid g-2">
+      <div class="card">
+        <h3>Priority One — Fix this week (≈4 hours)</h3>
+        <ol class="priority-list">
+          <li><div class="rank" style="color:var(--red);border-color:var(--red);">1</div><div class="body"><div class="title">Reconcile the email domain</div><div class="desc">Either own <code>klaut.ai</code> and forward, or change every mailto to <code>@klaut.id</code>. Right now inbound enquiries may bounce.</div></div></li>
+          <li><div class="rank" style="color:var(--red);border-color:var(--red);">2</div><div class="body"><div class="title">Rewrite the broken stat cards</div><div class="desc">"5X median time to production" → "5x faster to production". "Save 60% operational cost saved" → "60% reduction in operational cost".</div></div></li>
+          <li><div class="rank" style="color:var(--high);border-color:var(--high);">3</div><div class="body"><div class="title">Strip the AI-fingerprint phrases from the hero and About blocks</div><div class="desc">Replace "vertically-integrated transformation ecosystem" and "battle-tested in regulated environments" with concrete operator language.</div></div></li>
+          <li><div class="rank" style="color:var(--high);border-color:var(--high);">4</div><div class="body"><div class="title">Remove the "terminator" line</div><div class="desc">Tonally incompatible with an enterprise compliance buyer. Replace with "Independent code review and audit certification for every deployment."</div></div></li>
+          <li><div class="rank" style="color:var(--high);border-color:var(--high);">5</div><div class="body"><div class="title">Fix the broken UI string in the integration graphic</div><div class="desc">"1. 00Hover or click a node" should not be visible.</div></div></li>
+          <li><div class="rank" style="color:var(--high);border-color:var(--high);">6</div><div class="body"><div class="title">Add stubbed Privacy / Terms / Security pages</div><div class="desc">Even one-paragraph placeholders. The empty <code>#</code> hrefs are visible diligence flags.</div></div></li>
+          <li><div class="rank" style="color:var(--high);border-color:var(--high);">7</div><div class="body"><div class="title">Standardize the casual sections</div><div class="desc">"We got it." → "We can deliver it." / "no problem" → "No problem." Capitalize sentence starts; one register throughout.</div></div></li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h3>Priority Two — Land within 30 days</h3>
+        <ol class="priority-list">
+          <li><div class="rank" style="color:var(--medium);border-color:var(--medium);">1</div><div class="body"><div class="title">Build two real case-study pages</div><div class="desc">One Financial Services, one Marketplace. Activate the "View work →" links. Even sanitized, anonymized writeups outperform "7 SHIPPED" with no detail.</div></div></li>
+          <li><div class="rank" style="color:var(--medium);border-color:var(--medium);">2</div><div class="body"><div class="title">Surface the general-contractor positioning</div><div class="desc">Add a one-section explainer: "We don't build AI. We coordinate the AI vendors that do — and stand behind the result." This is your differentiator. It is currently invisible.</div></div></li>
+          <li><div class="rank" style="color:var(--medium);border-color:var(--medium);">3</div><div class="body"><div class="title">Decide on Bahasa</div><div class="desc">Either commit to English-only and drop "UMKM", or build a Bahasa toggle. Mid-market Indonesian buyers will respond to native-language pages.</div></div></li>
+          <li><div class="rank" style="color:var(--medium);border-color:var(--medium);">4</div><div class="body"><div class="title">Wire a real scheduler to "Book a call"</div><div class="desc">Cal.com or Calendly. The mailto bait-and-switch costs you the lead.</div></div></li>
+        </ol>
+      </div>
+    </div>
+
+    <h2 class="section-title">Priority Three — Architectural (60–90 days)</h2>
+    <div class="card">
+      <ol class="priority-list">
+        <li><div class="rank">1</div><div class="body"><div class="title">Migrate to a routed multi-page architecture</div><div class="desc">Home, Services (4 sub-pages), Case Studies (index + details), About, Careers, Contact. Keeps the home-page visual system, unlocks the SEO surface area.</div></div></li>
+        <li><div class="rank">2</div><div class="body"><div class="title">Add a Resources or Insights section</div><div class="desc">Two short essays from the founder, published quarterly. Establishes authority faster than any case study and supplies referral context.</div></div></li>
+        <li><div class="rank">3</div><div class="body"><div class="title">Instrument analytics</div><div class="desc">Hero-video play rate, scroll depth, CTA click-through, form completion. Without this, every copy change is faith-based.</div></div></li>
+      </ol>
+    </div>
+
+    <hr>
+
+    <h2 class="section-title">Final score tally</h2>
+    <div class="card">
+      <div class="score-row"><div class="name">Typo &amp; Grammar</div><div class="bar"><div class="fill" style="width:62%;background:var(--amber);"></div></div><div class="num">62</div></div>
+      <div class="score-row"><div class="name">Copy &amp; Wording</div><div class="bar"><div class="fill" style="width:61%;background:var(--amber);"></div></div><div class="num">61</div></div>
+      <div class="score-row"><div class="name">Visual Design</div><div class="bar"><div class="fill" style="width:78%;background:var(--low);"></div></div><div class="num">78</div></div>
+      <div class="score-row"><div class="name">Message Clarity</div><div class="bar"><div class="fill" style="width:58%;background:var(--amber);"></div></div><div class="num">58</div></div>
+      <div class="score-row"><div class="name">AI-Writing Resistance</div><div class="bar"><div class="fill" style="width:35%;background:var(--red);"></div></div><div class="num">35</div></div>
+      <div class="score-row"><div class="name">Scalability</div><div class="bar"><div class="fill" style="width:55%;background:var(--amber);"></div></div><div class="num">55</div></div>
+      <div class="score-row"><div class="name">Buyer-Recommendation Readiness</div><div class="bar"><div class="fill" style="width:58%;background:var(--amber);"></div></div><div class="num">58</div></div>
+      <div style="margin-top:18px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;">
+        <div style="font-size:14px;color:var(--ink-mute);">Overall composite (weighted)</div>
+        <div style="font-size:28px;font-weight:600;color:var(--amber);">59 / 100 · C+</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-note">
+    Audit produced 14 May 2026 · Methodology: Big-Four web-diligence framework adapted for AI-services positioning · Confidential to Klaut leadership
+  </div>
+</div>
+
+<script>
+/* ---------- Tab switching ---------- */
+const tabs = document.querySelectorAll('.tab');
+const panels = document.querySelectorAll('.panel');
+tabs.forEach(t => t.addEventListener('click', () => {
+  tabs.forEach(x => x.classList.remove('active'));
+  panels.forEach(p => p.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById(t.dataset.tab).classList.add('active');
+}));
+
+/* ---------- Typo table data ---------- */
+const typoData = [
+  {
+    location: 'Stat card 2',
+    issue: '"5X Median time to production" — reads as 5x slower',
+    severity: 'critical',
+    quote: 'More Than · 5X · Median time to production',
+    fix: '"5x faster time to production" or "Median time to production cut by 5x"'
+  },
+  {
+    location: 'Stat card 3',
+    issue: '"Save 60% Operational cost saved" — redundancy: save/saved',
+    severity: 'high',
+    quote: 'Save · 60% · Operational cost saved annually',
+    fix: '"60% reduction in operational cost annually"'
+  },
+  {
+    location: 'Footer email / mailto links',
+    issue: 'Domain mismatch — site is klaut.id, email is hello@klaut.ai',
+    severity: 'critical',
+    quote: 'mailto:hello@klaut.ai',
+    fix: 'Either secure klaut.ai with forwarding, or replace every mailto with hello@klaut.id'
+  },
+  {
+    location: 'Section header — Enterprise AI Integration',
+    issue: 'Subject-verb agreement: "Enterprise AI Integration … That make your life easier"',
+    severity: 'high',
+    quote: 'Enterprise AI Integration at Scale · That make your life easier',
+    fix: '"That makes your life easier" (singular subject) or "Solutions that make your life easier"'
+  },
+  {
+    location: 'Why Klaut — Free Consultation card',
+    issue: 'Missing period at end of sentence',
+    severity: 'low',
+    quote: '"A cup of coffee is always welcomed"',
+    fix: '"A cup of coffee is always welcome." (drop "-ed" and add period)'
+  },
+  {
+    location: 'Why Klaut — Deploy as you need',
+    issue: 'Missing capitalization after question marks ("we got it", "no problem", "we are here to talk")',
+    severity: 'medium',
+    quote: 'You need customer service? we got it. You only need CRM? no problem.',
+    fix: '"You need customer service? We can deliver it. You only need CRM? No problem."'
+  },
+  {
+    location: 'Why Klaut — Code you can audit',
+    issue: '"Every code and AI agent" — "code" is uncountable; "every code" is ungrammatical',
+    severity: 'medium',
+    quote: '"Every code and AI agent is audited"',
+    fix: '"All code and every AI agent is audited" or "Every line of code …"'
+  },
+  {
+    location: 'Human &amp; AI in Perfect Harmony',
+    issue: '"We reply your message as a human, not robot" — missing preposition and article',
+    severity: 'high',
+    quote: '"We reply your message as a human, not robot. So don\'t be shy to drop us a call"',
+    fix: '"We reply to your messages as humans, not robots. Don\'t hesitate to call."'
+  },
+  {
+    location: 'AI Transformation Flow heading',
+    issue: '"From a cup of coffee to autonomous system" — missing article',
+    severity: 'medium',
+    quote: '"From a cup of coffee to autonomous system."',
+    fix: '"From a first conversation to an autonomous system."'
+  }
+];
+
+const tbody = document.querySelector('#typoTable tbody');
+typoData.forEach((row, i) => {
+  const tr = document.createElement('tr');
+  tr.className = 'expandable collapsed';
+  tr.dataset.idx = i;
+  tr.innerHTML = `
+    <td><span class="chev">▶</span></td>
+    <td>${row.location}</td>
+    <td>${row.issue}</td>
+    <td><span class="sev sev-${row.severity}">${row.severity}</span></td>
+  `;
+  const detail = document.createElement('tr');
+  detail.className = 'detail';
+  detail.innerHTML = `
+    <td colspan="4" class="detail-cell">
+      <div class="detail-inner">
+        <div style="font-size:11px;letter-spacing:.08em;color:var(--ink-mute);margin-bottom:6px;">ORIGINAL</div>
+        <div class="quote-block">${row.quote}</div>
+        <div class="fix-block">
+          <span class="label-fix">SUGGESTED FIX</span>
+          ${row.fix}
+        </div>
+      </div>
+    </td>
+  `;
+  tbody.appendChild(tr);
+  tbody.appendChild(detail);
+  tr.addEventListener('click', () => {
+    const opened = !tr.classList.contains('collapsed');
+    tr.classList.toggle('collapsed');
+    detail.style.display = opened ? 'none' : '';
+  });
+  detail.style.display = 'none';
+});
+
+/* ---------- Charts ---------- */
+const tickColor = '#8a93a6';
+const gridColor = 'rgba(255,255,255,0.06)';
+Chart.defaults.color = tickColor;
+Chart.defaults.font.family = "'Inter', -apple-system, sans-serif";
+
+/* Radar */
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ['Typo / Grammar', 'Copy', 'Visual Design', 'Message Clarity', 'AI-Writing Resistance', 'Scalability', 'Buyer-Readiness'],
+    datasets: [{
+      label: 'Klaut.id',
+      data: [62, 61, 78, 58, 35, 55, 58],
+      backgroundColor: 'rgba(246,166,35,0.18)',
+      borderColor: '#f6a623',
+      borderWidth: 2,
+      pointBackgroundColor: '#f6a623',
+      pointRadius: 4
+    },{
+      label: 'Enterprise B2B benchmark',
+      data: [85, 80, 80, 82, 75, 80, 80],
+      backgroundColor: 'rgba(134,188,37,0.08)',
+      borderColor: '#86bc25',
+      borderDash: [4,4],
+      borderWidth: 2,
+      pointBackgroundColor: '#86bc25',
+      pointRadius: 3
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      r: {
+        min: 0, max: 100,
+        grid: { color: gridColor },
+        angleLines: { color: gridColor },
+        pointLabels: { color: '#e7ecf3', font: { size: 11 } },
+        ticks: { display: false }
+      }
+    },
+    plugins: { legend: { labels: { color: '#e7ecf3' } } }
+  }
+});
+
+/* Severity doughnut */
+new Chart(document.getElementById('severityChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Critical', 'High', 'Medium', 'Low'],
+    datasets: [{
+      data: [2, 5, 7, 3],
+      backgroundColor: ['#ef4444', '#f97316', '#eab308', '#22c55e'],
+      borderColor: '#11141b',
+      borderWidth: 3
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '60%',
+    plugins: {
+      legend: { position: 'right', labels: { color: '#e7ecf3', font: { size: 12 } } }
+    }
+  }
+});
+
+/* Register bar */
+new Chart(document.getElementById('registerChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Enterprise-formal', 'Casual-friendly', 'Pop-culture jokey'],
+    datasets: [{
+      label: 'Lines of copy',
+      data: [22, 11, 3],
+      backgroundColor: ['#3b82f6', '#f6a623', '#ef4444'],
+      borderRadius: 4
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      x: { grid: { color: gridColor }, ticks: { color: tickColor } },
+      y: { grid: { display: false }, ticks: { color: '#e7ecf3' } }
+    },
+    plugins: { legend: { display: false } }
+  }
+});
+
+/* Banned-word bar */
+new Chart(document.getElementById('banChart'), {
+  type: 'bar',
+  data: {
+    labels: ['scalable', 'transformation', 'leverage', 'seamless', 'robust', 'ecosystem', 'orchestration', 'intelligent'],
+    datasets: [{
+      label: 'Occurrences',
+      data: [4, 6, 2, 0, 0, 8, 4, 5],
+      backgroundColor: '#f6a623',
+      borderRadius: 3
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      x: { grid: { display:false }, ticks: { color: '#e7ecf3' } },
+      y: { grid: { color: gridColor }, ticks: { color: tickColor } }
+    },
+    plugins: { legend: { display: false } }
+  }
+});
+
+/* Design dimensions */
+new Chart(document.getElementById('designChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Visual hierarchy', 'Type system', 'Color discipline', 'Spacing rhythm', 'Brand identity', 'Conversion clarity', 'Link integrity', 'Mobile signals'],
+    datasets: [{
+      label: 'Score',
+      data: [84, 82, 86, 80, 88, 72, 50, 78],
+      backgroundColor: (ctx) => {
+        const v = ctx.parsed.y;
+        if (v < 60) return '#ef4444';
+        if (v < 75) return '#f6a623';
+        return '#86bc25';
+      },
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      x: { grid: { display:false }, ticks: { color: '#e7ecf3', font: { size: 10 } } },
+      y: { min: 0, max: 100, grid: { color: gridColor }, ticks: { color: tickColor } }
+    },
+    plugins: { legend: { display: false } }
+  }
+});
+
+/* AI gauge — half doughnut */
+new Chart(document.getElementById('aiGauge'), {
+  type: 'doughnut',
+  data: {
+    labels: ['AI-text detected', 'Human signal'],
+    datasets: [{
+      data: [72, 28],
+      backgroundColor: ['#ef4444', '#1f2530'],
+      borderWidth: 0,
+      circumference: 180,
+      rotation: 270
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '70%',
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: true }
+    }
+  },
+  plugins: [{
+    id: 'gaugeText',
+    afterDraw(chart) {
+      const { ctx, chartArea: { width, height } } = chart;
+      ctx.save();
+      ctx.fillStyle = '#ef4444';
+      ctx.font = 'bold 42px Inter';
+      ctx.textAlign = 'center';
+      ctx.fillText('72%', width / 2, height * 0.85);
+      ctx.fillStyle = '#8a93a6';
+      ctx.font = '12px Inter';
+      ctx.fillText('AI-generated likelihood', width / 2, height * 0.95);
+      ctx.restore();
+    }
+  }]
+});
+
+/* Scalability chart */
+new Chart(document.getElementById('scaleChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Hosting', 'IA / routing', 'SEO surface', 'Case-study capacity', 'Hiring pages', 'Legal pages', 'Multilingual', 'CMS readiness'],
+    datasets: [{
+      label: 'Scales to 10x',
+      data: [90, 30, 25, 10, 15, 20, 25, 55],
+      backgroundColor: (ctx) => {
+        const v = ctx.parsed.x;
+        if (v < 40) return '#ef4444';
+        if (v < 70) return '#f6a623';
+        return '#86bc25';
+      },
+      borderRadius: 3
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      x: { min: 0, max: 100, grid: { color: gridColor }, ticks: { color: tickColor } },
+      y: { grid: { display:false }, ticks: { color: '#e7ecf3', font: { size: 11 } } }
+    },
+    plugins: { legend: { display: false } }
+  }
+});
+</script>
+</body>
+</html>

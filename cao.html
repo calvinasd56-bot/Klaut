@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Klaut — Chief AI Officer</title>
+<meta name="description" content="Fractional AI leadership for companies too small for a full-time Chief AI Officer but too complex to go without strategic direction." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+          mono: ['JetBrains Mono', 'ui-monospace', 'Menlo', 'monospace'],
+        },
+        colors: {
+          bg:        '#0a0a0f',
+          surface:   '#13131a',
+          surface2:  '#1a1a22',
+          line:      'rgba(255,255,255,0.08)',
+          accent:    '#6366f1',
+          'accent-2':'#818cf8',
+          'accent-deep':'#4f46e5',
+          ink:       '#ffffff',
+          muted:     '#a1a1aa',
+          dim:       '#71717a',
+          faint:     '#52525b',
+        },
+        maxWidth: { content: '1200px' },
+      },
+    },
+  };
+</script>
+<style>
+  :root {
+    --accent: #6366f1;
+    --accent-2: #818cf8;
+    --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    background: #0a0a0f;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ---------- Background motifs ---------- */
+  .dot-grid {
+    background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .dot-grid-fade {
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 40%, transparent 100%);
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 40%, transparent 100%);
+  }
+  .orb {
+    position: absolute; border-radius: 9999px;
+    filter: blur(90px); pointer-events: none;
+    will-change: transform;
+  }
+  @keyframes float {
+    0%,100% { transform: translate3d(0,0,0); }
+    50%     { transform: translate3d(0,-14px,0); }
+  }
+  .orb-float-a { animation: float 14s ease-in-out infinite; }
+  .orb-float-b { animation: float 18s ease-in-out infinite reverse; }
+
+  .grad-text {
+    background: linear-gradient(92deg, #818cf8 0%, #6366f1 45%, #a78bfa 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+  }
+
+  .section-num {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px;
+    color: #818cf8;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: #818cf8;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 800ms var(--ease-out), transform 800ms var(--ease-out);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 80ms; }
+  .reveal-delay-2 { transition-delay: 160ms; }
+  .reveal-delay-3 { transition-delay: 240ms; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 20px;
+    border-radius: 8px;
+    font-weight: 500; font-size: 14px; line-height: 1;
+    transition: all 200ms var(--ease-out);
+    cursor: pointer; border: 0;
+    white-space: nowrap;
+  }
+  .btn-primary { background: #6366f1; color: #fff; }
+  .btn-primary:hover {
+    background: #4f46e5;
+    box-shadow: 0 0 0 1px rgba(99,102,241,0.4), 0 12px 32px -8px rgba(99,102,241,0.6);
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    background: rgba(255,255,255,0.04);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.10);
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.20); }
+  .btn svg.arrow { transition: transform 200ms var(--ease-out); }
+  .btn:hover svg.arrow { transform: translateX(3px); }
+
+  .card {
+    position: relative;
+    background: #13131a;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    transition: transform 280ms var(--ease-out),
+                border-color 280ms var(--ease-out),
+                box-shadow 280ms var(--ease-out);
+    overflow: hidden;
+  }
+  .card::before {
+    content: ""; position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(129,140,248,0.20), transparent 65%);
+    pointer-events: none;
+    opacity: 0.8;
+    transition: opacity 280ms var(--ease-out);
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(99,102,241,0.40);
+    box-shadow: 0 0 0 1px rgba(99,102,241,0.20), 0 30px 80px -30px rgba(99,102,241,0.50);
+  }
+  .card:hover::before { opacity: 1.2; }
+
+  .icon-tile {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: rgba(99,102,241,0.13);
+    border: 1px solid rgba(99,102,241,0.28);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #818cf8;
+    flex-shrink: 0;
+  }
+  .icon-tile svg { width: 22px; height: 22px; stroke-width: 1.75; }
+
+  /* Chip tag */
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 10px;
+    border-radius: 9999px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    background: rgba(99,102,241,0.10);
+    border: 1px solid rgba(99,102,241,0.22);
+    color: #818cf8;
+    letter-spacing: 0;
+  }
+  .chip .dot { width: 5px; height: 5px; border-radius: 9999px; background: #818cf8; }
+
+  /* ---------- Nav ---------- */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    transition: background 220ms var(--ease-out), border-color 220ms var(--ease-out), backdrop-filter 220ms var(--ease-out);
+    border-bottom: 1px solid transparent;
+  }
+  .nav.scrolled {
+    background: rgba(10,10,15,0.72);
+    -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav a.nav-link {
+    color: #a1a1aa;
+    font-size: 14px;
+    transition: color 180ms var(--ease-out);
+  }
+  .nav a.nav-link:hover { color: #fff; }
+  .nav a.nav-link.active { color: #fff; }
+
+  /* ---------- Engagement rhythm (timeline) ---------- */
+  .timeline-rule {
+    position: absolute;
+    top: 22px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, rgba(99,102,241,0.0), rgba(99,102,241,0.55) 15%, rgba(99,102,241,0.55) 85%, rgba(99,102,241,0.0));
+    z-index: 0;
+  }
+  .step-dot {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: rgba(99,102,241,0.13);
+    border: 1px solid rgba(99,102,241,0.28);
+    color: #818cf8;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 14px; font-weight: 500;
+    display: inline-flex; align-items: center; justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+  .step-label {
+    position: relative;
+    z-index: 2;
+    background: #0a0a0f;
+    padding: 0 10px;
+    margin-left: -4px;
+  }
+
+  /* ---------- Wordmark ---------- */
+  .wordmark-tile {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    background: linear-gradient(135deg, #6366f1, #818cf8);
+    color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.04em;
+  }
+
+  /* ---------- Mobile menu ---------- */
+  .mobile-menu {
+    transform: translateX(100%);
+    transition: transform 360ms var(--ease-out);
+  }
+  .mobile-menu.open { transform: translateX(0); }
+  .mobile-backdrop {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 240ms var(--ease-out);
+  }
+  .mobile-backdrop.open { opacity: 1; pointer-events: auto; }
+
+  /* ---------- Leave-with list ---------- */
+  .leave-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 24px;
+    padding: 26px 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .leave-row:last-child { border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .leave-row .num {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    color: #818cf8;
+    font-size: 13px;
+    width: 36px;
+  }
+  .leave-row .meta {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    color: #71717a;
+    font-size: 12px;
+  }
+  .leave-row .body { color: #fff; font-size: 17px; font-weight: 500; }
+  .leave-row .body .desc {
+    display: block;
+    font-weight: 400;
+    color: #a1a1aa;
+    font-size: 14.5px;
+    margin-top: 4px;
+    line-height: 1.55;
+  }
+
+  ::selection { background: rgba(99,102,241,0.35); color: #fff; }
+
+  /* ---------- Hairline ---------- */
+  .hairline {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.14), transparent);
+  }
+</style>
+</head>
+<body class="bg-bg text-ink">
+
+<!-- ================= NAV ================= -->
+<header id="nav" class="nav">
+  <div class="max-w-content mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2.5">
+      <span class="wordmark-tile">K</span>
+      <span class="font-semibold tracking-tight text-[17px]">Klaut</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-6">
+      <a href="index.html#services" class="nav-link">Services</a>
+      <a href="consulting.html"      class="nav-link">Consulting</a>
+      <a href="cao.html"             class="nav-link active">Chief AI Officer</a>
+      <a href="audit.html"           class="nav-link">Audit</a>
+      <a href="index.html#compass"   class="nav-link">Compass</a>
+      <a href="index.html#faq"       class="nav-link">FAQ</a>
+      <a href="#contact" class="btn btn-primary !py-2.5 !px-4 text-[13px]">
+        Book a call
+        <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </nav>
+    <button id="menuBtn" class="md:hidden text-ink p-2 -mr-2" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M3 12h18"/><path d="M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div id="mobileBackdrop" class="mobile-backdrop fixed inset-0 bg-black/70 backdrop-blur-sm z-40 md:hidden"></div>
+<aside id="mobileMenu" class="mobile-menu fixed top-0 right-0 bottom-0 w-[78%] max-w-sm bg-surface border-l border-line z-50 md:hidden p-6 flex flex-col">
+  <div class="flex items-center justify-between mb-12">
+    <div class="flex items-center gap-2.5">
+      <span class="wordmark-tile">K</span>
+      <span class="font-semibold text-[17px]">Klaut</span>
+    </div>
+    <button id="menuClose" class="text-ink p-2 -mr-2" aria-label="Close menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
+  <nav class="flex flex-col gap-1 text-xl">
+    <a href="index.html#services"  class="mobile-link py-4 border-b border-line">Services</a>
+    <a href="consulting.html"      class="mobile-link py-4 border-b border-line">Consulting</a>
+    <a href="cao.html"             class="mobile-link py-4 border-b border-line text-accent-2">Chief AI Officer</a>
+    <a href="audit.html"           class="mobile-link py-4 border-b border-line">Audit</a>
+    <a href="index.html#compass"   class="mobile-link py-4 border-b border-line">Compass</a>
+    <a href="index.html#faq"       class="mobile-link py-4 border-b border-line">FAQ</a>
+  </nav>
+  <a href="#contact" class="btn btn-primary mt-auto justify-center mobile-link">
+    Book a call
+    <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+  </a>
+</aside>
+
+<!-- ================= HERO ================= -->
+<section id="top" class="relative overflow-hidden pt-40 pb-28 md:pt-48 md:pb-36">
+  <div class="absolute inset-0 dot-grid dot-grid-fade pointer-events-none"></div>
+  <div class="orb orb-float-a" style="width:560px;height:560px;background:radial-gradient(circle at 35% 35%, rgba(99,102,241,0.55), transparent 60%);top:-180px;left:-180px;opacity:0.55"></div>
+  <div class="orb orb-float-b" style="width:460px;height:460px;background:radial-gradient(circle at 60% 50%, rgba(139,92,246,0.42), transparent 60%);top:6%;right:-160px;opacity:0.45"></div>
+
+  <div class="relative max-w-content mx-auto px-6 md:px-10">
+    <div class="reveal max-w-3xl">
+      <div class="eyebrow mb-7">/ Chief AI Officer</div>
+      <h1 class="font-semibold tracking-tight leading-[1.0] text-[clamp(40px,6.6vw,92px)]">
+        AI leadership, <span class="grad-text">without the full-time hire</span>.
+      </h1>
+      <p class="mt-8 text-muted text-[19px] md:text-xl leading-relaxed max-w-2xl">
+        Ongoing strategic direction for your AI &mdash; set by someone who has done it before, embedded in how your management already works.
+      </p>
+      <div class="mt-10 flex flex-wrap items-center gap-3">
+        <a href="#contact" class="btn btn-primary">
+          Book a call
+          <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a href="#what" class="btn btn-ghost">
+          What a CAO does
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Quiet engagement strip -->
+    <div class="reveal reveal-delay-2 mt-24 md:mt-28 grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-10">
+      <div>
+        <div class="section-num mb-2">Cadence</div>
+        <div class="text-[15px] text-ink/90">Monthly, with on-call hours</div>
+      </div>
+      <div>
+        <div class="section-num mb-2">Commitment</div>
+        <div class="text-[15px] text-ink/90">Quarterly term, no auto-renew</div>
+      </div>
+      <div>
+        <div class="section-num mb-2">Embedded in</div>
+        <div class="text-[15px] text-ink/90">Your ExCo, your standups</div>
+      </div>
+      <div>
+        <div class="section-num mb-2">Held by</div>
+        <div class="text-[15px] text-ink/90">One named principal</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHO THIS IS FOR ================= -->
+<section id="who" class="relative py-28 md:py-36">
+  <div class="absolute inset-0 dot-grid dot-grid-fade opacity-40 pointer-events-none"></div>
+
+  <div class="relative max-w-content mx-auto px-6 md:px-10">
+    <div class="grid md:grid-cols-12 gap-10 md:gap-16 items-start">
+      <div class="md:col-span-5">
+        <div class="reveal">
+          <div class="section-num mb-5">/ 01 &nbsp; Who this is for</div>
+          <h2 class="font-semibold tracking-tight leading-[1.05] text-[clamp(32px,4.2vw,52px)]">
+            Big enough to need direction.<br/>
+            <span class="grad-text">Lean enough to borrow it</span>.
+          </h2>
+        </div>
+      </div>
+      <div class="md:col-span-7">
+        <div class="reveal reveal-delay-1 space-y-6 text-muted text-[17px] md:text-[18px] leading-[1.65] max-w-2xl">
+          <p>
+            Mid-market companies face the same AI questions as large enterprises &mdash; which models, what governance, what to build versus buy &mdash; without the budget or need for a full-time Chief AI Officer.
+          </p>
+          <p class="text-ink/90">
+            Klaut provides that capability fractionally: the judgment and accountability of an executive, sized to your stage.
+          </p>
+
+          <!-- Profile chip strip -->
+          <div class="pt-6 flex flex-wrap items-center gap-2">
+            <span class="font-mono text-[12px] text-dim mr-1">Typical profile:</span>
+            <span class="chip"><span class="dot"></span>50&ndash;800 staff</span>
+            <span class="chip"><span class="dot"></span>$20M&ndash;$500M revenue</span>
+            <span class="chip"><span class="dot"></span>2&ndash;6 models in or near production</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHAT THE CAO DOES ================= -->
+<section id="what" class="relative py-28 md:py-36">
+  <div class="absolute inset-0 dot-grid dot-grid-fade opacity-50 pointer-events-none"></div>
+  <div class="orb orb-float-b" style="width:520px;height:520px;background:radial-gradient(circle at 50% 50%, rgba(99,102,241,0.22), transparent 60%);top:0;right:-220px;opacity:0.5"></div>
+
+  <div class="relative max-w-content mx-auto px-6 md:px-10">
+    <div class="reveal max-w-3xl mb-16 md:mb-20">
+      <div class="section-num mb-5">/ 02 &nbsp; What the CAO does</div>
+      <h2 class="font-semibold tracking-tight leading-[1.05] text-[clamp(32px,4.2vw,52px)]">
+        One role, three altitudes.<br/>
+        <span class="grad-text">Same accountability</span>.
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5 md:gap-6">
+
+      <!-- Enterprise -->
+      <div class="reveal card p-8 md:p-9">
+        <div class="flex items-center justify-between mb-6">
+          <div class="icon-tile">
+            <!-- Building / enterprise -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16"/><path d="M15 9h3a2 2 0 0 1 2 2v10"/><path d="M4 21h17"/><path d="M8 7h3"/><path d="M8 11h3"/><path d="M8 15h3"/></svg>
+          </div>
+          <span class="chip"><span class="dot"></span>Enterprise</span>
+        </div>
+        <h3 class="text-xl font-semibold tracking-tight mb-3">Strategy across every layer</h3>
+        <p class="text-muted text-[15px] leading-relaxed">
+          Sets AI strategy across every layer of management and keeps it coherent as the landscape shifts.
+        </p>
+        <div class="pt-5 mt-6 border-t border-line flex items-center justify-between text-[13px]">
+          <span class="font-mono text-dim">ExCo &middot; Board</span>
+          <span class="text-accent-2">Quarterly review</span>
+        </div>
+      </div>
+
+      <!-- UMKM -->
+      <div class="reveal reveal-delay-1 card p-8 md:p-9">
+        <div class="flex items-center justify-between mb-6">
+          <div class="icon-tile">
+            <!-- Compass / right-sized -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-3 6.5-6.5 3 3-6.5 6.5-3z"/></svg>
+          </div>
+          <span class="chip"><span class="dot"></span>UMKM</span>
+        </div>
+        <h3 class="text-xl font-semibold tracking-tight mb-3">Right-sized direction</h3>
+        <p class="text-muted text-[15px] leading-relaxed">
+          For smaller operators: what to adopt first, what to ignore, and how to do it without overspending.
+        </p>
+        <div class="pt-5 mt-6 border-t border-line flex items-center justify-between text-[13px]">
+          <span class="font-mono text-dim">Founders &middot; Ops</span>
+          <span class="text-accent-2">Monthly cadence</span>
+        </div>
+      </div>
+
+      <!-- Personal -->
+      <div class="reveal reveal-delay-2 card p-8 md:p-9">
+        <div class="flex items-center justify-between mb-6">
+          <div class="icon-tile">
+            <!-- Speech / advisory -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="11" r="1"/><circle cx="13" cy="11" r="1"/><circle cx="17" cy="11" r="1"/></svg>
+          </div>
+          <span class="chip"><span class="dot"></span>Personal</span>
+        </div>
+        <h3 class="text-xl font-semibold tracking-tight mb-3">Direct advisory</h3>
+        <p class="text-muted text-[15px] leading-relaxed">
+          For founders and leaders making AI calls under ambiguity. One person to call before the meeting.
+        </p>
+        <div class="pt-5 mt-6 border-t border-line flex items-center justify-between text-[13px]">
+          <span class="font-mono text-dim">1:1</span>
+          <span class="text-accent-2">On-call hours</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= ENGAGEMENT RHYTHM ================= -->
+<section id="rhythm" class="relative py-28 md:py-36">
+  <div class="absolute inset-0 dot-grid dot-grid-fade opacity-40 pointer-events-none"></div>
+  <div class="orb orb-float-a" style="width:520px;height:520px;background:radial-gradient(circle at 50% 50%, rgba(139,92,246,0.22), transparent 60%);top:0;left:-220px;opacity:0.5"></div>
+
+  <div class="relative max-w-content mx-auto px-6 md:px-10">
+    <div class="reveal max-w-3xl mb-12 md:mb-16">
+      <div class="section-num mb-5">/ 03 &nbsp; The engagement</div>
+      <h2 class="font-semibold tracking-tight leading-[1.05] text-[clamp(32px,4.2vw,52px)]">
+        A monthly rhythm.<br/>
+        <span class="grad-text">No standing army</span>.
+      </h2>
+      <p class="mt-6 text-muted text-[17px] leading-relaxed max-w-2xl">
+        Klaut holds the strategy; your team keeps the controls. Three beats, repeated &mdash; with a written record at each one.
+      </p>
+    </div>
+
+    <div class="reveal grid md:grid-cols-3 gap-12 md:gap-8 relative">
+      <div class="timeline-rule hidden md:block"></div>
+
+      <div>
+        <div class="flex items-center gap-4 mb-7">
+          <span class="step-dot">01</span>
+          <span class="step-label font-mono text-[13px] text-dim">Set</span>
+        </div>
+        <h3 class="text-[22px] font-semibold tracking-tight mb-3">Priorities set</h3>
+        <p class="text-muted text-[15px] leading-relaxed max-w-sm">
+          Monthly. What to build, what to defer, what to kill. Ranked, with the reasoning attached so the next quarter can read it.
+        </p>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-4 mb-7">
+          <span class="step-dot">02</span>
+          <span class="step-label font-mono text-[13px] text-dim">Decide</span>
+        </div>
+        <h3 class="text-[22px] font-semibold tracking-tight mb-3">Decisions documented</h3>
+        <p class="text-muted text-[15px] leading-relaxed max-w-sm">
+          Model picks, vendor changes, governance calls. Written in your wiki, in your voice. The CAO signs them.
+        </p>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-4 mb-7">
+          <span class="step-dot">03</span>
+          <span class="step-label font-mono text-[13px] text-dim">Oversee</span>
+        </div>
+        <h3 class="text-[22px] font-semibold tracking-tight mb-3">Oversight on production</h3>
+        <p class="text-muted text-[15px] leading-relaxed max-w-sm">
+          Drift, eval, customer signal &mdash; reviewed monthly with your team. Problems get caught before they reach a customer.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHAT YOU LEAVE WITH ================= -->
+<section id="leave" class="relative py-28 md:py-36">
+  <div class="absolute inset-0 dot-grid dot-grid-fade opacity-30 pointer-events-none"></div>
+  <div class="orb orb-float-b" style="width:420px;height:420px;background:radial-gradient(circle at 50% 50%, rgba(99,102,241,0.18), transparent 60%);bottom:-120px;right:-160px;opacity:0.45"></div>
+
+  <div class="relative max-w-content mx-auto px-6 md:px-10">
+    <div class="grid md:grid-cols-12 gap-10 md:gap-16 items-start">
+      <div class="md:col-span-4">
+        <div class="reveal">
+          <div class="section-num mb-5">/ 04 &nbsp; What you leave with</div>
+          <h2 class="font-semibold tracking-tight leading-[1.05] text-[clamp(30px,3.6vw,46px)]">
+            Three artifacts.<br/>
+            <span class="grad-text">All yours</span>.
+          </h2>
+          <p class="mt-6 text-muted text-[15px] leading-relaxed max-w-sm">
+            If we step away after a quarter, the next person inherits these and keeps going.
+          </p>
+        </div>
+      </div>
+
+      <div class="md:col-span-8">
+        <div class="reveal reveal-delay-1">
+          <div class="leave-row">
+            <span class="num">01</span>
+            <span class="body">
+              Documented model decisions.
+              <span class="desc">Every model in production has a one-page card: why this one, what it cost, what would replace it, who signed.</span>
+            </span>
+            <span class="meta hidden md:inline">/ wiki</span>
+          </div>
+          <div class="leave-row">
+            <span class="num">02</span>
+            <span class="body">
+              A roadmap that survives contact with reality.
+              <span class="desc">Quarter-by-quarter, ranked, dated. Re-ranked monthly with the reasoning shown, so it ages honestly.</span>
+            </span>
+            <span class="meta hidden md:inline">/ roadmap</span>
+          </div>
+          <div class="leave-row">
+            <span class="num">03</span>
+            <span class="body">
+              Oversight that catches problems before they reach a customer.
+              <span class="desc">Eval suites, drift monitors, and a monthly review cadence your team owns by quarter three.</span>
+            </span>
+            <span class="meta hidden md:inline">/ harness</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA BAND ================= -->
+<section id="contact" class="relative py-32 md:py-40">
+  <div class="absolute inset-0 dot-grid dot-grid-fade opacity-60 pointer-events-none"></div>
+  <div class="orb orb-float-a" style="width:640px;height:640px;background:radial-gradient(circle at 50% 50%, rgba(99,102,241,0.32), transparent 60%);top:-200px;left:50%;transform:translateX(-50%);opacity:0.55"></div>
+
+  <div class="relative max-w-content mx-auto px-6 md:px-10">
+    <div class="reveal max-w-3xl mx-auto text-center">
+      <div class="eyebrow mb-6 flex items-center gap-3 justify-center">
+        <span class="inline-block w-1.5 h-1.5 rounded-full bg-accent-2"></span>
+        Three CAO seats open this quarter
+      </div>
+      <h2 class="font-semibold tracking-tight leading-[1.02] text-[clamp(40px,6vw,84px)]">
+        Borrow the capability.<br/>
+        <span class="grad-text">Keep the control</span>.
+      </h2>
+      <p class="mt-7 text-muted text-[18px] leading-relaxed max-w-xl mx-auto">
+        Thirty-minute call with the principal who would hold the role. We&rsquo;ll tell you whether a fractional CAO is the right answer for you &mdash; and if it isn&rsquo;t, who is.
+      </p>
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+        <a href="mailto:hello@klaut.ai" class="btn btn-primary !px-6 !py-3.5 text-[15px]">
+          Book a call
+          <svg class="arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a href="mailto:hello@klaut.ai" class="btn btn-ghost !px-6 !py-3.5 text-[15px]">
+          hello@klaut.ai
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="relative border-t border-line">
+  <div class="max-w-content mx-auto px-6 md:px-10 py-16 md:py-20">
+    <div class="grid md:grid-cols-12 gap-10 md:gap-8">
+      <div class="md:col-span-5">
+        <a href="index.html" class="flex items-center gap-2.5">
+          <span class="wordmark-tile">K</span>
+          <span class="font-semibold tracking-tight text-[17px]">Klaut</span>
+        </a>
+        <p class="mt-6 text-muted text-[14px] leading-relaxed max-w-sm">
+          Enterprise AI, shipped to production. Jakarta &middot; Singapore &middot; New York.
+        </p>
+        <p class="mt-8 text-dim text-[13px] leading-relaxed max-w-sm font-mono">
+          Wisma 46, Level 32 &nbsp;·&nbsp; Jl. Jend. Sudirman Kav.&nbsp;1 &nbsp;·&nbsp; Jakarta 10220
+        </p>
+      </div>
+
+      <div class="md:col-span-2">
+        <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Site</div>
+        <ul class="space-y-3 text-[14px]">
+          <li><a class="nav-link" href="index.html#services">Services</a></li>
+          <li><a class="nav-link" href="consulting.html">Consulting</a></li>
+          <li><a class="nav-link" href="cao.html">Chief AI Officer</a></li>
+          <li><a class="nav-link" href="audit.html">Audit</a></li>
+          <li><a class="nav-link" href="index.html#compass">Compass</a></li>
+          <li><a class="nav-link" href="index.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-2">
+        <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Firm</div>
+        <ul class="space-y-3 text-[14px]">
+          <li><a class="nav-link" href="#">Team</a></li>
+          <li><a class="nav-link" href="#">Writing</a></li>
+          <li><a class="nav-link" href="#">Careers</a></li>
+          <li><a class="nav-link" href="#">Press</a></li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-3">
+        <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Talk to us</div>
+        <a href="mailto:hello@klaut.ai" class="nav-link text-[14px]">hello@klaut.ai</a>
+        <div class="mt-6">
+          <a href="#contact" class="btn btn-primary !py-2.5 !px-4 text-[13px]">
+            Book a call
+            <svg class="arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-line flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <p class="text-dim text-[12px] font-mono">© 2026 PT Klaut Sistem Cerdas. All rights reserved.</p>
+      <div class="flex items-center gap-6 text-dim text-[12px] font-mono">
+        <a class="nav-link" href="#">Privacy</a>
+        <a class="nav-link" href="#">Terms</a>
+        <a class="nav-link" href="#">Security</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  const updateNav = () => {
+    if (window.scrollY > 12) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  updateNav();
+  window.addEventListener('scroll', updateNav, { passive: true });
+
+  // Scroll-reveal — robust against missed initial IO records
+  const initReveal = () => {
+    const els = document.querySelectorAll('.reveal');
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    els.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < vh * 0.95) el.classList.add('in');
+    });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+    els.forEach((el) => { if (!el.classList.contains('in')) io.observe(el); });
+    setTimeout(() => document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in')), 1500);
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(initReveal));
+  } else {
+    requestAnimationFrame(initReveal);
+  }
+
+  // Mobile menu
+  const menu = document.getElementById('mobileMenu');
+  const backdrop = document.getElementById('mobileBackdrop');
+  const open = () => { menu.classList.add('open'); backdrop.classList.add('open'); document.body.style.overflow = 'hidden'; };
+  const close = () => { menu.classList.remove('open'); backdrop.classList.remove('open'); document.body.style.overflow = ''; };
+  document.getElementById('menuBtn').addEventListener('click', open);
+  document.getElementById('menuClose').addEventListener('click', close);
+  backdrop.addEventListener('click', close);
+  document.querySelectorAll('.mobile-link').forEach(a => a.addEventListener('click', close));
+</script>
+
+</body>
+</html>

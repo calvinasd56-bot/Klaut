@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Klaut.id — Dual-Version Pre-Launch Audit</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root{--bg:#0a0c10;--panel:#11141b;--panel2:#161a23;--line:#1f2530;--ink:#e7ecf3;--mute:#8a93a6;--dim:#5a6378;--green:#86bc25;--gndim:#4a6a14;--amber:#f6a623;--red:#ef4444;--blue:#3b82f6;--critical:#ef4444;--high:#f97316;--medium:#eab308;--low:#22c55e;--shadow:0 1px 0 rgba(255,255,255,.03) inset,0 8px 24px rgba(0,0,0,.35)}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1200px 600px at 20% -10%,#14202b 0%,var(--bg) 60%);color:var(--ink);font-family:'Inter','SF Pro Text',-apple-system,sans-serif;line-height:1.55;min-height:100vh;padding:32px 24px 80px}
+.container{max-width:1280px;margin:0 auto}
+.doc-header{display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:28px;gap:18px;flex-wrap:wrap}
+.doc-header .left .badge{display:inline-block;padding:4px 10px;background:var(--green);color:#0a0c10;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;border-radius:2px}
+.doc-header h1{margin:0;font-size:30px;font-weight:600;letter-spacing:-0.02em}
+.doc-header .sub{color:var(--mute);margin-top:6px;font-size:14px;max-width:700px}
+.doc-header .right{text-align:right;color:var(--mute);font-size:13px}
+.doc-header .right .firm{color:var(--ink);font-weight:600;letter-spacing:.02em}
+.toggle-wrap{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.toggle-label{font-size:11px;font-weight:700;color:var(--mute);letter-spacing:.08em;text-transform:uppercase}
+.lang-toggle{display:inline-flex;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:3px;font-size:11px;font-weight:700;letter-spacing:.06em}
+.lang-toggle button{background:transparent;border:none;color:var(--mute);padding:7px 18px;border-radius:16px;cursor:pointer;font-family:inherit;font-weight:700;font-size:11px;letter-spacing:.06em;transition:all .2s}
+.lang-toggle button.active{background:var(--green);color:#0a0c10}
+.lang-toggle button:hover:not(.active){color:var(--ink)}
+.version-label{font-size:13px;color:var(--ink);margin-left:6px}
+.version-label code{background:var(--panel);padding:2px 7px;border-radius:3px;font-size:11.5px}
+.tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{padding:12px 18px;background:transparent;border:none;color:var(--mute);font-size:14px;cursor:pointer;font-family:inherit;border-bottom:2px solid transparent;transition:all .15s ease;white-space:nowrap}
+.tab:hover{color:var(--ink)}
+.tab.active{color:var(--green);border-bottom-color:var(--green)}
+.panel{display:none}
+.panel.active{display:block}
+.grid{display:grid;gap:18px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:1fr 1fr}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g21{grid-template-columns:2fr 1fr}
+@media(max-width:900px){.g2,.g3,.g4,.g21{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px;box-shadow:var(--shadow)}
+.card h3{margin:0 0 14px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.card h2{margin:0 0 8px;font-size:20px;font-weight:600}
+.card p{margin:0;color:var(--mute);font-size:14px}
+.score-hero{background:linear-gradient(135deg,#0f1a14 0%,var(--panel) 60%);border:1px solid var(--gndim);padding:32px;display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:center;border-radius:8px;transition:border-color .3s ease}
+.score-hero.id-mode{background:linear-gradient(135deg,#1a1f0e 0%,var(--panel) 60%);border-color:var(--amber)}
+.grade-circle{width:160px;height:160px;border-radius:50%;display:flex;flex-direction:column;justify-content:center;align-items:center;background:radial-gradient(circle at 30% 30%,#1d2c34 0%,#0a0c10 70%);border:2px solid var(--amber);transition:border-color .3s ease}
+.grade-letter{font-size:72px;font-weight:700;line-height:1;letter-spacing:-.04em;color:var(--amber);transition:color .3s ease}
+.grade-num{color:var(--mute);font-size:13px;margin-top:4px;letter-spacing:.05em}
+.verdict-badge{display:inline-block;padding:6px 14px;border:1px solid var(--amber);color:var(--amber);background:rgba(246,166,35,0.12);border-radius:20px;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px}
+.summary h1{margin:0 0 8px;font-size:24px;font-weight:600}
+.summary p{color:var(--mute);font-size:14px;max-width:640px;margin:0}
+.meta-stack{text-align:right;color:var(--mute);font-size:13px}
+.meta-stack b{color:var(--ink);display:block;margin-bottom:2px;font-size:15px}
+.meta-stack>div+div{margin-top:10px}
+.kpi{padding:18px}
+.kpi .label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.kpi .val{font-size:30px;font-weight:600;margin-top:6px;letter-spacing:-.02em;transition:color .3s ease}
+.kpi .val.good{color:var(--low)}
+.kpi .val.warn{color:var(--amber)}
+.kpi .val.bad{color:var(--red)}
+.kpi .sub{font-size:12px;color:var(--dim);margin-top:4px}
+.sev{display:inline-block;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.sev-critical{background:rgba(239,68,68,.15);color:var(--critical);border:1px solid rgba(239,68,68,.4)}
+.sev-high{background:rgba(249,115,22,.15);color:var(--high);border:1px solid rgba(249,115,22,.4)}
+.sev-medium{background:rgba(234,179,8,.15);color:var(--medium);border:1px solid rgba(234,179,8,.4)}
+.sev-low{background:rgba(34,197,94,.15);color:var(--low);border:1px solid rgba(34,197,94,.4)}
+.sev-resolved{background:rgba(34,197,94,.18);color:var(--low);border:1px solid rgba(34,197,94,.5)}
+.sev-open{background:rgba(239,68,68,.15);color:var(--critical);border:1px solid rgba(239,68,68,.4)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:12px 14px;color:var(--mute);font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--line)}
+td{padding:14px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.chart-wrap{position:relative;height:320px}
+.chart-wrap.tall{height:380px}
+.score-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.score-row:last-child{border-bottom:none}
+.score-row .name{width:240px;font-size:14px}
+.score-row .bar{flex:1;height:8px;background:#1c222d;border-radius:4px;overflow:hidden}
+.score-row .fill{height:100%;border-radius:4px;transition:width .5s ease}
+.score-row .num{width:80px;text-align:right;font-weight:600;font-size:14px}
+.rec-banner{padding:24px;border-radius:8px;border:1px solid var(--amber);background:linear-gradient(120deg,rgba(246,166,35,.08),rgba(246,166,35,.02))}
+.priority-list{padding-left:0;list-style:none;margin:0}
+.priority-list li{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);align-items:start}
+.priority-list li:last-child{border-bottom:none}
+.priority-list .rank{width:28px;height:28px;border-radius:50%;background:var(--panel2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;color:var(--mute)}
+.priority-list li.done .rank{background:rgba(34,197,94,.15);border-color:var(--low);color:var(--low)}
+.priority-list li.done .title{color:var(--mute);text-decoration:line-through}
+.priority-list .body{flex:1}
+.priority-list .title{font-weight:600;font-size:14px;margin-bottom:3px}
+.priority-list .desc{color:var(--mute);font-size:13px}
+h2.section-title{font-size:18px;font-weight:600;margin:30px 0 14px;color:var(--ink)}
+h2.section-title .small{font-size:12px;color:var(--mute);font-weight:400;margin-left:10px}
+.delta{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:rgba(134,188,37,.15);color:var(--green);border-radius:4px;font-size:11px;font-weight:700;margin-left:8px}
+.delta.down{background:rgba(239,68,68,.15);color:var(--red)}
+.small-note{font-size:12px;color:var(--dim);margin-top:14px;font-style:italic}
+hr{border:none;border-top:1px solid var(--line);margin:28px 0}
+.footer-note{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);color:var(--dim);font-size:12px;text-align:center}
+.win{padding:10px 14px;border-radius:6px;background:rgba(134,188,37,.08);border-left:3px solid var(--green);margin-bottom:8px;font-size:13.5px}
+.win b{color:var(--green);font-size:11px;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:3px}
+.miss{padding:10px 14px;border-radius:6px;background:rgba(246,166,35,.08);border-left:3px solid var(--amber);margin-bottom:8px;font-size:13.5px}
+.miss b{color:var(--amber);font-size:11px;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:3px}
+/* Findings expandable */
+.find-list{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.find-row{background:var(--panel);transition:background .15s ease}
+.find-head{display:grid;grid-template-columns:18px 120px 1fr auto auto;gap:16px;padding:16px 20px;align-items:center;cursor:pointer;user-select:none}
+.find-head:hover{background:rgba(255,255,255,.02)}
+.find-row.open .find-head{background:rgba(134,188,37,.05)}
+.find-row.resolved .find-head{background:rgba(34,197,94,.05)}
+.find-row.resolved.open .find-head{background:rgba(34,197,94,.10)}
+.find-chev{color:var(--dim);font-size:10px;transition:transform .2s ease;text-align:center}
+.find-row.open .find-chev{transform:rotate(90deg);color:var(--green)}
+.find-loc{font-size:13.5px;color:var(--ink);font-weight:500}
+.find-row.resolved .find-loc{color:var(--mute)}
+.find-summary{font-size:13.5px;color:var(--ink);line-height:1.45}
+.find-row.resolved .find-summary{color:var(--mute);text-decoration:line-through}
+.find-detail{max-height:0;overflow:hidden;transition:max-height .35s ease;background:var(--panel2)}
+.find-row.open .find-detail{max-height:1400px}
+.find-detail-inner{padding:6px 20px 22px;margin-left:30px;border-left:3px solid var(--green)}
+.find-row.resolved .find-detail-inner{border-left-color:var(--low)}
+.find-detail-inner > div{padding:14px 0 0 18px}
+.find-section-label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-bottom:7px}
+.find-section-label.fix{color:var(--green)}
+.find-quote{background:#0a0c10;border:1px solid var(--line);padding:10px 14px;border-radius:4px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;color:var(--ink);word-break:break-word;line-height:1.65}
+.find-fix-text{padding:11px 14px;border-radius:4px;font-size:13px;background:rgba(134,188,37,.10);border-left:2px solid var(--green);color:var(--ink);line-height:1.6}
+.find-fix-text code{background:rgba(255,255,255,.06);padding:1px 5px;border-radius:3px;font-size:11.5px}
+.filter-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.filter-pill{padding:6px 14px;border-radius:20px;background:var(--panel);border:1px solid var(--line);font-size:11.5px;font-weight:600;cursor:pointer;color:var(--mute);transition:all .15s;font-family:inherit}
+.filter-pill:hover{color:var(--ink)}
+.filter-pill.active{background:var(--green);color:#0a0c10;border-color:var(--green)}
+.filter-pill .cnt{margin-left:6px;opacity:.75}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="doc-header">
+  <div class="left">
+    <div class="toggle-wrap">
+      <span class="toggle-label">Auditing:</span>
+      <span class="lang-toggle" id="versionToggle">
+        <button data-mode="en" class="active">EN version</button>
+        <button data-mode="id">ID version</button>
+      </span>
+      <span class="version-label" id="versionLabel">English copy on <code>klaut.id</code></span>
+    </div>
+    <span class="badge">Confidential — Internal Audit</span>
+    <h1>Klaut.id — Pre-Launch Website Audit</h1>
+    <div class="sub" id="docSub">Two complete reports — one per language version of the site. <b style="color:var(--green)">Updated 14 May 2026:</b> mailto domain reconciled, "leverage" removed from Phase 02 — composite scores rose in both versions.</div>
+  </div>
+  <div class="right">
+    <div class="firm">Deloitte-grade methodology</div>
+    <div>Source: <code>klaut-landing/index.html</code> (bilingual)</div>
+    <div>Issue date: 14 May 2026</div>
+    <div>Lead reviewer: Claude (acting auditor)</div>
+  </div>
+</header>
+
+<section class="score-hero" id="hero">
+  <div class="grade-circle" id="gradeCircle">
+    <div class="grade-letter" id="gradeLetter">—</div>
+    <div class="grade-num" id="gradeNum">— / 100</div>
+  </div>
+  <div class="summary">
+    <div class="verdict-badge" id="verdictBadge">—</div>
+    <h1 id="heroTitle">—</h1>
+    <p id="heroSub">—</p>
+  </div>
+  <div class="meta-stack">
+    <div><b id="metaIssues">—</b>Total issues</div>
+    <div><b id="metaCritHigh">—</b>Critical + high</div>
+    <div><b id="metaAi">—</b>AI-text fingerprint</div>
+    <div><b id="metaResolved">—</b>Resolved (vs other version)</div>
+  </div>
+</section>
+
+<nav class="tabs">
+  <button class="tab active" data-tab="summary">Executive Summary</button>
+  <button class="tab" data-tab="findings">Open Findings</button>
+  <button class="tab" data-tab="compare">Version Comparison</button>
+  <button class="tab" data-tab="design">Design &amp; UX</button>
+  <button class="tab" data-tab="message">Message &amp; AI-Writing</button>
+  <button class="tab" data-tab="scale">Scalability</button>
+  <button class="tab" data-tab="verdict">Verdict &amp; Roadmap</button>
+</nav>
+
+<section class="panel active" id="summary">
+  <div class="grid g4" style="margin-bottom:14px">
+    <div class="card kpi"><div class="label">Typo / Grammar</div><div class="val" id="kTypo">—</div><div class="sub" id="kTypoS">—</div></div>
+    <div class="card kpi"><div class="label">Copy &amp; Wording</div><div class="val" id="kCopy">—</div><div class="sub" id="kCopyS">—</div></div>
+    <div class="card kpi"><div class="label">Visual Design</div><div class="val" id="kDesign">—</div><div class="sub" id="kDesignS">—</div></div>
+    <div class="card kpi"><div class="label">Message Clarity</div><div class="val" id="kMsg">—</div><div class="sub" id="kMsgS">—</div></div>
+  </div>
+  <div class="grid g4" style="margin-bottom:22px">
+    <div class="card kpi"><div class="label">AI-Writing Resistance</div><div class="val" id="kAi">—</div><div class="sub">lower = more detectable</div></div>
+    <div class="card kpi"><div class="label">Scalability</div><div class="val" id="kScale">—</div><div class="sub" id="kScaleS">—</div></div>
+    <div class="card kpi"><div class="label">Conversion Path</div><div class="val" id="kConv">—</div><div class="sub" id="kConvS">—</div></div>
+    <div class="card kpi"><div class="label">Recommend to Buyer?</div><div class="val" id="kBuyer">—</div><div class="sub" id="kBuyerS">—</div></div>
+  </div>
+
+  <div class="grid g21">
+    <div class="card">
+      <h3>Seven-dimension report card</h3>
+      <div class="chart-wrap tall"><canvas id="radarChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Top three risks (this version)</h3>
+      <ol class="priority-list" id="topRisks"></ol>
+    </div>
+  </div>
+
+  <h2 class="section-title">Severity distribution <span class="small">open findings only</span></h2>
+  <div class="grid g2">
+    <div class="card"><div class="chart-wrap"><canvas id="severityChart"></canvas></div></div>
+    <div class="card">
+      <h3>What this version is</h3>
+      <p id="versionDescription" style="margin-bottom:12px">—</p>
+      <p id="versionContext">—</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="findings">
+  <div class="filter-row">
+    <button class="filter-pill active" data-filter="all">All <span class="cnt" id="cntAll">—</span></button>
+    <button class="filter-pill" data-filter="open">Open <span class="cnt" id="cntOpen">—</span></button>
+    <button class="filter-pill" data-filter="resolved">Resolved <span class="cnt" id="cntResolved">—</span></button>
+    <button class="filter-pill" data-filter="critical">Critical <span class="cnt" id="cntCrit">—</span></button>
+    <button class="filter-pill" data-filter="high">High <span class="cnt" id="cntHigh">—</span></button>
+    <button class="filter-pill" data-filter="medium">Medium <span class="cnt" id="cntMed">—</span></button>
+  </div>
+  <div class="find-list" id="findingsList"></div>
+  <p class="small-note">Click any row to expand. "Open" = issue present in this version. "Resolved" = absent in this version but present in the other one (verifying the contrast).</p>
+</section>
+
+<section class="panel" id="compare">
+  <div class="card" style="margin-bottom:18px">
+    <h3>Side-by-side: EN version vs ID version</h3>
+    <p style="margin-bottom:0">Same site, two language paths. This tab is the diff view — what is fixed in each direction, and what carries over regardless.</p>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:18px">
+    <div class="card">
+      <h3>Composite scores</h3>
+      <div class="chart-wrap"><canvas id="progressionChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Issue counts</h3>
+      <div class="chart-wrap"><canvas id="impactChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card">
+      <h3>Issues unique to EN version (fixed in ID)</h3>
+      <div id="uniqueEn"></div>
+    </div>
+    <div class="card">
+      <h3>Issues unique to ID version (introduced by translation)</h3>
+      <div id="uniqueId"></div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Carried over both versions <span class="small">survives translation</span></h2>
+  <div class="card">
+    <div id="bothVersions"></div>
+  </div>
+</section>
+
+<section class="panel" id="design">
+  <div class="grid g21">
+    <div class="card">
+      <h3>Design dimension scores</h3>
+      <div class="chart-wrap tall"><canvas id="designChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Design summary</h3>
+      <p id="designSummary" style="margin-bottom:12px">—</p>
+      <p id="designSummary2">—</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">Open design issues</h2>
+  <div class="card" style="padding:0">
+    <table>
+      <thead><tr><th>Element</th><th>Issue</th><th style="width:110px">Severity</th></tr></thead>
+      <tbody id="designBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel" id="message">
+  <div class="grid g21">
+    <div class="card">
+      <h3>AI-writing fingerprint score</h3>
+      <p style="margin-bottom:14px" id="aiIntro">—</p>
+      <div class="chart-wrap"><canvas id="aiGauge"></canvas></div>
+    </div>
+    <div class="card">
+      <h3 id="aiPhrasesHead">AI-fingerprint phrases detected</h3>
+      <p style="margin-bottom:14px;font-size:13px" id="aiPhrasesNote">—</p>
+      <div id="aiPhraseList" style="font-family:'JetBrains Mono',monospace;font-size:12px;background:#0a0c10;padding:12px;border-radius:6px;border:1px solid var(--line)"></div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Banned-word density <span class="small">current text</span></h2>
+  <div class="card">
+    <p style="margin-bottom:12px" id="banIntro">—</p>
+    <div class="chart-wrap"><canvas id="banChart"></canvas></div>
+  </div>
+
+  <p class="small-note">Counterpoint: the CEO quote was kept human in tone — that voice should be the model for re-writing the body paragraphs.</p>
+</section>
+
+<section class="panel" id="scale">
+  <div class="grid g2">
+    <div class="card">
+      <h3>Architecture readiness</h3>
+      <div class="chart-wrap"><canvas id="scaleChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Scalability notes</h3>
+      <p id="scaleNotes1" style="margin-bottom:12px">—</p>
+      <p id="scaleNotes2">—</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">Scalability dimensions</h2>
+  <div class="card" style="padding:0">
+    <table>
+      <thead><tr><th>Dimension</th><th>Current state</th><th>10× content?</th></tr></thead>
+      <tbody id="scaleBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel" id="verdict">
+  <div class="rec-banner" id="recBanner" style="margin-bottom:22px">
+    <h2 id="recHeadline" style="margin:0 0 10px;font-size:18px">—</h2>
+    <p id="recBody" style="margin:0;color:var(--mute)">—</p>
+  </div>
+
+  <h2 class="section-title">Remediation roadmap</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h3 id="p1Head">Priority One — Fix this week</h3>
+      <ol class="priority-list" id="p1List"></ol>
+    </div>
+    <div class="card">
+      <h3>Priority Two — Land within 30 days</h3>
+      <ol class="priority-list" id="p2List"></ol>
+    </div>
+  </div>
+
+  <hr>
+
+  <h2 class="section-title">Final score tally <span class="small">this version</span></h2>
+  <div class="card">
+    <div id="scoreBars"></div>
+    <div style="margin-top:18px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline">
+      <div style="font-size:14px;color:var(--mute)">Overall composite (weighted)</div>
+      <div id="overallScore" style="font-size:28px;font-weight:600;color:var(--amber)">—</div>
+    </div>
+  </div>
+</section>
+
+<div class="footer-note">Audit produced 14 May 2026 · Methodology: Big-Four web-diligence framework adapted for AI-services positioning · Dual-version dashboard · Confidential to Klaut leadership</div>
+</div>
+
+<script>
+/* ================== TWO INDEPENDENT AUDITS ================== */
+
+/* Each finding has version-specific quote and fix.
+   `state` is set per-version: "open" if present in this version, "resolved" if absent here but in the other. */
+
+const FINDINGS_LIBRARY = [
+  {
+    id:'5x', sev:'critical',
+    loc:'Stat card 2',
+    summary_en:'"5X · Median time to production" — direction reads as 5x slower',
+    summary_id:'"5X · Lebih cepat ke produksi" — direction clarified, reads as faster',
+    quote_en:'More Than · 5X · Median time to production',
+    quote_id:'Lebih Dari · 5X · Lebih cepat ke produksi',
+    fix_en:'"5x faster time to production" or "Median time to production cut by 5x" — the direction must be explicit.',
+    fix_id:'Already clear: "5X Lebih cepat ke produksi" is the correct framing. No action needed.',
+    why:'Stat cards are read in 2–3 seconds. Direction mismatches read as data errors and erode trust immediately.',
+    inEn:true, inId:false
+  },
+  {
+    id:'60', sev:'high',
+    loc:'Stat card 3',
+    summary_en:'"Save 60% Operational cost saved" — redundancy: save/saved',
+    summary_id:'"Hemat 60% Penghematan biaya" — same redundancy in Bahasa (Hemat + Penghematan)',
+    quote_en:'Save · 60% · Operational cost saved annually',
+    quote_id:'Hemat · 60% · Penghematan biaya operasional tahunan',
+    fix_en:'"60% reduction in operational cost annually" — pick one verb.',
+    fix_id:'"60% biaya operasional terpangkas per tahun" — drop "Hemat" (the noun "Penghematan" already carries the meaning), or rewrite as "Pangkas 60% biaya operasional tahunan".',
+    why:'Stat-card text is glanced, not read. A redundant verb in the most prominent number on the page signals the rest was not proofread.',
+    inEn:true, inId:true
+  },
+  {
+    id:'mailto', sev:'critical',
+    loc:'Footer & every mailto link',
+    summary_en:'Email domain mismatch — site is klaut.id, mailto goes to klaut.ai',
+    summary_id:'Email domain mismatch — same problem in this version',
+    quote_en:'mailto:hello@klaut.ai · 5 links · canonical domain is klaut.id',
+    quote_id:'mailto:hello@klaut.ai · 5 links · canonical domain is klaut.id',
+    fix_en:'Either register klaut.ai and forward to klaut.id, OR change every mailto in index.html to hello@klaut.id. This is the single highest-impact fix in the entire audit.',
+    fix_id:'Same fix. The mailto issue is in the markup, not the copy, so it carries to both versions identically.',
+    fix_en_done:'✓ Resolved 14 May 2026. All 4 mailto links now route to hello@klaut.id. Inbound enquiries land in the correct inbox.',
+    fix_id_done:'✓ Diselesaikan 14 Mei 2026. Semua 4 mailto sekarang ke hello@klaut.id.',
+    why:'A bounced email from a CIO enquiry is unrecoverable — they will not retry on a different domain.',
+    inEn:false, inId:false
+  },
+  {
+    id:'thatmake', sev:'high',
+    loc:'Enterprise AI Integration heading',
+    summary_en:'"That make your life easier" — subject-verb agreement error',
+    summary_id:'"Yang membuat hidup Anda lebih mudah" — grammar correct in Bahasa',
+    quote_en:'Enterprise AI Integration at Scale · That make your life easier',
+    quote_id:'Integrasi AI Enterprise dalam Skala Besar · Yang membuat hidup Anda lebih mudah',
+    fix_en:'"That makes your life easier" (singular subject) or rephrase as "Solutions that make your life easier".',
+    fix_id:'No fix needed in this version — Bahasa grammar handles the relative clause correctly.',
+    why:'Grammar in headlines signals editorial care to enterprise readers. A heading-level error reads as carelessness.',
+    inEn:true, inId:false
+  },
+  {
+    id:'welcomed', sev:'low',
+    loc:'Why Klaut · Free Consultation card',
+    summary_en:'"A cup of coffee is always welcomed" — should be "welcome" (adjective)',
+    summary_id:'phrase removed in Bahasa version',
+    quote_en:'A cup of coffee is always welcomed',
+    quote_id:'(removed / restructured in Bahasa)',
+    fix_en:'"A cup of coffee is always welcome." Drop the -ed and add the period.',
+    fix_id:'No action needed — phrase is no longer present.',
+    why:'Low-severity but the kind of small grammar slip readers cumulatively notice.',
+    inEn:true, inId:false
+  },
+  {
+    id:'wegotit', sev:'medium',
+    loc:'Why Klaut · Deploy as you need',
+    summary_en:'Lowercase after question mark — "we got it" / "no problem"',
+    summary_id:'restructured in Bahasa — capitalization issue does not apply',
+    quote_en:'You need customer service? we got it. You only need CRM? no problem.',
+    quote_id:'(restructured in Bahasa, no capitalization issue)',
+    fix_en:'"You need customer service? We can deliver it. You only need CRM? No problem." — capitalize sentence starts.',
+    fix_id:'No action needed.',
+    why:'Sentence-start capitalization is table stakes for enterprise copy.',
+    inEn:true, inId:false
+  },
+  {
+    id:'everycode', sev:'medium',
+    loc:'Why Klaut · Code you can audit',
+    summary_en:'"Every code and AI agent" — code is a mass noun',
+    summary_id:'"Setiap kode" — same uncountable-noun issue in Bahasa',
+    quote_en:'Every code and AI agent is audited',
+    quote_id:'Setiap kode dan AI agent diaudit',
+    fix_en:'"All code and every AI agent is audited" — use "all" for the mass noun.',
+    fix_id:'"Seluruh kode dan setiap AI agent diaudit" — use "seluruh" for the mass noun, keep "setiap" for the countable.',
+    why:'A technical buyer reading "every code" knows the writer is not a native speaker. Fine, but it should not happen in heading-level copy.',
+    inEn:true, inId:true
+  },
+  {
+    id:'replyyour', sev:'high',
+    loc:'Human & AI in Perfect Harmony',
+    summary_en:'"reply your message" — missing preposition',
+    summary_id:'restructured in Bahasa — preposition issue does not apply',
+    quote_en:'We reply your message as a human, not robot.',
+    quote_id:'(restructured in Bahasa)',
+    fix_en:'"We reply to your messages as humans, not robots. Don\'t hesitate to call."',
+    fix_id:'No action needed.',
+    why:'Preposition errors in customer-facing copy are visible. The Bahasa version restructured the sentence and the error is gone.',
+    inEn:true, inId:false
+  },
+  {
+    id:'toauto', sev:'medium',
+    loc:'AI Transformation Flow heading',
+    summary_en:'"to autonomous system" — missing article',
+    summary_id:'Bahasa does not require articles — no issue',
+    quote_en:'From a cup of coffee to autonomous system.',
+    quote_id:'Dari secangkir kopi ke sistem otonom.',
+    fix_en:'"From a first conversation to an autonomous system."',
+    fix_id:'No action needed. Bahasa Indonesia has no article system.',
+    why:'Bahasa has no article system, so missing-article issues evaporate on translation.',
+    inEn:true, inId:false
+  },
+  {
+    id:'vert', sev:'high',
+    loc:'About Klaut · first sentence',
+    summary_en:'"vertically-integrated transformation ecosystem" — buzzword stack, strong AI-fingerprint',
+    summary_id:'"ekosistem transformasi yang terintegrasi secara vertikal" — same buzzword stack in Bahasa',
+    quote_en:'Klaut is a single, vertically-integrated transformation ecosystem.',
+    quote_id:'Klaut adalah ekosistem transformasi yang terintegrasi secara vertikal.',
+    fix_en:'"Klaut is one AI partner: we pick the vendors, ship the integration, and stand behind the outcome." — concrete actions instead of abstract nouns.',
+    fix_id:'"Klaut adalah satu mitra AI: kami memilih vendor, menyatukan integrasinya, dan bertanggung jawab atas hasilnya." — same rewrite, in Bahasa.',
+    why:'This single sentence is the strongest AI-text signal on the entire page. Four abstract nouns chained reads as machine-generated to any sophisticated reader.',
+    inEn:true, inId:true
+  },
+  {
+    id:'battle', sev:'high',
+    loc:'About Klaut · second sentence',
+    summary_en:'"battle-tested in regulated environments" — unsubstantiated authority',
+    summary_id:'"teruji di lingkungan teregulasi" — same unsubstantiated claim in Bahasa',
+    quote_en:'…governance framework battle-tested in regulated environments.',
+    quote_id:'…framework governance yang teruji di lingkungan teregulasi.',
+    fix_en:'Either cite a specific deployment ("deployed in [Bank/Hospital X] for [outcome]") OR remove the claim. Klaut was founded in 2025; "battle-tested" reads as fiction.',
+    fix_id:'Same approach: cite specifics or remove. "Teruji" without context is no more credible than "battle-tested" without context.',
+    why:'Enterprise procurement will ask for evidence. A claim that cannot survive one follow-up question hurts credibility more than not making the claim.',
+    inEn:true, inId:true
+  },
+  {
+    id:'leverage', sev:'medium',
+    loc:'Phase 02 · Diagnose',
+    summary_en:'"AI leverage points" — banned word "leverage"',
+    summary_id:'"titik leverage AI" — English "leverage" survived into Bahasa',
+    quote_en:'Identify operational bottlenecks and AI leverage points.',
+    quote_id:'Identifikasi hambatan operasional dan titik leverage AI.',
+    fix_en:'"Identify operational bottlenecks and where AI delivers the most lift."',
+    fix_id:'✓ Resolved 14 May 2026. Phase 02 description rewritten to "Identifikasi titik masalah dan merancang solusi" — leverage gone, plain Bahasa landed.',
+    why:'"Leverage" is on the internal anti-AI-writing rulebook. Keeping English jargon inside Bahasa also signals mechanical translation.',
+    inEn:true, inId:false
+  },
+  {
+    id:'deploymsg', sev:'medium',
+    loc:'Enterprise AI Integration CTA',
+    summary_en:'"Deploy your message" — CTA verb mismatched the action (mailto link)',
+    summary_id:'"Kirim Pesan Anda" — proper send-message verb in Bahasa',
+    quote_en:'Deploy your message',
+    quote_id:'Kirim Pesan Anda',
+    fix_en:'"Send a brief" or "Start a conversation" — verb should match the action.',
+    fix_id:'No action needed. "Kirim Pesan Anda" is the appropriate verb.',
+    why:'CTA verbs should match the actual action. "Deploy" on a mailto link reads as cute but undermines clarity.',
+    inEn:true, inId:false
+  },
+  {
+    id:'hover', sev:'medium',
+    loc:'Klaut AI Integration graphic',
+    summary_en:'"1. 00Hover or click a node" — broken UI placeholder visible',
+    summary_id:'"00 Arahkan atau klik node" — same broken UI placeholder, translated',
+    quote_en:'1. 00Hover or click a node',
+    quote_id:'00 Arahkan atau klik node',
+    fix_en:'Remove the "00" prefix (looks like an unrendered counter variable) and just show "Hover or click a node to see details" — or remove the instruction entirely if the interaction is obvious.',
+    fix_id:'Same fix: remove the "00" prefix and use plain "Arahkan kursor atau klik node untuk melihat detail" — or remove instruction.',
+    why:'Stray unrendered placeholder text is the most damaging visible bug on a launched site. It reads as "the site is broken."',
+    inEn:true, inId:true
+  },
+  {
+    id:'terminator', sev:'high',
+    loc:'Audit service card',
+    summary_en:'"will not become a terminator in the future" — register clash with enterprise compliance audience',
+    summary_id:'"tidak menjadi terminator di masa depan" — same register clash, translated',
+    quote_en:'Code audit to make sure your AI agent will not become a terminator in the future',
+    quote_id:'Audit kode untuk memastikan AI agent Anda tidak menjadi terminator di masa depan',
+    fix_en:'"Independent code review and audit certification for every deployment, ensuring safety and compliance."',
+    fix_id:'"Audit kode independen dan sertifikasi untuk setiap deployment, memastikan keamanan dan kepatuhan."',
+    why:'Compliance buyers are exactly the audience for an Audit service. A pop-culture joke at the start of their evaluation tells them you do not understand the room.',
+    inEn:true, inId:true
+  },
+  {
+    id:'umkm', sev:'low',
+    loc:'Service tags · CAO & Governance',
+    summary_en:'"Enterprise UMKM Personal" — Indonesian acronym in English-only page, no separators',
+    summary_id:'"Enterprise UMKM Personal" — UMKM is appropriate in Bahasa, but separators still missing',
+    quote_en:'Enterprise UMKM Personal',
+    quote_id:'Enterprise UMKM Personal',
+    fix_en:'In English context, use the English term: "Enterprise · SME · Personal" with explicit separators. UMKM is opaque to non-Indonesian readers.',
+    fix_id:'"Enterprise · UMKM · Personal" — keep UMKM but add separators so the three tiers read as distinct.',
+    why:'Without separators, readers do a double-take. With separators, the three-tier service positioning lands instantly.',
+    inEn:true, inId:true
+  },
+  {
+    id:'href', sev:'high',
+    loc:'Footer · Privacy / Terms / Security / Career / Partnership',
+    summary_en:'Empty href="#" placeholder links — 5 visible diligence flags',
+    summary_id:'Empty href="#" placeholder links — same, both versions share the markup',
+    quote_en:'<a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Security</a> · <a href="#cao">Career</a> · <a href="#">Partnership Contact</a>',
+    quote_id:'Same markup — both versions share the same footer.',
+    fix_en:'Create 5 one-paragraph stub pages: /privacy.html, /terms.html, /security.html, /careers.html, /partnership.html. Even a "Policy in preparation, contact hello@klaut.id" paragraph removes the diligence flag. Then route the footer links.',
+    fix_id:'Same fix: build 5 stub pages (/privasi, /ketentuan, /keamanan, /karir, /kemitraan) with one paragraph each, then wire the footer.',
+    why:'A procurement reader who clicks Privacy and gets a page-jump-to-nowhere assumes you have no privacy policy. That assumption kills enterprise deals.',
+    inEn:true, inId:true
+  },
+];
+
+/* ================== AUDIT DATA PER VERSION ================== */
+
+const AUDITS = {
+  en: {
+    label: 'English copy on klaut.id (placeholder — toggle not wired)',
+    score: 65, grade: 'B-', tone: 'amber',
+    verdict: 'Conditional Recommendation',
+    heroTitle: 'Strong foundation, polish required before enterprise outreach.',
+    heroSub: 'The English version was the original audit baseline. The ID/EN toggle in the nav currently does not swap content — the live site ships Bahasa only. This audit reflects the launch English copy and updates as markup-level fixes (mailto, footer links) carry over. 15 issues remain; the mailto domain mismatch has been resolved.',
+    description: 'This is the audit of the English launch copy. Note: as of 14 May 2026, the EN toggle in the nav is a UI placeholder — clicking EN does not yet swap content. The live site ships Bahasa only. This audit serves as a record of the original English text plus a reference for if/when EN content gets wired up.',
+    context: 'For international partners, ex-pat enterprise buyers in Jakarta, and any cold outreach beyond Indonesia. The mailto fix lifted critical-issue count from 2 to 1 and bumped the composite from C+ (59) to B- (65). 15 copy-level issues remain in the original English text.',
+    dims: { typo:75, copy:61, design:80, message:58, ai:35, scale:55, buyer:72, conv:78 },
+    kpiSubs: { typo:'9 issues open', copy:'register inconsistent', design:'strongest dimension', msg:'positioning blurred by jargon', scale:'single-page wall', conv:'CTAs route to mailto', buyer:'conditional' },
+    aiPercent: 72,
+    aiPhrases: [
+      'vertically-integrated transformation ecosystem',
+      'battle-tested in regulated environments',
+      'One contract. One roadmap. One accountable team',
+      'Harmonizing Human & AI relationship for a better future',
+      'AI leverage points',
+      'scalable automation',
+      'cross-functional coordination',
+      'operational intelligence',
+      'AI orchestration'
+    ],
+    bannedWords: { scalable:4, transformation:6, leverage:2, seamless:0, robust:0, ecosystem:8, orchestration:4, intelligent:5 },
+    aiIntro: 'Lower is better. The English version sits at 72% — a sophisticated reader will assume the page was written by an LLM with light human editing.',
+    aiPhrasesNote: 'These English-language buzzword phrases appear in the EN copy. Each one would be flagged by AI-text detectors.',
+    banIntro: 'Words flagged by the internal anti-AI-writing rulebook that nevertheless appear on the English page. Each occurrence weakens the perception that a human wrote the page.',
+    designSummary: 'Design is the strongest dimension. The hero video, monochrome wordmark, scrolling capability marquee, and numbered service blocks read as a 2026-era enterprise SaaS marketing site.',
+    designSummary2: 'Three completion failures hurt the score: footer routing (Career/Privacy/Terms/Security all resolve to #), case-study "View work →" links lead nowhere despite "7 SHIPPED" / "4 SHIPPED" claims, and the integration graphic shows an unrendered "00Hover or click a node" placeholder.',
+    designIssues: [
+      ['Integration graphic','"1. 00Hover or click a node" — unrendered placeholder string visible','medium'],
+      ['Footer routing','5 placeholder href="#" — Privacy, Terms, Security, Partnership, Media Contact','high'],
+      ['"Book a call" CTAs','Buttons say "Book a call" but route to mailto, not a scheduler','medium'],
+      ['Industry "View work →" links','No destination despite "7 SHIPPED" / "4 SHIPPED" claims','critical'],
+    ],
+    scaleNotes1: 'Single-page anchor architecture with no case study pages, no Insights/Resources, no careers page, no real legal pages. SEO surface area is one URL, one title tag.',
+    scaleNotes2: 'The English version has no language switching infrastructure — adding one later would require restructuring. Multilingual capability is the largest scalability gap.',
+    scaleRows: [
+      ['Hosting / delivery','Static site','low','Yes'],
+      ['Information architecture','Single-page anchors','critical','No'],
+      ['SEO surface','1 URL, 1 title tag','medium','Limited'],
+      ['Multilingual','English only','critical','No'],
+      ['Case-study capacity','"View work →" leads nowhere','critical','No'],
+      ['Hiring / careers','Career link routes to #cao','critical','No'],
+      ['Legal / compliance','Privacy / Terms / Security stubs','high','No'],
+      ['Content management','Hand-coded','medium','Painful'],
+    ],
+    recHeadline: 'Recommendation: Conditional Yes',
+    recBody: 'I would recommend the EN version of klaut.id to an enterprise buyer <b style="color:var(--ink)">after</b> the Priority-One fixes below land. As shipped, the English copy is presentable for warm-introduction conversations where the buyer already trusts the founder, but is not ready for cold outbound or for a procurement reader who scrolls without context.',
+    priorityOne: [
+      {rank:'✓', sev:'done', title:'Reconcile the email domain (RESOLVED)', desc:'Done 14 May 2026. All 4 mailto links now route to hello@klaut.id. Single highest-impact fix landed.'},
+      {rank:'1', sev:'critical', title:'Wire the EN toggle to actual English content', desc:'The nav shows ID/EN but the live site only serves Bahasa. Either implement language switching or remove the toggle.'},
+      {rank:'2', sev:'critical', title:'Rewrite the broken stat cards', desc:'"5X median time to production" → "5x faster to production". "Save 60% operational cost saved" → "60% reduction in operational cost".'},
+      {rank:'3', sev:'high', title:'Strip the AI-fingerprint phrases from hero and About', desc:'Replace "vertically-integrated transformation ecosystem" and "battle-tested in regulated environments" with concrete operator language.'},
+      {rank:'4', sev:'high', title:'Remove the Terminator joke', desc:'Tonally incompatible with an enterprise compliance buyer.'},
+      {rank:'5', sev:'high', title:'Fix the broken UI string in the integration graphic', desc:'"00Hover or click a node" should not be visible.'},
+      {rank:'6', sev:'high', title:'Add stubbed Privacy / Terms / Security pages', desc:'Even one-paragraph placeholders. The empty # hrefs are visible diligence flags.'},
+      {rank:'7', sev:'medium', title:'Standardize the casual sections', desc:'Capitalize sentence starts in "we got it" / "no problem". Standardize register throughout.'},
+    ],
+    priorityTwo: [
+      {rank:'1', title:'Build two real case-study pages', desc:'One Financial Services, one Marketplace. Activate the "View work →" links. Even sanitized writeups outperform "7 SHIPPED" with no detail.'},
+      {rank:'2', title:'Surface the general-contractor positioning', desc:'Add a one-section explainer: "We don\'t build AI. We coordinate the AI vendors that do — and stand behind the result." This differentiator is currently invisible.'},
+      {rank:'3', title:'Add the Bahasa toggle', desc:'Without language switching, mid-market Indonesian buyers will assume Klaut is foreign-owned. The ID version is your largest TAM lift.'},
+      {rank:'4', title:'Wire a real scheduler to "Book a call"', desc:'Cal.com or Calendly. The mailto bait-and-switch costs leads.'},
+    ],
+  },
+
+  id: {
+    label: 'Bahasa Indonesia copy on klaut.id (LIVE)',
+    score: 71, grade: 'B-', tone: 'amber',
+    verdict: 'Recommended with minor caveats',
+    heroTitle: 'Two critical fixes shipped — site is now close to enterprise-ready.',
+    heroSub: 'Major update 14 May 2026: mailto domain reconciled, "leverage" stripped from Phase 02, multiple stat cards and phase descriptions rewritten in plainer Bahasa. 9 of 17 baseline findings now resolved (was 7). 8 issues remain — the buzzword paragraph, the Terminator joke, the broken UI string, and the empty footer hrefs are the load-bearing ones.',
+    description: 'This is the audit of the live Bahasa Indonesia copy — the actual state of klaut.id today. Bahasa-first is the correct strategic call for Indonesian mid-market buyers. The 14 May 2026 update fixed the critical email domain mismatch and removed buzzword filler from the diagnostic phase description.',
+    context: 'For Indonesian enterprises, mid-market UMKM, and the warm-introduction sales motion. The composite climbed from 65 (B-) to 71 (B-) after the 14 May 2026 fix pass. Two more focused edits — the About paragraph and the Terminator line — would push this into B+ territory.',
+    dims: { typo:88, copy:72, design:80, message:76, ai:38, scale:64, buyer:80, conv:84 },
+    kpiSubs: { typo:'mailto fixed; 2 typos remain', copy:'leverage removed; buzzwords remain', design:'unchanged from baseline', msg:'Phase descriptions simplified', scale:'FAQ added; multilingual partial', conv:'Hubungi Kami CTAs all route correctly', buyer:'ready for warm outbound' },
+    aiPercent: 68,
+    aiPhrases: [
+      'ekosistem transformasi yang terintegrasi secara vertikal',
+      'teruji di lingkungan teregulasi',
+      'Satu kontrak. Satu roadmap. Satu tim yang bertanggung jawab',
+      'Menyelaraskan hubungan Manusia AI',
+      'koordinasi lintas fungsi melalui orkestrasi AI',
+      'intelijen operasional terpusat',
+      'orkestrasi real-time',
+      'otomasi yang skalabel'
+    ],
+    bannedWords: { skalabel:3, transformasi:4, leverage:0, ekosistem:8, orkestrasi:2, intelijen:9, terintegrasi:3 },
+    aiIntro: 'Lower is better. The Bahasa version dropped from 74% to 68% after the 14 May 2026 edit pass — the leverage phrase was removed and phase descriptions were simplified. Still elevated because the About paragraph and the buzzword chain in Phase 03 remain unchanged.',
+    aiPhrasesNote: 'These Bahasa buzzword phrases appear in the ID copy. A Bahasa-fluent reader would flag each one as AI-generated.',
+    banIntro: 'Bahasa equivalents of the banned-word list, plus residual English jargon ("leverage") that survived translation.',
+    designSummary: 'Design strength carries over because the layout did not change. The Bahasa version added the ID/EN toggle in the nav, a meaningful design addition that signals bilingual capability.',
+    designSummary2: 'SEO metadata is materially better in the Bahasa direction: Bahasa-first title, meta description, OpenGraph tags, Twitter cards, structured data, sitemap.xml and robots.txt are now present. Indonesian-language keywords ("solusi AI enterprise", "AI agent Indonesia", "konsultan AI") align with what local buyers search.',
+    designIssues: [
+      ['Integration graphic','"00 Arahkan atau klik node" — same broken placeholder, translated','medium'],
+      ['Footer routing','5 placeholder href="#" links — same markup as EN version','high'],
+      ['"Pesan Konsultasi" CTAs','Still routes to mailto rather than a scheduler','medium'],
+      ['Industry "Lihat hasil kerja →" links','Still no destination — translated label, same broken state','critical'],
+    ],
+    scaleNotes1: 'The ID version inherited the single-page architecture but added a language toggle. Indonesian-first SEO surface is materially better. UMKM is now appropriately positioned, which raises the Indonesian-market scalability ceiling.',
+    scaleNotes2: 'Still missing: case study pages in Bahasa, hiring pages, real legal pages. Adding the EN toggle was the right scalability move; finishing the rest of the routes is the next investment.',
+    scaleRows: [
+      ['Hosting / delivery','Static site','low','Yes'],
+      ['Information architecture','Single-page anchors with EN/ID toggle','high','Limited'],
+      ['SEO surface','Bahasa-first metadata, sitemap, structured data','medium','Better'],
+      ['Multilingual','ID/EN toggle in nav','low','Yes'],
+      ['Case-study capacity','"Lihat hasil kerja →" still leads nowhere','critical','No'],
+      ['Hiring / careers','Career link still routes to anchor','critical','No'],
+      ['Legal / compliance','Privacy / Terms / Security stubs','high','No'],
+      ['Content management','Hand-coded, two languages','medium','More painful'],
+    ],
+    recHeadline: 'Recommendation: Conditional Yes — closer to ready',
+    recBody: 'The Bahasa version is the live site and the one to lead with for Indonesian buyers. The 14 May 2026 update fixed the critical email domain mismatch — the single biggest blocker. The site is now ready for warm-introduction enterprise conversations. <b style="color:var(--ink)">Two focused fixes</b> separate it from cold-outbound ready: rewrite the About paragraph in plain Bahasa (kills the strongest AI-fingerprint phrase), and replace the Terminator line with a compliance-grade sentence. Both are 30-minute edits.',
+    priorityOne: [
+      {rank:'✓', sev:'done', title:'Reconcile the email domain (RESOLVED)', desc:'Done 14 May 2026. All 4 mailto links now route to hello@klaut.id. The single highest-impact fix in the audit has landed.'},
+      {rank:'✓', sev:'done', title:'Replace "leverage" in Bahasa text (RESOLVED)', desc:'Done 14 May 2026. Phase 02 Diagnose now reads "Identifikasi titik masalah dan merancang solusi" — leverage gone, plain Bahasa landed.'},
+      {rank:'1', sev:'high', title:'Rewrite the About paragraph in plain Bahasa', desc:'Still the strongest AI-text signal on the page. Rewrite "Klaut adalah ekosistem transformasi yang terintegrasi secara vertikal..." as: "Klaut adalah satu mitra AI: kami memilih vendor, menyatukan integrasinya, dan bertanggung jawab atas hasilnya."'},
+      {rank:'2', sev:'high', title:'Remove the Terminator joke (Bahasa)', desc:'"Tidak menjadi terminator di masa depan" → "Audit kode independen dan sertifikasi untuk setiap deployment, memastikan keamanan dan kepatuhan."'},
+      {rank:'3', sev:'high', title:'Fix the broken UI string in the integration graphic', desc:'"00 Arahkan atau klik node" — remove the "00" prefix.'},
+      {rank:'4', sev:'high', title:'Add stubbed Kebijakan Privasi / Syarat / Keamanan pages', desc:'Even one-paragraph placeholders. Empty # hrefs are still in the footer.'},
+      {rank:'5', sev:'medium', title:'Drop "Hemat" from the 60% stat card', desc:'"Hemat 60% Penghematan biaya operasional tahunan" double-counts the verb. Rewrite as "60% biaya operasional terpangkas per tahun" or "Pangkas 60% biaya operasional tahunan".'},
+    ],
+    priorityTwo: [
+      {rank:'1', title:'Build two Bahasa case-study pages', desc:'Layanan Keuangan and Marketplace. Activate the "Lihat hasil kerja →" links with anonymized writeups.'},
+      {rank:'2', title:'Surface the general-contractor positioning (Bahasa)', desc:'"Klaut tidak membangun AI — kami mengoordinasikan vendor AI dan mempertanggungjawabkan hasilnya." Add this differentiator to the hero or About section.'},
+      {rank:'3', title:'Wire a Bahasa scheduler to "Pesan Konsultasi"', desc:'Cal.com supports Bahasa interface. Mailto still costs leads.'},
+      {rank:'4', title:'Audit the EN version separately', desc:'If a buyer flips to English mid-session, the EN copy should not be the un-fixed original. Apply the EN audit roadmap in parallel.'},
+    ],
+  },
+};
+
+/* ================== STATE & RENDER ================== */
+let mode = localStorage.getItem('klautAuditMode') || 'en';
+let currentFilter = 'all';
+const charts = {};
+
+function escapeHtml(s){ return String(s ?? '').replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m])); }
+
+function getFindings(){
+  return FINDINGS_LIBRARY.map(f => ({
+    ...f,
+    state: (mode === 'en' ? f.inEn : f.inId) ? 'open' : 'resolved',
+    summary: mode === 'en' ? f.summary_en : f.summary_id,
+    quote: mode === 'en' ? f.quote_en : f.quote_id,
+    fix: mode === 'en' ? f.fix_en : f.fix_id,
+  }));
+}
+
+function applyMode(){
+  const audit = AUDITS[mode];
+  const hero = document.getElementById('hero');
+  const gc = document.getElementById('gradeCircle');
+  const gl = document.getElementById('gradeLetter');
+
+  // toggle button state
+  document.querySelectorAll('#versionToggle button').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+
+  // header
+  document.getElementById('versionLabel').innerHTML = mode === 'en'
+    ? 'English copy on <code>klaut.id</code>'
+    : 'Bahasa Indonesia copy on <code>klaut.id</code>';
+
+  // hero
+  hero.classList.toggle('id-mode', mode === 'id');
+  gl.textContent = audit.grade;
+  document.getElementById('gradeNum').textContent = audit.score + ' / 100';
+  document.getElementById('verdictBadge').textContent = audit.verdict;
+  document.getElementById('heroTitle').textContent = audit.heroTitle;
+  document.getElementById('heroSub').textContent = audit.heroSub;
+
+  const findings = getFindings();
+  const open = findings.filter(f => f.state === 'open');
+  const resolved = findings.filter(f => f.state === 'resolved');
+  const critOpen = open.filter(f => f.sev === 'critical').length;
+  const highOpen = open.filter(f => f.sev === 'high').length;
+  const medOpen = open.filter(f => f.sev === 'medium').length;
+  const lowOpen = open.filter(f => f.sev === 'low').length;
+
+  document.getElementById('metaIssues').textContent = open.length;
+  document.getElementById('metaCritHigh').textContent = critOpen + ' · ' + highOpen;
+  document.getElementById('metaAi').textContent = audit.aiPercent + '%';
+  document.getElementById('metaResolved').textContent = resolved.length;
+
+  // KPI cards
+  setKpi('kTypo', audit.dims.typo); setKpi('kCopy', audit.dims.copy);
+  setKpi('kDesign', audit.dims.design); setKpi('kMsg', audit.dims.message);
+  setKpi('kAi', audit.dims.ai); setKpi('kScale', audit.dims.scale);
+  setKpi('kConv', audit.dims.conv); setKpi('kBuyer', audit.dims.buyer);
+  document.getElementById('kTypoS').textContent = audit.kpiSubs.typo;
+  document.getElementById('kCopyS').textContent = audit.kpiSubs.copy;
+  document.getElementById('kDesignS').textContent = audit.kpiSubs.design;
+  document.getElementById('kMsgS').textContent = audit.kpiSubs.msg;
+  document.getElementById('kScaleS').textContent = audit.kpiSubs.scale;
+  document.getElementById('kConvS').textContent = audit.kpiSubs.conv;
+  document.getElementById('kBuyerS').textContent = audit.kpiSubs.buyer;
+
+  // counts on filter pills
+  document.getElementById('cntAll').textContent = findings.length;
+  document.getElementById('cntOpen').textContent = open.length;
+  document.getElementById('cntResolved').textContent = resolved.length;
+  document.getElementById('cntCrit').textContent = open.filter(f => f.sev === 'critical').length;
+  document.getElementById('cntHigh').textContent = open.filter(f => f.sev === 'high').length;
+  document.getElementById('cntMed').textContent = open.filter(f => f.sev === 'medium').length;
+
+  // version description (summary tab)
+  document.getElementById('versionDescription').textContent = audit.description;
+  document.getElementById('versionContext').textContent = audit.context;
+
+  // design summary
+  document.getElementById('designSummary').textContent = audit.designSummary;
+  document.getElementById('designSummary2').textContent = audit.designSummary2;
+
+  // message tab text
+  document.getElementById('aiIntro').textContent = audit.aiIntro;
+  document.getElementById('aiPhrasesNote').textContent = audit.aiPhrasesNote;
+  document.getElementById('banIntro').textContent = audit.banIntro;
+
+  // scale notes
+  document.getElementById('scaleNotes1').textContent = audit.scaleNotes1;
+  document.getElementById('scaleNotes2').textContent = audit.scaleNotes2;
+
+  // rec banner
+  document.getElementById('recHeadline').textContent = audit.recHeadline;
+  document.getElementById('recBody').innerHTML = audit.recBody;
+
+  renderTopRisks(open);
+  renderFindings();
+  renderDesignTable();
+  renderScaleTable();
+  renderPriorities();
+  renderScoreBars();
+  renderAiPhrases();
+  renderCompareTab();
+  renderCharts(open, critOpen, highOpen, medOpen, lowOpen);
+}
+
+function setKpi(id, v){
+  const el = document.getElementById(id);
+  el.textContent = v;
+  el.classList.remove('good','warn','bad');
+  el.classList.add(v >= 75 ? 'good' : v >= 55 ? 'warn' : 'bad');
+}
+
+function renderTopRisks(openFindings){
+  const ranks = {critical:4, high:3, medium:2, low:1};
+  const top = [...openFindings].sort((a,b) => ranks[b.sev] - ranks[a.sev]).slice(0, 3);
+  const ul = document.getElementById('topRisks');
+  if (top.length === 0) {
+    ul.innerHTML = '<li><div class="rank" style="background:rgba(34,197,94,.15);border-color:var(--low);color:var(--low)">✓</div><div class="body"><div class="title">No open findings.</div><div class="desc">All issues resolved in this version.</div></div></li>';
+    return;
+  }
+  ul.innerHTML = top.map((f, i) => {
+    const bg = f.sev === 'critical' ? 'rgba(239,68,68,.15)' : f.sev === 'high' ? 'rgba(249,115,22,.15)' : 'rgba(234,179,8,.15)';
+    const fg = f.sev === 'critical' ? 'var(--red)' : f.sev === 'high' ? 'var(--high)' : 'var(--amber)';
+    return `<li><div class="rank" style="background:${bg};color:${fg};border-color:${fg}">${i+1}</div>
+      <div class="body"><div class="title">${escapeHtml(f.summary)}</div><div class="desc">${escapeHtml(f.fix)}</div></div></li>`;
+  }).join('');
+}
+
+function renderFindings(){
+  const list = document.getElementById('findingsList');
+  const findings = getFindings();
+  const items = findings.filter(f => {
+    if (currentFilter === 'all') return true;
+    if (currentFilter === 'open') return f.state === 'open';
+    if (currentFilter === 'resolved') return f.state === 'resolved';
+    return f.sev === currentFilter && f.state === 'open';
+  });
+  if (items.length === 0) {
+    list.innerHTML = '<div style="padding:36px;text-align:center;color:var(--mute);font-size:14px">No findings in this filter.</div>';
+    return;
+  }
+  list.innerHTML = items.map(f => {
+    const resolvedCls = f.state === 'resolved' ? 'resolved' : '';
+    const statusCls = f.state === 'resolved' ? 'sev-resolved' : 'sev-open';
+    const statusTxt = f.state === 'resolved' ? 'RESOLVED' : 'OPEN';
+    return `<div class="find-row ${resolvedCls}" data-id="${f.id}">
+      <div class="find-head" onclick="toggleFinding('${f.id}')">
+        <span class="find-chev">▶</span>
+        <span class="find-loc">${escapeHtml(f.loc)}</span>
+        <span class="find-summary">${escapeHtml(f.summary)}</span>
+        <span class="sev ${statusCls}">${statusTxt}</span>
+        <span class="sev sev-${f.sev}">${f.sev.toUpperCase()}</span>
+      </div>
+      <div class="find-detail">
+        <div class="find-detail-inner">
+          <div>
+            <span class="find-section-label">What's on the site (${mode.toUpperCase()})</span>
+            <div class="find-quote">${escapeHtml(f.quote)}</div>
+          </div>
+          <div>
+            <span class="find-section-label fix">${f.state === 'resolved' ? '✓ Status' : 'Suggested fix'}</span>
+            <div class="find-fix-text">${f.fix}</div>
+          </div>
+          <div>
+            <span class="find-section-label">Why this matters</span>
+            <div style="font-size:13px;color:var(--mute);line-height:1.65">${escapeHtml(f.why)}</div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleFinding(id){
+  const r = document.querySelector(`.find-row[data-id="${id}"]`);
+  if (r) r.classList.toggle('open');
+}
+window.toggleFinding = toggleFinding;
+
+function renderDesignTable(){
+  const audit = AUDITS[mode];
+  document.getElementById('designBody').innerHTML = audit.designIssues.map(([el, iss, sev]) =>
+    `<tr><td>${el}</td><td>${iss}</td><td><span class="sev sev-${sev}">${sev}</span></td></tr>`
+  ).join('');
+}
+
+function renderScaleTable(){
+  const audit = AUDITS[mode];
+  document.getElementById('scaleBody').innerHTML = audit.scaleRows.map(([dim, st, sevCls, val]) =>
+    `<tr><td>${dim}</td><td>${st}</td><td><span class="sev sev-${sevCls}">${val}</span></td></tr>`
+  ).join('');
+}
+
+function renderPriorities(){
+  const audit = AUDITS[mode];
+  document.getElementById('p1List').innerHTML = audit.priorityOne.map(p => {
+    const col = p.sev === 'critical' ? 'color:var(--red);border-color:var(--red)' :
+                p.sev === 'high' ? 'color:var(--high);border-color:var(--high)' : 'color:var(--amber);border-color:var(--amber)';
+    return `<li><div class="rank" style="${col}">${p.rank}</div>
+      <div class="body"><div class="title">${escapeHtml(p.title)}</div><div class="desc">${escapeHtml(p.desc)}</div></div></li>`;
+  }).join('');
+  document.getElementById('p2List').innerHTML = audit.priorityTwo.map(p =>
+    `<li><div class="rank">${p.rank}</div>
+      <div class="body"><div class="title">${escapeHtml(p.title)}</div><div class="desc">${escapeHtml(p.desc)}</div></div></li>`
+  ).join('');
+}
+
+function renderScoreBars(){
+  const audit = AUDITS[mode];
+  const bars = [
+    {label:'Typo &amp; Grammar', val: audit.dims.typo},
+    {label:'Copy &amp; Wording', val: audit.dims.copy},
+    {label:'Visual Design', val: audit.dims.design},
+    {label:'Message Clarity', val: audit.dims.message},
+    {label:'AI-Writing Resistance', val: audit.dims.ai},
+    {label:'Scalability', val: audit.dims.scale},
+    {label:'Buyer-Recommendation Readiness', val: audit.dims.buyer},
+  ];
+  document.getElementById('scoreBars').innerHTML = bars.map(b => {
+    const col = b.val >= 75 ? 'var(--low)' : b.val >= 55 ? 'var(--amber)' : 'var(--red)';
+    return `<div class="score-row">
+      <div class="name">${b.label}</div>
+      <div class="bar"><div class="fill" style="width:${b.val}%;background:${col}"></div></div>
+      <div class="num">${b.val}</div>
+    </div>`;
+  }).join('');
+  const ov = document.getElementById('overallScore');
+  ov.textContent = audit.score + ' / 100 · ' + audit.grade;
+  ov.style.color = audit.score >= 75 ? 'var(--low)' : audit.score >= 55 ? 'var(--amber)' : 'var(--red)';
+}
+
+function renderAiPhrases(){
+  const audit = AUDITS[mode];
+  document.getElementById('aiPhraseList').innerHTML = audit.aiPhrases.map(p =>
+    `<div style="margin-bottom:6px;color:var(--red)">"${escapeHtml(p)}"</div>`
+  ).join('');
+}
+
+function renderCompareTab(){
+  const enFindings = FINDINGS_LIBRARY.filter(f => f.inEn && !f.inId);
+  const idFindings = FINDINGS_LIBRARY.filter(f => f.inId && !f.inEn);
+  const both = FINDINGS_LIBRARY.filter(f => f.inEn && f.inId);
+
+  document.getElementById('uniqueEn').innerHTML = enFindings.length === 0
+    ? '<div style="color:var(--mute);font-style:italic;font-size:13px">None — no issues are unique to the EN version that are absent from ID.</div>'
+    : enFindings.map(f => `<div class="miss"><b>${f.sev.toUpperCase()}</b><span>${escapeHtml(f.loc)} · ${escapeHtml(f.summary_en)}</span></div>`).join('');
+
+  document.getElementById('uniqueId').innerHTML = idFindings.length === 0
+    ? '<div style="color:var(--mute);font-style:italic;font-size:13px">None — the translation did not introduce new issues unique to the Bahasa version (it preserved or resolved existing ones).</div>'
+    : idFindings.map(f => `<div class="miss"><b>${f.sev.toUpperCase()}</b><span>${escapeHtml(f.loc)} · ${escapeHtml(f.summary_id)}</span></div>`).join('');
+
+  document.getElementById('bothVersions').innerHTML = both.map(f =>
+    `<div style="display:flex;justify-content:space-between;padding:10px 12px;margin-bottom:6px;background:rgba(239,68,68,.05);border-left:3px solid var(--red);border-radius:4px;font-size:13px">
+      <span><b>${escapeHtml(f.loc)}</b> · ${escapeHtml(f.summary_en).replace(/^"[^"]+"\s*—\s*/,'')}</span>
+      <span class="sev sev-${f.sev}">${f.sev}</span>
+    </div>`
+  ).join('');
+}
+
+function destroyCharts(){
+  Object.keys(charts).forEach(k => { try { charts[k].destroy(); } catch(e){} delete charts[k]; });
+}
+
+function renderCharts(openFindings, cr, hi, md, lo){
+  destroyCharts();
+  Chart.defaults.color = '#8a93a6';
+  Chart.defaults.font.family = "'Inter',-apple-system,sans-serif";
+  const grid = 'rgba(255,255,255,0.06)';
+  const audit = AUDITS[mode];
+
+  // Radar
+  charts.radar = new Chart(document.getElementById('radarChart'),{
+    type:'radar',
+    data:{labels:['Typo','Copy','Design','Clarity','AI-Resist','Scale','Buyer'],
+      datasets:[{
+        label: mode === 'en' ? 'EN version' : 'ID version',
+        data:[audit.dims.typo, audit.dims.copy, audit.dims.design, audit.dims.message, audit.dims.ai, audit.dims.scale, audit.dims.buyer],
+        backgroundColor: mode === 'en' ? 'rgba(246,166,35,0.20)' : 'rgba(134,188,37,0.20)',
+        borderColor: mode === 'en' ? '#f6a623' : '#86bc25',
+        borderWidth:2,
+        pointBackgroundColor: mode === 'en' ? '#f6a623' : '#86bc25',
+        pointRadius:4
+      },{
+        label:'Enterprise benchmark', data:[85,80,80,82,75,80,80],
+        backgroundColor:'rgba(255,255,255,0.02)', borderColor:'#5a6378', borderDash:[2,4], borderWidth:1.5, pointRadius:2
+      }]
+    },
+    options:{responsive:true,maintainAspectRatio:false,scales:{r:{min:0,max:100,grid:{color:grid},angleLines:{color:grid},pointLabels:{color:'#e7ecf3',font:{size:11}},ticks:{display:false}}},plugins:{legend:{labels:{color:'#e7ecf3'}}}}
+  });
+
+  // Severity doughnut
+  charts.sev = new Chart(document.getElementById('severityChart'),{
+    type:'doughnut',
+    data:{labels:['Critical','High','Medium','Low'],datasets:[{data:[cr,hi,md,lo],backgroundColor:['#ef4444','#f97316','#eab308','#22c55e'],borderColor:'#11141b',borderWidth:3}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'right',labels:{color:'#e7ecf3'}}}}
+  });
+
+  // Progression (compare tab)
+  charts.prog = new Chart(document.getElementById('progressionChart'),{
+    type:'bar',
+    data:{labels:['Typo','Copy','Design','Clarity','AI-Resist','Scale','Buyer','Composite'],datasets:[
+      {label:'EN version',data:[AUDITS.en.dims.typo,AUDITS.en.dims.copy,AUDITS.en.dims.design,AUDITS.en.dims.message,AUDITS.en.dims.ai,AUDITS.en.dims.scale,AUDITS.en.dims.buyer,AUDITS.en.score],backgroundColor:'#f6a623'},
+      {label:'ID version',data:[AUDITS.id.dims.typo,AUDITS.id.dims.copy,AUDITS.id.dims.design,AUDITS.id.dims.message,AUDITS.id.dims.ai,AUDITS.id.dims.scale,AUDITS.id.dims.buyer,AUDITS.id.score],backgroundColor:'#86bc25'}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,scales:{x:{grid:{display:false},ticks:{color:'#e7ecf3'}},y:{min:0,max:100,grid:{color:grid},ticks:{color:'#8a93a6'}}},plugins:{legend:{labels:{color:'#e7ecf3'}}}}
+  });
+
+  // Impact doughnut
+  const enOnly = FINDINGS_LIBRARY.filter(f => f.inEn && !f.inId).length;
+  const idOnly = FINDINGS_LIBRARY.filter(f => f.inId && !f.inEn).length;
+  const both = FINDINGS_LIBRARY.filter(f => f.inEn && f.inId).length;
+  charts.impact = new Chart(document.getElementById('impactChart'),{
+    type:'doughnut',
+    data:{labels:['Only in EN','Only in ID','Both versions'],datasets:[{data:[enOnly,idOnly,both],backgroundColor:['#f6a623','#3b82f6','#ef4444'],borderColor:'#11141b',borderWidth:3}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'right',labels:{color:'#e7ecf3'}}}}
+  });
+
+  // Design dims chart
+  charts.design = new Chart(document.getElementById('designChart'),{
+    type:'bar',
+    data:{labels:['Hierarchy','Type','Color','Spacing','Identity','Conversion','Link integrity','Mobile','SEO','i18n'],
+      datasets:[{label:'Score',
+        data: mode === 'en' ? [84,82,86,80,88,72,50,78,60,30] : [84,82,86,80,88,75,50,78,82,85],
+        backgroundColor:c=>{const v=c.parsed.y;return v<60?'#ef4444':v<75?'#f6a623':'#86bc25';},
+        borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,scales:{x:{grid:{display:false},ticks:{color:'#e7ecf3',font:{size:10}}},y:{min:0,max:100,grid:{color:grid},ticks:{color:'#8a93a6'}}},plugins:{legend:{display:false}}}
+  });
+
+  // AI gauge
+  const aiPct = audit.aiPercent;
+  const gc = aiPct < 50 ? '#86bc25' : aiPct < 70 ? '#f6a623' : '#ef4444';
+  charts.gauge = new Chart(document.getElementById('aiGauge'),{
+    type:'doughnut',
+    data:{datasets:[{data:[aiPct,100-aiPct],backgroundColor:[gc,'#1f2530'],borderWidth:0,circumference:180,rotation:270}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'70%',plugins:{legend:{display:false},tooltip:{enabled:false}}},
+    plugins:[{id:'gt',afterDraw(chart){const{ctx,chartArea}=chart;if(!chartArea)return;const cx=chartArea.left+chartArea.width/2;const cy=chartArea.top+chartArea.height*0.85;ctx.save();ctx.fillStyle=gc;ctx.font='bold 42px Inter';ctx.textAlign='center';ctx.fillText(aiPct+'%',cx,cy);ctx.fillStyle='#8a93a6';ctx.font='12px Inter';ctx.fillText('AI-text likelihood',cx,cy+18);ctx.restore();}}]
+  });
+
+  // Banned word chart
+  const bw = audit.bannedWords;
+  charts.ban = new Chart(document.getElementById('banChart'),{
+    type:'bar',
+    data:{labels:Object.keys(bw),datasets:[{label:'Occurrences',data:Object.values(bw),backgroundColor:'#f6a623',borderRadius:3}]},
+    options:{responsive:true,maintainAspectRatio:false,scales:{x:{grid:{display:false},ticks:{color:'#e7ecf3',font:{size:10}}},y:{grid:{color:grid},ticks:{color:'#8a93a6'},beginAtZero:true}},plugins:{legend:{display:false}}}
+  });
+
+  // Scalability chart
+  const scaleData = mode === 'en'
+    ? [90,30,25,15,10,15,20,55]
+    : [90,40,55,80,10,15,20,52];
+  charts.scale = new Chart(document.getElementById('scaleChart'),{
+    type:'bar',
+    data:{labels:['Hosting','IA','SEO','Multilingual','Case studies','Hiring','Legal','CMS'],
+      datasets:[{label:'Scales to 10x',data:scaleData,backgroundColor:c=>{const v=c.parsed.x;return v<40?'#ef4444':v<70?'#f6a623':'#86bc25';},borderRadius:3}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,scales:{x:{min:0,max:100,grid:{color:grid},ticks:{color:'#8a93a6'}},y:{grid:{display:false},ticks:{color:'#e7ecf3',font:{size:11}}}},plugins:{legend:{display:false}}}
+  });
+}
+
+/* ================== EVENTS ================== */
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById(t.dataset.tab).classList.add('active');
+}));
+
+document.querySelectorAll('#versionToggle button').forEach(b => b.addEventListener('click', () => {
+  mode = b.dataset.mode;
+  localStorage.setItem('klautAuditMode', mode);
+  applyMode();
+}));
+
+document.querySelectorAll('.filter-pill').forEach(p => p.addEventListener('click', () => {
+  document.querySelectorAll('.filter-pill').forEach(x => x.classList.remove('active'));
+  p.classList.add('active');
+  currentFilter = p.dataset.filter;
+  renderFindings();
+}));
+
+applyMode();
+</script>
+</body>
+</html>
