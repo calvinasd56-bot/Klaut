@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Klaut — Audit</title>
-<meta name="description" content="Code and behavior audits for AI agents. Safety, governance, compliance — with a certification you can show a board or a regulator." />
+<title>Klaut — Audit AI</title>
+<meta name="description" content="Audit kode dan perilaku untuk AI agent yang Anda jalankan. Keselamatan, governance, kepatuhan &mdash; dengan sertifikasi yang bisa Anda tunjukkan ke dewan atau regulator." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -50,7 +50,6 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* ---------- Background motifs ---------- */
   .dot-grid {
     background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
     background-size: 24px 24px;
@@ -306,7 +305,6 @@
 
   ::selection { background: rgba(99,102,241,0.35); color: #fff; }
 
-  /* Two-tone preview thumbnails on link cards */
   .preview-mini {
     border-radius: 10px;
     border: 1px solid rgba(255,255,255,0.10);
@@ -321,26 +319,26 @@
 <!-- ================= NAV ================= -->
 <header id="nav" class="fixed top-0 inset-x-0 z-40 transition-all duration-300">
   <div class="relative max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-2.5 group" aria-label="Klaut home">
+    <a href="/id/" class="flex items-center gap-2.5 group" aria-label="Klaut beranda">
       <img src="/klaut-K.png" alt="" class="brand-mark"/>
       <img src="/klaut-wordmark-text.png" alt="Klaut" class="brand-wordmark"/>
     </a>
     <nav class="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
-      <a href="https://compass-app.klaut.id/why-klaut" class="px-4 py-2 text-sm text-muted link-hover">Why Klaut</a>
-      <a href="https://compass.klaut.id/" class="px-4 py-2 text-sm text-muted link-hover">Compass</a>
-      <a href="/faq" class="px-4 py-2 text-sm text-muted link-hover">FAQ</a>
-      <a href="https://compass-app.klaut.id/pricing" class="px-4 py-2 text-sm text-muted link-hover">Pricing</a>
+      <a href="https://compass-app.klaut.id/why-klaut" class="px-4 py-2 text-sm text-muted link-hover">Mengapa Klaut</a>
+      <a href="https://compass.klaut.id/id" class="px-4 py-2 text-sm text-muted link-hover">Compass</a>
+      <a href="/id/faq" class="px-4 py-2 text-sm text-muted link-hover">FAQ</a>
+      <a href="https://compass-app.klaut.id/id/pricing" class="px-4 py-2 text-sm text-muted link-hover">Pricing</a>
     </nav>
     <div class="hidden md:flex items-center gap-3">
-      <div class="flex items-center rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium" role="group" aria-label="Select language">
-        <a href="/id/audit.html" class="px-3 py-1.5 rounded-full text-muted hover:text-white transition-colors">ID</a>
-        <a href="/audit.html" class="px-3 py-1.5 rounded-full bg-white/10 text-white" aria-current="page">EN</a>
+      <div class="flex items-center rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium" role="group" aria-label="Pilih bahasa">
+        <a href="/id/audit.html" class="px-3 py-1.5 rounded-full bg-white/10 text-white" aria-current="page">ID</a>
+        <a href="/audit.html" class="px-3 py-1.5 rounded-full text-muted hover:text-white transition-colors">EN</a>
       </div>
-      <a href="#contact" class="btn btn-primary" style="background-color: rgb(45, 27, 105)">Book a call
+      <a href="#contact" class="btn btn-primary" style="background-color: rgb(45, 27, 105)">Hubungi Kami
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
     </div>
-    <button id="hamburger" class="md:hidden p-2 rounded-lg hover:bg-white/5" aria-label="Open menu">
+    <button id="hamburger" class="md:hidden p-2 rounded-lg hover:bg-white/5" aria-label="Buka menu">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
     </button>
   </div>
@@ -355,19 +353,19 @@
         <img src="/klaut-K.png" alt="" class="brand-mark"/>
         <img src="/klaut-wordmark-text.png" alt="Klaut" class="brand-wordmark"/>
       </div>
-      <button data-close-menu class="p-2 rounded-lg hover:bg-white/5" aria-label="Close menu">
+      <button data-close-menu class="p-2 rounded-lg hover:bg-white/5" aria-label="Tutup menu">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
       </button>
     </div>
-    <a href="https://compass-app.klaut.id/why-klaut" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Why Klaut</a>
-    <a href="https://compass.klaut.id/" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Compass</a>
-    <a href="/faq" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">FAQ</a>
-    <a href="https://compass-app.klaut.id/pricing" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Pricing</a>
-    <div class="flex items-center justify-center mt-4 rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium w-fit mx-auto" role="group" aria-label="Select language">
-      <a href="/id/audit.html" class="px-4 py-2 rounded-full text-muted hover:text-white transition-colors">Bahasa Indonesia</a>
-      <a href="/audit.html" class="px-4 py-2 rounded-full bg-white/10 text-white" aria-current="page">English</a>
+    <a href="https://compass-app.klaut.id/why-klaut" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Mengapa Klaut</a>
+    <a href="https://compass.klaut.id/id" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Compass</a>
+    <a href="/id/faq" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">FAQ</a>
+    <a href="https://compass-app.klaut.id/id/pricing" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Pricing</a>
+    <div class="flex items-center justify-center mt-4 rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium w-fit mx-auto" role="group" aria-label="Pilih bahasa">
+      <a href="/id/audit.html" class="px-4 py-2 rounded-full bg-white/10 text-white" aria-current="page">Bahasa Indonesia</a>
+      <a href="/audit.html" class="px-4 py-2 rounded-full text-muted hover:text-white transition-colors">English</a>
     </div>
-    <a href="#contact" data-close-menu class="btn btn-primary justify-center mt-4">Book a call</a>
+    <a href="#contact" data-close-menu class="btn btn-primary justify-center mt-4">Hubungi Kami</a>
   </aside>
 </div>
 
@@ -381,18 +379,18 @@
     <div class="reveal max-w-3xl">
       <div class="eyebrow mb-7">/ Audit</div>
       <h1 class="font-semibold tracking-tight leading-[1.02] text-[clamp(40px,6.2vw,88px)]">
-        Know your AI agent is accountable &mdash; <span class="grad-text">before it has to be</span>.
+        Pastikan AI agent Anda akuntabel &mdash; <span class="grad-text">sebelum harus dibuktikan</span>.
       </h1>
       <p class="mt-8 text-muted text-[19px] md:text-xl leading-relaxed max-w-2xl">
-        A code and behavior audit for the AI you run, so failures surface in a report &mdash; instead of in front of a customer or a regulator.
+        Audit kode dan perilaku untuk AI yang Anda jalankan &mdash; agar kegagalan muncul dalam laporan, bukan di hadapan pelanggan atau regulator.
       </p>
       <div class="mt-10 flex flex-wrap items-center gap-3">
         <a href="#contact" class="btn btn-primary">
-          Book a call
+          Hubungi Kami
           <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
         <a href="audit-report-2026-05-14.html" class="btn btn-ghost">
-          See a sample report
+          Lihat contoh laporan
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
         </a>
       </div>
@@ -401,20 +399,20 @@
     <!-- Coverage strip -->
     <div class="reveal reveal-delay-2 mt-24 md:mt-28 grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-10">
       <div>
-        <div class="section-num mb-2">Coverage</div>
-        <div class="text-[15px] text-ink/90">Code, behavior, governance</div>
+        <div class="section-num mb-2">Cakupan</div>
+        <div class="text-[15px] text-ink/90">Kode, perilaku, governance</div>
       </div>
       <div>
         <div class="section-num mb-2">Output</div>
-        <div class="text-[15px] text-ink/90">Report + certification</div>
+        <div class="text-[15px] text-ink/90">Laporan + sertifikasi</div>
       </div>
       <div>
-        <div class="section-num mb-2">Languages</div>
-        <div class="text-[15px] text-ink/90">English &amp; Bahasa Indonesia</div>
+        <div class="section-num mb-2">Bahasa</div>
+        <div class="text-[15px] text-ink/90">Bahasa Indonesia &amp; Inggris</div>
       </div>
       <div>
-        <div class="section-num mb-2">Turnaround</div>
-        <div class="text-[15px] text-ink/90">Two to four weeks</div>
+        <div class="section-num mb-2">Waktu penyelesaian</div>
+        <div class="text-[15px] text-ink/90">Dua hingga empat minggu</div>
       </div>
     </div>
   </div>
@@ -428,28 +426,28 @@
     <div class="grid md:grid-cols-12 gap-10 md:gap-16 items-start">
       <div class="md:col-span-5">
         <div class="reveal">
-          <div class="section-num mb-5">/ 01 &nbsp; Why it matters</div>
+          <div class="section-num mb-5">/ 01 &nbsp; Mengapa ini penting</div>
           <h2 class="font-semibold tracking-tight leading-[1.05] text-[clamp(32px,4.2vw,52px)]">
-            When the agent fails,<br/>
-            <span class="grad-text">you own it</span> &mdash; not the vendor.
+            Ketika agent gagal,<br/>
+            <span class="grad-text">Anda yang bertanggung jawab</span> &mdash; bukan vendornya.
           </h2>
         </div>
       </div>
       <div class="md:col-span-7">
         <div class="reveal reveal-delay-1 space-y-6 text-muted text-[17px] md:text-[18px] leading-[1.65] max-w-2xl">
           <p>
-            Accountability for AI runs downhill to whoever deployed it. The vendor&rsquo;s terms don&rsquo;t protect you when an agent quotes the wrong price, leaks a record, or makes a decision a regulator wants to see the paperwork for.
+            Akuntabilitas AI jatuh kepada siapa pun yang men-deploy-nya. Syarat dan ketentuan vendor tidak melindungi Anda ketika agent mengutip harga yang salah, membocorkan data, atau membuat keputusan yang ingin dilihat dokumennya oleh regulator.
           </p>
           <p>
-            An audit is how you find the failure modes, the unsafe paths, and the compliance gaps while they&rsquo;re still cheap to fix.
+            Audit adalah cara Anda menemukan mode kegagalan, jalur tidak aman, dan celah kepatuhan saat semuanya masih murah untuk diperbaiki.
           </p>
           <p class="text-ink/90">
-            And how you prove to a board or a regulator that you looked.
+            Dan cara Anda membuktikan kepada dewan atau regulator bahwa Anda telah memeriksa.
           </p>
 
           <!-- Frame chips -->
           <div class="pt-6 flex flex-wrap items-center gap-2">
-            <span class="font-mono text-[12px] text-dim mr-1">We work against:</span>
+            <span class="font-mono text-[12px] text-dim mr-1">Kami bekerja berdasarkan:</span>
             <span class="chip"><span class="dot"></span>NIST AI RMF</span>
             <span class="chip"><span class="dot"></span>ISO/IEC 42001</span>
             <span class="chip"><span class="dot"></span>EU AI Act</span>
@@ -468,10 +466,10 @@
 
   <div class="relative max-w-content mx-auto px-6 md:px-10">
     <div class="reveal max-w-3xl mb-16 md:mb-20">
-      <div class="section-num mb-5">/ 02 &nbsp; What&rsquo;s covered</div>
+      <div class="section-num mb-5">/ 02 &nbsp; Yang tercakup</div>
       <h2 class="font-semibold tracking-tight leading-[1.05] text-[clamp(32px,4.2vw,52px)]">
-        Two pieces.<br/>
-        <span class="grad-text">One name on the report</span>.
+        Dua bagian.<br/>
+        <span class="grad-text">Satu nama di laporan</span>.
       </h2>
     </div>
 
@@ -481,38 +479,37 @@
       <div class="reveal card p-9 md:p-10">
         <div class="flex items-center justify-between mb-6">
           <div class="icon-tile icon-tile-lg">
-            <!-- Code/braces -->
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5C6 5 5 6 5 8v3c0 1.5-1 2-2 2 1 0 2 .5 2 2v3c0 2 1 3 3 3"/><path d="M16 5c2 0 3 1 3 3v3c0 1.5 1 2 2 2-1 0-2 .5-2 2v3c0 2-1 3-3 3"/></svg>
           </div>
-          <span class="chip"><span class="dot"></span>Code Audit</span>
+          <span class="chip"><span class="dot"></span>Audit Kode</span>
         </div>
-        <h3 class="text-[22px] font-semibold tracking-tight mb-3">Logic, guardrails, failure modes</h3>
+        <h3 class="text-[22px] font-semibold tracking-tight mb-3">Logika, guardrail, mode kegagalan</h3>
         <p class="text-muted text-[15px] leading-relaxed mb-6">
-          Review of the agent&rsquo;s logic, guardrails, and failure modes &mdash; the paths where it can do something you didn&rsquo;t intend.
+          Tinjauan logika, guardrail, dan mode kegagalan agent &mdash; jalur di mana agent bisa melakukan sesuatu yang tidak Anda inginkan.
         </p>
 
         <ul class="space-y-3 text-[14px]">
           <li class="flex items-start gap-3 text-ink/90">
             <span class="icon-tile" style="width:22px;height:22px;border-radius:6px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px"><path d="M20 6 9 17l-5-5"/></svg></span>
-            <span>Static review of agent code &amp; tool wrappers</span>
+            <span>Tinjauan statis kode agent &amp; tool wrappers</span>
           </li>
           <li class="flex items-start gap-3 text-ink/90">
             <span class="icon-tile" style="width:22px;height:22px;border-radius:6px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px"><path d="M20 6 9 17l-5-5"/></svg></span>
-            <span>Adversarial behavior tests against your real workflows</span>
+            <span>Uji perilaku adversarial terhadap alur kerja nyata Anda</span>
           </li>
           <li class="flex items-start gap-3 text-ink/90">
             <span class="icon-tile" style="width:22px;height:22px;border-radius:6px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px"><path d="M20 6 9 17l-5-5"/></svg></span>
-            <span>Prompt-injection, jailbreak, and data-leak paths</span>
+            <span>Jalur prompt-injection, jailbreak, dan kebocoran data</span>
           </li>
           <li class="flex items-start gap-3 text-ink/90">
             <span class="icon-tile" style="width:22px;height:22px;border-radius:6px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px"><path d="M20 6 9 17l-5-5"/></svg></span>
-            <span>Findings ranked by severity, each with a fix</span>
+            <span>Temuan diurutkan berdasarkan tingkat keparahan, masing-masing dengan solusinya</span>
           </li>
         </ul>
 
         <div class="pt-6 mt-7 border-t border-line flex items-center justify-between text-[13px]">
-          <span class="font-mono text-dim">2&ndash;4 weeks</span>
-          <span class="text-accent-2">From $60k</span>
+          <span class="font-mono text-dim">2&ndash;4 minggu</span>
+          <span class="text-accent-2">Mulai dari $60k</span>
         </div>
       </div>
 
@@ -520,38 +517,37 @@
       <div class="reveal reveal-delay-1 card p-9 md:p-10">
         <div class="flex items-center justify-between mb-6">
           <div class="icon-tile icon-tile-lg">
-            <!-- Stamp / seal -->
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14"/><path d="M5 18h14v-2c0-1-1-2-2-2h-1.5l1-5a3 3 0 0 0-3-3h-3a3 3 0 0 0-3 3l1 5H7c-1 0-2 1-2 2z"/></svg>
           </div>
-          <span class="chip"><span class="dot"></span>Certification</span>
+          <span class="chip"><span class="dot"></span>Sertifikasi</span>
         </div>
-        <h3 class="text-[22px] font-semibold tracking-tight mb-3">A documented assessment</h3>
+        <h3 class="text-[22px] font-semibold tracking-tight mb-3">Penilaian yang terdokumentasi</h3>
         <p class="text-muted text-[15px] leading-relaxed mb-6">
-          A documented assessment you can show to stakeholders, with the findings and the remediation tracked &mdash; renewed when the agent changes materially.
+          Penilaian terdokumentasi yang bisa Anda tunjukkan kepada pemangku kepentingan, dengan temuan dan remediasi yang terlacak &mdash; diperbarui ketika agent berubah secara signifikan.
         </p>
 
         <ul class="space-y-3 text-[14px]">
           <li class="flex items-start gap-3 text-ink/90">
             <span class="icon-tile" style="width:22px;height:22px;border-radius:6px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px"><path d="M20 6 9 17l-5-5"/></svg></span>
-            <span>Signed report, EN and Bahasa Indonesia</span>
+            <span>Laporan bertanda tangan, Bahasa Indonesia &amp; Inggris</span>
           </li>
           <li class="flex items-start gap-3 text-ink/90">
             <span class="icon-tile" style="width:22px;height:22px;border-radius:6px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px"><path d="M20 6 9 17l-5-5"/></svg></span>
-            <span>Mapped to NIST AI RMF and ISO 42001</span>
+            <span>Dipetakan ke NIST AI RMF dan ISO 42001</span>
           </li>
           <li class="flex items-start gap-3 text-ink/90">
             <span class="icon-tile" style="width:22px;height:22px;border-radius:6px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px"><path d="M20 6 9 17l-5-5"/></svg></span>
-            <span>Remediation tracker, valid for one year</span>
+            <span>Tracker remediasi, berlaku selama satu tahun</span>
           </li>
           <li class="flex items-start gap-3 text-ink/90">
             <span class="icon-tile" style="width:22px;height:22px;border-radius:6px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px"><path d="M20 6 9 17l-5-5"/></svg></span>
-            <span>Re-certification when the agent changes materially</span>
+            <span>Re-sertifikasi ketika agent berubah secara signifikan</span>
           </li>
         </ul>
 
         <div class="pt-6 mt-7 border-t border-line flex items-center justify-between text-[13px]">
-          <span class="font-mono text-dim">1 year validity</span>
-          <span class="text-accent-2">From $25k</span>
+          <span class="font-mono text-dim">Berlaku 1 tahun</span>
+          <span class="text-accent-2">Mulai dari $25k</span>
         </div>
       </div>
 
@@ -566,13 +562,13 @@
 
   <div class="relative max-w-content mx-auto px-6 md:px-10">
     <div class="reveal max-w-3xl mb-14 md:mb-16">
-      <div class="section-num mb-5">/ 03 &nbsp; The deliverable</div>
+      <div class="section-num mb-5">/ 03 &nbsp; Deliverable-nya</div>
       <h2 class="font-semibold tracking-tight leading-[1.05] text-[clamp(32px,4.2vw,52px)]">
-        A dashboard, a report,<br/>
-        <span class="grad-text">a name to call</span>.
+        Dashboard, laporan,<br/>
+        <span class="grad-text">dan nama yang bisa dihubungi</span>.
       </h2>
       <p class="mt-6 text-muted text-[17px] leading-relaxed max-w-2xl">
-        Findings live in two places. A continuously updated dashboard your team works against, and a signed report you can hand to a regulator, an insurer, or a board.
+        Temuan hadir di dua tempat. Dashboard yang diperbarui terus-menerus untuk dikerjakan tim Anda, dan laporan bertanda tangan yang bisa diserahkan kepada regulator, penanggung, atau dewan.
       </p>
     </div>
 
@@ -584,13 +580,13 @@
           <div>
             <div class="flex items-center gap-2 mb-4">
               <span class="chip chip-ok"><span class="dot"></span>Live</span>
-              <span class="font-mono text-[11px] text-dim">updated continuously</span>
+              <span class="font-mono text-[11px] text-dim">diperbarui terus-menerus</span>
             </div>
             <h3 class="text-[26px] md:text-[28px] font-semibold tracking-tight leading-[1.15]">
-              Live audit dashboard
+              Dashboard audit langsung
             </h3>
             <p class="mt-3 text-muted text-[15px] leading-relaxed max-w-md">
-              Open findings, severity, owner, and remediation status &mdash; the room your team works in between audits.
+              Temuan terbuka, tingkat keparahan, pemilik, dan status remediasi &mdash; ruang kerja tim Anda di antara sesi audit.
             </p>
           </div>
           <span class="arrow-cta">
@@ -657,7 +653,7 @@
 
         <div class="relative pt-6 mt-6 border-t border-line flex items-center justify-between text-[13px]">
           <span class="font-mono text-dim">audit-dashboard.html</span>
-          <span class="text-accent-2">Open dashboard</span>
+          <span class="text-accent-2">Buka dashboard</span>
         </div>
       </a>
 
@@ -666,14 +662,14 @@
         <div class="relative flex items-start justify-between gap-6 mb-8">
           <div>
             <div class="flex items-center gap-2 mb-4">
-              <span class="chip"><span class="dot"></span>Sample</span>
-              <span class="font-mono text-[11px] text-dim">2026-05-14 &middot; EN + ID</span>
+              <span class="chip"><span class="dot"></span>Contoh</span>
+              <span class="font-mono text-[11px] text-dim">2026-05-14 &middot; ID + EN</span>
             </div>
             <h3 class="text-[26px] md:text-[28px] font-semibold tracking-tight leading-[1.15]">
-              Sample audit report
+              Contoh laporan audit
             </h3>
             <p class="mt-3 text-muted text-[15px] leading-relaxed max-w-md">
-              Redacted findings from a real engagement &mdash; an underwriting agent for a regional insurer. EN and Bahasa Indonesia.
+              Temuan yang diredaksi dari keterlibatan nyata &mdash; agent underwriting untuk perusahaan asuransi regional. Bahasa Indonesia dan Inggris.
             </p>
           </div>
           <span class="arrow-cta">
@@ -683,13 +679,12 @@
 
         <!-- Preview thumbnail: report -->
         <div class="preview-mini relative" style="aspect-ratio: 16 / 9">
-          <!-- Page chrome -->
           <div class="absolute inset-0 p-5 flex flex-col gap-2">
             <div class="flex items-center justify-between">
-              <div class="font-mono text-[10px] text-dim">/ AUDIT REPORT &middot; 2026-05-14</div>
+              <div class="font-mono text-[10px] text-dim">/ LAPORAN AUDIT &middot; 2026-05-14</div>
               <div class="flex items-center gap-1.5">
-                <span class="font-mono text-[9px] text-accent-2 border border-accent/30 rounded px-1.5 py-0.5">EN</span>
-                <span class="font-mono text-[9px] text-dim border border-white/10 rounded px-1.5 py-0.5">ID</span>
+                <span class="font-mono text-[9px] text-accent-2 border border-accent/30 rounded px-1.5 py-0.5">ID</span>
+                <span class="font-mono text-[9px] text-dim border border-white/10 rounded px-1.5 py-0.5">EN</span>
               </div>
             </div>
             <div class="h-3.5 w-[60%] rounded-sm bg-white/20"></div>
@@ -708,14 +703,14 @@
                 <div class="h-1.5 w-20 rounded-sm bg-white/15"></div>
                 <div class="h-1.5 w-14 rounded-sm bg-white/[0.08]"></div>
               </div>
-              <div class="ml-auto font-mono text-[9px] text-dim">PAGE 1 / 42</div>
+              <div class="ml-auto font-mono text-[9px] text-dim">HAL 1 / 42</div>
             </div>
           </div>
         </div>
 
         <div class="relative pt-6 mt-6 border-t border-line flex items-center justify-between text-[13px]">
           <span class="font-mono text-dim">audit-report-2026-05-14.html</span>
-          <span class="text-accent-2">Read sample</span>
+          <span class="text-accent-2">Baca contoh</span>
         </div>
       </a>
 
@@ -723,11 +718,11 @@
 
     <!-- Auxiliary fine print -->
     <div class="reveal reveal-delay-2 mt-8 text-[13px] text-dim font-mono flex flex-wrap items-center gap-x-6 gap-y-2">
-      <span class="flex items-center gap-2"><span class="live-dot"></span>Dashboard updated in real time</span>
+      <span class="flex items-center gap-2"><span class="live-dot"></span>Dashboard diperbarui secara real time</span>
       <span class="opacity-40">·</span>
-      <span>Report is redacted from a real engagement</span>
+      <span>Laporan diredaksi dari keterlibatan nyata</span>
       <span class="opacity-40">·</span>
-      <span>Bahasa Indonesia available on request</span>
+      <span>Bahasa Indonesia tersedia</span>
     </div>
   </div>
 </section>
@@ -741,17 +736,17 @@
     <div class="reveal max-w-3xl mx-auto text-center">
       <div class="eyebrow mb-6 flex items-center gap-3 justify-center">
         <span class="inline-block w-1.5 h-1.5 rounded-full bg-accent-2"></span>
-        Audit slots open from June 2026
+        Slot audit tersedia mulai Juni 2026
       </div>
       <h2 class="font-semibold tracking-tight leading-[1.02] text-[clamp(40px,6vw,84px)]">
-        Audit it <span class="grad-text">before it ships</span>.
+        Audit <span class="grad-text">sebelum diluncurkan</span>.
       </h2>
       <p class="mt-7 text-muted text-[18px] leading-relaxed max-w-xl mx-auto">
-        Thirty-minute call with the lead auditor. We&rsquo;ll scope the engagement, agree the rubric, and tell you whether the audit is even the right next step.
+        Tiga puluh menit bersama lead auditor. Kami akan menetapkan ruang lingkup, menyepakati rubrik, dan memberitahu apakah audit memang langkah yang tepat untuk Anda.
       </p>
       <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
         <a href="mailto:audit@klaut.ai" class="btn btn-primary !px-6 !py-3.5 text-[15px]">
-          Book a call
+          Hubungi Kami
           <svg class="arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
         <a href="mailto:audit@klaut.ai" class="btn btn-ghost !px-6 !py-3.5 text-[15px]">
@@ -767,12 +762,12 @@
   <div class="max-w-content mx-auto px-6 md:px-10 py-16 md:py-20">
     <div class="grid md:grid-cols-12 gap-10 md:gap-8">
       <div class="md:col-span-5">
-        <a href="/" class="flex items-center gap-2.5">
+        <a href="/id/" class="flex items-center gap-2.5">
           <span class="wordmark-tile">K</span>
           <span class="font-semibold tracking-tight text-[17px]">Klaut</span>
         </a>
         <p class="mt-6 text-muted text-[14px] leading-relaxed max-w-sm">
-          Enterprise AI, shipped to production. Jakarta &middot; Singapore &middot; New York.
+          Enterprise AI, dikirim ke produksi. Jakarta &middot; Singapura &middot; New York.
         </p>
         <p class="mt-8 text-dim text-[13px] leading-relaxed max-w-sm font-mono">
           Wisma 46, Level 32 &nbsp;·&nbsp; Jl. Jend. Sudirman Kav.&nbsp;1 &nbsp;·&nbsp; Jakarta 10220
@@ -780,34 +775,34 @@
       </div>
 
       <div class="md:col-span-2">
-        <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Site</div>
+        <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Situs</div>
         <ul class="space-y-3 text-[14px]">
-          <li><a class="nav-link" href="/#services">Services</a></li>
-          <li><a class="nav-link" href="consulting.html">Consulting</a></li>
-          <li><a class="nav-link" href="cao.html">Chief AI Officer</a></li>
-          <li><a class="nav-link" href="audit.html">Audit</a></li>
-          <li><a class="nav-link" href="/#compass">Compass</a></li>
-          <li><a class="nav-link" href="/#faq">FAQ</a></li>
+          <li><a class="nav-link" href="/id/#services">Layanan</a></li>
+          <li><a class="nav-link" href="/id/consulting.html">Konsultasi</a></li>
+          <li><a class="nav-link" href="/id/cao.html">Chief AI Officer</a></li>
+          <li><a class="nav-link" href="/id/audit.html">Audit</a></li>
+          <li><a class="nav-link" href="/id/#compass">Compass</a></li>
+          <li><a class="nav-link" href="/id/faq">FAQ</a></li>
         </ul>
       </div>
 
       <div class="md:col-span-2">
-        <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Firm</div>
+        <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Perusahaan</div>
         <ul class="space-y-3 text-[14px]">
-          <li><a class="nav-link" href="#">Team</a></li>
-          <li><a class="nav-link" href="#">Writing</a></li>
-          <li><a class="nav-link" href="#">Careers</a></li>
-          <li><a class="nav-link" href="#">Press</a></li>
+          <li><a class="nav-link" href="#">Tim</a></li>
+          <li><a class="nav-link" href="#">Tulisan</a></li>
+          <li><a class="nav-link" href="/id/career.html">Karir</a></li>
+          <li><a class="nav-link" href="#">Pers</a></li>
         </ul>
       </div>
 
       <div class="md:col-span-3">
-        <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Talk to us</div>
+        <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Hubungi kami</div>
         <a href="mailto:hello@klaut.ai" class="nav-link text-[14px]">hello@klaut.ai</a>
         <div class="mt-2"><a href="mailto:audit@klaut.ai" class="nav-link text-[14px]">audit@klaut.ai</a></div>
         <div class="mt-6">
           <a href="#contact" class="btn btn-primary !py-2.5 !px-4 text-[13px]">
-            Book a call
+            Hubungi Kami
             <svg class="arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
         </div>
@@ -815,11 +810,11 @@
     </div>
 
     <div class="mt-16 pt-8 border-t border-line flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-      <p class="text-dim text-[12px] font-mono">© 2026 PT Klaut Sistem Cerdas. All rights reserved.</p>
+      <p class="text-dim text-[12px] font-mono">© 2026 PT Klaut Sistem Cerdas. Seluruh hak cipta dilindungi.</p>
       <div class="flex items-center gap-6 text-dim text-[12px] font-mono">
-        <a class="nav-link" href="#">Privacy</a>
-        <a class="nav-link" href="#">Terms</a>
-        <a class="nav-link" href="#">Security</a>
+        <a class="nav-link" href="#">Privasi</a>
+        <a class="nav-link" href="#">Ketentuan</a>
+        <a class="nav-link" href="#">Keamanan</a>
       </div>
     </div>
   </div>

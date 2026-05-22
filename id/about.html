@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>About — Klaut</title>
+<title>Tentang Klaut</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -43,7 +43,6 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; background: #0a0a0a; color: #fff; }
 
-  /* dot grid backdrop */
   .dot-grid {
     background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
     background-size: 24px 24px;
@@ -53,7 +52,6 @@
             mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 50%, transparent 100%);
   }
 
-  /* orbs */
   .orb { position: absolute; border-radius: 9999px; filter: blur(80px); pointer-events: none; }
   .orb-1 { width: 520px; height: 520px; background: radial-gradient(circle at 30% 30%, #6366f1, transparent 60%); top: -160px; left: -140px; opacity: .45; animation: float 14s ease-in-out infinite; }
   .orb-2 { width: 460px; height: 460px; background: radial-gradient(circle at 70% 40%, #8b5cf6, transparent 60%); top: 8%; right: -180px; opacity: .35; animation: float 16s ease-in-out infinite reverse; }
@@ -61,15 +59,12 @@
   @keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-14px) } }
   .no-orbs .orb { display: none; }
 
-  /* scroll-reveal */
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity 700ms cubic-bezier(0.2,0.8,0.2,1), transform 700ms cubic-bezier(0.2,0.8,0.2,1); }
   .reveal.in { opacity: 1; transform: translateY(0); }
 
-  /* hover card */
   .card-hover { transition: transform 240ms cubic-bezier(0.2,0.8,0.2,1), box-shadow 240ms cubic-bezier(0.2,0.8,0.2,1), border-color 240ms; }
   .card-hover:hover { transform: translateY(-4px); border-color: rgba(99,102,241,0.4); box-shadow: 0 0 0 1px rgba(99,102,241,0.30), 0 30px 80px -30px rgba(99,102,241,0.45); }
 
-  /* buttons */
   .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 8px; font-weight: 500; font-size: 14px; transition: all 200ms cubic-bezier(0.2,0.8,0.2,1); cursor: pointer; border: 0; }
   .btn-primary { background: #6366f1; color: #fff; }
   .btn-primary:hover { background: #4f46e5; box-shadow: 0 0 0 1px rgba(99,102,241,0.4), 0 12px 32px -8px rgba(99,102,241,0.6); transform: translateY(-1px); }
@@ -77,26 +72,21 @@
   .btn-ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
   .btn-lg { padding: 14px 24px; font-size: 15px; }
 
-  /* hero gradient clause */
   .grad-clause {
     background: linear-gradient(90deg, #ffffff 0%, #c7d2fe 55%, #6366f1 100%);
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
 
-  /* selection */
   ::selection { background: rgba(99,102,241,0.35); color: #fff; }
 
-  /* nav scroll */
   .nav-scrolled { background: rgba(10,10,10,0.7); backdrop-filter: blur(20px); border-bottom: 1px solid #262626; }
 
-  /* brand images */
   .brand-mark { width: 48px; height: 48px; object-fit: contain; display: block; flex-shrink: 0; }
   .brand-wordmark { height: 34px; width: auto; object-fit: contain; display: block; flex-shrink: 0; filter: invert(1); }
   @media (min-width: 768px) { .brand-wordmark { height: 38px; } }
   .link-hover { transition: color 180ms; }
   .link-hover:hover { color: #fff; }
 
-  /* ── Two Layers diagram ─────────────────────────────────── */
   .layer-stack { position: relative; }
   .layer { position: relative; border: 1px solid var(--lb, #262626); border-radius: 16px; background: var(--lbg, #111); overflow: hidden; }
   .layer.upper { background: linear-gradient(180deg, rgba(99,102,241,0.10) 0%, rgba(99,102,241,0.02) 100%), #0e0d1a; border-color: rgba(99,102,241,0.30); box-shadow: 0 0 0 1px rgba(99,102,241,0.15), 0 30px 60px -30px rgba(99,102,241,0.45); }
@@ -105,13 +95,10 @@
   .layer-tab.upper { background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.30); color: #c7d2fe; }
   .layer-tab.lower { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); color: #a1a1aa; }
 
-  /* dependency arrow between the panels */
   .dep-rail { position: relative; height: 56px; display: grid; place-items: center; }
   .dep-line { width: 1px; height: 100%; background: linear-gradient(180deg, rgba(99,102,241,0.0) 0%, rgba(99,102,241,0.7) 50%, rgba(99,102,241,0.0) 100%); position: absolute; left: 50%; transform: translateX(-0.5px); }
   .dep-chip { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: rgba(10,10,10,0.95); border: 1px solid rgba(99,102,241,0.35); color: #c7d2fe; font: 500 11px/1 'JetBrains Mono', monospace; letter-spacing: 0.06em; }
-  .dep-chip svg { display: block; }
 
-  /* Compass run-list */
   .run-row { display: grid; grid-template-columns: 14px 1fr auto auto; align-items: center; gap: 12px; padding: 11px 14px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 13px; }
   .run-row:first-child { border-top: 0; }
   .run-dot { width: 8px; height: 8px; border-radius: 50%; }
@@ -124,7 +111,6 @@
   .pill-run   { background: rgba(99,102,241,0.14); color: #c7d2fe; border: 1px solid rgba(99,102,241,0.30); }
   .pill-queue { background: rgba(255,255,255,0.04); color: #a1a1aa; border: 1px solid rgba(255,255,255,0.10); }
 
-  /* Klaut org map */
   .org-cell { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; transition: border-color 240ms, background 240ms; }
   .org-cell:hover { border-color: rgba(99,102,241,0.35); background: rgba(99,102,241,0.06); }
   .avatar { width: 26px; height: 26px; border-radius: 999px; display: grid; place-items: center; font: 600 11px/1 'Inter', sans-serif; color: #c7d2fe; background: linear-gradient(135deg, rgba(99,102,241,0.30), rgba(129,140,248,0.10)); border: 1px solid rgba(99,102,241,0.25); flex-shrink: 0; }
@@ -134,10 +120,8 @@
   .org-name { font-size: 12.5px; font-weight: 500; color: #e4e4e7; line-height: 1.1; }
   .org-skill { font-size: 11px; color: #71717a; margin-top: 2px; line-height: 1.1; }
 
-  /* belief cards */
   .icon-tile { width: 44px; height: 44px; border-radius: 8px; background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.30); display: grid; place-items: center; }
 
-  /* CTA band */
   .cta-band {
     background:
       radial-gradient(ellipse 60% 80% at 80% 50%, rgba(99,102,241,0.18), transparent 70%),
@@ -146,14 +130,12 @@
     border: 1px solid rgba(99,102,241,0.25);
   }
 
-  /* mono eyebrow used in hero */
   .mono-eyebrow {
     font: 500 12px/1 'JetBrains Mono', monospace;
     letter-spacing: 0.02em;
     color: #818cf8;
   }
 
-  /* hairline divider with center dot */
   .hairline-dot { position: relative; height: 1px; background: #262626; }
   .hairline-dot::after { content: ''; position: absolute; left: 50%; top: 50%; width: 5px; height: 5px; border-radius: 50%; background: #6366f1; transform: translate(-50%, -50%); box-shadow: 0 0 0 4px #0a0a0a; }
 </style>
@@ -163,26 +145,26 @@
 <!-- ============================================================ NAV -->
 <header id="nav" class="fixed top-0 inset-x-0 z-40 transition-all duration-300">
   <div class="relative max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-2.5 group" aria-label="Klaut home">
+    <a href="/id/" class="flex items-center gap-2.5 group" aria-label="Klaut beranda">
       <img src="/klaut-K.png" alt="" class="brand-mark"/>
       <img src="/klaut-wordmark-text.png" alt="Klaut" class="brand-wordmark"/>
     </a>
     <nav class="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
-      <a href="https://compass-app.klaut.id/why-klaut" class="px-4 py-2 text-sm text-muted link-hover">Why Klaut</a>
-      <a href="https://compass.klaut.id/" class="px-4 py-2 text-sm text-muted link-hover">Compass</a>
-      <a href="/faq" class="px-4 py-2 text-sm text-muted link-hover">FAQ</a>
-      <a href="https://compass-app.klaut.id/pricing" class="px-4 py-2 text-sm text-muted link-hover">Pricing</a>
+      <a href="https://compass-app.klaut.id/why-klaut" class="px-4 py-2 text-sm text-muted link-hover">Mengapa Klaut</a>
+      <a href="https://compass.klaut.id/id" class="px-4 py-2 text-sm text-muted link-hover">Compass</a>
+      <a href="/id/faq" class="px-4 py-2 text-sm text-muted link-hover">FAQ</a>
+      <a href="https://compass-app.klaut.id/id/pricing" class="px-4 py-2 text-sm text-muted link-hover">Pricing</a>
     </nav>
     <div class="hidden md:flex items-center gap-3">
-      <div class="flex items-center rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium" role="group" aria-label="Select language">
-        <a href="/id/about.html" class="px-3 py-1.5 rounded-full text-muted hover:text-white transition-colors">ID</a>
-        <a href="/about.html" class="px-3 py-1.5 rounded-full bg-white/10 text-white" aria-current="page">EN</a>
+      <div class="flex items-center rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium" role="group" aria-label="Pilih bahasa">
+        <a href="/id/about.html" class="px-3 py-1.5 rounded-full bg-white/10 text-white" aria-current="page">ID</a>
+        <a href="/about.html" class="px-3 py-1.5 rounded-full text-muted hover:text-white transition-colors">EN</a>
       </div>
-      <a href="/#cta" class="btn btn-primary" style="background-color: rgb(45, 27, 105)">Book a call
+      <a href="/id/#cta" class="btn btn-primary" style="background-color: rgb(45, 27, 105)">Hubungi Kami
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
     </div>
-    <button id="hamburger" class="md:hidden p-2 rounded-lg hover:bg-white/5" aria-label="Open menu">
+    <button id="hamburger" class="md:hidden p-2 rounded-lg hover:bg-white/5" aria-label="Buka menu">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
     </button>
   </div>
@@ -197,19 +179,19 @@
         <img src="/klaut-K.png" alt="" class="brand-mark"/>
         <img src="/klaut-wordmark-text.png" alt="Klaut" class="brand-wordmark"/>
       </div>
-      <button data-close-menu class="p-2 rounded-lg hover:bg-white/5" aria-label="Close menu">
+      <button data-close-menu class="p-2 rounded-lg hover:bg-white/5" aria-label="Tutup menu">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
       </button>
     </div>
-    <a href="https://compass-app.klaut.id/why-klaut" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Why Klaut</a>
-    <a href="https://compass.klaut.id/" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Compass</a>
-    <a href="/faq" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">FAQ</a>
-    <a href="https://compass-app.klaut.id/pricing" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Pricing</a>
-    <div class="flex items-center justify-center mt-4 rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium w-fit mx-auto" role="group" aria-label="Select language">
-      <a href="/id/about.html" class="px-4 py-2 rounded-full text-muted hover:text-white transition-colors">Bahasa Indonesia</a>
-      <a href="/about.html" class="px-4 py-2 rounded-full bg-white/10 text-white" aria-current="page">English</a>
+    <a href="https://compass-app.klaut.id/why-klaut" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Mengapa Klaut</a>
+    <a href="https://compass.klaut.id/id" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Compass</a>
+    <a href="/id/faq" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">FAQ</a>
+    <a href="https://compass-app.klaut.id/id/pricing" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Pricing</a>
+    <div class="flex items-center justify-center mt-4 rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium w-fit mx-auto" role="group" aria-label="Pilih bahasa">
+      <a href="/id/about.html" class="px-4 py-2 rounded-full bg-white/10 text-white" aria-current="page">Bahasa Indonesia</a>
+      <a href="/about.html" class="px-4 py-2 rounded-full text-muted hover:text-white transition-colors">English</a>
     </div>
-    <a href="/#cta" data-close-menu class="btn btn-primary justify-center mt-4">Book a call</a>
+    <a href="/id/#cta" data-close-menu class="btn btn-primary justify-center mt-4">Hubungi Kami</a>
   </aside>
 </div>
 
@@ -223,22 +205,22 @@
   <div class="orb orb-3"></div>
 
   <div class="relative max-w-7xl mx-auto px-6 lg:px-10 pt-36 pb-28 lg:pt-44 lg:pb-36">
-    <div class="reveal mono-eyebrow mb-7">/ About</div>
+    <div class="reveal mono-eyebrow mb-7">/ Tentang Kami</div>
 
     <h1 class="reveal text-5xl md:text-7xl lg:text-[88px] font-semibold tracking-tight leading-[0.96] max-w-5xl">
-      AI that makes a workforce
-      <span class="grad-clause" data-hero-clause>visible — not smaller.</span>
+      AI yang membuat tenaga kerja
+      <span class="grad-clause" data-hero-clause>terlihat — bukan berkurang.</span>
     </h1>
 
     <p class="reveal mt-9 max-w-2xl text-lg md:text-xl text-muted leading-relaxed">
-      Klaut helps enterprises adopt AI without the layoff narrative. We build the understanding layer first, so the technology develops the people it touches.
+      Klaut membantu enterprise mengadopsi AI tanpa narasi pemangkasan karyawan. Kami membangun lapisan pemahaman terlebih dahulu, agar teknologi justru mengembangkan orang-orang yang menyentuhnya.
     </p>
 
     <div class="reveal mt-10 flex flex-wrap gap-3">
-      <button class="btn btn-primary btn-lg">Book a call
+      <button class="btn btn-primary btn-lg">Hubungi Kami
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </button>
-      <a href="#why" class="btn btn-ghost btn-lg">Why we exist
+      <a href="#why" class="btn btn-ghost btn-lg">Mengapa kami ada
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="5 12 12 19 19 12"/></svg>
       </a>
     </div>
@@ -247,16 +229,16 @@
     <div class="reveal mt-20 pt-8 border-t border-white/5 flex flex-wrap items-center gap-x-12 gap-y-4 text-sm">
       <div class="flex items-center gap-3">
         <span class="w-1.5 h-1.5 rounded-full bg-accent-2 shadow-[0_0_0_3px_rgba(99,102,241,0.18)]"></span>
-        <span class="font-mono text-xs uppercase tracking-[0.18em] text-dim">Based in</span>
+        <span class="font-mono text-xs uppercase tracking-[0.18em] text-dim">Berbasis di</span>
         <span class="text-ink">Jakarta, Indonesia</span>
       </div>
       <div class="flex items-center gap-3">
-        <span class="font-mono text-xs uppercase tracking-[0.18em] text-dim">Founded</span>
+        <span class="font-mono text-xs uppercase tracking-[0.18em] text-dim">Berdiri</span>
         <span class="text-ink">2024</span>
       </div>
       <div class="flex items-center gap-3">
-        <span class="font-mono text-xs uppercase tracking-[0.18em] text-dim">Stage</span>
-        <span class="text-ink">Selective engagements · Q3 2026</span>
+        <span class="font-mono text-xs uppercase tracking-[0.18em] text-dim">Tahap</span>
+        <span class="text-ink">Keterlibatan selektif · Q3 2026</span>
       </div>
     </div>
   </div>
@@ -267,40 +249,40 @@
   <div class="max-w-7xl mx-auto px-6 lg:px-10 py-28 lg:py-36">
     <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
       <div class="lg:col-span-5 reveal lg:sticky lg:top-28">
-        <div class="mono-eyebrow mb-5">/ 01 — Thesis</div>
+        <div class="mono-eyebrow mb-5">/ 01 — Tesis</div>
         <h2 class="text-4xl md:text-5xl lg:text-[56px] font-semibold tracking-tight leading-[1.02]">
-          In an emerging market, replacement is not a neutral option.
+          Di pasar berkembang, penggantian bukan pilihan yang netral.
         </h2>
         <div class="mt-8 hairline-dot max-w-xs"></div>
       </div>
 
       <div class="lg:col-span-7 reveal">
         <p class="text-xl md:text-2xl font-light text-ink leading-[1.45] tracking-[-0.01em]">
-          In developed economies, AI that trims headcount is a cost decision. In Indonesia it is a social one — office work is the path out of the informal sector for millions of people, and the fear of AI arrives faster than the technology itself.
+          Di ekonomi maju, AI yang memangkas headcount adalah keputusan biaya. Di Indonesia, ini adalah keputusan sosial &mdash; pekerjaan kantoran adalah jalan keluar dari sektor informal bagi jutaan orang, dan ketakutan terhadap AI datang lebih cepat dari teknologi itu sendiri.
         </p>
         <p class="mt-6 text-lg text-muted leading-[1.65]">
-          An integrator that wins here has to deliver AI in a way that <span class="text-ink">grows the workforce, not removes it</span>. That constraint is our advantage, and it is increasingly true everywhere — EU regulation, union pushback, internal resistance.
+          Integrator yang berhasil di sini harus menghadirkan AI dengan cara yang <span class="text-ink">menumbuhkan tenaga kerja, bukan menghapusnya</span>. Batasan ini adalah keunggulan kami, dan semakin berlaku di mana-mana &mdash; regulasi UE, perlawanan serikat, resistensi internal.
         </p>
         <p class="mt-6 text-lg text-muted leading-[1.65]">
-          Indonesia is the most acute version of a problem the whole world now has.
+          Indonesia adalah versi paling akut dari masalah yang kini dimiliki seluruh dunia.
         </p>
 
         <!-- footnote strip -->
         <div class="mt-12 grid grid-cols-3 gap-px bg-line rounded-xl overflow-hidden border border-line">
           <div class="bg-surface p-6">
-            <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">Office workforce</div>
-            <div class="mt-3 text-3xl font-semibold tracking-tight">~50M</div>
+            <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">Tenaga kerja kantoran</div>
+            <div class="mt-3 text-3xl font-semibold tracking-tight">~50 Jt</div>
             <div class="mt-1 text-xs text-muted">Indonesia, 2026</div>
           </div>
           <div class="bg-surface p-6">
-            <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">Path out of informal</div>
-            <div class="mt-3 text-3xl font-semibold tracking-tight">1 generation</div>
-            <div class="mt-1 text-xs text-muted">Median family timeline</div>
+            <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">Keluar dari informal</div>
+            <div class="mt-3 text-3xl font-semibold tracking-tight">1 generasi</div>
+            <div class="mt-1 text-xs text-muted">Timeline keluarga median</div>
           </div>
           <div class="bg-surface p-6">
-            <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">AI-as-headcount</div>
-            <div class="mt-3 text-3xl font-semibold tracking-tight">Not on offer</div>
-            <div class="mt-1 text-xs text-muted">Our position</div>
+            <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">AI-sebagai-headcount</div>
+            <div class="mt-3 text-3xl font-semibold tracking-tight">Bukan pilihan</div>
+            <div class="mt-1 text-xs text-muted">Posisi kami</div>
           </div>
         </div>
       </div>
@@ -312,12 +294,11 @@
 <section data-screen-label="03 What we believe" class="relative border-t border-line">
   <div class="max-w-7xl mx-auto px-6 lg:px-10 py-28 lg:py-32">
     <div class="reveal max-w-3xl">
-      <div class="mono-eyebrow mb-5">/ 02 — Beliefs</div>
-      <h2 class="text-4xl md:text-5xl font-semibold tracking-tight leading-[1.05]">Three things we hold, regardless of who's paying.</h2>
+      <div class="mono-eyebrow mb-5">/ 02 — Keyakinan</div>
+      <h2 class="text-4xl md:text-5xl font-semibold tracking-tight leading-[1.05]">Tiga hal yang kami pegang, terlepas dari siapa yang membayar.</h2>
     </div>
 
     <div class="mt-16 grid md:grid-cols-3 gap-6">
-      <!-- belief 1 -->
       <article class="reveal card-hover p-8 lg:p-10 rounded-xl bg-surface border border-line flex flex-col">
         <div class="icon-tile mb-7">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -325,15 +306,14 @@
             <path d="M4.5 21c0-3.6 3.2-6.5 7.5-6.5s7.5 2.9 7.5 6.5"/>
           </svg>
         </div>
-        <h3 class="text-xl lg:text-2xl font-semibold tracking-tight">The person behind the work matters.</h3>
-        <p class="mt-3 text-muted leading-relaxed">The signal most AI throws away — who did this, and why this way — is the signal we treat as primary.</p>
+        <h3 class="text-xl lg:text-2xl font-semibold tracking-tight">Orang di balik pekerjaan itu penting.</h3>
+        <p class="mt-3 text-muted leading-relaxed">Sinyal yang paling sering diabaikan AI &mdash; siapa yang melakukan ini, dan mengapa dengan cara ini &mdash; adalah sinyal yang kami jadikan prioritas utama.</p>
         <div class="mt-auto pt-7 border-t border-line flex items-center justify-between">
           <span class="mono-eyebrow text-[11px]">/ 01</span>
-          <span class="text-xs text-dim font-mono uppercase tracking-[0.18em]">Methodology</span>
+          <span class="text-xs text-dim font-mono uppercase tracking-[0.18em]">Metodologi</span>
         </div>
       </article>
 
-      <!-- belief 2 -->
       <article class="reveal card-hover p-8 lg:p-10 rounded-xl bg-surface border border-line flex flex-col">
         <div class="icon-tile mb-7">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -341,15 +321,14 @@
             <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
           </svg>
         </div>
-        <h3 class="text-xl lg:text-2xl font-semibold tracking-tight">Trust is the product.</h3>
-        <p class="mt-3 text-muted leading-relaxed">Personal mistakes belong to the employee; aggregate capability belongs to management. No drill-down without consent.</p>
+        <h3 class="text-xl lg:text-2xl font-semibold tracking-tight">Kepercayaan adalah produknya.</h3>
+        <p class="mt-3 text-muted leading-relaxed">Kesalahan pribadi milik karyawan; kemampuan agregat milik manajemen. Tidak ada drill-down tanpa persetujuan.</p>
         <div class="mt-auto pt-7 border-t border-line flex items-center justify-between">
           <span class="mono-eyebrow text-[11px]">/ 02</span>
-          <span class="text-xs text-dim font-mono uppercase tracking-[0.18em]">Architecture</span>
+          <span class="text-xs text-dim font-mono uppercase tracking-[0.18em]">Arsitektur</span>
         </div>
       </article>
 
-      <!-- belief 3 -->
       <article class="reveal card-hover p-8 lg:p-10 rounded-xl bg-surface border border-line flex flex-col">
         <div class="icon-tile mb-7">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -357,11 +336,11 @@
             <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>
           </svg>
         </div>
-        <h3 class="text-xl lg:text-2xl font-semibold tracking-tight">Specific over generic.</h3>
-        <p class="mt-3 text-muted leading-relaxed">Our value is in methodology and accountability, not in access to vendors.</p>
+        <h3 class="text-xl lg:text-2xl font-semibold tracking-tight">Spesifik mengalahkan generik.</h3>
+        <p class="mt-3 text-muted leading-relaxed">Nilai kami ada pada metodologi dan akuntabilitas, bukan pada akses ke vendor.</p>
         <div class="mt-auto pt-7 border-t border-line flex items-center justify-between">
           <span class="mono-eyebrow text-[11px]">/ 03</span>
-          <span class="text-xs text-dim font-mono uppercase tracking-[0.18em]">Posture</span>
+          <span class="text-xs text-dim font-mono uppercase tracking-[0.18em]">Postur</span>
         </div>
       </article>
     </div>
@@ -376,14 +355,14 @@
   <div class="relative max-w-7xl mx-auto px-6 lg:px-10 py-28 lg:py-36">
     <div class="grid lg:grid-cols-12 gap-10 items-end mb-16">
       <div class="reveal lg:col-span-7">
-        <div class="mono-eyebrow mb-5">/ 03 — Architecture</div>
+        <div class="mono-eyebrow mb-5">/ 03 — Arsitektur</div>
         <h2 class="text-4xl md:text-5xl lg:text-[56px] font-semibold tracking-tight leading-[1.02]">
-          Two layers. <span class="text-muted">One depends on the other.</span>
+          Dua lapisan. <span class="text-muted">Satu bergantung pada yang lain.</span>
         </h2>
       </div>
       <div class="reveal lg:col-span-5">
         <p class="text-lg text-muted leading-relaxed">
-          You can buy an AI operating system anywhere. What no one ships with it is the layer underneath — the one that knows your people, your workflows, and where the real gaps are. We build that first.
+          Anda bisa membeli sistem operasi AI di mana saja. Yang tidak disertakan siapa pun adalah lapisan di bawahnya &mdash; yang mengenal orang-orang Anda, alur kerja Anda, dan di mana celah nyatanya berada. Kami membangun itu terlebih dahulu.
         </p>
       </div>
     </div>
@@ -401,31 +380,31 @@
               </svg>
             </div>
             <div>
-              <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-accent-2">Layer 02 · Execution</div>
+              <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-accent-2">Lapisan 02 · Eksekusi</div>
               <div class="text-lg font-semibold tracking-tight mt-1">Compass</div>
             </div>
           </div>
           <div class="hidden md:flex items-center gap-2">
-            <span class="layer-tab upper">Runs the enterprise</span>
+            <span class="layer-tab upper">Menjalankan enterprise</span>
           </div>
         </div>
 
         <div class="grid md:grid-cols-12 gap-0">
           <div class="md:col-span-5 p-6 lg:p-8 border-r border-white/5">
             <div class="text-sm text-muted leading-relaxed">
-              The AI operating system built on top of Klaut. It runs the work: orchestration and execution.
+              Sistem operasi AI yang dibangun di atas Klaut. Ia menjalankan pekerjaan: orkestrasi dan eksekusi.
             </div>
             <div class="mt-6 grid grid-cols-3 gap-2">
               <div class="rounded-lg bg-white/[0.03] border border-white/5 p-3">
-                <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-dim">Active</div>
+                <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-dim">Aktif</div>
                 <div class="mt-1.5 text-xl font-semibold tracking-tight">7</div>
               </div>
               <div class="rounded-lg bg-white/[0.03] border border-white/5 p-3">
-                <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-dim">Queued</div>
+                <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-dim">Antrean</div>
                 <div class="mt-1.5 text-xl font-semibold tracking-tight">14</div>
               </div>
               <div class="rounded-lg bg-white/[0.03] border border-white/5 p-3">
-                <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-dim">Done · 24h</div>
+                <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-dim">Selesai · 24j</div>
                 <div class="mt-1.5 text-xl font-semibold tracking-tight">312</div>
               </div>
             </div>
@@ -434,33 +413,33 @@
           <div class="md:col-span-7">
             <div class="run-row">
               <span class="run-dot done"></span>
-              <span class="text-ink">Reconcile Q2 vendor invoices</span>
-              <span class="text-xs font-mono text-dim">finance · 02:14</span>
-              <span class="pill pill-ok">done</span>
+              <span class="text-ink">Rekonsiliasi invoice vendor Q2</span>
+              <span class="text-xs font-mono text-dim">keuangan · 02:14</span>
+              <span class="pill pill-ok">selesai</span>
             </div>
             <div class="run-row">
               <span class="run-dot live"></span>
-              <span class="text-ink">Triage support backlog · Tier-1</span>
+              <span class="text-ink">Triage backlog support · Tier-1</span>
               <span class="text-xs font-mono text-dim">cs · 00:42</span>
-              <span class="pill pill-run">running</span>
+              <span class="pill pill-run">berjalan</span>
             </div>
             <div class="run-row">
               <span class="run-dot live"></span>
-              <span class="text-ink">Draft 14 supplier contract redlines</span>
+              <span class="text-ink">Draf 14 redline kontrak supplier</span>
               <span class="text-xs font-mono text-dim">legal · 01:08</span>
-              <span class="pill pill-run">running</span>
+              <span class="pill pill-run">berjalan</span>
             </div>
             <div class="run-row">
               <span class="run-dot queue"></span>
-              <span class="text-muted">Summarize sales calls · APAC week</span>
+              <span class="text-muted">Rangkum panggilan sales · APAC minggu ini</span>
               <span class="text-xs font-mono text-dim">sales · —</span>
-              <span class="pill pill-queue">queued</span>
+              <span class="pill pill-queue">antrean</span>
             </div>
             <div class="run-row">
               <span class="run-dot queue"></span>
-              <span class="text-muted">Onboarding cohort handoffs · 6 new</span>
-              <span class="text-xs font-mono text-dim">people · —</span>
-              <span class="pill pill-queue">queued</span>
+              <span class="text-muted">Serah terima onboarding · 6 karyawan baru</span>
+              <span class="text-xs font-mono text-dim">SDM · —</span>
+              <span class="pill pill-queue">antrean</span>
             </div>
           </div>
         </div>
@@ -474,7 +453,7 @@
             <line x1="12" y1="5" x2="12" y2="19"/>
             <polyline points="6 13 12 19 18 13"/>
           </svg>
-          depends&nbsp;on
+          bergantung&nbsp;pada
         </div>
       </div>
 
@@ -490,36 +469,36 @@
               </svg>
             </div>
             <div>
-              <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-muted">Layer 01 · Understanding</div>
+              <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-muted">Lapisan 01 · Pemahaman</div>
               <div class="text-lg font-semibold tracking-tight mt-1">Klaut</div>
             </div>
           </div>
           <div class="hidden md:flex items-center gap-2">
-            <span class="layer-tab lower">Understands the enterprise</span>
+            <span class="layer-tab lower">Memahami enterprise</span>
           </div>
         </div>
 
         <div class="grid md:grid-cols-12 gap-0">
           <div class="md:col-span-5 p-6 lg:p-8 border-r border-white/5">
             <div class="text-sm text-muted leading-relaxed">
-              The enterprise personalization &amp; intelligence layer. Klaut understands the organization: who does the work, how, and where the gaps are.
+              Lapisan personalisasi &amp; kecerdasan enterprise. Klaut memahami organisasi: siapa yang mengerjakan apa, bagaimana caranya, dan di mana celahnya.
             </div>
             <div class="mt-6 space-y-3">
               <div class="flex items-center justify-between text-sm">
-                <span class="text-dim font-mono text-[11px] uppercase tracking-[0.18em]">People mapped</span>
-                <span class="text-ink font-medium">1,284</span>
+                <span class="text-dim font-mono text-[11px] uppercase tracking-[0.18em]">Orang dipetakan</span>
+                <span class="text-ink font-medium">1.284</span>
               </div>
               <div class="flex items-center justify-between text-sm">
-                <span class="text-dim font-mono text-[11px] uppercase tracking-[0.18em]">Workflows traced</span>
+                <span class="text-dim font-mono text-[11px] uppercase tracking-[0.18em]">Alur kerja ditelusuri</span>
                 <span class="text-ink font-medium">96</span>
               </div>
               <div class="flex items-center justify-between text-sm">
-                <span class="text-dim font-mono text-[11px] uppercase tracking-[0.18em]">Skill gaps surfaced</span>
-                <span class="text-ink font-medium">23 cohorts</span>
+                <span class="text-dim font-mono text-[11px] uppercase tracking-[0.18em]">Kesenjangan skill</span>
+                <span class="text-ink font-medium">23 kohort</span>
               </div>
               <div class="flex items-center justify-between text-sm">
-                <span class="text-dim font-mono text-[11px] uppercase tracking-[0.18em]">Drill-downs allowed</span>
-                <span class="text-accent-2 font-medium">consent only</span>
+                <span class="text-dim font-mono text-[11px] uppercase tracking-[0.18em]">Drill-down diizinkan</span>
+                <span class="text-accent-2 font-medium">hanya dengan persetujuan</span>
               </div>
             </div>
           </div>
@@ -530,42 +509,42 @@
                 <div class="avatar">AS</div>
                 <div class="min-w-0">
                   <div class="org-name truncate">Aulia Setiawan</div>
-                  <div class="org-skill truncate">Analyst · invoice rec.</div>
+                  <div class="org-skill truncate">Analis · rekonsiliasi invoice</div>
                 </div>
               </div>
               <div class="org-cell">
                 <div class="avatar m">RP</div>
                 <div class="min-w-0">
                   <div class="org-name truncate">Rini Pratiwi</div>
-                  <div class="org-skill truncate">Lead · CS triage</div>
+                  <div class="org-skill truncate">Lead · triage CS</div>
                 </div>
               </div>
               <div class="org-cell">
                 <div class="avatar c">BH</div>
                 <div class="min-w-0">
                   <div class="org-name truncate">Budi Hartono</div>
-                  <div class="org-skill truncate">Counsel · contracts</div>
+                  <div class="org-skill truncate">Konsultan · kontrak</div>
                 </div>
               </div>
               <div class="org-cell">
                 <div class="avatar">DN</div>
                 <div class="min-w-0">
                   <div class="org-name truncate">Dewi Nasution</div>
-                  <div class="org-skill truncate">Manager · APAC sales</div>
+                  <div class="org-skill truncate">Manajer · sales APAC</div>
                 </div>
               </div>
               <div class="org-cell">
                 <div class="avatar m">FK</div>
                 <div class="min-w-0">
                   <div class="org-name truncate">Fajar Kusuma</div>
-                  <div class="org-skill truncate">People ops · onboarding</div>
+                  <div class="org-skill truncate">Ops SDM · onboarding</div>
                 </div>
               </div>
               <div class="org-cell" style="background: rgba(99,102,241,0.05); border-color: rgba(99,102,241,0.20);">
                 <div class="avatar" style="background: rgba(255,255,255,0.04); border-style: dashed; color: #818cf8;">+</div>
                 <div class="min-w-0">
-                  <div class="org-name truncate" style="color:#c7d2fe">1,279 more</div>
-                  <div class="org-skill truncate">across 14 functions</div>
+                  <div class="org-name truncate" style="color:#c7d2fe">1.279 lainnya</div>
+                  <div class="org-skill truncate">di 14 fungsi</div>
                 </div>
               </div>
             </div>
@@ -582,7 +561,7 @@
           <span class="text-sm font-medium">Klaut</span>
           <span class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">tagline</span>
         </div>
-        <p class="mt-3 text-lg text-ink tracking-tight">Klaut — understands the enterprise.</p>
+        <p class="mt-3 text-lg text-ink tracking-tight">Klaut &mdash; memahami enterprise.</p>
       </div>
       <div class="p-6 rounded-xl bg-surface/60 border border-line">
         <div class="flex items-center gap-3">
@@ -590,7 +569,7 @@
           <span class="text-sm font-medium">Compass</span>
           <span class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">tagline</span>
         </div>
-        <p class="mt-3 text-lg text-ink tracking-tight">Compass — runs the enterprise.</p>
+        <p class="mt-3 text-lg text-ink tracking-tight">Compass &mdash; menjalankan enterprise.</p>
       </div>
     </div>
   </div>
@@ -601,30 +580,30 @@
   <div class="max-w-7xl mx-auto px-6 lg:px-10 py-28 lg:py-32">
     <div class="grid lg:grid-cols-12 gap-12 items-start">
       <div class="lg:col-span-4 reveal">
-        <div class="mono-eyebrow mb-5">/ 04 — Operating model</div>
-        <h2 class="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1]">How we work.</h2>
+        <div class="mono-eyebrow mb-5">/ 04 — Model operasi</div>
+        <h2 class="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1]">Cara kami bekerja.</h2>
       </div>
 
       <div class="lg:col-span-8 reveal">
         <p class="text-2xl md:text-3xl font-light text-ink leading-[1.35] tracking-[-0.01em]">
-          Klaut is <span class="text-accent-2">lean by design</span>, not by default. A small team, deliberate client selection, and systems instead of headcount. Anchored in Jakarta, built for the rest of the world.
+          Klaut <span class="text-accent-2">ramping karena dirancang demikian</span>, bukan karena terpaksa. Tim kecil, seleksi klien yang cermat, dan sistem menggantikan headcount. Berakar di Jakarta, dibangun untuk seluruh dunia.
         </p>
 
         <div class="mt-12 grid sm:grid-cols-3 gap-px bg-line rounded-xl overflow-hidden border border-line">
           <div class="bg-surface p-7">
-            <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">Team</div>
-            <div class="mt-3 text-3xl font-semibold tracking-tight">Small.</div>
-            <div class="mt-2 text-sm text-muted leading-relaxed">No juniors on engagements. Partners in the room.</div>
+            <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">Tim</div>
+            <div class="mt-3 text-3xl font-semibold tracking-tight">Kecil.</div>
+            <div class="mt-2 text-sm text-muted leading-relaxed">Tidak ada junior di keterlibatan. Partner langsung hadir di ruangan.</div>
           </div>
           <div class="bg-surface p-7">
-            <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">Clients</div>
-            <div class="mt-3 text-3xl font-semibold tracking-tight">Selected.</div>
-            <div class="mt-2 text-sm text-muted leading-relaxed">We accept about one in seven who reach out.</div>
+            <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">Klien</div>
+            <div class="mt-3 text-3xl font-semibold tracking-tight">Dipilih.</div>
+            <div class="mt-2 text-sm text-muted leading-relaxed">Kami menerima sekitar satu dari tujuh yang menghubungi kami.</div>
           </div>
           <div class="bg-surface p-7">
-            <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">Anchor</div>
+            <div class="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">Pangkalan</div>
             <div class="mt-3 text-3xl font-semibold tracking-tight">Jakarta.</div>
-            <div class="mt-2 text-sm text-muted leading-relaxed">Built for the rest of the world from the hardest version of the problem.</div>
+            <div class="mt-2 text-sm text-muted leading-relaxed">Dibangun untuk seluruh dunia dari versi masalah yang paling berat.</div>
           </div>
         </div>
       </div>
@@ -639,17 +618,17 @@
       <div class="absolute -top-24 -right-24 w-96 h-96 orb" style="background: radial-gradient(circle at 50% 50%, #6366f1, transparent 60%); opacity:.25; position:absolute;"></div>
       <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
         <div>
-          <div class="mono-eyebrow mb-4">/ Talk to us</div>
+          <div class="mono-eyebrow mb-4">/ Bicara dengan kami</div>
           <h2 class="text-4xl md:text-5xl lg:text-[56px] font-semibold tracking-tight leading-[1.02] max-w-2xl">
-            Start with a real <span class="grad-clause">conversation.</span>
+            Mulai dengan <span class="grad-clause">percakapan nyata.</span>
           </h2>
-          <p class="mt-5 text-muted text-lg max-w-xl leading-relaxed">No deck. No discovery sales call. Tell us what's actually broken — we'll tell you whether we're the right firm.</p>
+          <p class="mt-5 text-muted text-lg max-w-xl leading-relaxed">Tanpa deck. Tanpa discovery sales call. Ceritakan apa yang sebenarnya bermasalah &mdash; kami akan ceritakan apakah kami firma yang tepat.</p>
         </div>
         <div class="flex flex-col sm:flex-row lg:flex-col gap-3 lg:items-end">
-          <button class="btn btn-primary btn-lg">Book a call
+          <button class="btn btn-primary btn-lg">Hubungi Kami
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </button>
-          <div class="text-xs text-dim font-mono uppercase tracking-[0.18em] lg:text-right">Replies within one business day</div>
+          <div class="text-xs text-dim font-mono uppercase tracking-[0.18em] lg:text-right">Balasan dalam satu hari kerja</div>
         </div>
       </div>
     </div>
@@ -667,8 +646,8 @@
       <span class="text-dim text-sm ml-3">© 2026 · Jakarta</span>
     </div>
     <div class="flex items-center gap-6 text-sm text-muted">
-      <a href="#" class="hover:text-ink transition">Privacy</a>
-      <a href="#" class="hover:text-ink transition">Terms</a>
+      <a href="#" class="hover:text-ink transition">Privasi</a>
+      <a href="#" class="hover:text-ink transition">Ketentuan</a>
       <a href="#" class="hover:text-ink transition">Substack</a>
       <a href="#" class="hover:text-ink transition">LinkedIn</a>
     </div>
@@ -677,7 +656,7 @@
 
 <!-- ============================================================ TWEAKS -->
 <div id="tweaks-root"></div>
-<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="/tweaks-panel.jsx"></script>
 <script type="text/babel">
   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
     "heroTreatment": "gradient clause",
@@ -690,7 +669,6 @@
     const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
 
     React.useEffect(() => {
-      // hero treatment
       const clause = document.querySelector('[data-hero-clause]');
       if (clause) {
         clause.classList.remove('grad-clause');
@@ -710,19 +688,15 @@
         }
       }
 
-      // hero size
       const h1 = document.querySelector('section[data-screen-label="01 Hero"] h1');
       if (h1) {
         h1.style.fontSize = `clamp(48px, ${t.heroSize / 14}vw, ${t.heroSize}px)`;
       }
 
-      // orbs
       document.body.classList.toggle('no-orbs', !t.showOrbs);
 
-      // layers viz
       const stack = document.querySelector('[data-layers-viz]');
       if (stack) {
-        stack.classList.remove('viz-isometric', 'viz-flat');
         stack.style.transform = '';
         stack.style.perspective = '';
         if (t.layersViz === 'isometric') {
@@ -776,7 +750,6 @@
 
 <!-- ============================================================ BEHAVIOR -->
 <script>
-  // sticky nav
   const nav = document.getElementById('nav');
   function onScroll() {
     if (window.scrollY > 8) nav.classList.add('nav-scrolled');
@@ -785,20 +758,17 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // Mobile menu
   const mm = document.getElementById('mobileMenu');
   document.getElementById('hamburger').addEventListener('click', () => mm.classList.remove('hidden'));
   document.querySelectorAll('[data-close-menu]').forEach(el =>
     el.addEventListener('click', () => mm.classList.add('hidden'))
   );
 
-  // scroll-reveal
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // smooth scroll for in-page links
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', (e) => {
       const id = a.getAttribute('href');

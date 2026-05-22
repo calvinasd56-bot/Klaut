@@ -244,6 +244,14 @@
   }
   .mobile-backdrop.open { opacity: 1; pointer-events: auto; }
 
+  /* ---------- Brand images (canonical nav) ---------- */
+  .brand-mark { width: 48px; height: 48px; object-fit: contain; display: block; flex-shrink: 0; }
+  .brand-wordmark { height: 34px; width: auto; object-fit: contain; display: block; flex-shrink: 0; filter: invert(1); }
+  @media (min-width: 768px) { .brand-wordmark { height: 38px; } }
+  .link-hover { transition: color 180ms; }
+  .link-hover:hover { color: #fff; }
+  .nav-scrolled { background: rgba(10,10,15,0.72); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.06); }
+
   /* ---------- "Not" list ---------- */
   .not-row {
     display: flex; align-items: flex-start; gap: 16px;
@@ -290,55 +298,57 @@
 <body class="bg-bg text-ink">
 
 <!-- ================= NAV ================= -->
-<header id="nav" class="nav">
-  <div class="max-w-content mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
-    <a href="index.html" class="flex items-center gap-2.5">
-      <span class="wordmark-tile">K</span>
-      <span class="font-semibold tracking-tight text-[17px]">Klaut</span>
+<header id="nav" class="fixed top-0 inset-x-0 z-40 transition-all duration-300">
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2.5 group" aria-label="Klaut home">
+      <img src="/klaut-K.png" alt="" class="brand-mark"/>
+      <img src="/klaut-wordmark-text.png" alt="Klaut" class="brand-wordmark"/>
     </a>
-    <nav class="hidden md:flex items-center gap-6">
-      <a href="index.html#services" class="nav-link">Services</a>
-      <a href="consulting.html"      class="nav-link active">Consulting</a>
-      <a href="cao.html"             class="nav-link">Chief AI Officer</a>
-      <a href="audit.html"           class="nav-link">Audit</a>
-      <a href="index.html#compass"   class="nav-link">Compass</a>
-      <a href="index.html#faq"       class="nav-link">FAQ</a>
-      <a href="#contact" class="btn btn-primary !py-2.5 !px-4 text-[13px]">
-        Book a call
-        <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
+    <nav class="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
+      <a href="https://compass-app.klaut.id/why-klaut" class="px-4 py-2 text-sm text-muted link-hover">Why Klaut</a>
+      <a href="https://compass.klaut.id/" class="px-4 py-2 text-sm text-muted link-hover">Compass</a>
+      <a href="/faq" class="px-4 py-2 text-sm text-muted link-hover">FAQ</a>
+      <a href="https://compass-app.klaut.id/pricing" class="px-4 py-2 text-sm text-muted link-hover">Pricing</a>
     </nav>
-    <button id="menuBtn" class="md:hidden text-ink p-2 -mr-2" aria-label="Open menu">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M3 12h18"/><path d="M3 18h18"/></svg>
+    <div class="hidden md:flex items-center gap-3">
+      <div class="flex items-center rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium" role="group" aria-label="Select language">
+        <a href="/id/consulting.html" class="px-3 py-1.5 rounded-full text-muted hover:text-white transition-colors">ID</a>
+        <a href="/consulting.html" class="px-3 py-1.5 rounded-full bg-white/10 text-white" aria-current="page">EN</a>
+      </div>
+      <a href="#contact" class="btn btn-primary" style="background-color: rgb(45, 27, 105)">Book a call
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <button id="hamburger" class="md:hidden p-2 rounded-lg hover:bg-white/5" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
     </button>
   </div>
 </header>
 
-<!-- Mobile menu -->
-<div id="mobileBackdrop" class="mobile-backdrop fixed inset-0 bg-black/70 backdrop-blur-sm z-40 md:hidden"></div>
-<aside id="mobileMenu" class="mobile-menu fixed top-0 right-0 bottom-0 w-[78%] max-w-sm bg-surface border-l border-line z-50 md:hidden p-6 flex flex-col">
-  <div class="flex items-center justify-between mb-12">
-    <div class="flex items-center gap-2.5">
-      <span class="wordmark-tile">K</span>
-      <span class="font-semibold text-[17px]">Klaut</span>
+<!-- Mobile drawer -->
+<div id="mobileMenu" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-close-menu></div>
+  <aside class="absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-surface border-l border-line p-6 flex flex-col gap-1">
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-2">
+        <img src="/klaut-K.png" alt="" class="brand-mark"/>
+        <img src="/klaut-wordmark-text.png" alt="Klaut" class="brand-wordmark"/>
+      </div>
+      <button data-close-menu class="p-2 rounded-lg hover:bg-white/5" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
     </div>
-    <button id="menuClose" class="text-ink p-2 -mr-2" aria-label="Close menu">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-    </button>
-  </div>
-  <nav class="flex flex-col gap-1 text-xl">
-    <a href="index.html#services"  class="mobile-link py-4 border-b border-line">Services</a>
-    <a href="consulting.html"      class="mobile-link py-4 border-b border-line text-accent-2">Consulting</a>
-    <a href="cao.html"             class="mobile-link py-4 border-b border-line">Chief AI Officer</a>
-    <a href="audit.html"           class="mobile-link py-4 border-b border-line">Audit</a>
-    <a href="index.html#compass"   class="mobile-link py-4 border-b border-line">Compass</a>
-    <a href="index.html#faq"       class="mobile-link py-4 border-b border-line">FAQ</a>
-  </nav>
-  <a href="#contact" class="btn btn-primary mt-auto justify-center mobile-link">
-    Book a call
-    <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-  </a>
-</aside>
+    <a href="https://compass-app.klaut.id/why-klaut" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Why Klaut</a>
+    <a href="https://compass.klaut.id/" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Compass</a>
+    <a href="/faq" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">FAQ</a>
+    <a href="https://compass-app.klaut.id/pricing" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Pricing</a>
+    <div class="flex items-center justify-center mt-4 rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium w-fit mx-auto" role="group" aria-label="Select language">
+      <a href="/id/consulting.html" class="px-4 py-2 rounded-full text-muted hover:text-white transition-colors">Bahasa Indonesia</a>
+      <a href="/consulting.html" class="px-4 py-2 rounded-full bg-white/10 text-white" aria-current="page">English</a>
+    </div>
+    <a href="#contact" data-close-menu class="btn btn-primary justify-center mt-4">Book a call</a>
+  </aside>
+</div>
 
 <!-- ================= HERO ================= -->
 <section id="top" class="relative overflow-hidden pt-40 pb-28 md:pt-48 md:pb-36">
@@ -673,12 +683,12 @@
       <div class="md:col-span-2">
         <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Site</div>
         <ul class="space-y-3 text-[14px]">
-          <li><a class="nav-link" href="index.html#services">Services</a></li>
+          <li><a class="nav-link" href="/#services">Services</a></li>
           <li><a class="nav-link" href="consulting.html">Consulting</a></li>
           <li><a class="nav-link" href="cao.html">Chief AI Officer</a></li>
           <li><a class="nav-link" href="audit.html">Audit</a></li>
-          <li><a class="nav-link" href="index.html#compass">Compass</a></li>
-          <li><a class="nav-link" href="index.html#faq">FAQ</a></li>
+          <li><a class="nav-link" href="/#compass">Compass</a></li>
+          <li><a class="nav-link" href="/#faq">FAQ</a></li>
         </ul>
       </div>
 
@@ -719,8 +729,8 @@
   // Nav scroll state
   const nav = document.getElementById('nav');
   const updateNav = () => {
-    if (window.scrollY > 12) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
+    if (window.scrollY > 12) nav.classList.add('nav-scrolled');
+    else nav.classList.remove('nav-scrolled');
   };
   updateNav();
   window.addEventListener('scroll', updateNav, { passive: true });
@@ -753,14 +763,11 @@
   }
 
   // Mobile menu
-  const menu = document.getElementById('mobileMenu');
-  const backdrop = document.getElementById('mobileBackdrop');
-  const open = () => { menu.classList.add('open'); backdrop.classList.add('open'); document.body.style.overflow = 'hidden'; };
-  const close = () => { menu.classList.remove('open'); backdrop.classList.remove('open'); document.body.style.overflow = ''; };
-  document.getElementById('menuBtn').addEventListener('click', open);
-  document.getElementById('menuClose').addEventListener('click', close);
-  backdrop.addEventListener('click', close);
-  document.querySelectorAll('.mobile-link').forEach(a => a.addEventListener('click', close));
+  const mm = document.getElementById('mobileMenu');
+  document.getElementById('hamburger').addEventListener('click', () => mm.classList.remove('hidden'));
+  document.querySelectorAll('[data-close-menu]').forEach(el =>
+    el.addEventListener('click', () => mm.classList.add('hidden'))
+  );
 </script>
 
 </body>
