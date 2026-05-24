@@ -53,6 +53,16 @@
   .prose pre code{ background:transparent; padding:0; }
   .prose hr{ border:0; border-top:1px solid #262626; margin: 2em 0; }
 </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-59BT0YK7NH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-59BT0YK7NH', {
+    cookie_flags: 'SameSite=None;Secure'
+  });
+</script>
 </head>
 <body class="min-h-screen flex flex-col">
 
@@ -256,5 +266,7 @@ if (!slug) {
   }
 }
 </script>
+<!-- Vercel Web Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

@@ -360,6 +360,16 @@
   ]
 }
 </script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-59BT0YK7NH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-59BT0YK7NH', {
+    cookie_flags: 'SameSite=None;Secure'
+  });
+</script>
 </head>
 <body class="bg-bg text-ink">
 
@@ -1054,5 +1064,7 @@ handleHash();
 window.addEventListener('hashchange', handleHash);
 </script>
 
+<!-- Vercel Web Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

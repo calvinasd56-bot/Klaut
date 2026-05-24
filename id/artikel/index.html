@@ -72,6 +72,16 @@
   .card{ transition: transform .2s, border-color .2s; }
   .card:hover{ transform: translateY(-2px); border-color:#3f3f46; }
 </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-59BT0YK7NH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-59BT0YK7NH', {
+    cookie_flags: 'SameSite=None;Secure'
+  });
+</script>
 </head>
 <body class="min-h-screen flex flex-col">
 
@@ -157,5 +167,7 @@ if (error) {
   `).join("");
 }
 </script>
+<!-- Vercel Web Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

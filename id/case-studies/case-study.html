@@ -118,6 +118,16 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outlin
 .notfound p { color: var(--muted); margin: 0 0 24px; }
 .notfound a { color: var(--accent); }
 </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-59BT0YK7NH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-59BT0YK7NH', {
+    cookie_flags: 'SameSite=None;Secure'
+  });
+</script>
 </head>
 <body>
 
@@ -324,5 +334,7 @@ if (!slug) {
   }
 }
 </script>
+<!-- Vercel Web Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
