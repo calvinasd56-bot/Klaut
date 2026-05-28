@@ -101,6 +101,8 @@
     text-align: center;
     color: #71717a;
   }
+  .link-hover { transition: color 180ms; }
+  .link-hover:hover { color: #fff; }
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-59BT0YK7NH"></script>
@@ -150,15 +152,15 @@
 </main>
 
 <footer class="border-t border-line">
-  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-xs text-dim">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-12 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-xs text-dim">
     <div class="flex items-center gap-2.5">
       <img src="/klaut-K.svg" alt="" class="h-6 w-6"/>
       <span>© 2026 Klaut AI</span>
     </div>
     <div class="flex gap-6">
-      <a href="/id/" class="hover:text-ink">Beranda</a>
-      <a href="/id/faq" class="hover:text-ink">FAQ</a>
-      <a href="mailto:hello@klaut.id" class="hover:text-ink">Kontak</a>
+      <a href="/id/" class="link-hover">Beranda</a>
+      <a href="/id/faq" class="link-hover">FAQ</a>
+      <a href="mailto:hello@klaut.id" class="link-hover">Kontak</a>
     </div>
   </div>
 </footer>
