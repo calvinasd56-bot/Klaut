@@ -204,6 +204,43 @@
   /* compact partner grid variant */
   .grid-compact .partner-logo { aspect-ratio: 2 / 1; }
 </style>
+
+<style id="nav-dropdown-styles">
+/* Nav dropdown panels */
+.nav-dd { position: relative; }
+.nav-dd-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 8px 16px; font-size: .875rem;
+  color: var(--muted, #a1a1aa);
+  background: none; border: none; cursor: pointer; font-family: inherit;
+  border-radius: 8px; transition: color .15s;
+}
+.nav-dd-btn:hover, .nav-dd-btn[aria-expanded="true"] { color: #fff; }
+.nav-dd-btn svg { flex-shrink: 0; transition: transform .2s; }
+.nav-dd-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+.nav-dd-btn:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; border-radius: 4px; }
+.nav-dd-panel {
+  position: absolute; top: calc(100% + 6px); left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  width: 240px;
+  background: var(--surface, #111111); border: 1px solid var(--line, #262626);
+  border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,.55);
+  padding: 8px; opacity: 0; visibility: hidden;
+  transition: opacity .15s, visibility .15s, transform .15s;
+  z-index: 100;
+}
+.nav-dd-panel.open {
+  opacity: 1; visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.nav-dd-panel a {
+  display: block; padding: 10px 16px; border-radius: 8px;
+  font-size: .875rem; color: var(--muted, #a1a1aa);
+  text-decoration: none; transition: background .12s, color .12s;
+}
+.nav-dd-panel a:hover { background: rgba(255,255,255,.06); color: #fff; }
+.nav-dd-panel a:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; }
+</style>
 </head>
 <body class="bg-bg text-ink">
 
@@ -216,8 +253,27 @@
       </a>
       <nav class="hidden md:flex items-center gap-1" aria-label="Primary">
         <a href="https://compass-app.klaut.id/why-klaut" class="px-4 py-2 text-sm text-muted link-hover">Mengapa Klaut</a>
-        <a href="https://compass.klaut.id/id" class="px-4 py-2 text-sm text-muted link-hover">Compass</a>
-        <a href="/id/faq" class="px-4 py-2 text-sm text-muted link-hover">FAQ</a>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-idpar-prod">Produk
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-idpar-prod" class="nav-dd-panel" role="menu" aria-label="Produk">
+            <a href="/klaut-ai" role="menuitem">Klaut AI</a>
+            <a href="https://compass.klaut.id/id" role="menuitem">Compass</a>
+            <a href="/marketplace" role="menuitem">Klaut Marketplace</a>
+            <a href="/learning" role="menuitem">Klaut Learning Center</a>
+          </div>
+        </div>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-idpar-help">Bantuan
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-idpar-help" class="nav-dd-panel" role="menu" aria-label="Bantuan">
+            <a href="/id/faq" role="menuitem">FAQ</a>
+            <a href="/help-center" role="menuitem">Pusat Bantuan</a>
+            <a href="mailto:hello@klaut.id" role="menuitem">Hubungi Kami</a>
+          </div>
+        </div>
         <a href="https://compass-app.klaut.id/id/pricing" class="px-4 py-2 text-sm text-muted link-hover">Pricing</a>
       </nav>
     </div>
@@ -250,8 +306,29 @@
       </button>
     </div>
     <a href="https://compass-app.klaut.id/why-klaut" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Mengapa Klaut</a>
-    <a href="https://compass.klaut.id/id" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Compass</a>
-    <a href="/id/faq" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">FAQ</a>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Produk</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-8 flex flex-col gap-0.5 mt-0.5">
+        <a href="/klaut-ai" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">Klaut AI</a>
+        <a href="https://compass.klaut.id/id" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">Compass</a>
+        <a href="/marketplace" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">Klaut Marketplace</a>
+        <a href="/learning" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">Klaut Learning Center</a>
+      </div>
+    </details>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Bantuan</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-8 flex flex-col gap-0.5 mt-0.5">
+        <a href="/id/faq" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">FAQ</a>
+        <a href="/help-center" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">Pusat Bantuan</a>
+        <a href="mailto:hello@klaut.id" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">Hubungi Kami</a>
+      </div>
+    </details>
     <a href="https://compass-app.klaut.id/id/pricing" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Pricing</a>
     <div class="flex items-center justify-center mt-4 rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium w-fit mx-auto" role="group" aria-label="Pilih bahasa">
       <a href="/id/partners.html" class="px-4 py-2 rounded-full bg-white/10 text-white" aria-current="page">Bahasa Indonesia</a>
@@ -757,6 +834,7 @@
         <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Hubungi Kami</a></li>
         <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Kontak Media</a></li>
         <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Kontak Partnership</a></li>
+        <li><a href="/help-center" class="text-muted link-hover">Pusat Bantuan</a></li>
       </ul>
     </div>
   </div>
@@ -961,5 +1039,38 @@
 <div id="slime-toast" style="position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:#4F6BFF;color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;font-family:Inter,sans-serif;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:10000"></div>
 <script type="module" src="/assets/slime-widget.js"></script>
 <!-- ══ end Slime Widget ══ -->
+
+<script id="nav-dropdown-script">
+(function () {
+  function init() {
+    document.querySelectorAll('.nav-dd-btn').forEach(function (btn) {
+      var panel = btn.nextElementSibling;
+      if (!panel || !panel.classList.contains('nav-dd-panel')) return;
+      var dd = btn.parentElement;
+      dd.addEventListener('mouseenter', function () { open(btn, panel); });
+      dd.addEventListener('mouseleave', function () { close(btn, panel); });
+      btn.addEventListener('click', function () { toggle(btn, panel); });
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(btn, panel); }
+        if (e.key === 'Escape') { close(btn, panel); btn.focus(); }
+      });
+      panel.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { close(btn, panel); btn.focus(); }
+      });
+    });
+    document.addEventListener('click', function (e) {
+      document.querySelectorAll('.nav-dd-btn').forEach(function (btn) {
+        var panel = btn.nextElementSibling;
+        if (panel && !btn.parentElement.contains(e.target)) close(btn, panel);
+      });
+    });
+  }
+  function open(btn, panel) { panel.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+  function close(btn, panel) { panel.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+  function toggle(btn, panel) { panel.classList.contains('open') ? close(btn, panel) : open(btn, panel); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+}());
+</script>
 </body>
 </html>
