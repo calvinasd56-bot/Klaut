@@ -987,6 +987,14 @@
     justify-content: center;
     align-items: flex-start;
   }
+  /* Pull hero copy closer to the left viewport edge on wide screens
+     by widening the centred container so its left edge sits nearer to 0 */
+  @media (min-width: 1280px) {
+    .hero-section > .max-w-7xl { max-width: 1480px !important; }
+  }
+  @media (min-width: 1600px) {
+    .hero-section > .max-w-7xl { max-width: 1560px !important; }
+  }
   /* Hero copy column — widen so H1 doesn't wrap to single-word lines */
   .hero-section .hero-content {
     width: 100%;
