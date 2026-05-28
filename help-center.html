@@ -177,7 +177,7 @@
 
   /* ============ Hero Search (above Get Started, Asana-style) ============ */
   .hero-search-section { padding: 0 0 36px; }
-  .hero-search-wrap { position: relative; max-width: 720px; margin: 0 auto; }
+  .hero-search-wrap { position: relative; width: 100%; margin: 0 auto; }
   .hero-search-input {
     width: 100%;
     background: #111;
@@ -985,22 +985,16 @@ nav[aria-label="Primary"] { position: relative; }
   </div>
 </section>
 
-<!-- ============================================================ FILTER BAR -->
+<!-- ============================================================ RESULT COUNT + EXPAND ALL -->
+<!-- Category chips removed — filtering is done via Browse by Topic cards above. -->
 <section class="relative max-w-5xl mx-auto px-6 lg:px-10">
-  <div id="filterBar" class="filter-sticky">
-    <!-- Category chips -->
-    <div id="categoryChips" class="chip-rail flex items-center gap-2 overflow-x-auto pb-1">
-      <!-- chips injected here -->
-    </div>
-  </div>
-
-  <!-- Result count + Expand all -->
-  <div id="resultCount" class="mt-8 flex items-center justify-between gap-4 flex-wrap">
-    <div class="flex items-baseline gap-4 flex-wrap">
+  <div id="resultCount" class="flex items-center justify-between gap-4 flex-wrap">
+    <div class="flex items-baseline gap-3 flex-wrap">
       <div class="text-sm text-muted">
         Showing <span id="visibleCount" class="text-ink font-mono">28</span> of <span class="text-ink font-mono">28</span> questions
       </div>
       <div id="activeFilterLabel" class="text-xs uppercase tracking-[0.18em] text-accent-2 hidden">All categories</div>
+      <button id="resetFilterBtn" type="button" class="hidden text-xs text-muted hover:text-ink transition underline underline-offset-2 decoration-dotted">Reset filter</button>
     </div>
     <button id="expandAll" class="btn btn-ghost text-xs px-3 py-2.5">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
@@ -1457,9 +1451,9 @@ function renderTopicCards() {
       if (clearBtn) { clearBtn.classList.add('hidden'); }
       renderChips();
       renderList();
-      const filterBar = document.getElementById('filterBar');
-      if (filterBar) {
-        const y = filterBar.getBoundingClientRect().top + window.scrollY - 72;
+      const resultEl = document.getElementById('resultCount');
+      if (resultEl) {
+        const y = resultEl.getBoundingClientRect().top + window.scrollY - 72;
         window.scrollTo({ top: y, behavior: 'smooth' });
       }
     });
@@ -1467,9 +1461,10 @@ function renderTopicCards() {
   });
 }
 
-/* ---------------- Render: chips ---------------- */
+/* ---------------- Render: chips (no-op — chip bar removed, kept as guard) ---------------- */
 function renderChips() {
   const chipsEl = document.getElementById('categoryChips');
+  if (!chipsEl) return;
   chipsEl.innerHTML = '';
   CATEGORIES.forEach(c => {
     const count = c.id === 'all' ? FAQ.length : FAQ.filter(f => f.cat === c.id).length;
@@ -1524,12 +1519,17 @@ function renderList() {
   document.getElementById('visibleCount').textContent = filtered.length;
 
   const labelEl = document.getElementById('activeFilterLabel');
+  const resetBtn = document.getElementById('resetFilterBtn');
   const catLabel = CATEGORIES.find(c => c.id === state.cat).label;
   if (state.cat !== 'all' || state.q) {
-    labelEl.classList.remove('hidden');
-    labelEl.textContent = state.q ? `Filter: "${state.q}"` : catLabel;
+    if (labelEl) {
+      labelEl.classList.remove('hidden');
+      labelEl.textContent = state.q ? `Filter: "${state.q}"` : catLabel;
+    }
+    if (resetBtn) resetBtn.classList.remove('hidden');
   } else {
-    labelEl.classList.add('hidden');
+    if (labelEl) labelEl.classList.add('hidden');
+    if (resetBtn) resetBtn.classList.add('hidden');
   }
 
   list.innerHTML = '';
@@ -1650,14 +1650,24 @@ document.getElementById('expandAll').addEventListener('click', () => {
   renderList();
 });
 
+/* ---------------- Reset filter button ---------------- */
+(function(){
+  const resetBtn = document.getElementById('resetFilterBtn');
+  if (resetBtn) resetBtn.addEventListener('click', () => resetFilters());
+})();
+
 /* ---------------- Nav scroll style ---------------- */
 const nav = document.getElementById('nav');
 const filterBar = document.getElementById('filterBar');
 function onScroll() {
-  if (window.scrollY > 8) nav.classList.add('bg-bg/70', 'backdrop-blur-xl', 'border-b', 'border-line');
-  else nav.classList.remove('bg-bg/70', 'backdrop-blur-xl', 'border-b', 'border-line');
-  const r = filterBar.getBoundingClientRect();
-  filterBar.classList.toggle('stuck', r.top <= 64);
+  if (nav) {
+    if (window.scrollY > 8) nav.classList.add('bg-bg/70', 'backdrop-blur-xl', 'border-b', 'border-line');
+    else nav.classList.remove('bg-bg/70', 'backdrop-blur-xl', 'border-b', 'border-line');
+  }
+  if (filterBar) {
+    const r = filterBar.getBoundingClientRect();
+    filterBar.classList.toggle('stuck', r.top <= 64);
+  }
 }
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
