@@ -450,6 +450,52 @@
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
 
-<script src="/slime-widget.js" defer></script>
+<link rel="stylesheet" href="/assets/slime-widget.css">
+<script>window.__slimeLang = 'en';</script>
+<button id="slime-fab" data-state="idle" aria-label="Open Compass Copilot">
+  <span class="slime-nudge" id="slime-nudge"></span>
+</button>
+<div class="fab-bubble" id="fab-bubble" role="status" aria-live="polite">
+  <small><span class="fab-bubble-dot"></span><span id="fab-bubble-eyebrow">Compass</span></small>
+  <span id="fab-bubble-txt"></span>
+</div>
+<div id="ai-panel" data-state="idle" aria-hidden="true" role="dialog" aria-label="Compass Copilot">
+  <div class="ai-h">
+    <span class="ava" aria-hidden="true"></span>
+    <span class="htxt">
+      <b id="ai-panel-title">Compass Copilot</b>
+      <span class="stat"><i></i><span id="ai-stat">Online &middot; ready</span></span>
+    </span>
+    <button class="x" id="ai-x" title="Close" aria-label="Close">&times;</button>
+  </div>
+  <div id="ai-log"></div>
+  <div class="ai-chips">
+    <button class="ai-chip">What is Compass?</button>
+    <button class="ai-chip">See pricing plans</button>
+    <button class="ai-chip">Book a demo</button>
+    <button class="ai-chip">Talk to sales</button>
+  </div>
+  <form id="ai-form" autocomplete="off">
+    <input id="ai-in" placeholder="Ask about Compass..." aria-label="Message"/>
+    <button type="submit">Send</button>
+  </form>
+</div>
+<div id="compass-slime-chat" role="dialog" aria-label="How can I help you?" aria-hidden="true">
+  <div class="csc-header">
+    <span class="csc-eyebrow">COMPASS AI</span>
+    <span class="csc-dot" aria-hidden="true"></span>
+    <button class="csc-close" id="csc-close" aria-label="Close">&times;</button>
+  </div>
+  <p class="csc-greeting">Hi! What can I help you with today?</p>
+  <div class="csc-grid" id="csc-cta-grid"><!-- populated by JS --></div>
+  <div class="csc-input-row">
+    <input class="csc-input" id="csc-input" type="text" placeholder="Or ask me anything..." autocomplete="off" aria-label="Ask Compass AI"/>
+    <button class="csc-send" id="csc-send">Send</button>
+  </div>
+  <p class="csc-footer">Klaut surfaces options &mdash; you decide what to do. AI assistant in development.</p>
+</div>
+<div id="slime-toast" style="position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:#4F6BFF;color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;font-family:Inter,sans-serif;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:10000"></div>
+<script type="module" src="/assets/slime-widget.js"></script>
+<!-- ══ end Slime Widget ══ -->
 </body>
 </html>
