@@ -47,7 +47,7 @@
 }
 </script>
 
-<link rel="icon" type="image/png" href="/klaut-K.png"/>
+<link rel="icon" type="image/svg+xml" href="/klaut-K.svg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -88,7 +88,7 @@
 <header class="border-b border-line">
   <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
     <a href="/id/" class="flex items-center gap-2.5">
-      <img src="/klaut-K.png" alt="" class="h-7 w-7"/>
+      <img src="/klaut-K.svg" alt="" class="h-7 w-7"/>
       <img src="/klaut-wordmark-text.png" alt="Klaut" class="h-5"/>
     </a>
     <nav class="hidden md:flex items-center gap-1">
@@ -123,7 +123,7 @@
 <footer class="border-t border-line">
   <div class="max-w-7xl mx-auto px-6 lg:px-10 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-xs text-dim">
     <div class="flex items-center gap-2.5">
-      <img src="/klaut-K.png" alt="" class="h-6 w-6"/>
+      <img src="/klaut-K.svg" alt="" class="h-6 w-6"/>
       <span>© 2026 Klaut AI</span>
     </div>
     <div class="flex gap-6">
@@ -156,7 +156,7 @@ if (error) {
     <a href="/id/artikel/${escapeHtml(a.slug)}" class="card block border border-line rounded-2xl bg-surface overflow-hidden">
       ${a.cover_image_url
         ? `<div class="aspect-[16/9] bg-surface2 overflow-hidden"><img src="${escapeHtml(a.cover_image_url)}" alt="" class="w-full h-full object-cover"/></div>`
-        : `<div class="aspect-[16/9] bg-gradient-to-br from-surface2 to-surface flex items-center justify-center"><img src="/klaut-K.png" alt="" class="h-10 w-10 opacity-30"/></div>`}
+        : `<div class="aspect-[16/9] bg-gradient-to-br from-surface2 to-surface flex items-center justify-center"><img src="/klaut-K.svg" alt="" class="h-10 w-10 opacity-30"/></div>`}
       <div class="p-5">
         <div class="text-xs font-mono text-dim mb-2">${formatDate(a.published_at)}</div>
         <h2 class="text-lg font-semibold leading-snug">${escapeHtml(a.title_id || "(tanpa judul)")}</h2>
