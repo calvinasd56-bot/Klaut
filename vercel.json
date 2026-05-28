@@ -4,7 +4,9 @@
   "trailingSlash": false,
   "redirects": [
     { "source": "/en",                       "destination": "/",                       "permanent": true },
-    { "source": "/en/faq",                   "destination": "/faq",                    "permanent": true },
+    { "source": "/faq",                      "destination": "/help-center",            "permanent": true },
+    { "source": "/id/faq",                   "destination": "/id/help-center",         "permanent": true },
+    { "source": "/en/faq",                   "destination": "/help-center",            "permanent": true },
     { "source": "/en/articles",              "destination": "/articles",               "permanent": true },
     { "source": "/en/articles/:slug",        "destination": "/articles/:slug",         "permanent": true },
     { "source": "/en/case-studies",          "destination": "/case-studies",           "permanent": true },

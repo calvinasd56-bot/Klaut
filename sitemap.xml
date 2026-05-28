@@ -17,9 +17,9 @@
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/faq"/>
-    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/faq"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/faq"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/help-center"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/help-center"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/help-center"/>
   </url>
   <url>
     <loc>https://klaut.id/articles</loc>
@@ -81,9 +81,9 @@
     <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/faq"/>
-    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/faq"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/faq"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/help-center"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/help-center"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/help-center"/>
   </url>
   <url>
     <loc>https://klaut.id/id/artikel</loc>

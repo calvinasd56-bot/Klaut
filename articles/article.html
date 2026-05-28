@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Article â€” Klaut</title>
+<title>Article — Klaut</title>
 <meta name="description" id="meta-desc" content="AI insights from the Klaut team."/>
 <meta name="theme-color" content="#0a0a0a"/>
 <link rel="canonical" id="meta-canonical" href="https://klaut.id/articles"/>
@@ -96,7 +96,7 @@
   transform: translateX(-50%) translateY(0);
 }
 
-/* Help dropdown â€” narrow single column */
+/* Help dropdown — narrow single column */
 .nav-dd-panel.panel-help {
   width: 200px;
   padding: 8px;
@@ -109,7 +109,7 @@
 .nav-dd-panel.panel-help a:hover { background: rgba(255,255,255,.06); color: #fff; }
 .nav-dd-panel.panel-help a:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; }
 
-/* Product mega-panel â€” 3 columns */
+/* Product mega-panel — 3 columns */
 .nav-dd-panel.panel-mega {
   width: 680px;
   padding: 24px;
@@ -195,7 +195,7 @@ nav[aria-label="Primary"] { position: relative; }
               <div>
                 <span class="mega-col-header">Platform</span>
                 <div class="mega-items">
-                  <a href="/klaut-ai" role="menuitem">Klaut AI</a>
+                  <a href="/" role="menuitem">Klaut AI</a>
                   <a href="https://compass.klaut.id/" role="menuitem">Compass</a>
                   <a href="/marketplace" role="menuitem">Klaut Marketplace</a>
                   <a href="/learning" role="menuitem">Klaut Learning Center</a>
@@ -280,7 +280,7 @@ nav[aria-label="Primary"] { position: relative; }
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div id="ndd-artart-help" class="nav-dd-panel panel-help" role="menu" aria-label="Help">
-            <a href="/faq" role="menuitem">FAQ</a>
+            <a href="/help-center" role="menuitem">FAQ</a>
             <a href="/help-center" role="menuitem">Resource Center</a>
             <a href="mailto:hello@klaut.id" role="menuitem">Contact Us</a>
           </div>
@@ -328,7 +328,7 @@ nav[aria-label="Primary"] { position: relative; }
     </div>
   </article>
 
-  <div id="loading" class="max-w-3xl mx-auto px-6 lg:px-8 pt-24 pb-24 text-center text-dim">Loading articleâ€¦</div>
+  <div id="loading" class="max-w-3xl mx-auto px-6 lg:px-8 pt-24 pb-24 text-center text-dim">Loading article…</div>
 
   <div id="notfound" class="max-w-3xl mx-auto px-6 lg:px-8 pt-24 pb-24 text-center hidden">
     <div class="text-6xl mb-4">404</div>
@@ -345,8 +345,8 @@ nav[aria-label="Primary"] { position: relative; }
         <img src="/klaut-K-mark.png?v=1" alt="" class="h-8 w-8"/>
         <span class="font-semibold tracking-tight text-[17px]">Klaut</span>
       </div>
-      <p class="mt-6 max-w-sm text-[14px] text-muted leading-relaxed">Workforce intelligence for the AI transition. Quantify what your team recovers â€” grounded assumptions, your numbers.</p>
-      <div class="mt-7 font-mono text-[12px] text-dim">Jakarta â€” and the rest of the world</div>
+      <p class="mt-6 max-w-sm text-[14px] text-muted leading-relaxed">Workforce intelligence for the AI transition. Quantify what your team recovers — grounded assumptions, your numbers.</p>
+      <div class="mt-7 font-mono text-[12px] text-dim">Jakarta — and the rest of the world</div>
     </div>
 
     <div class="md:col-span-2">
@@ -381,7 +381,7 @@ nav[aria-label="Primary"] { position: relative; }
   </div>
   <div class="border-t border-line">
     <div class="max-w-7xl mx-auto px-6 lg:px-10 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-dim">
-      <div>Â© 2026 Klaut AI Â· All rights reserved.</div>
+      <div>© 2026 Klaut AI · All rights reserved.</div>
       <div class="flex gap-6">
         <a href="/privacy" class="link-hover">Privacy</a>
         <a href="/terms" class="link-hover">Terms</a>
@@ -421,7 +421,7 @@ if (!slug) {
   } else {
     document.documentElement.lang = "en";
 
-    const pageTitle = (data.seo_title_en || data.title_en) + " â€” Klaut";
+    const pageTitle = (data.seo_title_en || data.title_en) + " — Klaut";
     const pageDesc  = data.seo_description_en || data.excerpt_en || "";
     const author    = (data.author && data.author.trim()) || "Klaut";
     const mins      = readingTime(data.content_en);
@@ -451,7 +451,7 @@ if (!slug) {
     const parts = [dateStr];
     if (mins) parts.push(`${mins} min read`);
     if (author && author !== "Klaut") parts.push(`by ${author}`);
-    document.getElementById("date").textContent = parts.join(" Â· ");
+    document.getElementById("date").textContent = parts.join(" · ");
     document.getElementById("title").textContent = data.title_en;
     if (data.excerpt_en) {
       document.getElementById("excerpt").textContent = data.excerpt_en;
@@ -495,7 +495,7 @@ if (!slug) {
       const DOC_LABEL = { case_study:"Case Study", audit:"Audit", whitepaper:"Whitepaper", roadmap:"Roadmap", reference:"Reference", attestation:"Attestation", brief:"Brief", template:"Template", spec:"Spec", rubric:"Rubric", protocol:"Protocol" };
       list.innerHTML = cs.map(c => `
         <a href="/case-studies/${escapeAttr(c.slug)}" class="block border border-line rounded-xl bg-surface hover:border-linestrong transition p-5">
-          <div class="text-[10px] font-mono uppercase tracking-widest text-accent-2 mb-2">${escapeAttr(DOC_LABEL[c.doc_type] || c.doc_type || "Document")}${c.page_count ? ` Â· ${c.page_count} pp` : ""}</div>
+          <div class="text-[10px] font-mono uppercase tracking-widest text-accent-2 mb-2">${escapeAttr(DOC_LABEL[c.doc_type] || c.doc_type || "Document")}${c.page_count ? ` · ${c.page_count} pp` : ""}</div>
           <div class="font-semibold text-base leading-snug">${escapeAttr(c.title_en || c.title_id || c.slug)}</div>
           ${c.client_label ? `<div class="text-xs text-dim mt-1">${escapeAttr(c.client_label)}</div>` : ""}
           ${c.excerpt_en ? `<p class="text-sm text-muted mt-3 line-clamp-2">${escapeAttr(c.excerpt_en)}</p>` : ""}
