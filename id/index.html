@@ -981,6 +981,17 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: flex-start;
+  }
+  .hero-section .hero-content {
+    width: 100%;
+    text-align: left;
+  }
+  @media (min-width: 1024px) {
+    .hero-section .hero-content { max-width: 72% !important; }
+  }
+  @media (min-width: 1280px) {
+    .hero-section .hero-content { max-width: 68% !important; }
   }
   .hero-section .pt-24 { padding-top: 2rem !important; }
   .hero-section .pb-32 { padding-bottom: 2rem !important; }

@@ -977,12 +977,26 @@
     flex-direction: column;
   }
   /* Inner padding wrap = the .max-w-7xl container at line ~1328
-     Becomes flex:1 so it absorbs the available height; copy centers vertically. */
+     Becomes flex:1 so it absorbs the available height; copy centers vertically
+     but is pinned to the LEFT (align-items: flex-start) so text stays rata-kiri
+     instead of drifting to the horizontal center. */
   .hero-section > .max-w-7xl {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: flex-start;
+  }
+  /* Hero copy column — widen so H1 doesn't wrap to single-word lines */
+  .hero-section .hero-content {
+    width: 100%;
+    text-align: left;
+  }
+  @media (min-width: 1024px) {
+    .hero-section .hero-content { max-width: 72% !important; }
+  }
+  @media (min-width: 1280px) {
+    .hero-section .hero-content { max-width: 68% !important; }
   }
   /* Compress hero padding so copy + marquee fit in a single viewport */
   .hero-section .pt-24 { padding-top: 2rem !important; }
