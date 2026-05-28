@@ -370,6 +370,25 @@
 }
 .mega-items a:hover { color: #fff; }
 .mega-items a:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; border-radius: 2px; }
+/* Solutions mega-panel — 4 columns */
+.nav-dd-panel.panel-mega--4 {
+  width: 860px;
+  padding: 24px;
+}
+@media (max-width: 900px) {
+  .nav-dd-panel.panel-mega--4 {
+    width: calc(100vw - 24px);
+    left: 0; transform: translateY(-4px);
+  }
+  .nav-dd-panel.panel-mega--4.open { transform: translateY(0); }
+}
+.mega-cols--4 {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px;
+}
+.mega-items a.mega-view-all {
+  color: rgba(255,255,255,.5); font-style: italic;
+}
+.mega-items a.mega-view-all:hover { color: rgba(255,255,255,.8); }
 </style>
 </head>
 <body class="bg-bg text-ink">
@@ -414,6 +433,57 @@
                   <a href="/ai/inference" role="menuitem">Inference Engine</a>
                   <a href="/ai/copilot" role="menuitem">AI Copilot (Slime)</a>
                   <a href="/ai/decision-support" role="menuitem">Decision Support</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-con-sol">Solutions
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-con-sol" class="nav-dd-panel panel-mega panel-mega--4" role="menu" aria-label="Solutions">
+            <div class="mega-cols mega-cols--4">
+              <div>
+                <span class="mega-col-header">Company Type</span>
+                <div class="mega-items">
+                  <a href="/solutions/solo" role="menuitem">Solo</a>
+                  <a href="/solutions/team" role="menuitem">Team</a>
+                  <a href="/solutions/enterprise" role="menuitem">Enterprise</a>
+                  <a href="/solutions/partners" role="menuitem">Partners</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Organization Structure</span>
+                <div class="mega-items">
+                  <a href="/solutions/employer" role="menuitem">Employer</a>
+                  <a href="/solutions/manager" role="menuitem">Manager</a>
+                  <a href="/solutions/hr" role="menuitem">HR</a>
+                  <a href="/solutions/employee" role="menuitem">Employee</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Industries</span>
+                <div class="mega-items">
+                  <a href="/solutions/industries/education" role="menuitem">Education</a>
+                  <a href="/solutions/industries/insurance" role="menuitem">Insurance</a>
+                  <a href="/solutions/industries/financial-services" role="menuitem">Financial Services</a>
+                  <a href="/solutions/industries/technology" role="menuitem">Technology</a>
+                  <a href="/solutions/industries/ecommerce" role="menuitem">E-commerce</a>
+                  <a href="/solutions/industries/healthcare" role="menuitem">Healthcare</a>
+                  <a href="/solutions/industries" role="menuitem" class="mega-view-all">View all industries</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Use Cases</span>
+                <div class="mega-items">
+                  <a href="/use-cases/ai-readiness" role="menuitem">AI readiness audit</a>
+                  <a href="/use-cases/workforce-intelligence" role="menuitem">Workforce intelligence</a>
+                  <a href="/use-cases/integration" role="menuitem">Cross-tool integration</a>
+                  <a href="/use-cases/honest-reports" role="menuitem">Honest performance reports</a>
+                  <a href="/use-cases/compliance" role="menuitem">Compliance &amp; privacy</a>
+                  <a href="/use-cases" role="menuitem" class="mega-view-all">View all use cases</a>
                 </div>
               </div>
             </div>
@@ -482,6 +552,39 @@
         <a href="/ai/inference" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Inference Engine</a>
         <a href="/ai/copilot" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">AI Copilot (Slime)</a>
         <a href="/ai/decision-support" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Decision Support</a>
+      </div>
+    </details>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Solutions</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-4 flex flex-col gap-0 mt-1">
+        <p class="px-4 pt-2 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Company Type</p>
+        <a href="/solutions/solo" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Solo</a>
+        <a href="/solutions/team" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Team</a>
+        <a href="/solutions/enterprise" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Enterprise</a>
+        <a href="/solutions/partners" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Partners</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Organization Structure</p>
+        <a href="/solutions/employer" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Employer</a>
+        <a href="/solutions/manager" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Manager</a>
+        <a href="/solutions/hr" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">HR</a>
+        <a href="/solutions/employee" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Employee</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Industries</p>
+        <a href="/solutions/industries/education" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Education</a>
+        <a href="/solutions/industries/insurance" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Insurance</a>
+        <a href="/solutions/industries/financial-services" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Financial Services</a>
+        <a href="/solutions/industries/technology" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Technology</a>
+        <a href="/solutions/industries/ecommerce" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">E-commerce</a>
+        <a href="/solutions/industries/healthcare" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Healthcare</a>
+        <a href="/solutions/industries" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-white/50 text-[13px] italic">View all industries</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Use Cases</p>
+        <a href="/use-cases/ai-readiness" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">AI readiness audit</a>
+        <a href="/use-cases/workforce-intelligence" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Workforce intelligence</a>
+        <a href="/use-cases/integration" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Cross-tool integration</a>
+        <a href="/use-cases/honest-reports" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Honest performance reports</a>
+        <a href="/use-cases/compliance" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Compliance &amp; privacy</a>
+        <a href="/use-cases" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-white/50 text-[13px] italic">View all use cases</a>
       </div>
     </details>
     <details class="group">

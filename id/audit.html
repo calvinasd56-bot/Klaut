@@ -389,6 +389,25 @@
 }
 .mega-items a:hover { color: #fff; }
 .mega-items a:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; border-radius: 2px; }
+/* Solutions mega-panel — 4 columns */
+.nav-dd-panel.panel-mega--4 {
+  width: 860px;
+  padding: 24px;
+}
+@media (max-width: 900px) {
+  .nav-dd-panel.panel-mega--4 {
+    width: calc(100vw - 24px);
+    left: 0; transform: translateY(-4px);
+  }
+  .nav-dd-panel.panel-mega--4.open { transform: translateY(0); }
+}
+.mega-cols--4 {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px;
+}
+.mega-items a.mega-view-all {
+  color: rgba(255,255,255,.5); font-style: italic;
+}
+.mega-items a.mega-view-all:hover { color: rgba(255,255,255,.8); }
 </style>
 </head>
 <body class="bg-bg text-ink">
@@ -433,6 +452,57 @@
                   <a href="/ai/inference" role="menuitem">Mesin Inferensi</a>
                   <a href="/ai/copilot" role="menuitem">AI Copilot (Slime)</a>
                   <a href="/ai/decision-support" role="menuitem">Dukungan Keputusan</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-idaud-sol">Solusi
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-idaud-sol" class="nav-dd-panel panel-mega panel-mega--4" role="menu" aria-label="Solusi">
+            <div class="mega-cols mega-cols--4">
+              <div>
+                <span class="mega-col-header">Tipe Perusahaan</span>
+                <div class="mega-items">
+                  <a href="/solutions/solo" role="menuitem">Solo</a>
+                  <a href="/solutions/team" role="menuitem">Tim</a>
+                  <a href="/solutions/enterprise" role="menuitem">Enterprise</a>
+                  <a href="/solutions/partners" role="menuitem">Partner</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Struktur Organisasi</span>
+                <div class="mega-items">
+                  <a href="/solutions/employer" role="menuitem">Pemberi Kerja</a>
+                  <a href="/solutions/manager" role="menuitem">Manajer</a>
+                  <a href="/solutions/hr" role="menuitem">HR</a>
+                  <a href="/solutions/employee" role="menuitem">Karyawan</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Industri</span>
+                <div class="mega-items">
+                  <a href="/solutions/industries/education" role="menuitem">Pendidikan</a>
+                  <a href="/solutions/industries/insurance" role="menuitem">Asuransi</a>
+                  <a href="/solutions/industries/financial-services" role="menuitem">Jasa Keuangan</a>
+                  <a href="/solutions/industries/technology" role="menuitem">Teknologi</a>
+                  <a href="/solutions/industries/ecommerce" role="menuitem">E-commerce</a>
+                  <a href="/solutions/industries/healthcare" role="menuitem">Kesehatan</a>
+                  <a href="/solutions/industries" role="menuitem" class="mega-view-all">Lihat semua industri</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Kasus Penggunaan</span>
+                <div class="mega-items">
+                  <a href="/use-cases/ai-readiness" role="menuitem">Audit kesiapan AI</a>
+                  <a href="/use-cases/workforce-intelligence" role="menuitem">Intelijen tenaga kerja</a>
+                  <a href="/use-cases/integration" role="menuitem">Integrasi lintas tool</a>
+                  <a href="/use-cases/honest-reports" role="menuitem">Laporan kinerja jujur</a>
+                  <a href="/use-cases/compliance" role="menuitem">Kepatuhan &amp; privasi</a>
+                  <a href="/use-cases" role="menuitem" class="mega-view-all">Lihat semua kasus</a>
                 </div>
               </div>
             </div>
@@ -501,6 +571,39 @@
         <a href="/ai/inference" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Mesin Inferensi</a>
         <a href="/ai/copilot" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">AI Copilot (Slime)</a>
         <a href="/ai/decision-support" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Dukungan Keputusan</a>
+      </div>
+    </details>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Solusi</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-4 flex flex-col gap-0 mt-1">
+        <p class="px-4 pt-2 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Tipe Perusahaan</p>
+        <a href="/solutions/solo" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Solo</a>
+        <a href="/solutions/team" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Tim</a>
+        <a href="/solutions/enterprise" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Enterprise</a>
+        <a href="/solutions/partners" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Partner</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Struktur Organisasi</p>
+        <a href="/solutions/employer" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Pemberi Kerja</a>
+        <a href="/solutions/manager" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Manajer</a>
+        <a href="/solutions/hr" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">HR</a>
+        <a href="/solutions/employee" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Karyawan</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Industri</p>
+        <a href="/solutions/industries/education" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Pendidikan</a>
+        <a href="/solutions/industries/insurance" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Asuransi</a>
+        <a href="/solutions/industries/financial-services" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Jasa Keuangan</a>
+        <a href="/solutions/industries/technology" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Teknologi</a>
+        <a href="/solutions/industries/ecommerce" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">E-commerce</a>
+        <a href="/solutions/industries/healthcare" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Kesehatan</a>
+        <a href="/solutions/industries" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-white/50 text-[13px] italic">Lihat semua industri</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Kasus Penggunaan</p>
+        <a href="/use-cases/ai-readiness" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Audit kesiapan AI</a>
+        <a href="/use-cases/workforce-intelligence" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Intelijen tenaga kerja</a>
+        <a href="/use-cases/integration" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Integrasi lintas tool</a>
+        <a href="/use-cases/honest-reports" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Laporan kinerja jujur</a>
+        <a href="/use-cases/compliance" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Kepatuhan &amp; privasi</a>
+        <a href="/use-cases" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-white/50 text-[13px] italic">Lihat semua kasus</a>
       </div>
     </details>
     <details class="group">

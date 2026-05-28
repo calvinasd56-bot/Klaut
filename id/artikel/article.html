@@ -141,6 +141,25 @@
 }
 .mega-items a:hover { color: #fff; }
 .mega-items a:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; border-radius: 2px; }
+/* Solutions mega-panel — 4 columns */
+.nav-dd-panel.panel-mega--4 {
+  width: 860px;
+  padding: 24px;
+}
+@media (max-width: 900px) {
+  .nav-dd-panel.panel-mega--4 {
+    width: calc(100vw - 24px);
+    left: 0; transform: translateY(-4px);
+  }
+  .nav-dd-panel.panel-mega--4.open { transform: translateY(0); }
+}
+.mega-cols--4 {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px;
+}
+.mega-items a.mega-view-all {
+  color: rgba(255,255,255,.5); font-style: italic;
+}
+.mega-items a.mega-view-all:hover { color: rgba(255,255,255,.8); }
 </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -184,6 +203,57 @@
                   <a href="/ai/inference" role="menuitem">Mesin Inferensi</a>
                   <a href="/ai/copilot" role="menuitem">AI Copilot (Slime)</a>
                   <a href="/ai/decision-support" role="menuitem">Dukungan Keputusan</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-idartart-sol">Solusi
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-idartart-sol" class="nav-dd-panel panel-mega panel-mega--4" role="menu" aria-label="Solusi">
+            <div class="mega-cols mega-cols--4">
+              <div>
+                <span class="mega-col-header">Tipe Perusahaan</span>
+                <div class="mega-items">
+                  <a href="/solutions/solo" role="menuitem">Solo</a>
+                  <a href="/solutions/team" role="menuitem">Tim</a>
+                  <a href="/solutions/enterprise" role="menuitem">Enterprise</a>
+                  <a href="/solutions/partners" role="menuitem">Partner</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Struktur Organisasi</span>
+                <div class="mega-items">
+                  <a href="/solutions/employer" role="menuitem">Pemberi Kerja</a>
+                  <a href="/solutions/manager" role="menuitem">Manajer</a>
+                  <a href="/solutions/hr" role="menuitem">HR</a>
+                  <a href="/solutions/employee" role="menuitem">Karyawan</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Industri</span>
+                <div class="mega-items">
+                  <a href="/solutions/industries/education" role="menuitem">Pendidikan</a>
+                  <a href="/solutions/industries/insurance" role="menuitem">Asuransi</a>
+                  <a href="/solutions/industries/financial-services" role="menuitem">Jasa Keuangan</a>
+                  <a href="/solutions/industries/technology" role="menuitem">Teknologi</a>
+                  <a href="/solutions/industries/ecommerce" role="menuitem">E-commerce</a>
+                  <a href="/solutions/industries/healthcare" role="menuitem">Kesehatan</a>
+                  <a href="/solutions/industries" role="menuitem" class="mega-view-all">Lihat semua industri</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Kasus Penggunaan</span>
+                <div class="mega-items">
+                  <a href="/use-cases/ai-readiness" role="menuitem">Audit kesiapan AI</a>
+                  <a href="/use-cases/workforce-intelligence" role="menuitem">Intelijen tenaga kerja</a>
+                  <a href="/use-cases/integration" role="menuitem">Integrasi lintas tool</a>
+                  <a href="/use-cases/honest-reports" role="menuitem">Laporan kinerja jujur</a>
+                  <a href="/use-cases/compliance" role="menuitem">Kepatuhan &amp; privasi</a>
+                  <a href="/use-cases" role="menuitem" class="mega-view-all">Lihat semua kasus</a>
                 </div>
               </div>
             </div>
