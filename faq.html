@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
 <!-- Primary SEO -->
-<title>Klaut — FAQ · Enterprise AI, Candidly Answered</title>
-<meta name="description" content="Klaut's FAQ — pricing, process, security, and what we won't take on. 23 questions answered with specifics, not boilerplate."/>
-<meta name="keywords" content="Klaut FAQ, Compass workforce intelligence, AI without displacement, AI privacy architecture, Compass pricing, Klaut Compass deployment, AI in Indonesia, AI Act worker impact"/>
+<title>Klaut — Help Center · Enterprise AI, Candidly Answered</title>
+<meta name="description" content="Klaut's Help Center — pricing, process, security, and what we won't take on. 23 questions answered with specifics, not boilerplate."/>
+<meta name="keywords" content="Klaut Help Center, Compass workforce intelligence, AI without displacement, AI privacy architecture, Compass pricing, Klaut Compass deployment, AI in Indonesia, AI Act worker impact"/>
 <meta name="author" content="Klaut"/>
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/>
 <meta name="googlebot" content="index, follow"/>
@@ -23,19 +23,19 @@
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Klaut"/>
 <meta property="og:url" content="https://klaut.id/faq"/>
-<meta property="og:title" content="Klaut — FAQ · Enterprise AI, Candidly Answered"/>
+<meta property="og:title" content="Klaut — Help Center · Enterprise AI, Candidly Answered"/>
 <meta property="og:description" content="How Compass works, the privacy architecture, pricing, and where Klaut honestly stands today. 20 questions answered without boilerplate."/>
 <meta property="og:image" content="https://klaut.id/og-image-en.png"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
-<meta property="og:image:alt" content="Klaut — FAQ"/>
+<meta property="og:image:alt" content="Klaut — Help Center"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:locale:alternate" content="id_ID"/>
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:url" content="https://klaut.id/faq"/>
-<meta name="twitter:title" content="Klaut — FAQ · Enterprise AI, Candidly Answered"/>
+<meta name="twitter:title" content="Klaut — Help Center · Enterprise AI, Candidly Answered"/>
 <meta name="twitter:description" content="How Compass works, our privacy architecture, pricing, and where Klaut stands today. 20 questions answered without boilerplate."/>
 <meta name="twitter:image" content="https://klaut.id/og-image-en.png"/>
 
@@ -578,13 +578,14 @@
 .nav-dd-btn svg { flex-shrink: 0; transition: transform .2s; }
 .nav-dd-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
 .nav-dd-btn:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; border-radius: 4px; }
+
+/* Shared panel chrome */
 .nav-dd-panel {
   position: absolute; top: calc(100% + 6px); left: 50%;
   transform: translateX(-50%) translateY(-4px);
-  width: 240px;
   background: var(--surface, #111111); border: 1px solid var(--line, #262626);
   border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,.55);
-  padding: 8px; opacity: 0; visibility: hidden;
+  opacity: 0; visibility: hidden;
   transition: opacity .15s, visibility .15s, transform .15s;
   z-index: 100;
 }
@@ -592,13 +593,52 @@
   opacity: 1; visibility: visible;
   transform: translateX(-50%) translateY(0);
 }
-.nav-dd-panel a {
-  display: block; padding: 10px 16px; border-radius: 8px;
-  font-size: .875rem; color: var(--muted, #a1a1aa);
-  text-decoration: none; transition: background .12s, color .12s;
+
+/* Help dropdown — narrow single column */
+.nav-dd-panel.panel-help {
+  width: 200px;
+  padding: 8px;
 }
-.nav-dd-panel a:hover { background: rgba(255,255,255,.06); color: #fff; }
-.nav-dd-panel a:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; }
+.nav-dd-panel.panel-help a {
+  display: block; padding: 8px 14px; border-radius: 8px;
+  font-size: 13px; color: var(--muted, #a1a1aa);
+  text-decoration: none; transition: background .12s, color .12s; line-height: 1.4;
+}
+.nav-dd-panel.panel-help a:hover { background: rgba(255,255,255,.06); color: #fff; }
+.nav-dd-panel.panel-help a:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; }
+
+/* Product mega-panel — 3 columns */
+.nav-dd-panel.panel-mega {
+  width: 680px;
+  padding: 24px;
+}
+/* Clamp to viewport on narrow screens */
+@media (max-width: 800px) {
+  .nav-dd-panel.panel-mega {
+    width: calc(100vw - 24px);
+    left: 0; transform: translateY(-4px);
+  }
+  .nav-dd-panel.panel-mega.open { transform: translateY(0); }
+}
+.mega-cols {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+}
+.mega-col-header {
+  display: block;
+  font-size: 11px; font-weight: 500; text-transform: uppercase;
+  letter-spacing: .12em; color: rgba(255,255,255,.45);
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  margin-bottom: 10px;
+}
+.mega-items { display: flex; flex-direction: column; }
+.mega-items a {
+  display: block; padding: 8px 0; font-size: 13px; line-height: 1.4;
+  color: var(--muted, #a1a1aa); text-decoration: none;
+  transition: color .12s;
+}
+.mega-items a:hover { color: #fff; }
+.mega-items a:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; border-radius: 2px; }
 </style>
 </head>
 <body class="bg-bg text-ink">
@@ -616,19 +656,44 @@
           <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-faq-prod">Product
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
-          <div id="ndd-faq-prod" class="nav-dd-panel" role="menu" aria-label="Product">
-            <a href="/klaut-ai" role="menuitem">Klaut AI</a>
-            <a href="https://compass.klaut.id/" role="menuitem">Compass</a>
-            <a href="/marketplace" role="menuitem">Klaut Marketplace</a>
-            <a href="/learning" role="menuitem">Klaut Learning Center</a>
+          <div id="ndd-faq-prod" class="nav-dd-panel panel-mega" role="menu" aria-label="Product">
+            <div class="mega-cols">
+              <div>
+                <span class="mega-col-header">Platform</span>
+                <div class="mega-items">
+                  <a href="/klaut-ai" role="menuitem">Klaut AI</a>
+                  <a href="https://compass.klaut.id/" role="menuitem">Compass</a>
+                  <a href="/marketplace" role="menuitem">Klaut Marketplace</a>
+                  <a href="/learning" role="menuitem">Klaut Learning Center</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Capabilities</span>
+                <div class="mega-items">
+                  <a href="/capabilities/work-patterns" role="menuitem">Work patterns intelligence</a>
+                  <a href="/capabilities/error-detection" role="menuitem">Error detection &amp; correction</a>
+                  <a href="/capabilities/kpi" role="menuitem">KPI Command Center</a>
+                  <a href="/capabilities/reports" role="menuitem">Report Card &amp; analytics</a>
+                  <a href="/capabilities/admin" role="menuitem">Admin &amp; security</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">AI Features</span>
+                <div class="mega-items">
+                  <a href="/ai/inference" role="menuitem">Inference Engine</a>
+                  <a href="/ai/copilot" role="menuitem">AI Copilot (Slime)</a>
+                  <a href="/ai/decision-support" role="menuitem">Decision Support</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="nav-dd">
           <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-faq-help">Help
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
-          <div id="ndd-faq-help" class="nav-dd-panel" role="menu" aria-label="Help">
-            <a href="/faq" role="menuitem" aria-current="page" style="color:#fff">FAQ</a>
+          <div id="ndd-faq-help" class="nav-dd-panel panel-help" role="menu" aria-label="Help">
+            <a href="/faq" role="menuitem" aria-current="page" style="color:#fff">Help Center</a>
             <a href="/help-center" role="menuitem">Help Center</a>
             <a href="mailto:hello@klaut.id" role="menuitem">Contact Us</a>
           </div>
@@ -671,11 +736,22 @@
         <span>Product</span>
         <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
       </summary>
-      <div class="pl-8 flex flex-col gap-0.5 mt-0.5">
-        <a href="/klaut-ai" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">Klaut AI</a>
-        <a href="https://compass.klaut.id/" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">Compass</a>
-        <a href="/marketplace" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">Klaut Marketplace</a>
-        <a href="/learning" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">Klaut Learning Center</a>
+            <div class="pl-4 flex flex-col gap-0 mt-1">
+        <p class="px-4 pt-2 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Platform</p>
+        <a href="/klaut-ai" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut AI</a>
+        <a href="https://compass.klaut.id/" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Compass</a>
+        <a href="/marketplace" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut Marketplace</a>
+        <a href="/learning" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut Learning Center</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Capabilities</p>
+        <a href="/capabilities/work-patterns" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Work patterns intelligence</a>
+        <a href="/capabilities/error-detection" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Error detection &amp; correction</a>
+        <a href="/capabilities/kpi" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">KPI Command Center</a>
+        <a href="/capabilities/reports" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Report Card &amp; analytics</a>
+        <a href="/capabilities/admin" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Admin &amp; security</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">AI Features</p>
+        <a href="/ai/inference" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Inference Engine</a>
+        <a href="/ai/copilot" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">AI Copilot (Slime)</a>
+        <a href="/ai/decision-support" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Decision Support</a>
       </div>
     </details>
     <details class="group" open>
@@ -684,9 +760,9 @@
         <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
       </summary>
       <div class="pl-8 flex flex-col gap-0.5 mt-0.5">
-        <a href="/faq" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-white text-sm" aria-current="page">FAQ</a>
-        <a href="/help-center" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">Help Center</a>
-        <a href="mailto:hello@klaut.id" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">Contact Us</a>
+        <a href="/faq" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-white text-[13px]" aria-current="page">Help Center</a>
+        <a href="/help-center" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Help Center</a>
+        <a href="mailto:hello@klaut.id" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Contact Us</a>
       </div>
     </details>
     <a href="https://compass-app.klaut.id/pricing" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Pricing</a>
@@ -723,7 +799,7 @@
   <div class="hero-search-section">
     <div class="hero-search-wrap">
       <svg class="hero-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
-      <input id="searchInput" type="text" placeholder="Search the whole FAQ — try 'pricing', 'data', 'SOC 2'" class="hero-search-input" autocomplete="off"/>
+      <input id="searchInput" type="text" placeholder="Search the Help Center — try 'pricing', 'data', 'SOC 2'" class="hero-search-input" autocomplete="off"/>
       <button id="clearSearch" class="hero-search-clear hidden" aria-label="Clear search">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
       </button>

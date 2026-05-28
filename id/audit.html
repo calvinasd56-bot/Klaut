@@ -328,13 +328,14 @@
 .nav-dd-btn svg { flex-shrink: 0; transition: transform .2s; }
 .nav-dd-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
 .nav-dd-btn:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; border-radius: 4px; }
+
+/* Shared panel chrome */
 .nav-dd-panel {
   position: absolute; top: calc(100% + 6px); left: 50%;
   transform: translateX(-50%) translateY(-4px);
-  width: 240px;
   background: var(--surface, #111111); border: 1px solid var(--line, #262626);
   border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,.55);
-  padding: 8px; opacity: 0; visibility: hidden;
+  opacity: 0; visibility: hidden;
   transition: opacity .15s, visibility .15s, transform .15s;
   z-index: 100;
 }
@@ -342,13 +343,52 @@
   opacity: 1; visibility: visible;
   transform: translateX(-50%) translateY(0);
 }
-.nav-dd-panel a {
-  display: block; padding: 10px 16px; border-radius: 8px;
-  font-size: .875rem; color: var(--muted, #a1a1aa);
-  text-decoration: none; transition: background .12s, color .12s;
+
+/* Help dropdown — narrow single column */
+.nav-dd-panel.panel-help {
+  width: 200px;
+  padding: 8px;
 }
-.nav-dd-panel a:hover { background: rgba(255,255,255,.06); color: #fff; }
-.nav-dd-panel a:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; }
+.nav-dd-panel.panel-help a {
+  display: block; padding: 8px 14px; border-radius: 8px;
+  font-size: 13px; color: var(--muted, #a1a1aa);
+  text-decoration: none; transition: background .12s, color .12s; line-height: 1.4;
+}
+.nav-dd-panel.panel-help a:hover { background: rgba(255,255,255,.06); color: #fff; }
+.nav-dd-panel.panel-help a:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; }
+
+/* Product mega-panel — 3 columns */
+.nav-dd-panel.panel-mega {
+  width: 680px;
+  padding: 24px;
+}
+/* Clamp to viewport on narrow screens */
+@media (max-width: 800px) {
+  .nav-dd-panel.panel-mega {
+    width: calc(100vw - 24px);
+    left: 0; transform: translateY(-4px);
+  }
+  .nav-dd-panel.panel-mega.open { transform: translateY(0); }
+}
+.mega-cols {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+}
+.mega-col-header {
+  display: block;
+  font-size: 11px; font-weight: 500; text-transform: uppercase;
+  letter-spacing: .12em; color: rgba(255,255,255,.45);
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  margin-bottom: 10px;
+}
+.mega-items { display: flex; flex-direction: column; }
+.mega-items a {
+  display: block; padding: 8px 0; font-size: 13px; line-height: 1.4;
+  color: var(--muted, #a1a1aa); text-decoration: none;
+  transition: color .12s;
+}
+.mega-items a:hover { color: #fff; }
+.mega-items a:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; border-radius: 2px; }
 </style>
 </head>
 <body class="bg-bg text-ink">
@@ -366,18 +406,43 @@
           <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-idaud-prod">Produk
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
-          <div id="ndd-idaud-prod" class="nav-dd-panel" role="menu" aria-label="Produk">
-            <a href="/klaut-ai" role="menuitem">Klaut AI</a>
-            <a href="https://compass.klaut.id/id" role="menuitem">Compass</a>
-            <a href="/marketplace" role="menuitem">Klaut Marketplace</a>
-            <a href="/learning" role="menuitem">Klaut Learning Center</a>
+          <div id="ndd-idaud-prod" class="nav-dd-panel panel-mega" role="menu" aria-label="Produk">
+            <div class="mega-cols">
+              <div>
+                <span class="mega-col-header">Platform</span>
+                <div class="mega-items">
+                  <a href="/klaut-ai" role="menuitem">Klaut AI</a>
+                  <a href="https://compass.klaut.id/id" role="menuitem">Compass</a>
+                  <a href="/marketplace" role="menuitem">Klaut Marketplace</a>
+                  <a href="/learning" role="menuitem">Klaut Learning Center</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Kapabilitas</span>
+                <div class="mega-items">
+                  <a href="/capabilities/work-patterns" role="menuitem">Intelijen pola kerja</a>
+                  <a href="/capabilities/error-detection" role="menuitem">Deteksi &amp; koreksi kesalahan</a>
+                  <a href="/capabilities/kpi" role="menuitem">Pusat Komando KPI</a>
+                  <a href="/capabilities/reports" role="menuitem">Rapor &amp; analitik</a>
+                  <a href="/capabilities/admin" role="menuitem">Admin &amp; keamanan</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Fitur AI</span>
+                <div class="mega-items">
+                  <a href="/ai/inference" role="menuitem">Mesin Inferensi</a>
+                  <a href="/ai/copilot" role="menuitem">AI Copilot (Slime)</a>
+                  <a href="/ai/decision-support" role="menuitem">Dukungan Keputusan</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="nav-dd">
           <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-idaud-help">Bantuan
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
-          <div id="ndd-idaud-help" class="nav-dd-panel" role="menu" aria-label="Bantuan">
+          <div id="ndd-idaud-help" class="nav-dd-panel panel-help" role="menu" aria-label="Bantuan">
             <a href="/id/faq" role="menuitem">FAQ</a>
             <a href="/help-center" role="menuitem">Pusat Bantuan</a>
             <a href="mailto:hello@klaut.id" role="menuitem">Hubungi Kami</a>
@@ -420,11 +485,22 @@
         <span>Produk</span>
         <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
       </summary>
-      <div class="pl-8 flex flex-col gap-0.5 mt-0.5">
-        <a href="/klaut-ai" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">Klaut AI</a>
-        <a href="https://compass.klaut.id/id" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">Compass</a>
-        <a href="/marketplace" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">Klaut Marketplace</a>
-        <a href="/learning" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">Klaut Learning Center</a>
+            <div class="pl-4 flex flex-col gap-0 mt-1">
+        <p class="px-4 pt-2 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Platform</p>
+        <a href="/klaut-ai" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut AI</a>
+        <a href="https://compass.klaut.id/id" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Compass</a>
+        <a href="/marketplace" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut Marketplace</a>
+        <a href="/learning" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut Learning Center</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Kapabilitas</p>
+        <a href="/capabilities/work-patterns" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Intelijen pola kerja</a>
+        <a href="/capabilities/error-detection" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Deteksi &amp; koreksi kesalahan</a>
+        <a href="/capabilities/kpi" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Pusat Komando KPI</a>
+        <a href="/capabilities/reports" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Rapor &amp; analitik</a>
+        <a href="/capabilities/admin" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Admin &amp; keamanan</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Fitur AI</p>
+        <a href="/ai/inference" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Mesin Inferensi</a>
+        <a href="/ai/copilot" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">AI Copilot (Slime)</a>
+        <a href="/ai/decision-support" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Dukungan Keputusan</a>
       </div>
     </details>
     <details class="group">
@@ -433,9 +509,9 @@
         <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
       </summary>
       <div class="pl-8 flex flex-col gap-0.5 mt-0.5">
-        <a href="/id/faq" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">FAQ</a>
-        <a href="/help-center" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">Pusat Bantuan</a>
-        <a href="mailto:hello@klaut.id" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-sm">Hubungi Kami</a>
+        <a href="/id/faq" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">FAQ</a>
+        <a href="/help-center" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Pusat Bantuan</a>
+        <a href="mailto:hello@klaut.id" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Hubungi Kami</a>
       </div>
     </details>
     <a href="https://compass-app.klaut.id/id/pricing" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Pricing</a>
@@ -841,6 +917,7 @@
     <div class="md:col-span-5">
       <div class="flex items-center gap-2.5">
         <img src="/klaut-K-mark.png?v=1" alt="" class="brand-mark"/>
+        <span class="font-semibold tracking-tight text-[17px]">Klaut</span>
       </div>
       <p class="mt-6 max-w-sm text-[14px] text-muted leading-relaxed">
         Ekosistem Transformasi AI Enterprise. Strategi, talent, model, dan tata kelola — direkayasa sebagai satu sistem.
