@@ -121,20 +121,27 @@
 
 <header class="border-b border-line">
   <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-2.5">
-      <img src="/klaut-K.svg" alt="" class="h-7 w-7"/>
-    </a>
-    <nav class="hidden md:flex items-center gap-1">
-      <a href="/#about"        class="px-4 py-2 text-sm text-muted hover:text-ink">About</a>
-      <a href="/#industries"   class="px-4 py-2 text-sm text-muted hover:text-ink">Case Studies</a>
-      <a href="/articles"      class="px-4 py-2 text-sm text-white">Articles</a>
-      <a href="/faq"           class="px-4 py-2 text-sm text-muted hover:text-ink">FAQ</a>
-    </nav>
-    <div class="flex items-center gap-3">
-      <div class="flex items-center rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium">
-        <a href="/artikel"     class="px-3 py-1.5 rounded-full text-muted hover:text-white">ID</a>
-        <a href="/articles" class="px-3 py-1.5 rounded-full bg-white/10 text-white">EN</a>
+    <div class="flex items-center gap-6">
+      <a href="/" class="flex items-center gap-2.5">
+        <img src="/klaut-K.svg" alt="" class="h-7 w-7"/>
+      </a>
+      <nav class="hidden md:flex items-center gap-1" aria-label="Primary">
+        <a href="https://compass-app.klaut.id/why-klaut" class="px-4 py-2 text-sm text-muted hover:text-white transition-colors">Why Klaut</a>
+        <a href="https://compass.klaut.id/" class="px-4 py-2 text-sm text-muted hover:text-white transition-colors">Compass</a>
+        <a href="/faq" class="px-4 py-2 text-sm text-muted hover:text-white transition-colors">FAQ</a>
+        <a href="/articles" class="px-4 py-2 text-sm text-white" aria-current="page">Articles</a>
+        <a href="https://compass-app.klaut.id/pricing" class="px-4 py-2 text-sm text-muted hover:text-white transition-colors">Pricing</a>
+      </nav>
+    </div>
+    <div class="hidden md:flex items-center gap-3">
+      <div class="flex items-center rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium" role="group" aria-label="Select language">
+        <a href="/id/artikel" class="px-3 py-1.5 rounded-full text-muted hover:text-white transition-colors">ID</a>
+        <a href="/articles" class="px-3 py-1.5 rounded-full bg-white/10 text-white" aria-current="page">EN</a>
       </div>
+      <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" style="background:#4F6BFF;color:#fff;border-radius:9999px;padding:8px 18px;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:6px;text-decoration:none;transition:background .15s;">Book a call
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="https://compass-app.klaut.id/" target="_blank" rel="noopener" style="background:rgba(255,255,255,.04);color:#fff;border:1px solid rgba(255,255,255,.1);border-radius:9999px;padding:8px 18px;font-size:14px;font-weight:500;text-decoration:none;transition:background .15s,border-color .15s;">Demo</a>
     </div>
   </div>
 </header>
@@ -154,15 +161,52 @@
 </main>
 
 <footer class="border-t border-line">
-  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-12 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-xs text-dim">
-    <div class="flex items-center gap-2.5">
-      <img src="/klaut-K.svg" alt="" class="h-6 w-6"/>
-      <span>© 2026 Klaut AI</span>
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-16 grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-5">
+      <div class="flex items-center gap-2.5">
+        <img src="/klaut-K.svg" alt="" class="h-8 w-8"/>
+      </div>
+      <p class="mt-6 max-w-sm text-[14px] text-muted leading-relaxed">Workforce intelligence for the AI transition. Quantify what your team recovers — grounded assumptions, your numbers.</p>
+      <div class="mt-7 font-mono text-[12px] text-dim">Jakarta — and the rest of the world</div>
     </div>
-    <div class="flex gap-6">
-      <a href="/" class="link-hover">Home</a>
-      <a href="/faq" class="link-hover">FAQ</a>
-      <a href="mailto:hello@klaut.id" class="link-hover">Contact</a>
+
+    <div class="md:col-span-2">
+      <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">ECOSYSTEM</div>
+      <ul class="space-y-3.5 text-[15px]">
+        <li><a href="/consulting" class="text-muted link-hover">Consulting</a></li>
+        <li><a href="/cao" class="text-muted link-hover">Chief AI Officer</a></li>
+        <li><a href="https://compass.klaut.id/" class="text-muted link-hover">Compass</a></li>
+        <li><a href="/audit" class="text-muted link-hover">Audit</a></li>
+      </ul>
+    </div>
+
+    <div class="md:col-span-2">
+      <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">COMPANY</div>
+      <ul class="space-y-3.5 text-[15px]">
+        <li><a href="/about" class="text-muted link-hover">About</a></li>
+        <li><a href="/career" class="text-muted link-hover">Career</a></li>
+        <li><a href="/partners" class="text-muted link-hover">Partners</a></li>
+        <li><a href="/articles" class="text-muted link-hover">Articles</a></li>
+      </ul>
+    </div>
+
+    <div class="md:col-span-3">
+      <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">CONTACT</div>
+      <ul class="space-y-3.5 text-[15px]">
+        <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Contact Us</a></li>
+        <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Media Contact</a></li>
+        <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Partnership Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-line">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-dim">
+      <div>© 2026 Klaut AI · All rights reserved.</div>
+      <div class="flex gap-6">
+        <a href="/privacy" class="link-hover">Privacy</a>
+        <a href="/terms" class="link-hover">Terms</a>
+        <a href="/security" class="link-hover">Security</a>
+      </div>
     </div>
   </div>
 </footer>
