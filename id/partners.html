@@ -299,7 +299,21 @@
   color: rgba(255,255,255,.5); font-style: italic;
 }
 .mega-items a.mega-view-all:hover { color: rgba(255,255,255,.8); }
-</style>
+/* FIX: anchor mega panels to <nav> container so both Product + Solutions
+   start from the same left edge (Asana pattern). Without this, .nav-dd's
+   trigger-width parent caused PLATFORM column to clip on the left. */
+nav[aria-label="Primary"] { position: relative; }
+.nav-dd:has(.panel-mega),
+.nav-dd:has(.panel-mega--4) { position: static; }
+.nav-dd-panel.panel-mega,
+.nav-dd-panel.panel-mega--4 {
+  left: 0;
+  transform: translateY(-4px);
+}
+.nav-dd-panel.panel-mega.open,
+.nav-dd-panel.panel-mega--4.open {
+  transform: translateY(0);
+}</style>
 </head>
 <body class="bg-bg text-ink">
 
