@@ -14,7 +14,7 @@
 (function(){
 'use strict';
 /* Idempotency: skip if widget already mounted (external file loaded twice) */
-if(document.getElementById('slime-fab')){return;}
+if(document.querySelector('#slime-fab svg, #slime-fab .slimewrap')){return;}
 
 /* ── stubs: satisfy engine dependencies without dashboard ── */
 const $=(id)=>document.getElementById(id);
