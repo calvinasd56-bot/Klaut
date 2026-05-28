@@ -733,6 +733,46 @@ const FAQ = [
         <p><strong>Lifetime value compounds</strong> as you deploy Compass into additional functions under the same MSA — start with customer service, add sales next year, then support engineering, then operations. Per-deployment overhead amortises, so the marginal cost per added function drops over time.</p>`
   },
   {
+    cat: "pricing",
+    q: "Why per-seat for Team? Why not per-feature or per-deployment?",
+    a: `<p>Per-seat scales linearly with the workforce it serves. The Team plan creates value per employee; the price tracks the same unit. Solo is flat because it's single-user; Trial is free for evaluation; Enterprise drops per-seat at scale via volume contract. The Bundles section on the pricing page adds app-bundle pricing on top — pick what your team actually needs.</p>`
+  },
+  {
+    cat: "pricing",
+    q: "I already pay for Slack, Asana, Zendesk, or another app in your library — do I pay for it again?",
+    a: `<p>No — that's the point of "connect what you have." If you already subscribe to an app in our library, connect your existing account to Compass for free; we don't re-bill for tools you already pay for. Bundles only kick in when you're <em>adding</em> new apps you don't have yet — the bundle price covers the unified workspace, AI features, and the new app subscriptions we provision on your behalf.</p>`
+  },
+  {
+    cat: "pricing",
+    q: "How does connecting an app actually work?",
+    a: `<p>From the in-app Apps marketplace, pick the app and click Connect. You authenticate via the vendor's standard OAuth (Google, Slack, Microsoft, Stripe, etc.) — read-only by default. Compass pulls only the signals it needs (calendar events, ticket counts, deal stages, etc.), never raw message content. You can revoke any connector from the admin panel anytime — data flow stops immediately and is purged on the standard 30-day cycle.</p>`
+  },
+  {
+    cat: "pricing",
+    q: "After I subscribe to a bundle and pay, how do I actually get the new apps?",
+    a: `<p>Klaut provisions the new apps on your behalf — your bundle invoice covers the unified Compass workspace plus the apps included in your bundle tier. For each new app, we either resell the vendor seat directly (most common) or guide you through a one-click signup with Klaut as the billing relationship. Existing accounts you connected stay on your own vendor contract — only the <em>new</em> apps are billed through Compass.</p>`
+  },
+  {
+    cat: "pricing",
+    q: "Can I downgrade if my team shrinks?",
+    a: `<p>Yes. Team handles seat-level adjustments month-to-month via Stripe. Solo is single-seat so the question doesn't apply. Enterprise contracts include annual true-down provisions specified in the MSA.</p>`
+  },
+  {
+    cat: "pricing",
+    q: "Is this billable in IDR or USD?",
+    a: `<p>USD is primary on the pricing page (converted from IDR at <code>Rp16,000 / US$1</code> — the canonical forecast rate). IDR invoicing is available for Indonesian entities on request. No currency markup either direction.</p>`
+  },
+  {
+    cat: "pricing",
+    q: "What if my team is hybrid — full-time, part-time, contractors?",
+    a: `<p>Compass charges per active seat per month. Part-time employees who use Compass count as 1 seat; contractors do too. The exception: enterprise customers can negotiate volume bands for &gt;500 seats.</p>`
+  },
+  {
+    cat: "pricing",
+    q: "Is there a free trial? What happens after 7 days?",
+    a: `<p>Every plan starts with a 7-day free trial — no card up front, full product surface, your real apps connected. After 7 days the workspace is archived for 30 days. During that window: convert to a paid plan via Stripe (data carries over), request an extension via Klaut admin (rare), or let it lapse — re-invitation available anytime.</p>`
+  },
+  {
     cat: "process",
     q: "How do we get started — what does the first 90 days look like?",
     a: `<p>Three phases.</p>

@@ -730,6 +730,46 @@ const FAQ = [
         <p><strong>Lifetime value berlipat</strong> saat Anda memasang Compass ke fungsi tambahan di bawah MSA yang sama — mulai dari customer service, tahun depan tambah sales, lalu support engineering, lalu operasional. Overhead per-deployment teramortisasi, jadi biaya marjinal per fungsi tambahan menurun seiring waktu.</p>`
   },
   {
+    cat: "pricing",
+    q: "Kenapa per kursi untuk Team? Kenapa bukan per fitur atau per deployment?",
+    a: `<p>Per kursi adalah model yang skalanya linear dengan tenaga kerja yang dilayani. Produk menciptakan nilai per karyawan; harga sebaiknya mengikuti unit yang sama. Harga per fitur memaksa pembeli berdebat soal fitur mana yang mereka butuhkan sebelum mengenal produknya. Harga per deployment menyembunyikan pemakaian sebenarnya — terlalu mahal untuk tim kecil dan terlalu murah untuk tim besar.</p>`
+  },
+  {
+    cat: "pricing",
+    q: "Saya sudah berlangganan Slack, Asana, Zendesk, atau app lain di library Compass — apakah saya tetap ditagih ulang?",
+    a: `<p>Tidak — itulah inti "connect what you have". Kalau Anda sudah berlangganan app di library kami, hubungkan akun yang sudah ada ke Compass secara gratis; kami tidak menagih ulang tool yang sudah Anda bayar. Bundle baru berlaku saat Anda <em>menambah</em> app baru yang belum dimiliki — harga bundle mencakup workspace terpadu, fitur AI, dan langganan app baru yang kami sediakan atas nama Anda.</p>`
+  },
+  {
+    cat: "pricing",
+    q: "Bagaimana cara kerja proses connect app-nya?",
+    a: `<p>Dari marketplace Apps di dalam aplikasi, pilih app dan klik Connect. Anda otentikasi lewat OAuth standar vendor (Google, Slack, Microsoft, Stripe, dll.) — default read-only. Compass hanya menarik sinyal yang dibutuhkan (event calendar, jumlah ticket, tahap deal, dll.), tidak pernah isi pesan mentah. Anda bisa cabut koneksi mana pun dari admin panel kapan saja — aliran data berhenti seketika dan dibersihkan pada siklus standar 30 hari.</p>`
+  },
+  {
+    cat: "pricing",
+    q: "Setelah saya pilih bundle dan bayar, bagaimana cara saya dapat app barunya?",
+    a: `<p>Klaut menyediakan app barunya atas nama Anda — invoice bundle Anda mencakup workspace Compass terpadu plus app yang termasuk di tier bundle Anda. Untuk tiap app baru, kami baik menjual ulang kursi dari vendor langsung (paling umum) atau memandu Anda lewat signup satu klik dengan Klaut sebagai pihak billing. Akun yang sudah Anda hubungkan tetap di kontrak vendor Anda sendiri — hanya app <em>baru</em> yang ditagih lewat Compass.</p>`
+  },
+  {
+    cat: "pricing",
+    q: "Bisakah saya downgrade jika tim mengecil?",
+    a: `<p>Bisa. Stripe menangani penyesuaian jumlah kursi bulan ke bulan di tier Team. Kontrak Enterprise mencakup ketentuan true-down tahunan yang diatur dalam MSA.</p>`
+  },
+  {
+    cat: "pricing",
+    q: "Ditagih dalam IDR atau USD?",
+    a: `<p>IDR adalah mata uang utama. Penagihan USD tersedia pada kontrak Enterprise atas permintaan. Tanpa markup kurs ke arah mana pun.</p>`
+  },
+  {
+    cat: "pricing",
+    q: "Bagaimana jika tim saya hibrida — penuh waktu, paruh waktu, kontraktor?",
+    a: `<p>Compass menagih per kursi aktif per bulan. Karyawan paruh waktu yang memakai Compass dihitung 1 kursi; kontraktor juga. Pengecualian: pelanggan enterprise dapat menegosiasikan band volume untuk &gt;500 kursi.</p>`
+  },
+  {
+    cat: "pricing",
+    q: "Apa yang terjadi setelah Trial 3 hari berakhir?",
+    a: `<p>Workspace diarsipkan selama 30 hari. Dalam jendela itu: upgrade ke Team via Stripe (data terbawa), minta perpanjangan 7 hari via admin Klaut (jarang), atau biarkan kedaluwarsa — undangan ulang tersedia kapan saja.</p>`
+  },
+  {
     cat: "process",
     q: "Cara mulainya bagaimana — 90 hari pertama itu seperti apa?",
     a: `<p>Tiga fase.</p>
