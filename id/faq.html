@@ -190,7 +190,17 @@
   .toast { position: fixed; bottom: 24px; left: 50%; transform: translate(-50%, 24px); background: #1a1a1a; border: 1px solid #262626; padding: 10px 18px; border-radius: 9999px; font-size: 13px; color: #fff; opacity: 0; transition: opacity 240ms, transform 240ms cubic-bezier(0.2,0.8,0.2,1); pointer-events: none; z-index: 60; box-shadow: 0 12px 36px -10px rgba(0,0,0,0.8); }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
   .toast .dot { display: inline-block; width: 6px; height: 6px; border-radius: 9999px; background: #4F6BFF; margin-right: 8px; vertical-align: middle; }
-</style>
+  .wordmark-tile {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    background: linear-gradient(135deg, #4F6BFF, #7B8FFF);
+    color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.04em;
+  }
+  </style>
 <!-- Structured Data: FAQPage (auto-generated; re-run _build_faq_ld.mjs if the FAQ array changes) -->
 <script type="application/ld+json" id="faq-schema">
 {
@@ -378,7 +388,7 @@
   <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
     <div class="flex items-center gap-6">
       <a href="/id/" class="flex items-center gap-2.5 group" aria-label="Klaut home">
-        <img src="/klaut-K.svg" alt="" class="brand-mark"/>
+        <picture><source srcset="/klaut-K-dark.svg" media="(prefers-color-scheme: dark)" /><img src="/klaut-K-light.svg" alt="" class="brand-mark"/></picture>
       </a>
       <nav class="hidden md:flex items-center gap-1" aria-label="Primary">
         <a href="https://compass-app.klaut.id/why-klaut" class="px-4 py-2 text-sm text-muted link-hover">Mengapa Klaut</a>
@@ -410,7 +420,7 @@
   <aside class="absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-surface border-l border-line p-6 flex flex-col gap-1">
     <div class="flex items-center justify-between mb-6">
       <div class="flex items-center gap-2">
-        <img src="/klaut-K.svg" alt="" class="brand-mark"/>
+        <picture><source srcset="/klaut-K-dark.svg" media="(prefers-color-scheme: dark)" /><img src="/klaut-K-light.svg" alt="" class="brand-mark"/></picture>
       </div>
       <button data-close-menu class="p-2 rounded-lg hover:bg-white/5" aria-label="Tutup menu">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
@@ -542,9 +552,10 @@
 <footer class="border-t border-line">
   <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-16 grid md:grid-cols-12 gap-10">
     <div class="md:col-span-5">
-      <div class="flex items-center gap-2.5">
-        <img src="/klaut-K.svg" alt="" class="brand-mark"/>
-      </div>
+      <a href="index.html" class="flex items-center gap-2.5">
+        <span class="wordmark-tile">K</span>
+        <span class="font-semibold tracking-tight text-[17px]">Klaut</span>
+      </a>
       <p class="mt-6 max-w-sm text-[14px] text-muted leading-relaxed">
         Ekosistem Transformasi AI Enterprise. Strategi, talent, model, dan tata kelola — direkayasa sebagai satu sistem.
       </p>
