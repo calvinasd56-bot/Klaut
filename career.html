@@ -16,7 +16,7 @@
         colors: {
           bg: '#0a0a0a', surface: '#111111', surface2: '#1a1a1a',
           line: '#262626', 'line-2': '#3f3f46',
-          accent: '#6366f1', 'accent-2': '#818cf8', 'accent-deep': '#4f46e5',
+          accent: '#4F6BFF', 'accent-2': '#7B8FFF', 'accent-deep': '#3854E5',
           ink: '#ffffff', muted: '#a1a1aa', dim: '#71717a', faint: '#52525b',
         },
       },
@@ -42,8 +42,8 @@
 
   /* orbs */
   .orb { position: absolute; border-radius: 9999px; filter: blur(80px); pointer-events: none; }
-  .orb-1 { width: 520px; height: 520px; background: radial-gradient(circle at 30% 30%, #6366f1, transparent 60%); top: -160px; left: -140px; opacity: .45; animation: float 14s ease-in-out infinite; }
-  .orb-2 { width: 460px; height: 460px; background: radial-gradient(circle at 70% 40%, #8b5cf6, transparent 60%); top: 8%; right: -180px; opacity: .35; animation: float 16s ease-in-out infinite reverse; }
+  .orb-1 { width: 520px; height: 520px; background: radial-gradient(circle at 30% 30%, #4F6BFF, transparent 60%); top: -160px; left: -140px; opacity: .45; animation: float 14s ease-in-out infinite; }
+  .orb-2 { width: 460px; height: 460px; background: radial-gradient(circle at 70% 40%, #4F6BFF, transparent 60%); top: 8%; right: -180px; opacity: .35; animation: float 16s ease-in-out infinite reverse; }
   @keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-14px) } }
   .no-orbs .orb { display: none; }
 
@@ -57,15 +57,15 @@
 
   /* buttons */
   .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 8px; font-weight: 500; font-size: 14px; transition: all 200ms cubic-bezier(0.2,0.8,0.2,1); cursor: pointer; border: 0; }
-  .btn-primary { background: #6366f1; color: #fff; }
-  .btn-primary:hover { background: #4f46e5; box-shadow: 0 0 0 1px rgba(99,102,241,0.4), 0 12px 32px -8px rgba(99,102,241,0.6); transform: translateY(-1px); }
+  .btn-primary { background: #4F6BFF; color: #fff; }
+  .btn-primary:hover { background: #3854E5; box-shadow: 0 0 0 1px rgba(99,102,241,0.4), 0 12px 32px -8px rgba(99,102,241,0.6); transform: translateY(-1px); }
   .btn-ghost { background: rgba(255,255,255,0.04); color: #fff; border: 1px solid rgba(255,255,255,0.1); }
   .btn-ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
   .btn-lg { padding: 14px 24px; font-size: 15px; }
 
   /* hero gradient clause */
   .grad-clause {
-    background: linear-gradient(90deg, #ffffff 0%, #c7d2fe 55%, #6366f1 100%);
+    background: linear-gradient(90deg, #ffffff 0%, #c7d2fe 55%, #4F6BFF 100%);
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
   ::selection { background: rgba(99,102,241,0.35); color: #fff; }
@@ -81,11 +81,11 @@
   .link-hover:hover { color: #fff; }
 
   /* mono eyebrow */
-  .mono-eyebrow { font: 500 12px/1 'JetBrains Mono', monospace; letter-spacing: 0.02em; color: #818cf8; }
+  .mono-eyebrow { font: 500 12px/1 'JetBrains Mono', monospace; letter-spacing: 0.02em; color: #7B8FFF; }
 
   /* hairline dot */
   .hairline-dot { position: relative; height: 1px; background: #262626; }
-  .hairline-dot::after { content: ''; position: absolute; left: 50%; top: 50%; width: 5px; height: 5px; border-radius: 50%; background: #6366f1; transform: translate(-50%, -50%); box-shadow: 0 0 0 4px #0a0a0a; }
+  .hairline-dot::after { content: ''; position: absolute; left: 50%; top: 50%; width: 5px; height: 5px; border-radius: 50%; background: #4F6BFF; transform: translate(-50%, -50%); box-shadow: 0 0 0 4px #0a0a0a; }
 
   /* belief / who-fits icon tile */
   .icon-tile { width: 44px; height: 44px; border-radius: 8px; background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.30); display: grid; place-items: center; }
@@ -94,7 +94,7 @@
   .role-list { border-top: 1px solid #262626; }
   .role { position: relative; display: grid; grid-template-columns: 64px 1fr auto; align-items: center; gap: 32px; padding: 32px 8px; border-bottom: 1px solid #262626; transition: background 240ms, padding 240ms; cursor: pointer; }
   .role:hover { background: rgba(99,102,241,0.04); }
-  .role:hover .role-arrow { color: #818cf8; transform: translateX(4px); }
+  .role:hover .role-arrow { color: #7B8FFF; transform: translateX(4px); }
   .role-idx { font: 500 12px/1 'JetBrains Mono', monospace; letter-spacing: 0.08em; color: #71717a; padding-left: 8px; }
   .role-title-row { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
   .role-title { font-size: 28px; line-height: 1.15; letter-spacing: -0.02em; font-weight: 600; color: #fff; }
@@ -299,7 +299,7 @@
       <article class="reveal card-hover p-8 lg:p-10 rounded-xl bg-surface border border-line flex flex-col">
         <div class="icon-tile mb-7">
           <!-- finish/check -->
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7B8FFF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 12l4 4 14-14"/>
             <path d="M21 12v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8"/>
           </svg>
@@ -315,7 +315,7 @@
       <!-- 2 -->
       <article class="reveal card-hover p-8 lg:p-10 rounded-xl bg-surface border border-line flex flex-col">
         <div class="icon-tile mb-7">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7B8FFF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="9"/>
             <ellipse cx="12" cy="12" rx="4" ry="9"/>
             <line x1="3" y1="12" x2="21" y2="12"/>
@@ -332,7 +332,7 @@
       <!-- 3 -->
       <article class="reveal card-hover p-8 lg:p-10 rounded-xl bg-surface border border-line flex flex-col">
         <div class="icon-tile mb-7">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7B8FFF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"/>
             <polyline points="13 6 19 12 13 18"/>
           </svg>
@@ -492,7 +492,7 @@
 <section data-screen-label="06 CTA" class="relative">
   <div class="max-w-7xl mx-auto px-6 lg:px-10 pb-28 lg:pb-36">
     <div class="cta-band relative overflow-hidden rounded-2xl p-10 lg:p-16">
-      <div class="absolute -top-24 -right-24 w-96 h-96 orb" style="background: radial-gradient(circle at 50% 50%, #6366f1, transparent 60%); opacity:.25; position:absolute;"></div>
+      <div class="absolute -top-24 -right-24 w-96 h-96 orb" style="background: radial-gradient(circle at 50% 50%, #4F6BFF, transparent 60%); opacity:.25; position:absolute;"></div>
       <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
         <div>
           <div class="mono-eyebrow mb-4">/ Join us</div>
@@ -556,7 +556,7 @@
         if (t.heroTreatment === 'gradient clause') {
           clause.classList.add('grad-clause');
         } else if (t.heroTreatment === 'mono accent') {
-          clause.style.color = '#818cf8';
+          clause.style.color = '#7B8FFF';
           clause.style.fontFamily = "'JetBrains Mono', monospace";
           clause.style.fontWeight = '500';
           clause.style.letterSpacing = '-0.01em';

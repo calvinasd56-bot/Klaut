@@ -93,7 +93,7 @@
         colors: {
           bg: '#0a0a0a', surface: '#111111', surface2: '#1a1a1a',
           line: '#262626', linestrong: '#3f3f46',
-          accent: '#6366f1', 'accent-2': '#818cf8', 'accent-deep': '#4f46e5',
+          accent: '#4F6BFF', 'accent-2': '#7B8FFF', 'accent-deep': '#3854E5',
           ink: '#ffffff', muted: '#a1a1aa', dim: '#71717a', faint: '#52525b',
         },
         boxShadow: {
@@ -124,7 +124,7 @@
   .orb {
     position:absolute; border-radius:9999px; filter: blur(80px); opacity:.5; pointer-events:none;
   }
-  .orb-1 { width:560px; height:560px; background: radial-gradient(circle at 30% 30%, #6366f1, transparent 60%); top:-160px; left:-160px; animation: float 14s ease-in-out infinite; }
+  .orb-1 { width:560px; height:560px; background: radial-gradient(circle at 30% 30%, #4F6BFF, transparent 60%); top:-160px; left:-160px; animation: float 14s ease-in-out infinite; }
   .orb-2 { width:480px; height:480px; background: radial-gradient(circle at 70% 40%, #2D1B69, transparent 60%); top:18%; right:-180px; animation: float 16s ease-in-out infinite reverse; }
   .orb-3 { width:380px; height:380px; background: radial-gradient(circle at 50% 50%, #22d3ee, transparent 60%); bottom:-160px; left:35%; animation: float 18s ease-in-out infinite; opacity:.22; }
   @keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-14px) } }
@@ -226,22 +226,22 @@
 
   /* ---------- Buttons ---------- */
   .btn { display:inline-flex; align-items:center; gap:8px; padding:12px 20px; border-radius:8px; font-weight:500; font-size:14px; transition: all 200ms cubic-bezier(.2,.8,.2,1); cursor:pointer; border:0; }
-  .btn-primary { background:#6366f1; color:#fff; }
-  .btn-primary:hover { background:#4f46e5; box-shadow: 0 0 0 1px rgba(99,102,241,.4), 0 12px 32px -8px rgba(99,102,241,.6); transform: translateY(-1px); }
+  .btn-primary { background:#4F6BFF; color:#fff; }
+  .btn-primary:hover { background:#3854E5; box-shadow: 0 0 0 1px rgba(99,102,241,.4), 0 12px 32px -8px rgba(99,102,241,.6); transform: translateY(-1px); }
   .btn-ghost { background: rgba(255,255,255,.04); color:#fff; border:1px solid rgba(255,255,255,.1); }
   .btn-ghost:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.2); }
 
   /* ---------- Eyebrow ---------- */
-  .eyebrow { font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:.18em; color:#818cf8; }
+  .eyebrow { font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:.18em; color:#7B8FFF; }
 
   /* ---------- Headline gradient ---------- */
   .hl-grad {
-    background: linear-gradient(90deg, #ffffff 0%, #c7d2fe 55%, #6366f1 100%);
+    background: linear-gradient(90deg, #ffffff 0%, #c7d2fe 55%, #4F6BFF 100%);
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
 
   /* ---------- Icon tile ---------- */
-  .icon-tile { width:44px; height:44px; border-radius:8px; background: rgba(99,102,241,.15); border:1px solid rgba(99,102,241,.30); display:grid; place-items:center; color:#818cf8; }
+  .icon-tile { width:44px; height:44px; border-radius:8px; background: rgba(99,102,241,.15); border:1px solid rgba(99,102,241,.30); display:grid; place-items:center; color:#7B8FFF; }
 
   /* ---------- Stepper rail ---------- */
   .step-rail { background: linear-gradient(to right, transparent, #3f3f46 12%, #3f3f46 88%, transparent); }
@@ -493,7 +493,7 @@
   :root {
     --p-rgb:   99 102 241;   /* primary */
     --p-rgb-2: 129 140 248;  /* light */
-    --p-deep:  #4f46e5;      /* primary-deep (hover) */
+    --p-deep:  #3854E5;      /* primary-deep (hover) */
   }
   /* Tailwind utility overrides */
   .bg-accent       { background-color: rgb(var(--p-rgb)) !important; }
@@ -1433,7 +1433,7 @@
 ========================================================================= -->
 <section id="ecosystems" class="relative py-32 lg:py-44 scroll-mt-20 border-t border-white/5 overflow-hidden">
   <div class="absolute inset-0 dot-grid opacity-50"></div>
-  <div class="orb opacity-20" style="width:520px;height:520px;background:radial-gradient(circle at 50% 50%, #6366f1, transparent 60%);top:-100px;right:-200px;"></div>
+  <div class="orb opacity-20" style="width:520px;height:520px;background:radial-gradient(circle at 50% 50%, #4F6BFF, transparent 60%);top:-100px;right:-200px;"></div>
 
   <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
 
@@ -1900,7 +1900,7 @@
 <section id="cta" class="relative py-32 lg:py-44 scroll-mt-20 border-t border-white/5 overflow-hidden">
   <!-- backdrop orbs -->
   <div class="absolute inset-0 dot-grid opacity-60"></div>
-  <div class="orb" style="width:560px;height:560px;background:radial-gradient(circle at 50% 50%, #6366f1, transparent 60%);top:-100px;left:50%;transform:translateX(-50%);opacity:.35;"></div>
+  <div class="orb" style="width:560px;height:560px;background:radial-gradient(circle at 50% 50%, #4F6BFF, transparent 60%);top:-100px;left:50%;transform:translateX(-50%);opacity:.35;"></div>
   <div class="cta-orb cta-orb-a"></div>
   <div class="cta-orb cta-orb-b"></div>
 

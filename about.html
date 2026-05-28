@@ -19,9 +19,9 @@
           surface2: '#1a1a1a',
           line:     '#262626',
           'line-2': '#3f3f46',
-          accent:   '#6366f1',
-          'accent-2': '#818cf8',
-          'accent-deep': '#4f46e5',
+          accent:   '#4F6BFF',
+          'accent-2': '#7B8FFF',
+          'accent-deep': '#3854E5',
           ink:      '#ffffff',
           muted:    '#a1a1aa',
           dim:      '#71717a',
@@ -55,8 +55,8 @@
 
   /* orbs */
   .orb { position: absolute; border-radius: 9999px; filter: blur(80px); pointer-events: none; }
-  .orb-1 { width: 520px; height: 520px; background: radial-gradient(circle at 30% 30%, #6366f1, transparent 60%); top: -160px; left: -140px; opacity: .45; animation: float 14s ease-in-out infinite; }
-  .orb-2 { width: 460px; height: 460px; background: radial-gradient(circle at 70% 40%, #8b5cf6, transparent 60%); top: 8%; right: -180px; opacity: .35; animation: float 16s ease-in-out infinite reverse; }
+  .orb-1 { width: 520px; height: 520px; background: radial-gradient(circle at 30% 30%, #4F6BFF, transparent 60%); top: -160px; left: -140px; opacity: .45; animation: float 14s ease-in-out infinite; }
+  .orb-2 { width: 460px; height: 460px; background: radial-gradient(circle at 70% 40%, #4F6BFF, transparent 60%); top: 8%; right: -180px; opacity: .35; animation: float 16s ease-in-out infinite reverse; }
   .orb-3 { width: 380px; height: 380px; background: radial-gradient(circle at 50% 50%, #22d3ee, transparent 60%); bottom: -160px; left: 40%; opacity: .18; animation: float 18s ease-in-out infinite; }
   @keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-14px) } }
   .no-orbs .orb { display: none; }
@@ -71,15 +71,15 @@
 
   /* buttons */
   .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 8px; font-weight: 500; font-size: 14px; transition: all 200ms cubic-bezier(0.2,0.8,0.2,1); cursor: pointer; border: 0; }
-  .btn-primary { background: #6366f1; color: #fff; }
-  .btn-primary:hover { background: #4f46e5; box-shadow: 0 0 0 1px rgba(99,102,241,0.4), 0 12px 32px -8px rgba(99,102,241,0.6); transform: translateY(-1px); }
+  .btn-primary { background: #4F6BFF; color: #fff; }
+  .btn-primary:hover { background: #3854E5; box-shadow: 0 0 0 1px rgba(99,102,241,0.4), 0 12px 32px -8px rgba(99,102,241,0.6); transform: translateY(-1px); }
   .btn-ghost { background: rgba(255,255,255,0.04); color: #fff; border: 1px solid rgba(255,255,255,0.1); }
   .btn-ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
   .btn-lg { padding: 14px 24px; font-size: 15px; }
 
   /* hero gradient clause */
   .grad-clause {
-    background: linear-gradient(90deg, #ffffff 0%, #c7d2fe 55%, #6366f1 100%);
+    background: linear-gradient(90deg, #ffffff 0%, #c7d2fe 55%, #4F6BFF 100%);
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
 
@@ -116,7 +116,7 @@
   .run-row:first-child { border-top: 0; }
   .run-dot { width: 8px; height: 8px; border-radius: 50%; }
   .run-dot.done   { background: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,0.15); }
-  .run-dot.live   { background: #818cf8; box-shadow: 0 0 0 3px rgba(99,102,241,0.20); animation: pulse 1.6s ease-in-out infinite; }
+  .run-dot.live   { background: #7B8FFF; box-shadow: 0 0 0 3px rgba(99,102,241,0.20); animation: pulse 1.6s ease-in-out infinite; }
   .run-dot.queue  { background: #3f3f46; }
   @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
   .pill { padding: 3px 8px; border-radius: 999px; font: 500 10.5px/1.2 'JetBrains Mono', monospace; letter-spacing: 0.04em; }
@@ -150,12 +150,12 @@
   .mono-eyebrow {
     font: 500 12px/1 'JetBrains Mono', monospace;
     letter-spacing: 0.02em;
-    color: #818cf8;
+    color: #7B8FFF;
   }
 
   /* hairline divider with center dot */
   .hairline-dot { position: relative; height: 1px; background: #262626; }
-  .hairline-dot::after { content: ''; position: absolute; left: 50%; top: 50%; width: 5px; height: 5px; border-radius: 50%; background: #6366f1; transform: translate(-50%, -50%); box-shadow: 0 0 0 4px #0a0a0a; }
+  .hairline-dot::after { content: ''; position: absolute; left: 50%; top: 50%; width: 5px; height: 5px; border-radius: 50%; background: #4F6BFF; transform: translate(-50%, -50%); box-shadow: 0 0 0 4px #0a0a0a; }
 </style>
 </head>
 <body class="bg-bg text-ink" data-orbs="on" data-hero="gradient">
@@ -318,7 +318,7 @@
       <!-- belief 1 -->
       <article class="reveal card-hover p-8 lg:p-10 rounded-xl bg-surface border border-line flex flex-col">
         <div class="icon-tile mb-7">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7B8FFF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="8" r="3.5"/>
             <path d="M4.5 21c0-3.6 3.2-6.5 7.5-6.5s7.5 2.9 7.5 6.5"/>
           </svg>
@@ -334,7 +334,7 @@
       <!-- belief 2 -->
       <article class="reveal card-hover p-8 lg:p-10 rounded-xl bg-surface border border-line flex flex-col">
         <div class="icon-tile mb-7">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7B8FFF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <rect x="4" y="10" width="16" height="10" rx="2"/>
             <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
           </svg>
@@ -350,7 +350,7 @@
       <!-- belief 3 -->
       <article class="reveal card-hover p-8 lg:p-10 rounded-xl bg-surface border border-line flex flex-col">
         <div class="icon-tile mb-7">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7B8FFF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="3"/>
             <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>
           </svg>
@@ -392,7 +392,7 @@
       <div class="layer upper">
         <div class="flex items-center justify-between px-6 lg:px-8 py-5 border-b border-white/5">
           <div class="flex items-center gap-4">
-            <div class="w-10 h-10 rounded-lg grid place-items-center" style="background: linear-gradient(135deg, #6366f1, #818cf8); box-shadow: 0 8px 24px -8px rgba(99,102,241,0.5);">
+            <div class="w-10 h-10 rounded-lg grid place-items-center" style="background: linear-gradient(135deg, #4F6BFF, #7B8FFF); box-shadow: 0 8px 24px -8px rgba(99,102,241,0.5);">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="9"/>
                 <polygon points="14.5 9.5 11 11 9.5 14.5 13 13 14.5 9.5"/>
@@ -481,7 +481,7 @@
         <div class="flex items-center justify-between px-6 lg:px-8 py-5 border-b border-white/5">
           <div class="flex items-center gap-4">
             <div class="w-10 h-10 rounded-lg grid place-items-center bg-surface2 border border-line">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7B8FFF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4 17c2-3 6-3 8 0s6 3 8 0"/>
                 <path d="M4 12c2-3 6-3 8 0s6 3 8 0"/>
                 <path d="M4 7c2-3 6-3 8 0s6 3 8 0"/>
@@ -560,7 +560,7 @@
                 </div>
               </div>
               <div class="org-cell" style="background: rgba(99,102,241,0.05); border-color: rgba(99,102,241,0.20);">
-                <div class="avatar" style="background: rgba(255,255,255,0.04); border-style: dashed; color: #818cf8;">+</div>
+                <div class="avatar" style="background: rgba(255,255,255,0.04); border-style: dashed; color: #7B8FFF;">+</div>
                 <div class="min-w-0">
                   <div class="org-name truncate" style="color:#c7d2fe">1,279 more</div>
                   <div class="org-skill truncate">across 14 functions</div>
@@ -634,7 +634,7 @@
 <section data-screen-label="06 CTA" class="relative">
   <div class="max-w-7xl mx-auto px-6 lg:px-10 pb-28 lg:pb-36">
     <div class="cta-band relative overflow-hidden rounded-2xl p-10 lg:p-16">
-      <div class="absolute -top-24 -right-24 w-96 h-96 orb" style="background: radial-gradient(circle at 50% 50%, #6366f1, transparent 60%); opacity:.25; position:absolute;"></div>
+      <div class="absolute -top-24 -right-24 w-96 h-96 orb" style="background: radial-gradient(circle at 50% 50%, #4F6BFF, transparent 60%); opacity:.25; position:absolute;"></div>
       <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
         <div>
           <div class="mono-eyebrow mb-4">/ Talk to us</div>
@@ -699,7 +699,7 @@
         if (t.heroTreatment === 'gradient clause') {
           clause.classList.add('grad-clause');
         } else if (t.heroTreatment === 'mono accent') {
-          clause.style.color = '#818cf8';
+          clause.style.color = '#7B8FFF';
           clause.style.fontFamily = "'JetBrains Mono', monospace";
           clause.style.fontWeight = '500';
           clause.style.letterSpacing = '-0.01em';

@@ -59,9 +59,9 @@
           surface2: '#1a1a1a',
           line:     '#262626',
           'line-strong': '#3f3f46',
-          accent:   '#6366f1',
-          'accent-2': '#818cf8',
-          'accent-deep': '#4f46e5',
+          accent:   '#4F6BFF',
+          'accent-2': '#7B8FFF',
+          'accent-deep': '#3854E5',
           ink:      '#ffffff',
           muted:    '#a1a1aa',
           dim:      '#71717a',
@@ -97,7 +97,7 @@
   }
   /* Animated gradient orbs */
   .orb { position: absolute; border-radius: 9999px; filter: blur(80px); opacity: 0.45; pointer-events: none; }
-  .orb-1 { width: 520px; height: 520px; background: radial-gradient(circle at 30% 30%, #6366f1, transparent 60%); top: -160px; left: -120px; animation: float 12s ease-in-out infinite; }
+  .orb-1 { width: 520px; height: 520px; background: radial-gradient(circle at 30% 30%, #4F6BFF, transparent 60%); top: -160px; left: -120px; animation: float 12s ease-in-out infinite; }
   .orb-2 { width: 460px; height: 460px; background: radial-gradient(circle at 70% 40%, #2D1B69, transparent 60%); top: 5%; right: -180px; animation: float 14s ease-in-out infinite reverse; }
   .orb-3 { width: 380px; height: 380px; background: radial-gradient(circle at 50% 50%, #22d3ee, transparent 60%); bottom: -160px; left: 40%; animation: float 16s ease-in-out infinite; opacity: 0.22; }
 
@@ -107,23 +107,23 @@
 
   /* Buttons */
   .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 8px; font-weight: 500; font-size: 14px; transition: all 200ms cubic-bezier(0.2,0.8,0.2,1); cursor: pointer; border: 0; }
-  .btn-primary { background: #6366f1; color: #fff; }
-  .btn-primary:hover { background: #4f46e5; box-shadow: 0 0 0 1px rgba(99,102,241,0.4), 0 12px 32px -8px rgba(99,102,241,0.6); transform: translateY(-1px); }
+  .btn-primary { background: #4F6BFF; color: #fff; }
+  .btn-primary:hover { background: #3854E5; box-shadow: 0 0 0 1px rgba(99,102,241,0.4), 0 12px 32px -8px rgba(99,102,241,0.6); transform: translateY(-1px); }
   .btn-ghost { background: rgba(255,255,255,0.04); color: #fff; border: 1px solid rgba(255,255,255,0.1); }
   .btn-ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
   /* Match landing nav CTA: deep purple */
   .btn-cta-deep { background-color: #2D1B69 !important; }
-  .btn-cta-deep:hover { background-color: #4f46e5 !important; }
+  .btn-cta-deep:hover { background-color: #3854E5 !important; }
 
   /* Inputs */
   .input { width: 100%; background: #111; border: 1px solid #262626; color: #fff; padding: 14px 16px; border-radius: 8px; font-size: 15px; transition: border 200ms, box-shadow 200ms; }
   .input::placeholder { color: #52525b; }
-  .input:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 0 4px rgba(99,102,241,0.15); }
+  .input:focus { outline: none; border-color: #4F6BFF; box-shadow: 0 0 0 4px rgba(99,102,241,0.15); }
 
   /* Chips (category filter) */
   .chip { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 9999px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: #a1a1aa; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 200ms cubic-bezier(0.2,0.8,0.2,1); white-space: nowrap; }
   .chip:hover { background: rgba(99,102,241,0.08); border-color: rgba(99,102,241,0.30); color: #fff; }
-  .chip.active { background: rgba(99,102,241,0.18); border-color: #6366f1; color: #fff; box-shadow: 0 0 0 1px rgba(99,102,241,0.4), 0 8px 24px -10px rgba(99,102,241,0.45); }
+  .chip.active { background: rgba(99,102,241,0.18); border-color: #4F6BFF; color: #fff; box-shadow: 0 0 0 1px rgba(99,102,241,0.4), 0 8px 24px -10px rgba(99,102,241,0.45); }
   .chip .count { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 2px 6px; border-radius: 9999px; background: rgba(255,255,255,0.06); color: #71717a; }
   .chip.active .count { background: rgba(255,255,255,0.12); color: #fff; }
 
@@ -131,19 +131,19 @@
   .faq-item { position: relative; border: 1px solid var(--line, #262626); background: #111; border-radius: 12px; transition: border-color 240ms cubic-bezier(0.2,0.8,0.2,1), box-shadow 240ms, transform 240ms; overflow: hidden; }
   .faq-item:hover { border-color: rgba(99,102,241,0.30); }
   .faq-item.open { border-color: rgba(99,102,241,0.45); box-shadow: 0 0 0 1px rgba(99,102,241,0.18), 0 20px 60px -24px rgba(99,102,241,0.35); }
-  .faq-item.open::before { content: ''; position: absolute; left: 0; top: 14px; bottom: 14px; width: 2px; background: linear-gradient(180deg, #6366f1, #818cf8); border-radius: 2px; }
+  .faq-item.open::before { content: ''; position: absolute; left: 0; top: 14px; bottom: 14px; width: 2px; background: linear-gradient(180deg, #4F6BFF, #7B8FFF); border-radius: 2px; }
 
   .faq-q { display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; padding: 22px 28px; text-align: left; cursor: pointer; background: transparent; border: 0; color: inherit; }
   .faq-q:focus-visible { outline: none; box-shadow: inset 0 0 0 2px rgba(99,102,241,0.5); border-radius: 12px; }
   .faq-q-left { display: flex; align-items: center; gap: 16px; min-width: 0; flex: 1; }
   .faq-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #71717a; letter-spacing: 0.04em; flex-shrink: 0; }
   .faq-title { font-size: 17px; font-weight: 500; letter-spacing: -0.01em; color: #fff; line-height: 1.4; }
-  .faq-cat { font-family: 'Inter', sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; color: #818cf8; font-weight: 500; display: none; }
+  .faq-cat { font-family: 'Inter', sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; color: #7B8FFF; font-weight: 500; display: none; }
   @media (min-width: 768px) { .faq-cat { display: inline-block; padding: 4px 10px; border-radius: 9999px; background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.18); margin-right: 8px; } }
 
   .faq-toggle { width: 32px; height: 32px; border-radius: 9999px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); display: grid; place-items: center; flex-shrink: 0; transition: all 240ms cubic-bezier(0.2,0.8,0.2,1); }
   .faq-item:hover .faq-toggle { border-color: rgba(99,102,241,0.35); }
-  .faq-item.open .faq-toggle { background: rgba(99,102,241,0.18); border-color: #6366f1; transform: rotate(45deg); }
+  .faq-item.open .faq-toggle { background: rgba(99,102,241,0.18); border-color: #4F6BFF; transform: rotate(45deg); }
   .faq-toggle svg { transition: transform 240ms; }
 
   .faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 380ms cubic-bezier(0.2,0.8,0.2,1); }
@@ -170,7 +170,7 @@
 
   /* Empty state */
   .empty-state { text-align: center; padding: 80px 24px; }
-  .empty-icon { width: 64px; height: 64px; border-radius: 9999px; background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.20); display: grid; place-items: center; margin: 0 auto 20px; color: #818cf8; }
+  .empty-icon { width: 64px; height: 64px; border-radius: 9999px; background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.20); display: grid; place-items: center; margin: 0 auto 20px; color: #7B8FFF; }
 
   /* Highlighted search match */
   mark.hl { background: rgba(99,102,241,0.25); color: #c7d2fe; border-radius: 2px; padding: 0 2px; }
@@ -187,12 +187,12 @@
   @media (min-width: 768px) { .brand-wordmark { height: 38px; } }
   .link-hover { transition: color 180ms; }
   .link-hover:hover { color: #fff; }
-  .eyebrow { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.18em; color: #818cf8; }
+  .eyebrow { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.18em; color: #7B8FFF; }
 
   /* Toast */
   .toast { position: fixed; bottom: 24px; left: 50%; transform: translate(-50%, 24px); background: #1a1a1a; border: 1px solid #262626; padding: 10px 18px; border-radius: 9999px; font-size: 13px; color: #fff; opacity: 0; transition: opacity 240ms, transform 240ms cubic-bezier(0.2,0.8,0.2,1); pointer-events: none; z-index: 60; box-shadow: 0 12px 36px -10px rgba(0,0,0,0.8); }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
-  .toast .dot { display: inline-block; width: 6px; height: 6px; border-radius: 9999px; background: #6366f1; margin-right: 8px; vertical-align: middle; }
+  .toast .dot { display: inline-block; width: 6px; height: 6px; border-radius: 9999px; background: #4F6BFF; margin-right: 8px; vertical-align: middle; }
 </style>
 <!-- Structured Data: FAQPage (auto-generated; re-run _build_faq_ld.mjs if the FAQ array changes) -->
 <script type="application/ld+json" id="faq-schema">
@@ -508,7 +508,7 @@
 <!-- ============================================================ ASK A PARTNER -->
 <section id="ask" class="relative max-w-5xl mx-auto px-6 lg:px-10 pb-24">
   <div class="reveal p-10 md:p-14 rounded-2xl bg-gradient-to-br from-accent/15 via-surface to-surface border border-accent/25 relative overflow-hidden">
-    <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full opacity-30 pointer-events-none" style="background: radial-gradient(circle, #6366f1, transparent 60%); filter: blur(60px);"></div>
+    <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full opacity-30 pointer-events-none" style="background: radial-gradient(circle, #4F6BFF, transparent 60%); filter: blur(60px);"></div>
     <div class="relative">
       <div class="text-xs uppercase tracking-[0.18em] text-accent-2 font-medium mb-4">Still curious</div>
       <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight max-w-3xl">
@@ -528,7 +528,7 @@
         </button>
       </form>
       <div id="askSuccess" class="hidden mt-5 inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/15 border border-accent/30 text-sm">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7B8FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         Got it. A partner will reply within one business day.
       </div>
     </div>
