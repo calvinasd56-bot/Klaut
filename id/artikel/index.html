@@ -69,8 +69,38 @@
 </script>
 <style>
   html,body{background:#0a0a0a;color:#fff;font-family:'Inter',ui-sans-serif,system-ui;}
-  .card{ transition: transform .2s, border-color .2s; }
-  .card:hover{ transform: translateY(-2px); border-color:#3f3f46; }
+
+  /* Article card chrome — mirrors Klaut pricing-card pattern */
+  .card{
+    transition: transform .25s cubic-bezier(.2,.8,.2,1), border-color .25s, box-shadow .25s;
+  }
+  .card:hover{
+    transform: translateY(-2px);
+    border-color: rgba(79,107,255,0.40);
+    box-shadow: 0 0 0 1px rgba(79,107,255,0.25), 0 12px 32px -16px rgba(79,107,255,0.45);
+  }
+  .card-circle{
+    transition: border-color .2s, background-color .2s, color .2s;
+  }
+  .card:hover .card-circle{
+    border-color: #4F6BFF;
+    background-color: rgba(79,107,255,0.10);
+    color: #ffffff;
+  }
+  .card-featured{
+    box-shadow: 0 0 0 1px rgba(79,107,255,0.20);
+  }
+  .card-featured:hover{
+    box-shadow: 0 0 0 1px rgba(79,107,255,0.40), 0 12px 32px -16px rgba(79,107,255,0.45);
+  }
+  .card-empty{
+    border: 1px dashed #3f3f46;
+    background: #111;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    color: #71717a;
+  }
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-59BT0YK7NH"></script>
@@ -114,7 +144,7 @@
 
   <section class="max-w-7xl mx-auto px-6 lg:px-10 pb-24">
     <div id="article-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div class="text-dim col-span-full text-center py-16">Memuat artikel…</div>
+      <div class="card-empty col-span-full">Memuat artikel…</div>
     </div>
   </section>
 </main>
@@ -146,27 +176,72 @@ const { data, error } = await supabase
   .eq("published", true)
   .order("published_at", { ascending: false });
 
-if (error) {
-  grid.innerHTML = `<div class="text-red-400 col-span-full text-center py-16">Gagal memuat: ${escapeHtml(error.message)}</div>`;
-} else if (!data.length) {
-  grid.innerHTML = `<div class="text-dim col-span-full text-center py-16">Belum ada artikel yang dipublikasikan.</div>`;
-} else {
-  grid.innerHTML = data.map(a => `
-    <a href="/id/artikel/${escapeHtml(a.slug)}" class="card block border border-line rounded-2xl bg-surface overflow-hidden">
+/* ---------- Card helpers (Klaut pricing-card chrome translated to articles) ---------- */
+function monthBadge(iso){
+  const d = new Date(iso);
+  const m = d.toLocaleString("id-ID", { month: "short" }).toUpperCase(); // JAN..DES
+  return `${m} ${d.getDate()}`;
+}
+function computeReadTime(excerpt){
+  if (!excerpt || !excerpt.trim()) return 1;
+  const excerptWords = excerpt.trim().split(/\s+/).length;
+  const estBodyWords = excerptWords * 8;
+  return Math.max(1, Math.ceil(estBodyWords / 200));
+}
+function readTimeLabel(mins){
+  if (mins < 1) return "&lt; 1 menit baca";
+  return `${mins} menit baca`;
+}
+function renderCard(a, isFeatured){
+  const badge = isFeatured ? "PILIHAN" : monthBadge(a.published_at);
+  const readMin = computeReadTime(a.excerpt_id);
+  const time = readTimeLabel(readMin);
+
+  const spanCls   = isFeatured ? "md:col-span-2 lg:col-span-2" : "";
+  const ringCls   = isFeatured ? "card-featured" : "";
+  const aspectCls = isFeatured ? "aspect-[21/9]" : "aspect-[16/9]";
+  const titleCls  = isFeatured ? "text-2xl md:text-3xl" : "text-xl";
+  const excerptClamp = isFeatured ? "line-clamp-4" : "line-clamp-3";
+  const badgeCls = isFeatured
+    ? "bg-accent text-white border-accent"
+    : "bg-transparent text-accent-2 border-accent/30";
+
+  return `
+    <a href="/id/artikel/${escapeHtml(a.slug)}"
+       class="card ${spanCls} ${ringCls} block bg-surface border border-line rounded-2xl p-5 md:p-6">
+      <div class="flex items-center justify-between">
+        <span class="inline-flex items-center font-mono uppercase font-semibold text-[10px] tracking-wider px-2.5 py-1 rounded-full border ${badgeCls}">${badge}</span>
+        <span class="card-circle inline-flex items-center justify-center w-6 h-6 rounded-full border border-linestrong text-dim">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </div>
+
       ${a.cover_image_url
-        ? `<div class="aspect-[16/9] bg-surface2 overflow-hidden"><img src="${escapeHtml(a.cover_image_url)}" alt="" class="w-full h-full object-cover"/></div>`
-        : `<div class="aspect-[16/9] bg-gradient-to-br from-surface2 to-surface flex items-center justify-center"><img src="/klaut-K.svg" alt="" class="h-10 w-10 opacity-30"/></div>`}
-      <div class="p-5">
-        <div class="text-xs font-mono text-dim mb-2">${formatDate(a.published_at)}</div>
-        <h2 class="text-lg font-semibold leading-snug">${escapeHtml(a.title_id || "(tanpa judul)")}</h2>
-        ${a.excerpt_id ? `<p class="mt-2 text-sm text-muted line-clamp-3">${escapeHtml(a.excerpt_id)}</p>` : ""}
-        <div class="mt-4 text-sm text-accent-2">Baca artikel →</div>
+        ? `<div class="${aspectCls} mt-4 rounded-[10px] overflow-hidden bg-surface2"><img src="${escapeHtml(a.cover_image_url)}" alt="" class="w-full h-full object-cover"/></div>`
+        : ""}
+
+      <h2 class="mt-4 ${titleCls} font-bold leading-tight line-clamp-2">${escapeHtml(a.title_id || "(tanpa judul)")}</h2>
+      ${a.excerpt_id ? `<p class="mt-3 text-sm text-muted leading-relaxed ${excerptClamp}">${escapeHtml(a.excerpt_id)}</p>` : ""}
+
+      <div class="border-t border-dashed border-linestrong my-4"></div>
+
+      <div class="font-mono text-[12px]">
+        <span class="text-accent-2">${time}</span>
       </div>
     </a>
-  `).join("");
+  `;
+}
+
+if (error) {
+  grid.innerHTML = `<div class="card-empty col-span-full">Gagal memuat: ${escapeHtml(error.message)}</div>`;
+} else if (!data.length) {
+  grid.innerHTML = `<div class="card-empty col-span-full">Belum ada artikel — silakan kembali lagi nanti.</div>`;
+} else {
+  grid.innerHTML = data.map((a, i) => renderCard(a, i === 0)).join("");
 }
 </script>
 <!-- Vercel Web Analytics -->
 <script defer src="/_vercel/insights/script.js"></script>
+<script src="/slime-widget.js" defer></script>
 </body>
 </html>
