@@ -969,23 +969,51 @@
   }
 
   /* ====================================================================
-     HERO — downsize 2 tiers
+     HERO — fit in 1 viewport (100vh including nav + marquee)
      ==================================================================== */
-  .hero-section .pt-24 { padding-top: 3.5rem !important; }
-  .hero-section .pb-32 { padding-bottom: 4rem !important; }
+  .hero-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  /* Inner padding wrap = the .max-w-7xl container at line ~1328
+     Becomes flex:1 so it absorbs the available height; copy centers vertically. */
+  .hero-section > .max-w-7xl {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  /* Compress hero padding so copy + marquee fit in a single viewport */
+  .hero-section .pt-24 { padding-top: 2rem !important; }
+  .hero-section .pb-32 { padding-bottom: 2rem !important; }
   @media (min-width: 1024px) {
-    .hero-section .lg\:pt-36 { padding-top: 5rem !important; }
-    .hero-section .lg\:pb-44 { padding-bottom: 6rem !important; }
+    .hero-section .lg\:pt-36 { padding-top: 2.5rem !important; }
+    .hero-section .lg\:pb-44 { padding-bottom: 2.5rem !important; }
   }
 
   /* Hero wordmark image */
   .hero-section img[src="/klaut-wordmark.png"] {
-    height: 22px !important;
+    height: 20px !important;
   }
   @media (min-width: 768px) {
-    .hero-section img[src="/klaut-wordmark.png"] { height: 28px !important; }
+    .hero-section img[src="/klaut-wordmark.png"] { height: 26px !important; }
   }
-  .hero-section .mb-10 { margin-bottom: 1.5rem !important; }
+  .hero-section .mb-10 { margin-bottom: 1rem !important; }
+
+  /* H1 — shrink top size so it fits in 1-2 lines without forcing a tall layout */
+  .hero-section h1 { font-size: clamp(40px, 6.2vw, 88px) !important; line-height: 0.98 !important; }
+  /* Copy margins tightened */
+  .hero-section .mt-8 { margin-top: 1.25rem !important; }
+  .hero-section .mt-10 { margin-top: 1.5rem !important; }
+
+  /* Marquee row tightened */
+  .hero-section .py-8 { padding-top: 1.25rem !important; padding-bottom: 1.25rem !important; }
+
+  /* Mobile fallback: allow scroll if viewport is too short */
+  @media (max-height: 720px) and (max-width: 767px) {
+    .hero-section { min-height: auto; }
+  }
 
   /* Hero headline */
   .hero-section h1 {
@@ -1224,6 +1252,16 @@
     .cta-neural-lines line, .cta-neural-nodes circle { animation: none !important; }
   }
 
+    .wordmark-tile {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    background: linear-gradient(135deg, #4F6BFF, #7B8FFF);
+    color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.04em;
+  }
   </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-59BT0YK7NH"></script>
@@ -1944,9 +1982,10 @@
 <footer class="border-t border-line">
   <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-16 grid md:grid-cols-12 gap-10">
     <div class="md:col-span-5">
-      <div class="flex items-center gap-2.5">
-        <img src="/klaut-K.svg" alt="" class="brand-mark"/>
-      </div>
+      <a href="index.html" class="flex items-center gap-2.5">
+        <span class="wordmark-tile">K</span>
+        <span class="font-semibold tracking-tight text-[17px]">Klaut</span>
+      </a>
       <p class="mt-6 max-w-sm text-[14px] text-muted leading-relaxed">
         Enterprise AI Transformation Ecosystem. Strategy, talent, models, and governance — engineered as one system.
       </p>
