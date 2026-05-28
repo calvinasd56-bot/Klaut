@@ -177,7 +177,7 @@ const INDUSTRY_LABEL = { financial_services:'Financial Services', inventory_supp
 const AGENT_LABEL = { doc_extraction:'Document Extraction', workflow_classification:'Workflow Classification', autonomous_research:'Autonomous Research', rag:'RAG', on_prem_llm:'On-Premise LLM', multi_agent:'Multi-Agent Orchestration', eval_observability:'Eval & Observability' };
 const DOC_TYPE_LABEL = { case_study:'Case Study', audit:'Audit', whitepaper:'Whitepaper', roadmap:'Roadmap', reference:'Reference', attestation:'Attestation', brief:'Brief', template:'Template', spec:'Spec', rubric:'Rubric', protocol:'Protocol' };
 
-const match = location.pathname.match(/^\/en\/case-studies\/([^\/]+)/);
+const match = location.pathname.match(/^\/case-studies\/([^\/]+)/);
 const slug = match ? decodeURIComponent(match[1]) : null;
 
 const $ = (id) => document.getElementById(id);
@@ -316,5 +316,6 @@ if (!slug) {
 </script>
 <!-- Vercel Web Analytics -->
 <script defer src="/_vercel/insights/script.js"></script>
+<script src="/slime-widget.js" defer></script>
 </body>
 </html>

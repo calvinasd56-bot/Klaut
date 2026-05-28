@@ -140,8 +140,8 @@
 <script type="module">
 import { supabase, tiptapToHtml, formatDate, readingTime } from "/shared/supabase.js";
 
-// Extract slug from URL: /artikel/<slug>  (after Vercel rewrite, location.pathname keeps the original URL)
-const match = location.pathname.match(/^\/artikel\/([^\/]+)/);
+// Extract slug from URL: /id/artikel/<slug>  (after Vercel rewrite, location.pathname keeps the original URL)
+const match = location.pathname.match(/^\/id\/artikel\/([^\/]+)/);
 const slug  = match ? decodeURIComponent(match[1]) : null;
 
 const loading = document.getElementById("loading");
@@ -267,5 +267,6 @@ if (!slug) {
 </script>
 <!-- Vercel Web Analytics -->
 <script defer src="/_vercel/insights/script.js"></script>
+<script src="/slime-widget.js" defer></script>
 </body>
 </html>

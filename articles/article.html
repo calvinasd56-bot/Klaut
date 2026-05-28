@@ -140,7 +140,7 @@
 <script type="module">
 import { supabase, tiptapToHtml, formatDate, readingTime } from "/shared/supabase.js";
 
-const match = location.pathname.match(/^\/en\/articles\/([^\/]+)/);
+const match = location.pathname.match(/^\/articles\/([^\/]+)/);
 const slug  = match ? decodeURIComponent(match[1]) : null;
 
 const loading = document.getElementById("loading");
@@ -257,5 +257,6 @@ if (!slug) {
 </script>
 <!-- Vercel Web Analytics -->
 <script defer src="/_vercel/insights/script.js"></script>
+<script src="/slime-widget.js" defer></script>
 </body>
 </html>

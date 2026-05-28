@@ -14,17 +14,9 @@
     { "source": "/artikel/:slug",            "destination": "/id/artikel/:slug",       "permanent": true }
   ],
   "rewrites": [
-    { "source": "/articles",                 "destination": "/articles/index.html" },
-    { "source": "/articles/:slug",           "destination": "/articles/article.html" },
-    { "source": "/case-studies",             "destination": "/case-studies/index.html" },
-    { "source": "/case-studies/:slug",       "destination": "/case-studies/case-study.html" },
-    { "source": "/id",                       "destination": "/id/index.html" },
-    { "source": "/id/artikel",               "destination": "/id/artikel/index.html" },
-    { "source": "/id/artikel/:slug",         "destination": "/id/artikel/article.html" },
-    { "source": "/id/case-studies",          "destination": "/id/case-studies/index.html" },
-    { "source": "/id/case-studies/:slug",    "destination": "/id/case-studies/case-study.html" },
-    { "source": "/admin",                    "destination": "/admin/index.html" },
-    { "source": "/admin/editor",             "destination": "/admin/editor.html" },
-    { "source": "/admin/case-study-editor",  "destination": "/admin/case-study-editor.html" }
+    { "source": "/articles/:slug",           "destination": "/articles/article" },
+    { "source": "/case-studies/:slug",       "destination": "/case-studies/case-study" },
+    { "source": "/id/artikel/:slug",         "destination": "/id/artikel/article" },
+    { "source": "/id/case-studies/:slug",    "destination": "/id/case-studies/case-study" }
   ]
 }
