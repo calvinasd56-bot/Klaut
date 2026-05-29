@@ -118,23 +118,268 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outlin
     cookie_flags: 'SameSite=None;Secure'
   });
 </script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'], mono: ['"JetBrains Mono"','ui-monospace','monospace'] },
+      colors: { bg:'#0a0a0a', surface:'#111111', 'surface-2':'#1a1a1a', line:'#262626',
+                accent:'#4F6BFF', 'accent-2':'#7B8FFF', ink:'#ffffff', muted:'#a1a1aa', dim:'#71717a' },
+    }},
+  };
+</script>
+<style id="klaut-nav-base">
+  /* Klaut nav base tokens — layered onto page's own :root */
+  #nav { --surface: #111111; --line: #262626; --muted: #a1a1aa; --accent: #4F6BFF; }
+  .brand-mark { width: 24px; height: 24px; object-fit: contain; display: block; flex-shrink: 0; }
+  .link-hover { transition: color 180ms; } .link-hover:hover { color: #fff; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 8px; font-weight: 500; font-size: 14px; transition: all 200ms; cursor: pointer; border: 0; text-decoration: none; }
+  .btn-primary { background: #4F6BFF; color: #fff; }
+  .btn-primary:hover { background: #3854E5; }
+  .btn-ghost { background: rgba(255,255,255,.04); color: #fff; border: 1px solid rgba(255,255,255,.1); }
+  .btn-ghost:hover { background: rgba(255,255,255,.08); }
+  /* nav scroll effect */
+  #nav.scrolled { background: rgba(10,10,10,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid #262626; }
+  /* nav-dd panels */
+  .nav-dd { position: relative; }
+  .nav-dd-btn { display: inline-flex; align-items: center; gap: 4px; padding: 8px 16px; font-size: .875rem; color: #a1a1aa; background: none; border: none; cursor: pointer; font-family: inherit; border-radius: 8px; transition: color .15s; }
+  .nav-dd-btn:hover, .nav-dd-btn[aria-expanded="true"] { color: #fff; }
+  .nav-dd-btn svg { flex-shrink: 0; transition: transform .2s; }
+  .nav-dd-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+  .nav-dd-panel { position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%) translateY(-4px); background: #111111; border: 1px solid #262626; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,.55); opacity: 0; visibility: hidden; transition: opacity .15s, visibility .15s, transform .15s; z-index: 200; }
+  .nav-dd-panel.open { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+  .nav-dd-panel.panel-help { width: 200px; padding: 8px; }
+  .nav-dd-panel.panel-help a { display: block; padding: 8px 14px; border-radius: 8px; font-size: 13px; color: #a1a1aa; text-decoration: none; transition: background .12s, color .12s; line-height: 1.4; }
+  .nav-dd-panel.panel-help a:hover { background: rgba(255,255,255,.06); color: #fff; }
+  .nav-dd-panel.panel-mega { width: 680px; padding: 24px; }
+  @media (max-width: 800px) { .nav-dd-panel.panel-mega { width: calc(100vw - 24px); left: 0; transform: translateY(-4px); } .nav-dd-panel.panel-mega.open { transform: translateY(0); } }
+  .mega-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .mega-col-header { display: block; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .12em; color: rgba(255,255,255,.45); padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,.08); margin-bottom: 10px; }
+  .mega-items { display: flex; flex-direction: column; }
+  .mega-items a { display: block; padding: 8px 0; font-size: 13px; line-height: 1.4; color: #a1a1aa; text-decoration: none; transition: color .12s; }
+  .mega-items a:hover { color: #fff; }
+  .nav-dd-panel.panel-mega--4 { width: 860px; padding: 24px; }
+  @media (max-width: 900px) { .nav-dd-panel.panel-mega--4 { width: calc(100vw - 24px); left: 0; transform: translateY(-4px); } .nav-dd-panel.panel-mega--4.open { transform: translateY(0); } }
+  .mega-cols--4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+  .mega-items a.mega-view-all { color: rgba(255,255,255,.5); font-style: italic; }
+  .mega-items a.mega-view-all:hover { color: rgba(255,255,255,.8); }
+  nav[aria-label="Primary"] { position: relative; }
+  .nav-dd:has(.panel-mega), .nav-dd:has(.panel-mega--4) { position: static; }
+  .nav-dd-panel.panel-mega, .nav-dd-panel.panel-mega--4 { left: 0; transform: translateY(-4px); }
+  .nav-dd-panel.panel-mega.open, .nav-dd-panel.panel-mega--4.open { transform: translateY(0); }
+  /* Ensure the fixed nav sits above the page's sticky filterbar (z-20) */
+  #nav { z-index: 40 !important; }
+  /* Offset page content for fixed nav height */
+  body { padding-top: 64px; }
+  /* Mobile drawer */
+  #mobileMenu { display: none; position: fixed; inset: 0; z-index: 50; }
+  #mobileMenu:not(.hidden) { display: block; }
+  #mobileMenu .backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.7); backdrop-filter: blur(4px); }
+  #mobileMenu aside { position: absolute; right: 0; top: 0; height: 100%; width: 320px; max-width: 85vw; background: #111111; border-left: 1px solid #262626; padding: 24px; display: flex; flex-direction: column; gap: 4px; overflow-y: auto; }
+  #mobileMenu .mob-close-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+  #mobileMenu a.mob-link { display: block; padding: 12px 16px; border-radius: 8px; color: #a1a1aa; text-decoration: none; font-size: 14px; transition: background .15s; }
+  #mobileMenu a.mob-link:hover { background: rgba(255,255,255,.05); color: #fff; }
+  #mobileMenu details summary { padding: 12px 16px; border-radius: 8px; color: #a1a1aa; cursor: pointer; font-size: 14px; list-style: none; display: flex; align-items: center; justify-content: space-between; }
+  #mobileMenu details summary:hover { background: rgba(255,255,255,.05); }
+  #mobileMenu details[open] summary svg { transform: rotate(180deg); }
+  #mobileMenu .mob-sub { padding-left: 16px; display: flex; flex-direction: column; gap: 0; }
+  #mobileMenu .mob-sub p { padding: 8px 16px 4px; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .12em; color: rgba(255,255,255,.4); margin: 0; }
+  #mobileMenu .mob-sub a { padding: 8px 16px; border-radius: 8px; color: #a1a1aa; font-size: 13px; text-decoration: none; }
+  #mobileMenu .mob-sub a:hover { background: rgba(255,255,255,.05); color: #fff; }
+  #mobileMenu .mob-lang { display: flex; align-items: center; justify-content: center; margin-top: 16px; border-radius: 9999px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.05); padding: 2px; width: fit-content; margin-left: auto; margin-right: auto; }
+  #mobileMenu .mob-lang a { padding: 8px 16px; border-radius: 9999px; color: #a1a1aa; font-size: 12px; text-decoration: none; }
+  #mobileMenu .mob-lang a.active { background: rgba(255,255,255,.1); color: #fff; }
+  #mobileMenu .mob-cta { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: 8px; background: #4F6BFF; color: #fff; font-weight: 500; font-size: 14px; text-decoration: none; margin-top: 16px; }
+  #mobileMenu .mob-cta:hover { background: #3854E5; }
+  /* close button */
+  .mob-close-btn { padding: 8px; border-radius: 8px; background: none; border: none; color: #a1a1aa; cursor: pointer; }
+  .mob-close-btn:hover { background: rgba(255,255,255,.05); color: #fff; }
+</style>
 </head>
 <body>
 
-<nav class="sitenav">
-  <div class="sitenav__inner">
-    <a href="/" class="sitenav__brand"><img src="/klaut-K-mark.png?v=1" alt="Klaut" style="height:28px;width:28px"/></a>
-    <div class="sitenav__links">
-      <a href="/#about">About</a>
-      <a href="/case-studies" class="active">Case Studies</a>
-      <a href="/help-center">FAQ</a>
+<header id="nav" class="fixed top-0 inset-x-0 transition-all duration-300" style="background:rgba(10,10,10,0.7);backdrop-filter:blur(20px);border-bottom:1px solid #262626;">
+  <div style="max-width:1280px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;">
+    <div style="display:flex;align-items:center;gap:24px;">
+      <a href="/" style="display:flex;align-items:center;gap:10px;" aria-label="Klaut home">
+        <img src="/klaut-K-mark.png?v=1" alt="" class="brand-mark"/>
+      </a>
+      <nav style="display:none;" class="md-nav" aria-label="Primary">
+        <a href="https://klaut.id/why-klaut" class="px-4 py-2 text-sm text-muted link-hover" style="padding:8px 16px;font-size:14px;color:#a1a1aa;text-decoration:none;border-radius:8px;display:inline-block;">Why Klaut</a>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-cs-art-prod">Product
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-cs-art-prod" class="nav-dd-panel panel-mega" role="menu" aria-label="Product">
+            <div class="mega-cols">
+              <div>
+                <span class="mega-col-header">Platform</span>
+                <div class="mega-items">
+                  <a href="/" role="menuitem">Klaut AI</a>
+                  <a href="https://compass.klaut.id/" role="menuitem">Compass</a>
+                  <a href="/marketplace" role="menuitem">Klaut Marketplace</a>
+                  <a href="/learning" role="menuitem">Klaut Learning Center</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Capabilities</span>
+                <div class="mega-items">
+                  <a href="/capabilities/work-patterns" role="menuitem">Work patterns intelligence</a>
+                  <a href="/capabilities/error-detection" role="menuitem">Error detection &amp; correction</a>
+                  <a href="/capabilities/kpi" role="menuitem">KPI Command Center</a>
+                  <a href="/capabilities/reports" role="menuitem">Report Card &amp; analytics</a>
+                  <a href="/capabilities/admin" role="menuitem">Admin &amp; security</a>
+                  <a href="/capabilities/tools-integration" role="menuitem">Tools integration</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">AI Features</span>
+                <div class="mega-items">
+                  <a href="/ai/inference" role="menuitem">Inference Engine</a>
+                  <a href="/ai/copilot" role="menuitem">AI Copilot (Slime)</a>
+                  <a href="/ai/decision-support" role="menuitem">Decision Support</a>
+                  <a href="/ai/tools-automation" role="menuitem">Tools automation</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-cs-art-sol">Solutions
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-cs-art-sol" class="nav-dd-panel panel-mega panel-mega--4" role="menu" aria-label="Solutions">
+            <div class="mega-cols mega-cols--4">
+              <div>
+                <span class="mega-col-header">Company Type</span>
+                <div class="mega-items">
+                  <a href="/solutions/solo" role="menuitem">Solo</a>
+                  <a href="/solutions/team" role="menuitem">Team</a>
+                  <a href="/solutions/enterprise" role="menuitem">Enterprise</a>
+                  <a href="/solutions/partners" role="menuitem">Partners</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">MANAGEMENT</span>
+                <div class="mega-items">
+                  <a href="/solutions/employer" role="menuitem">Employer</a>
+                  <a href="/solutions/manager" role="menuitem">Manager</a>
+                  <a href="/solutions/hr" role="menuitem">HR</a>
+                  <a href="/employee" role="menuitem">Employee</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Industries</span>
+                <div class="mega-items">
+                  <a href="/solutions/industries/education" role="menuitem">Education</a>
+                  <a href="/solutions/industries/insurance" role="menuitem">Insurance</a>
+                  <a href="/solutions/industries/financial-services" role="menuitem">Financial Services</a>
+                  <a href="/solutions/industries/technology" role="menuitem">Technology</a>
+                  <a href="/solutions/industries/ecommerce" role="menuitem">E-commerce</a>
+                  <a href="/solutions/industries/healthcare" role="menuitem">Healthcare</a>
+                  <a href="/solutions/industries" role="menuitem" class="mega-view-all">View all industries</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Use Cases</span>
+                <div class="mega-items">
+                  <a href="/use-cases/ai-readiness" role="menuitem">AI readiness audit</a>
+                  <a href="/use-cases/workforce-intelligence" role="menuitem">Workforce intelligence</a>
+                  <a href="/use-cases/integration" role="menuitem">Cross-tool integration</a>
+                  <a href="/use-cases/honest-reports" role="menuitem">Honest performance reports</a>
+                  <a href="/use-cases/compliance" role="menuitem">Compliance &amp; privacy</a>
+                  <a href="/use-cases" role="menuitem" class="mega-view-all">View all use cases</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-cs-art-help">Help
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-cs-art-help" class="nav-dd-panel panel-help" role="menu" aria-label="Help">
+            <a href="/help-center" role="menuitem">Help Center</a>
+            <a href="mailto:hello@klaut.id" role="menuitem">Contact Us</a>
+          </div>
+        </div>
+        <a href="https://klaut.id/pricing" style="padding:8px 16px;font-size:14px;color:#a1a1aa;text-decoration:none;border-radius:8px;display:inline-block;" class="link-hover">Pricing</a>
+      </nav>
     </div>
-    <div class="sitenav__lang">
-      <a href="" id="lang-id-link">ID</a>
-      <a href="" id="lang-en-link" class="active">EN</a>
+    <div style="display:flex;align-items:center;gap:12px;" class="md-right">
+      <div style="display:flex;align-items:center;border-radius:9999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);padding:2px;" role="group" aria-label="Select language">
+        <a href="/id/case-studies" style="padding:6px 12px;border-radius:9999px;color:#a1a1aa;font-size:12px;text-decoration:none;">ID</a>
+        <a href="/case-studies" style="padding:6px 12px;border-radius:9999px;background:rgba(255,255,255,.1);color:#fff;font-size:12px;text-decoration:none;" aria-current="page">EN</a>
+      </div>
+      <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" class="btn btn-primary">Book a call
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="https://compass-app.klaut.id/" target="_blank" rel="noopener" class="btn btn-ghost">Demo</a>
     </div>
+    <button id="hamburger" style="padding:8px;border-radius:8px;background:none;border:none;color:#fff;cursor:pointer;" aria-label="Open menu" class="mob-hamburger">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+    </button>
   </div>
-</nav>
+</header>
+<style>
+  @media (min-width: 768px) {
+    .md-nav { display: flex !important; align-items: center; gap: 4px; }
+    .mob-hamburger { display: none !important; }
+  }
+  @media (max-width: 767px) {
+    .md-right { display: none !important; }
+  }
+</style>
+
+<!-- Mobile drawer -->
+<div id="mobileMenu" class="hidden">
+  <div class="backdrop" data-close-menu></div>
+  <aside>
+    <div class="mob-close-row">
+      <img src="/klaut-K-mark.png?v=1" alt="" class="brand-mark"/>
+      <button data-close-menu class="mob-close-btn" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
+    </div>
+    <a href="https://klaut.id/why-klaut" data-close-menu class="mob-link">Why Klaut</a>
+    <details>
+      <summary>Product <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+      <div class="mob-sub">
+        <p>Platform</p>
+        <a href="/">Klaut AI</a><a href="https://compass.klaut.id/">Compass</a><a href="/marketplace">Klaut Marketplace</a><a href="/learning">Klaut Learning Center</a>
+        <p>Capabilities</p>
+        <a href="/capabilities/work-patterns">Work patterns intelligence</a><a href="/capabilities/error-detection">Error detection &amp; correction</a><a href="/capabilities/kpi">KPI Command Center</a><a href="/capabilities/reports">Report Card &amp; analytics</a><a href="/capabilities/admin">Admin &amp; security</a><a href="/capabilities/tools-integration">Tools integration</a>
+        <p>AI Features</p>
+        <a href="/ai/inference">Inference Engine</a><a href="/ai/copilot">AI Copilot (Slime)</a><a href="/ai/decision-support">Decision Support</a><a href="/ai/tools-automation">Tools automation</a>
+      </div>
+    </details>
+    <details>
+      <summary>Solutions <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+      <div class="mob-sub">
+        <p>Company Type</p>
+        <a href="/solutions/solo">Solo</a><a href="/solutions/team">Team</a><a href="/solutions/enterprise">Enterprise</a><a href="/solutions/partners">Partners</a>
+        <p>Management</p>
+        <a href="/solutions/employer">Employer</a><a href="/solutions/manager">Manager</a><a href="/solutions/hr">HR</a><a href="/employee">Employee</a>
+        <p>Industries</p>
+        <a href="/solutions/industries/education">Education</a><a href="/solutions/industries/insurance">Insurance</a><a href="/solutions/industries/financial-services">Financial Services</a><a href="/solutions/industries/technology">Technology</a><a href="/solutions/industries/ecommerce">E-commerce</a><a href="/solutions/industries/healthcare">Healthcare</a>
+        <p>Use Cases</p>
+        <a href="/use-cases/ai-readiness">AI readiness audit</a><a href="/use-cases/workforce-intelligence">Workforce intelligence</a><a href="/use-cases/integration">Cross-tool integration</a><a href="/use-cases/honest-reports">Honest performance reports</a><a href="/use-cases/compliance">Compliance &amp; privacy</a>
+      </div>
+    </details>
+    <details>
+      <summary>Help <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transition:transform .2s"><polyline points="6 9 12 15 18 9"/></svg></summary>
+      <div class="mob-sub">
+        <a href="/help-center">Help Center</a><a href="mailto:hello@klaut.id">Contact Us</a>
+      </div>
+    </details>
+    <a href="https://klaut.id/pricing" data-close-menu class="mob-link">Pricing</a>
+    <div class="mob-lang">
+      <a href="/id/case-studies">ID</a>
+      <a href="/case-studies" class="active">EN</a>
+    </div>
+    <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" class="mob-cta">Book a call</a>
+  </aside>
+</div>
 
 <div id="loading" class="loading-strip">Loading case study…</div>
 
@@ -316,5 +561,54 @@ if (!slug) {
 <!-- Vercel Web Analytics -->
 <script defer src="/_vercel/insights/script.js"></script>
 <script src="/slime-widget.js" defer></script>
+
+<script id="nav-dropdown-script">
+(function () {
+  // Nav scroll
+  var nav = document.getElementById('nav');
+  function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 8); }
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // Mobile menu
+  var mm = document.getElementById('mobileMenu');
+  var hamburger = document.getElementById('hamburger');
+  if (hamburger && mm) {
+    hamburger.addEventListener('click', function () { mm.classList.remove('hidden'); });
+    mm.querySelectorAll('[data-close-menu]').forEach(function (el) {
+      el.addEventListener('click', function () { mm.classList.add('hidden'); });
+    });
+  }
+
+  // Dropdown
+  function init() {
+    document.querySelectorAll('.nav-dd-btn').forEach(function (btn) {
+      var panel = btn.nextElementSibling;
+      if (!panel || !panel.classList.contains('nav-dd-panel')) return;
+      var dd = btn.parentElement;
+      dd.addEventListener('mouseenter', function () { open(btn, panel); });
+      dd.addEventListener('mouseleave', function () { close(btn, panel); });
+      btn.addEventListener('click', function () { toggle(btn, panel); });
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(btn, panel); }
+        if (e.key === 'Escape') { close(btn, panel); btn.focus(); }
+      });
+      panel.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { close(btn, panel); btn.focus(); }
+      });
+    });
+    document.addEventListener('click', function (e) {
+      document.querySelectorAll('.nav-dd-btn').forEach(function (btn) {
+        var panel = btn.nextElementSibling;
+        if (panel && !btn.parentElement.contains(e.target)) close(btn, panel);
+      });
+    });
+  }
+  function open(b, p) { p.classList.add('open'); b.setAttribute('aria-expanded', 'true'); }
+  function close(b, p) { p.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); }
+  function toggle(b, p) { p.classList.contains('open') ? close(b, p) : open(b, p); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+}());
+</script>
 </body>
 </html>
