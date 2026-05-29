@@ -216,6 +216,44 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/tools-integration"/>
   </url>
 
+  <!-- Solutions · Company type (Bahasa) -->
+  <url>
+    <loc>https://klaut.id/id/solutions/solo</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/solutions/solo"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/solutions/solo"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/solutions/solo"/>
+  </url>
+  <url>
+    <loc>https://klaut.id/id/solutions/team</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/solutions/team"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/solutions/team"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/solutions/team"/>
+  </url>
+  <url>
+    <loc>https://klaut.id/id/solutions/enterprise</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/solutions/enterprise"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/solutions/enterprise"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/solutions/enterprise"/>
+  </url>
+  <url>
+    <loc>https://klaut.id/id/solutions/partners</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/solutions/partners"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/solutions/partners"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/solutions/partners"/>
+  </url>
+
   <!-- Bahasa Indonesia (/id/) -->
   <url>
     <loc>https://klaut.id/id</loc>
