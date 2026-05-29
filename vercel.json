@@ -18,6 +18,8 @@
     { "source": "/artikel/:slug",            "destination": "/id/artikel/:slug",       "permanent": true },
     { "source": "/apps",                     "destination": "/marketplace",                                "permanent": true },
     { "source": "/id/apps",                  "destination": "/id/marketplace",                             "permanent": true },
+    { "source": "/learning",                 "destination": "/learn",                                      "permanent": true },
+    { "source": "/id/learning",              "destination": "/id/learn",                                   "permanent": true },
     { "source": "/capabilities/work-patterns",        "destination": "/work-patterns",        "permanent": true },
     { "source": "/capabilities/error-detection",      "destination": "/error-detection",      "permanent": true },
     { "source": "/capabilities/kpi",                  "destination": "/kpi-command-center",   "permanent": true },
