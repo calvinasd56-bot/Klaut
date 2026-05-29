@@ -96,6 +96,64 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/tools-integration"/>
   </url>
 
+  <!-- Commercial · highest-intent buyer pages -->
+  <url>
+    <loc>https://klaut.id/pricing</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/pricing"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/pricing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/pricing"/>
+  </url>
+  <url>
+    <loc>https://klaut.id/why-klaut</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/why-klaut"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/why-klaut"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/why-klaut"/>
+  </url>
+  <url>
+    <loc>https://klaut.id/marketplace</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/marketplace"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/marketplace"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/marketplace"/>
+  </url>
+
+  <!-- Commercial (Bahasa) -->
+  <url>
+    <loc>https://klaut.id/id/pricing</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/pricing"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/pricing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/pricing"/>
+  </url>
+  <url>
+    <loc>https://klaut.id/id/why-klaut</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/why-klaut"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/why-klaut"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/why-klaut"/>
+  </url>
+  <url>
+    <loc>https://klaut.id/id/marketplace</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/marketplace"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/marketplace"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/marketplace"/>
+  </url>
+
   <!-- Solutions · Company type -->
   <url>
     <loc>https://klaut.id/solutions/solo</loc>
