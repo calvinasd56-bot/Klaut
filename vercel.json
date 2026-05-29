@@ -4,6 +4,8 @@
   "trailingSlash": false,
   "redirects": [
     { "source": "/en",                       "destination": "/",                       "permanent": true },
+    { "source": "/employee",                 "destination": "/solutions/employee",     "permanent": false },
+    { "source": "/id/employee",              "destination": "/id/solutions/employee",  "permanent": false },
     { "source": "/faq",                      "destination": "/help-center",            "permanent": true },
     { "source": "/id/faq",                   "destination": "/id/help-center",         "permanent": true },
     { "source": "/en/faq",                   "destination": "/help-center",            "permanent": true },
