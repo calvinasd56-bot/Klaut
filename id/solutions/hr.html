@@ -178,6 +178,24 @@
 .link-hover { transition: color 180ms; }
 .link-hover:hover { color: #fff; }
 /* === end mega-nav fixes === */
+
+/* === MEGA-NAV HEIGHT NORMALIZATION (global rule v2: 44px) === */
+/* Bump .btn to 44px to match user-spec global rule (height: 44px) */
+.btn { height: 44px !important; padding: 0 20px !important; font-size: 14px !important; }
+/* Lang toggle: bump container to 44px, items to 36px (44 - 4*2 padding) */
+#nav [role="group"][aria-label="Select language"],
+#nav [role="group"][aria-label="Pilih bahasa"] {
+  height: 44px !important; padding: 4px !important;
+}
+#nav [role="group"][aria-label="Select language"] a,
+#nav [role="group"][aria-label="Pilih bahasa"] a {
+  height: 36px !important; padding: 0 14px !important;
+  display: inline-flex !important; align-items: center !important;
+  font-size: 13px !important;
+}
+/* Equal right-cluster gap: 12px (per global spec 12-16px) */
+#nav > div > div:last-child { gap: 12px !important; }
+/* === end height normalization === */
 </style>
 
 <!-- Google tag (gtag.js) -->
