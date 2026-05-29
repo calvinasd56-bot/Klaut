@@ -237,6 +237,31 @@
 .feat-slime-level { font: 500 11px/1 'JetBrains Mono', monospace; color: #7B8FFF; }
 .feat-slime-poin  { font: 600 14px/1 'JetBrains Mono', monospace; color: #34d399; margin-left: auto; flex-shrink: 0; }
 .feat-slime-poin span { font-size: 10px; color: #71717a; font-weight: 400; display: block; text-align: right; margin-top: 2px; }
+
+/* === MEGA-NAV BUTTON + LINK FIXES (port follow-up) === */
+#nav img.brand-mark, #mobileMenu img.brand-mark {
+  width: 28px; height: 28px;
+  object-fit: contain; display: block; flex-shrink: 0;
+  background: transparent !important; border: 0 !important;
+  border-radius: 0 !important; box-shadow: none !important; padding: 0 !important;
+}
+#nav a, #mobileMenu a { text-decoration: none; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font: 500 14px/1 var(--font-sans, ui-sans-serif);
+  letter-spacing: -0.005em;
+  height: 36px; padding: 0 18px;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: background 180ms cubic-bezier(0.2,0.8,0.2,1), border-color 180ms cubic-bezier(0.2,0.8,0.2,1), color 180ms cubic-bezier(0.2,0.8,0.2,1);
+}
+.btn-primary { background: var(--accent, #4F6BFF); border: 1px solid var(--accent, #4F6BFF); color: #fff; }
+.btn-primary:hover { background: var(--accent-deep, #3854E5); border-color: var(--accent-deep, #3854E5); }
+.btn-ghost { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); color: var(--ink, #fff); }
+.btn-ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.18); }
+.link-hover { transition: color 180ms; }
+.link-hover:hover { color: #fff; }
+/* === end mega-nav fixes === */
 </style>
 
 <!-- Google tag (gtag.js) -->

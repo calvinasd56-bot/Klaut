@@ -153,6 +153,31 @@
 .feat-slime-level { font:500 11px/1 'JetBrains Mono',monospace; color:#818cf8; }
 .feat-slime-poin  { font:600 14px/1 'JetBrains Mono',monospace; color:#34d399; margin-left:auto; flex-shrink:0; }
 .feat-slime-poin span { font-size:10px; color:#71717a; font-weight:400; display:block; text-align:right; margin-top:2px; }
+
+/* === MEGA-NAV BUTTON + LINK FIXES (port follow-up) === */
+#nav img.brand-mark, #mobileMenu img.brand-mark {
+  width: 28px; height: 28px;
+  object-fit: contain; display: block; flex-shrink: 0;
+  background: transparent !important; border: 0 !important;
+  border-radius: 0 !important; box-shadow: none !important; padding: 0 !important;
+}
+#nav a, #mobileMenu a { text-decoration: none; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font: 500 14px/1 var(--font-sans, ui-sans-serif);
+  letter-spacing: -0.005em;
+  height: 36px; padding: 0 18px;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: background 180ms cubic-bezier(0.2,0.8,0.2,1), border-color 180ms cubic-bezier(0.2,0.8,0.2,1), color 180ms cubic-bezier(0.2,0.8,0.2,1);
+}
+.btn-primary { background: var(--accent, #4F6BFF); border: 1px solid var(--accent, #4F6BFF); color: #fff; }
+.btn-primary:hover { background: var(--accent-deep, #3854E5); border-color: var(--accent-deep, #3854E5); }
+.btn-ghost { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); color: var(--ink, #fff); }
+.btn-ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.18); }
+.link-hover { transition: color 180ms; }
+.link-hover:hover { color: #fff; }
+/* === end mega-nav fixes === */
 </style>
 
 <!-- Google tag (gtag.js) -->
@@ -165,6 +190,36 @@
     cookie_flags: 'SameSite=None;Secure'
   });
 </script>
+
+<style id="nav-dropdown-styles">
+.nav-dd { position: relative; }
+.nav-dd-btn { display: inline-flex; align-items: center; gap: 4px; padding: 8px 16px; font-size: .875rem; color: var(--muted, #a1a1aa); background: none; border: none; cursor: pointer; font-family: inherit; border-radius: 8px; transition: color .15s; }
+.nav-dd-btn:hover, .nav-dd-btn[aria-expanded="true"] { color: #fff; }
+.nav-dd-btn svg { flex-shrink: 0; transition: transform .2s; }
+.nav-dd-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+.nav-dd-btn:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; border-radius: 4px; }
+.nav-dd-panel { position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%) translateY(-4px); background: var(--surface, #111111); border: 1px solid var(--line, #262626); border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,.55); opacity: 0; visibility: hidden; transition: opacity .15s, visibility .15s, transform .15s; z-index: 100; }
+.nav-dd-panel.open { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+.nav-dd-panel.panel-help { width: 200px; padding: 8px; }
+.nav-dd-panel.panel-help a { display: block; padding: 8px 14px; border-radius: 8px; font-size: 13px; color: var(--muted, #a1a1aa); text-decoration: none; transition: background .12s, color .12s; line-height: 1.4; }
+.nav-dd-panel.panel-help a:hover { background: rgba(255,255,255,.06); color: #fff; }
+.nav-dd-panel.panel-mega { width: 680px; padding: 24px; }
+@media (max-width: 800px) { .nav-dd-panel.panel-mega { width: calc(100vw - 24px); left: 0; transform: translateY(-4px); } .nav-dd-panel.panel-mega.open { transform: translateY(0); } }
+.mega-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.mega-col-header { display: block; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .12em; color: rgba(255,255,255,.45); padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,.08); margin-bottom: 10px; }
+.mega-items { display: flex; flex-direction: column; }
+.mega-items a { display: block; padding: 8px 0; font-size: 13px; line-height: 1.4; color: var(--muted, #a1a1aa); text-decoration: none; transition: color .12s; }
+.mega-items a:hover { color: #fff; }
+.nav-dd-panel.panel-mega--4 { width: 860px; padding: 24px; }
+@media (max-width: 900px) { .nav-dd-panel.panel-mega--4 { width: calc(100vw - 24px); left: 0; transform: translateY(-4px); } .nav-dd-panel.panel-mega--4.open { transform: translateY(0); } }
+.mega-cols--4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+.mega-items a.mega-view-all { color: rgba(255,255,255,.5); font-style: italic; }
+.mega-items a.mega-view-all:hover { color: rgba(255,255,255,.8); }
+nav[aria-label="Primary"] { position: relative; }
+.nav-dd:has(.panel-mega), .nav-dd:has(.panel-mega--4) { position: static; }
+.nav-dd-panel.panel-mega, .nav-dd-panel.panel-mega--4 { left: 0; transform: translateY(-4px); }
+.nav-dd-panel.panel-mega.open, .nav-dd-panel.panel-mega--4.open { transform: translateY(0); }
+</style>
 </head>
 <body class="bg-bg text-ink">
 
@@ -177,9 +232,104 @@
       </a>
       <nav class="hidden md:flex items-center gap-1" aria-label="Primary">
         <a href="https://klaut.id/why-klaut" class="px-4 py-2 text-sm text-muted link-hover">Mengapa Klaut</a>
-        <a href="https://compass.klaut.id/id" class="px-4 py-2 text-sm text-muted link-hover">Compass</a>
-        <a href="https://klaut.id/id/faq" class="px-4 py-2 text-sm text-muted link-hover">FAQ</a>
-        <a href="https://klaut.id/id/artikel" class="px-4 py-2 text-sm text-muted link-hover">Artikel</a>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-idsol-mgr-prod">Produk
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-idsol-mgr-prod" class="nav-dd-panel panel-mega" role="menu" aria-label="Produk">
+            <div class="mega-cols">
+              <div>
+                <span class="mega-col-header">Platform</span>
+                <div class="mega-items">
+                  <a href="/id" role="menuitem">Klaut AI</a>
+                  <a href="https://compass.klaut.id/id" role="menuitem">Compass</a>
+                  <a href="/marketplace" role="menuitem">Klaut Marketplace</a>
+                  <a href="/learning" role="menuitem">Klaut Learning Center</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Kapabilitas</span>
+                <div class="mega-items">
+                  <a href="/capabilities/work-patterns" role="menuitem">Intelijen pola kerja</a>
+                  <a href="/capabilities/error-detection" role="menuitem">Deteksi &amp; koreksi kesalahan</a>
+                  <a href="/capabilities/kpi" role="menuitem">Pusat Komando KPI</a>
+                  <a href="/capabilities/reports" role="menuitem">Rapor &amp; analitik</a>
+                  <a href="/capabilities/admin" role="menuitem">Admin &amp; keamanan</a>
+                  <a href="/capabilities/tools-integration" role="menuitem">Integrasi tools</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Fitur AI</span>
+                <div class="mega-items">
+                  <a href="/ai/inference" role="menuitem">Mesin Inferensi</a>
+                  <a href="/ai/copilot" role="menuitem">AI Copilot (Slime)</a>
+                  <a href="/ai/decision-support" role="menuitem">Dukungan Keputusan</a>
+                  <a href="/ai/tools-automation" role="menuitem">Otomatisasi tools</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-idsol-mgr-sol">Solusi
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-idsol-mgr-sol" class="nav-dd-panel panel-mega panel-mega--4" role="menu" aria-label="Solusi">
+            <div class="mega-cols mega-cols--4">
+              <div>
+                <span class="mega-col-header">Tipe Perusahaan</span>
+                <div class="mega-items">
+                  <a href="/solutions/solo" role="menuitem">Solo</a>
+                  <a href="/solutions/team" role="menuitem">Tim</a>
+                  <a href="/solutions/enterprise" role="menuitem">Enterprise</a>
+                  <a href="/solutions/partners" role="menuitem">Partner</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">MANAJEMEN</span>
+                <div class="mega-items">
+                  <a href="/solutions/employer" role="menuitem">Pemberi Kerja</a>
+                  <a href="/solutions/manager" role="menuitem">Manajer</a>
+                  <a href="/solutions/hr" role="menuitem">HR</a>
+                  <a href="/id/employee" role="menuitem">Karyawan</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Industri</span>
+                <div class="mega-items">
+                  <a href="/solutions/industries/education" role="menuitem">Pendidikan</a>
+                  <a href="/solutions/industries/insurance" role="menuitem">Asuransi</a>
+                  <a href="/solutions/industries/financial-services" role="menuitem">Jasa Keuangan</a>
+                  <a href="/solutions/industries/technology" role="menuitem">Teknologi</a>
+                  <a href="/solutions/industries/ecommerce" role="menuitem">E-commerce</a>
+                  <a href="/solutions/industries/healthcare" role="menuitem">Kesehatan</a>
+                  <a href="/solutions/industries" role="menuitem" class="mega-view-all">Lihat semua industri</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Kasus Penggunaan</span>
+                <div class="mega-items">
+                  <a href="/use-cases/ai-readiness" role="menuitem">Audit kesiapan AI</a>
+                  <a href="/use-cases/workforce-intelligence" role="menuitem">Intelijen tenaga kerja</a>
+                  <a href="/use-cases/integration" role="menuitem">Integrasi lintas tool</a>
+                  <a href="/use-cases/honest-reports" role="menuitem">Laporan kinerja jujur</a>
+                  <a href="/use-cases/compliance" role="menuitem">Kepatuhan &amp; privasi</a>
+                  <a href="/use-cases" role="menuitem" class="mega-view-all">Lihat semua kasus</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-idsol-mgr-help">Bantuan
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-idsol-mgr-help" class="nav-dd-panel panel-help" role="menu" aria-label="Bantuan">
+            <a href="/id/help-center" role="menuitem">Help Center</a>
+            <a href="/help-center" role="menuitem">Resource Center</a>
+            <a href="mailto:hello@klaut.id" role="menuitem">Hubungi Kami</a>
+          </div>
+        </div>
         <a href="https://klaut.id/id/pricing" class="px-4 py-2 text-sm text-muted link-hover">Pricing</a>
       </nav>
     </div>
@@ -198,6 +348,97 @@
     </button>
   </div>
 </header>
+
+<!-- Mobile drawer -->
+<div id="mobileMenu" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-close-menu></div>
+  <aside class="absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-surface border-l border-line p-6 flex flex-col gap-1">
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-2">
+        <img src="/klaut-K-mark.png?v=1" alt="" class="brand-mark"/>
+      </div>
+      <button data-close-menu class="p-2 rounded-lg hover:bg-white/5" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
+    </div>
+    <a href="https://klaut.id/why-klaut" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Mengapa Klaut</a>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Produk</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-4 flex flex-col gap-0 mt-1">
+        <p class="px-4 pt-2 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Platform</p>
+        <a href="/id" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut AI</a>
+        <a href="https://compass.klaut.id/id" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Compass</a>
+        <a href="/marketplace" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut Marketplace</a>
+        <a href="/learning" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut Learning Center</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Kapabilitas</p>
+        <a href="/capabilities/work-patterns" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Intelijen pola kerja</a>
+        <a href="/capabilities/error-detection" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Deteksi &amp; koreksi kesalahan</a>
+        <a href="/capabilities/kpi" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Pusat Komando KPI</a>
+        <a href="/capabilities/reports" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Rapor &amp; analitik</a>
+        <a href="/capabilities/admin" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Admin &amp; keamanan</a>
+        <a href="/capabilities/tools-integration" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Integrasi tools</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Fitur AI</p>
+        <a href="/ai/inference" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Mesin Inferensi</a>
+        <a href="/ai/copilot" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">AI Copilot (Slime)</a>
+        <a href="/ai/decision-support" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Dukungan Keputusan</a>
+        <a href="/ai/tools-automation" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Otomatisasi tools</a>
+      </div>
+    </details>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Solusi</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-4 flex flex-col gap-0 mt-1">
+        <p class="px-4 pt-2 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Tipe Perusahaan</p>
+        <a href="/solutions/solo" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Solo</a>
+        <a href="/solutions/team" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Tim</a>
+        <a href="/solutions/enterprise" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Enterprise</a>
+        <a href="/solutions/partners" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Partner</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">MANAJEMEN</p>
+        <a href="/solutions/employer" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Pemberi Kerja</a>
+        <a href="/solutions/manager" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Manajer</a>
+        <a href="/solutions/hr" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">HR</a>
+        <a href="/id/employee" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Karyawan</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Industri</p>
+        <a href="/solutions/industries/education" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Pendidikan</a>
+        <a href="/solutions/industries/insurance" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Asuransi</a>
+        <a href="/solutions/industries/financial-services" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Jasa Keuangan</a>
+        <a href="/solutions/industries/technology" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Teknologi</a>
+        <a href="/solutions/industries/ecommerce" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">E-commerce</a>
+        <a href="/solutions/industries/healthcare" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Kesehatan</a>
+        <a href="/solutions/industries" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-white/50 text-[13px] italic">Lihat semua industri</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Kasus Penggunaan</p>
+        <a href="/use-cases/ai-readiness" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Audit kesiapan AI</a>
+        <a href="/use-cases/workforce-intelligence" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Intelijen tenaga kerja</a>
+        <a href="/use-cases/integration" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Integrasi lintas tool</a>
+        <a href="/use-cases/honest-reports" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Laporan kinerja jujur</a>
+        <a href="/use-cases/compliance" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Kepatuhan &amp; privasi</a>
+        <a href="/use-cases" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-white/50 text-[13px] italic">Lihat semua kasus</a>
+      </div>
+    </details>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Bantuan</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-8 flex flex-col gap-0.5 mt-0.5">
+        <a href="/id/help-center" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Help Center</a>
+        <a href="/help-center" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Resource Center</a>
+        <a href="mailto:hello@klaut.id" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Hubungi Kami</a>
+      </div>
+    </details>
+    <a href="https://klaut.id/id/pricing" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Pricing</a>
+    <div class="flex items-center justify-center mt-4 rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium w-fit mx-auto" role="group" aria-label="Pilih bahasa">
+      <a href="/id/solutions/manager" class="px-4 py-2 rounded-full bg-white/10 text-white" aria-current="page">Bahasa Indonesia</a>
+      <a href="/solutions/manager" class="px-4 py-2 rounded-full text-muted hover:text-white transition-colors">English</a>
+    </div>
+    <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" data-close-menu class="btn btn-primary justify-center mt-4">Hubungi Kami</a>
+  </aside>
+</div>
 
 <main>
 
@@ -823,5 +1064,38 @@
 </div>
 <div id="slime-toast" style="position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:#4F6BFF;color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;font-family:Inter,sans-serif;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:10000"></div>
 <script type="module" src="/assets/slime-widget.js"></script>
+
+<script id="nav-dropdown-script">
+(function () {
+  function init() {
+    document.querySelectorAll('.nav-dd-btn').forEach(function (btn) {
+      var panel = btn.nextElementSibling;
+      if (!panel || !panel.classList.contains('nav-dd-panel')) return;
+      var dd = btn.parentElement;
+      dd.addEventListener('mouseenter', function () { open(btn, panel); });
+      dd.addEventListener('mouseleave', function () { close(btn, panel); });
+      btn.addEventListener('click', function () { toggle(btn, panel); });
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(btn, panel); }
+        if (e.key === 'Escape') { close(btn, panel); btn.focus(); }
+      });
+      panel.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { close(btn, panel); btn.focus(); }
+      });
+    });
+    document.addEventListener('click', function (e) {
+      document.querySelectorAll('.nav-dd-btn').forEach(function (btn) {
+        var panel = btn.nextElementSibling;
+        if (panel && !btn.parentElement.contains(e.target)) close(btn, panel);
+      });
+    });
+  }
+  function open(btn, panel) { panel.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+  function close(btn, panel) { panel.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+  function toggle(btn, panel) { panel.classList.contains('open') ? close(btn, panel) : open(btn, panel); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+}());
+</script>
 </body>
 </html>
