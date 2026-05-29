@@ -303,7 +303,7 @@ nav[aria-label="Primary"] { position: relative; }
 
 <main class="flex-1">
   <article id="article" class="max-w-3xl mx-auto px-6 lg:px-8 pt-12 pb-24 hidden">
-    <a href="/id/artikel" class="text-sm text-muted hover:text-ink">â† Semua artikel</a>
+    <a href="/id/artikel" class="text-sm text-muted hover:text-ink">← Semua artikel</a>
 
     <div id="cover-wrap" class="mt-6 rounded-2xl overflow-hidden border border-line hidden">
       <img id="cover-img" alt="" class="w-full aspect-[16/9] object-cover"/>
@@ -323,8 +323,8 @@ nav[aria-label="Primary"] { position: relative; }
     </section>
 
     <div class="mt-16 border-t border-line pt-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-      <a href="/id/artikel" class="text-sm text-muted hover:text-ink">â† Semua artikel</a>
-      <a href="/id/#cta" class="text-sm text-accent-2 hover:text-white">Bicara dengan tim Klaut â†’</a>
+      <a href="/id/artikel" class="text-sm text-muted hover:text-ink">← Semua artikel</a>
+      <a href="/id/#cta" class="text-sm text-accent-2 hover:text-white">Bicara dengan tim Klaut →</a>
     </div>
   </article>
 
@@ -509,7 +509,7 @@ if (!slug) {
           <div class="font-semibold text-base leading-snug">${escapeAttr(c.title_id || c.title_en || c.slug)}</div>
           ${c.client_label ? `<div class="text-xs text-dim mt-1">${escapeAttr(c.client_label)}</div>` : ""}
           ${c.excerpt_id ? `<p class="text-sm text-muted mt-3 line-clamp-2">${escapeAttr(c.excerpt_id)}</p>` : ""}
-          <div class="mt-3 text-xs text-accent-2">Buka case study â†’</div>
+          <div class="mt-3 text-xs text-accent-2">Buka case study →</div>
         </a>
       `).join("");
       featuredIn.classList.remove("hidden");

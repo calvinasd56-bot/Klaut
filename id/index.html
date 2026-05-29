@@ -538,7 +538,7 @@
 
   /* ====================================================================
      AI TRANSFORMATION FLOW — progressive journey sequencer
-     Phase states: dormant â†’ active (pulsing) â†’ completed â†’ reset (loop)
+     Phase states: dormant → active (pulsing) → completed → reset (loop)
      ==================================================================== */
   #flowRail { overflow: visible; background: rgba(63,63,70,.4) !important; }
 
@@ -1070,7 +1070,7 @@
     object-fit: contain;
     display: block;
     flex-shrink: 0;
-    filter: invert(1);  /* source is solid black KLAUT on white â†’ renders white on dark bg */
+    filter: invert(1);  /* source is solid black KLAUT on white → renders white on dark bg */
   }
   @media (min-width: 768px) {
     .brand-wordmark { height: 38px; }
@@ -2053,7 +2053,7 @@ nav[aria-label="Primary"] { position: relative; }
         <h3 class="text-xl font-semibold tracking-tight">Financial Services</h3>
         <p class="mt-3 text-sm text-muted leading-relaxed">Sistem operasional berbasis AI untuk workflow keuangan, otomasi compliance, analisis risiko, pelaporan, dan dukungan keputusan cerdas di lingkungan keuangan enterprise.</p>
         <div class="mt-6 pt-6 border-t border-line flex items-center justify-between text-xs"><span></span>
-          <span class="text-accent-2 group-hover:translate-x-1 transition">Lihat hasil â†’</span>
+          <span class="text-accent-2 group-hover:translate-x-1 transition">Lihat hasil →</span>
         </div>
       </a>
       <!-- Healthcare -->
@@ -2065,7 +2065,7 @@ nav[aria-label="Primary"] { position: relative; }
         <p class="mt-3 text-sm text-muted leading-relaxed">Integrasikan AI ke operasi inventory, sistem ERP, workflow procurement, dan koordinasi supply chain untuk meningkatkan visibilitas, forecasting, dan efisiensi operasional.</p>
         <div class="mt-6 pt-6 border-t border-line flex items-center justify-between text-xs">
           <span class="text-dim font-mono">7 DITERAPKAN</span>
-          <span class="text-accent-2 group-hover:translate-x-1 transition">Lihat hasil â†’</span>
+          <span class="text-accent-2 group-hover:translate-x-1 transition">Lihat hasil →</span>
         </div>
       </a>
       <!-- Energy -->
@@ -2076,7 +2076,7 @@ nav[aria-label="Primary"] { position: relative; }
         <h3 class="text-xl font-semibold tracking-tight">Administrasi</h3>
         <p class="mt-3 text-sm text-muted leading-relaxed">Otomatisasi proses administrasi berulang termasuk penjadwalan, pelaporan, koordinasi internal, approval, dan manajemen operasional enterprise.</p>
         <div class="mt-6 pt-6 border-t border-line flex items-center justify-between text-xs"><span></span>
-          <span class="text-accent-2 group-hover:translate-x-1 transition">Lihat hasil â†’</span>
+          <span class="text-accent-2 group-hover:translate-x-1 transition">Lihat hasil →</span>
         </div>
       </a>
       <!-- Manufacturing -->
@@ -2087,7 +2087,7 @@ nav[aria-label="Primary"] { position: relative; }
         <h3 class="text-xl font-semibold tracking-tight">Sales &amp; Customer Service</h3>
         <p class="mt-3 text-sm text-muted leading-relaxed">Deploy AI copilot dan sistem dukungan cerdas untuk merampingkan engagement pelanggan, otomatisasi respons, meningkatkan kualifikasi lead, dan menyempurnakan operasi layanan.</p>
         <div class="mt-6 pt-6 border-t border-line flex items-center justify-between text-xs"><span></span>
-          <span class="text-accent-2 group-hover:translate-x-1 transition">Lihat hasil â†’</span>
+          <span class="text-accent-2 group-hover:translate-x-1 transition">Lihat hasil →</span>
         </div>
       </a>
       <!-- Public Sector -->
@@ -2098,7 +2098,7 @@ nav[aria-label="Primary"] { position: relative; }
         <h3 class="text-xl font-semibold tracking-tight">Legal &amp; Dokumen</h3>
         <p class="mt-3 text-sm text-muted leading-relaxed">Transformasi kontrak, dokumen hukum, approval, dan dokumen operasional menjadi sistem knowledge enterprise yang terstruktur, mudah dicari, dan dibantu AI.</p>
         <div class="mt-6 pt-6 border-t border-line flex items-center justify-between text-xs"><span></span>
-          <span class="text-accent-2 group-hover:translate-x-1 transition">Lihat hasil â†’</span>
+          <span class="text-accent-2 group-hover:translate-x-1 transition">Lihat hasil →</span>
         </div>
       </a>
       <!-- Retail -->
@@ -2110,7 +2110,7 @@ nav[aria-label="Primary"] { position: relative; }
         <p class="mt-3 text-sm text-muted leading-relaxed">Bangun operasi marketplace berbasis AI dengan workflow produk yang cerdas, interaksi pelanggan otomatis, analitik operasional, dan koordinasi bisnis yang skalabel.</p>
         <div class="mt-6 pt-6 border-t border-line flex items-center justify-between text-xs">
           <span class="text-dim font-mono">4 DITERAPKAN</span>
-          <span class="text-accent-2 group-hover:translate-x-1 transition">Lihat hasil â†’</span>
+          <span class="text-accent-2 group-hover:translate-x-1 transition">Lihat hasil →</span>
         </div>
       </a>
     </div>
@@ -2347,7 +2347,7 @@ nav[aria-label="Primary"] { position: relative; }
   const ORCH_DATA = [
     { id: 'inventory',  label: 'Inventory',     full: 'Manajemen Inventory',
       chain:    ['Sinyal Permintaan', 'Forecasting AI', 'Otomasi Pembelian', 'Sync ERP', 'Koordinasi Supplier', 'Pelaporan Operasi'],
-      outcomes: ['âˆ’42% pekerjaan manual', '3Ã— siklus lebih cepat', 'Replenishment prediktif']
+      outcomes: ['−42% pekerjaan manual', '3× siklus lebih cepat', 'Replenishment prediktif']
     },
     { id: 'erp',        label: 'ERP',           full: 'Sistem ERP',
       chain:    ['Ingest ERP', 'Normalisasi Data', 'Rekonsiliasi AI', 'Deteksi Anomali', 'Otomasi Workflow', 'Layer Pelaporan'],
@@ -2548,7 +2548,7 @@ nav[aria-label="Primary"] { position: relative; }
 
   // =====================================================================
   // AI TRANSFORMATION FLOW — progressive journey sequencer
-  // Phase steps through 0 â†’ 5, dwells fully-completed, then resets seamlessly.
+  // Phase steps through 0 → 5, dwells fully-completed, then resets seamlessly.
   // =====================================================================
   (function initFlowSequencer() {
     const flow  = document.getElementById('flow');
@@ -2722,7 +2722,7 @@ nav[aria-label="Primary"] { position: relative; }
 </div>
 <div id="slime-toast" style="position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:#4F6BFF;color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;font-family:Inter,sans-serif;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:10000"></div>
 <script type="module" src="/assets/slime-widget.js"></script>
-<!-- â•â• end Slime Widget â•â• -->
+<!-- ══ end Slime Widget ══ -->
 
 <script id="nav-dropdown-script">
 (function () {

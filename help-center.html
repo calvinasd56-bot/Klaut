@@ -297,7 +297,7 @@
   .gs-promo-title { font-size: 16px; font-weight: 500; color: #fff; letter-spacing: -0.01em; }
   .gs-promo-sub { font-size: 13px; color: #a1a1aa; line-height: 1.5; flex: 1; }
   .gs-promo-cta { font-size: 13px; color: #818cf8; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; }
-  .gs-promo-cta::after { content: 'â†’'; transition: transform 200ms; }
+  .gs-promo-cta::after { content: '→'; transition: transform 200ms; }
   .gs-promo:hover .gs-promo-cta::after { transform: translateX(3px); }
 
   /* ============ Topic / category cards grid (Asana-style) ============ */
@@ -348,7 +348,7 @@
     letter-spacing: 0.04em;
   }
   .topic-card-meta::after {
-    content: 'â†’';
+    content: '→';
     font-family: 'Inter', sans-serif;
     margin-left: 2px;
     transition: transform 240ms, color 240ms;
@@ -419,7 +419,7 @@
       "name": "We already use Lattice / Culture Amp / Cresta / Observe.AI. What's different?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Each of those products owns one slice of the loop. Lattice and Culture Amp handle performance management. Cresta and Observe.AI handle conversation intelligence. LMS platforms handle formal training.\n\n None of them close the loop from observed mistake â†’ personalised correction â†’ micro-lesson â†’ re-assessment. None of them are architected with the privacy-bounded three-buyer alignment (employee owns their mistakes; manager sees aggregate; HR sees role-level capability) — because their existing enterprise sales motion depends on giving managers per-individual visibility, which Compass deliberately does not.\n\n The gap is positional, not feature-level. They are structurally less able to copy the position than to copy any single feature."
+        "text": "Each of those products owns one slice of the loop. Lattice and Culture Amp handle performance management. Cresta and Observe.AI handle conversation intelligence. LMS platforms handle formal training.\n\n None of them close the loop from observed mistake → personalised correction → micro-lesson → re-assessment. None of them are architected with the privacy-bounded three-buyer alignment (employee owns their mistakes; manager sees aggregate; HR sees role-level capability) — because their existing enterprise sales motion depends on giving managers per-individual visibility, which Compass deliberately does not.\n\n The gap is positional, not feature-level. They are structurally less able to copy the position than to copy any single feature."
       }
     },
     {
@@ -1151,7 +1151,7 @@ const FAQ = [
     cat: "fit",
     q: "We already use Lattice / Culture Amp / Cresta / Observe.AI. What's different?",
     a: `<p>Each of those products owns one slice of the loop. <strong>Lattice and Culture Amp</strong> handle performance management. <strong>Cresta and Observe.AI</strong> handle conversation intelligence. <strong>LMS platforms</strong> handle formal training.</p>
-        <p>None of them close the loop from <em>observed mistake â†’ personalised correction â†’ micro-lesson â†’ re-assessment</em>. None of them are architected with the <strong>privacy-bounded three-buyer alignment</strong> (employee owns their mistakes; manager sees aggregate; HR sees role-level capability) — because their existing enterprise sales motion depends on giving managers per-individual visibility, which Compass deliberately does not.</p>
+        <p>None of them close the loop from <em>observed mistake → personalised correction → micro-lesson → re-assessment</em>. None of them are architected with the <strong>privacy-bounded three-buyer alignment</strong> (employee owns their mistakes; manager sees aggregate; HR sees role-level capability) — because their existing enterprise sales motion depends on giving managers per-individual visibility, which Compass deliberately does not.</p>
         <p>The gap is positional, not feature-level. They are structurally less able to copy the position than to copy any single feature.</p>`
   },
   {
@@ -1393,7 +1393,7 @@ function renderGettingStarted() {
         btn.className = 'gs-article';
         btn.innerHTML = `
           <span class="gs-article-text">${q.q}</span>
-          <span class="gs-article-arrow">â†’</span>
+          <span class="gs-article-arrow">→</span>
         `;
         btn.addEventListener('click', () => openQuestion(idx));
         panelEl.appendChild(btn);
@@ -1827,7 +1827,7 @@ window.addEventListener('hashchange', handleHash);
 </div>
 <div id="slime-toast" style="position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:#4F6BFF;color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;font-family:Inter,sans-serif;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:10000"></div>
 <script type="module" src="/assets/slime-widget.js"></script>
-<!-- â•â• end Slime Widget â•â• -->
+<!-- ══ end Slime Widget ══ -->
 
 <script id="nav-dropdown-script">
 (function () {

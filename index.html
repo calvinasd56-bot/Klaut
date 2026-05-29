@@ -538,7 +538,7 @@
 
   /* ====================================================================
      AI TRANSFORMATION FLOW — progressive journey sequencer
-     Phase states: dormant â†’ active (pulsing) â†’ completed â†’ reset (loop)
+     Phase states: dormant → active (pulsing) → completed → reset (loop)
      ==================================================================== */
   #flowRail { overflow: visible; background: rgba(63,63,70,.4) !important; }
 
@@ -1090,7 +1090,7 @@
     object-fit: contain;
     display: block;
     flex-shrink: 0;
-    filter: invert(1);  /* source is solid black KLAUT on white â†’ renders white on dark bg */
+    filter: invert(1);  /* source is solid black KLAUT on white → renders white on dark bg */
   }
   @media (min-width: 768px) {
     .brand-wordmark { height: 38px; }
@@ -2073,7 +2073,7 @@ nav[aria-label="Primary"] { position: relative; }
         <h3 class="text-xl font-semibold tracking-tight">Financial Services</h3>
         <p class="mt-3 text-sm text-muted leading-relaxed">AI-powered operational systems for financial workflows, compliance automation, risk analysis, reporting, and intelligent decision support across enterprise financial environments.</p>
         <div class="mt-6 pt-6 border-t border-line flex items-center justify-between text-xs"><span></span>
-          <span class="text-accent-2 group-hover:translate-x-1 transition">View work â†’</span>
+          <span class="text-accent-2 group-hover:translate-x-1 transition">View work →</span>
         </div>
       </a>
       <!-- Healthcare -->
@@ -2085,7 +2085,7 @@ nav[aria-label="Primary"] { position: relative; }
         <p class="mt-3 text-sm text-muted leading-relaxed">Integrate AI into inventory operations, ERP systems, procurement workflows, and supply chain coordination to improve visibility, forecasting, and operational efficiency.</p>
         <div class="mt-6 pt-6 border-t border-line flex items-center justify-between text-xs">
           <span class="text-dim font-mono">7 SHIPPED</span>
-          <span class="text-accent-2 group-hover:translate-x-1 transition">View work â†’</span>
+          <span class="text-accent-2 group-hover:translate-x-1 transition">View work →</span>
         </div>
       </a>
       <!-- Energy -->
@@ -2096,7 +2096,7 @@ nav[aria-label="Primary"] { position: relative; }
         <h3 class="text-xl font-semibold tracking-tight">Administration Work</h3>
         <p class="mt-3 text-sm text-muted leading-relaxed">Automate repetitive administrative processes including scheduling, reporting, internal coordination, approvals, and enterprise operational management.</p>
         <div class="mt-6 pt-6 border-t border-line flex items-center justify-between text-xs"><span></span>
-          <span class="text-accent-2 group-hover:translate-x-1 transition">View work â†’</span>
+          <span class="text-accent-2 group-hover:translate-x-1 transition">View work →</span>
         </div>
       </a>
       <!-- Manufacturing -->
@@ -2107,7 +2107,7 @@ nav[aria-label="Primary"] { position: relative; }
         <h3 class="text-xl font-semibold tracking-tight">Sales &amp; Customer Service</h3>
         <p class="mt-3 text-sm text-muted leading-relaxed">Deploy AI copilots and intelligent support systems to streamline customer engagement, automate responses, improve lead qualification, and enhance service operations.</p>
         <div class="mt-6 pt-6 border-t border-line flex items-center justify-between text-xs"><span></span>
-          <span class="text-accent-2 group-hover:translate-x-1 transition">View work â†’</span>
+          <span class="text-accent-2 group-hover:translate-x-1 transition">View work →</span>
         </div>
       </a>
       <!-- Public Sector -->
@@ -2118,7 +2118,7 @@ nav[aria-label="Primary"] { position: relative; }
         <h3 class="text-xl font-semibold tracking-tight">Legal &amp; Paperwork</h3>
         <p class="mt-3 text-sm text-muted leading-relaxed">Transform contracts, legal documents, approvals, and operational paperwork into structured, searchable, and AI-assisted enterprise knowledge systems.</p>
         <div class="mt-6 pt-6 border-t border-line flex items-center justify-between text-xs"><span></span>
-          <span class="text-accent-2 group-hover:translate-x-1 transition">View work â†’</span>
+          <span class="text-accent-2 group-hover:translate-x-1 transition">View work →</span>
         </div>
       </a>
       <!-- Retail -->
@@ -2130,7 +2130,7 @@ nav[aria-label="Primary"] { position: relative; }
         <p class="mt-3 text-sm text-muted leading-relaxed">Build AI-enhanced marketplace operations with intelligent product workflows, automated customer interactions, operational analytics, and scalable business coordination.</p>
         <div class="mt-6 pt-6 border-t border-line flex items-center justify-between text-xs">
           <span class="text-dim font-mono">4 SHIPPED</span>
-          <span class="text-accent-2 group-hover:translate-x-1 transition">View work â†’</span>
+          <span class="text-accent-2 group-hover:translate-x-1 transition">View work →</span>
         </div>
       </a>
     </div>
@@ -2367,7 +2367,7 @@ nav[aria-label="Primary"] { position: relative; }
   const ORCH_DATA = [
     { id: 'inventory',  label: 'Inventory',     full: 'Inventory Management',
       chain:    ['Demand signals', 'AI Forecasting', 'Purchase Automation', 'ERP Sync', 'Supplier Coord.', 'Ops Reporting'],
-      outcomes: ['âˆ’42% manual workload', '3Ã— faster cycles', 'Predictive replenishment']
+      outcomes: ['−42% manual workload', '3× faster cycles', 'Predictive replenishment']
     },
     { id: 'erp',        label: 'ERP',           full: 'ERP Systems',
       chain:    ['ERP Ingest', 'Data Normalization', 'AI Reconciliation', 'Anomaly Detection', 'Workflow Automation', 'Reporting Layer'],
@@ -2568,7 +2568,7 @@ nav[aria-label="Primary"] { position: relative; }
 
   // =====================================================================
   // AI TRANSFORMATION FLOW — progressive journey sequencer
-  // Phase steps through 0 â†’ 5, dwells fully-completed, then resets seamlessly.
+  // Phase steps through 0 → 5, dwells fully-completed, then resets seamlessly.
   // =====================================================================
   (function initFlowSequencer() {
     const flow  = document.getElementById('flow');
@@ -2742,7 +2742,7 @@ nav[aria-label="Primary"] { position: relative; }
 </div>
 <div id="slime-toast" style="position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:#4F6BFF;color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;font-family:Inter,sans-serif;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:10000"></div>
 <script type="module" src="/assets/slime-widget.js"></script>
-<!-- â•â• end Slime Widget â•â• -->
+<!-- ══ end Slime Widget ══ -->
 
 <script id="nav-dropdown-script">
 (function () {

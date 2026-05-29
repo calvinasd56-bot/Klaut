@@ -294,7 +294,7 @@
   .gs-promo-title { font-size: 16px; font-weight: 500; color: #fff; letter-spacing: -0.01em; }
   .gs-promo-sub { font-size: 13px; color: #a1a1aa; line-height: 1.5; flex: 1; }
   .gs-promo-cta { font-size: 13px; color: #818cf8; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; }
-  .gs-promo-cta::after { content: 'â†’'; transition: transform 200ms; }
+  .gs-promo-cta::after { content: '→'; transition: transform 200ms; }
   .gs-promo:hover .gs-promo-cta::after { transform: translateX(3px); }
 
   /* ============ Topic / category cards grid (Asana-style) ============ */
@@ -345,7 +345,7 @@
     letter-spacing: 0.04em;
   }
   .topic-card-meta::after {
-    content: 'â†’';
+    content: '→';
     font-family: 'Inter', sans-serif;
     margin-left: 2px;
     transition: transform 240ms, color 240ms;
@@ -416,7 +416,7 @@
       "name": "Kami sudah pakai Lattice / Culture Amp / Cresta / Observe.AI. Bedanya apa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Masing-masing menguasai satu potongan dari loop. Lattice dan Culture Amp di performance management. Cresta dan Observe.AI di conversation intelligence. LMS di training formal.\n\n Tidak ada yang menutup loop dari kesalahan teramati â†’ koreksi personal â†’ micro-lesson â†’ re-assessment. Tidak ada yang dirancang dengan privacy-bounded three-buyer alignment (karyawan memiliki kesalahannya sendiri; manager melihat agregat; HR melihat kapabilitas tingkat role). Mereka tidak bisa adopt posisi itu tanpa membongkar enterprise sales motion mereka — yang justru dibangun di atas visibilitas per-individu untuk manager.\n\n Gap-nya bersifat posisional, bukan tingkat fitur. Lebih sulit menyalin posisi daripada menyalin satu fitur."
+        "text": "Masing-masing menguasai satu potongan dari loop. Lattice dan Culture Amp di performance management. Cresta dan Observe.AI di conversation intelligence. LMS di training formal.\n\n Tidak ada yang menutup loop dari kesalahan teramati → koreksi personal → micro-lesson → re-assessment. Tidak ada yang dirancang dengan privacy-bounded three-buyer alignment (karyawan memiliki kesalahannya sendiri; manager melihat agregat; HR melihat kapabilitas tingkat role). Mereka tidak bisa adopt posisi itu tanpa membongkar enterprise sales motion mereka — yang justru dibangun di atas visibilitas per-individu untuk manager.\n\n Gap-nya bersifat posisional, bukan tingkat fitur. Lebih sulit menyalin posisi daripada menyalin satu fitur."
       }
     },
     {
@@ -1148,7 +1148,7 @@ const FAQ = [
     cat: "fit",
     q: "Kami sudah pakai Lattice / Culture Amp / Cresta / Observe.AI. Bedanya apa?",
     a: `<p>Masing-masing menguasai satu potongan dari loop. <strong>Lattice dan Culture Amp</strong> di performance management. <strong>Cresta dan Observe.AI</strong> di conversation intelligence. <strong>LMS</strong> di training formal.</p>
-        <p>Tidak ada yang menutup loop dari <em>kesalahan teramati â†’ koreksi personal â†’ micro-lesson â†’ re-assessment</em>. Tidak ada yang dirancang dengan <strong>privacy-bounded three-buyer alignment</strong> (karyawan memiliki kesalahannya sendiri; manager melihat agregat; HR melihat kapabilitas tingkat role). Mereka tidak bisa adopt posisi itu tanpa membongkar enterprise sales motion mereka — yang justru dibangun di atas visibilitas per-individu untuk manager.</p>
+        <p>Tidak ada yang menutup loop dari <em>kesalahan teramati → koreksi personal → micro-lesson → re-assessment</em>. Tidak ada yang dirancang dengan <strong>privacy-bounded three-buyer alignment</strong> (karyawan memiliki kesalahannya sendiri; manager melihat agregat; HR melihat kapabilitas tingkat role). Mereka tidak bisa adopt posisi itu tanpa membongkar enterprise sales motion mereka — yang justru dibangun di atas visibilitas per-individu untuk manager.</p>
         <p>Gap-nya bersifat posisional, bukan tingkat fitur. Lebih sulit menyalin posisi daripada menyalin satu fitur.</p>`
   },
   {
@@ -1390,7 +1390,7 @@ function renderGettingStarted() {
         btn.className = 'gs-article';
         btn.innerHTML = `
           <span class="gs-article-text">${q.q}</span>
-          <span class="gs-article-arrow">â†’</span>
+          <span class="gs-article-arrow">→</span>
         `;
         btn.addEventListener('click', () => openQuestion(idx));
         panelEl.appendChild(btn);
@@ -1824,7 +1824,7 @@ window.addEventListener('hashchange', handleHash);
 </div>
 <div id="slime-toast" style="position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:#4F6BFF;color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;font-family:Inter,sans-serif;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:10000"></div>
 <script type="module" src="/assets/slime-widget.js"></script>
-<!-- â•â• end Slime Widget â•â• -->
+<!-- ══ end Slime Widget ══ -->
 
 <script id="nav-dropdown-script">
 (function () {
