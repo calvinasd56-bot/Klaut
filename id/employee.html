@@ -893,95 +893,100 @@ nav[aria-label="Primary"] { position: relative; }
 })();
 </script>
 
-<!-- FEATURE EXPLAINER 2 — Book a Speaker / Coach / Mentor -->
-<section id="feat-coach" class="relative max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28 border-t border-white/5">
+<!-- FEATURE EXPLAINER 2 — Kursus Pilihan (platform belajar eksternal) -->
+<section id="feat-learn-platform" class="relative max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28 border-t border-white/5">
   <div class="max-w-3xl reveal">
-    <div class="eyebrow mb-4">Learn · Speakers &amp; Coaches</div>
+    <div class="eyebrow mb-4">Belajar &middot; Kursus Pilihan</div>
     <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.1]">
-      A curated marketplace, <span class="hl-grad">inside your team</span>
+      Kursus yang dipetakan <span class="hl-grad">ke gap kamu</span>
     </h2>
     <p class="mt-5 text-base md:text-lg text-muted leading-relaxed">
-      ~9 coaches across IDR-priced tiers. Browse, see who your teammates already trust, and request a session — without leaving Compass.
+      Compass mendeteksi setiap skill gap dan mengarahkanmu ke kursus dari provider yang sudah dilisensikan perusahaanmu &mdash; Coursera, LinkedIn Learning, Udemy Business, plus modul internal Klaut. Jelajahi yang sudah dipetakan ke journey kamu, lihat siapa di tim yang sudah menyelesaikan, daftar tanpa keluar dari Compass.
     </p>
   </div>
 
-  <div class="mt-12 reveal demo-frame" data-demo-coach>
+  <div class="mt-12 reveal demo-frame" data-demo-courses>
     <div class="demo-bar">
       <span class="demo-dots"><i></i><i></i><i></i></span>
-      <span class="demo-title">Compass · Learn — Speakers &amp; Coaches</span>
-      <span class="seg" role="group" aria-label="Coach tier">
-        <button data-tier="starter" class="on">Starter</button>
-        <button data-tier="growth">Growth</button>
-        <button data-tier="executive">Executive</button>
+      <span class="demo-title">Compass &middot; Belajar &mdash; Kursus Pilihan</span>
+      <span class="seg" role="group" aria-label="Tingkat kursus">
+        <button data-level="foundational" class="on">Pemula</button>
+        <button data-level="intermediate">Menengah</button>
+        <button data-level="advanced">Lanjut</button>
       </span>
     </div>
 
     <div class="tabs" role="tablist">
-      <button class="tab on" data-tab="coach-browse" role="tab">Browse · Employee</button>
-      <button class="tab" data-tab="coach-booked" role="tab">My Booking</button>
-      <button class="tab" data-tab="coach-mgr" role="tab">Manager View</button>
+      <button class="tab on" data-tab="crs-browse" role="tab">Jelajah &middot; Karyawan</button>
+      <button class="tab" data-tab="crs-enrolled" role="tab">Terdaftar</button>
+      <button class="tab" data-tab="crs-mgr" role="tab">Tampilan Manajer</button>
     </div>
 
-    <!-- BROWSE -->
-    <div class="panel on" data-panel="coach-browse">
-      <div class="feat-coach-grid" data-k-coach="grid">
+    <!-- JELAJAH -->
+    <div class="panel on" data-panel="crs-browse">
+      <div class="feat-coach-grid" data-k-courses="grid">
         <!-- Populated by JS -->
       </div>
-      <p class="tab-note mt-5 text-xs text-dim">Coaches are independent professionals. Ratings and "trusted by team" counts are based on your organization's actual booking history. Klaut curates the list; it does not employ the coaches.</p>
+      <p class="tab-note mt-5 text-xs text-dim">Kursus berada di providernya masing-masing (Coursera, LinkedIn Learning, Udemy Business). Compass mengkurasi shortlist yang dipetakan ke skill gap kamu &mdash; tidak menulis atau meng-host isi kursusnya.</p>
     </div>
 
-    <!-- MY BOOKING -->
-    <div class="panel" data-panel="coach-booked">
+    <!-- TERDAFTAR -->
+    <div class="panel" data-panel="crs-enrolled">
       <div class="grid md:grid-cols-2 gap-5">
         <div class="metric">
-          <div class="lbl">Upcoming session</div>
+          <div class="lbl">Sedang berlangsung</div>
           <div class="mt-3 flex items-center gap-3">
-            <div class="feat-coach-avatar">RW</div>
+            <div class="feat-coach-avatar">CO</div>
             <div>
-              <div class="feat-coach-name">Riana Wijaya</div>
-              <div class="feat-coach-role">Leadership Coach · Jakarta</div>
+              <div class="feat-coach-name">De-escalation Techniques for CS Teams</div>
+              <div class="feat-coach-role">Coursera &middot; 6 minggu</div>
             </div>
+          </div>
+          <div class="bar mt-4"><i style="width:47%"></i></div>
+          <div class="kv mt-2">
+            <span class="text-xs text-dim">Minggu 3 dari 6 &middot; 47% selesai</span>
+            <span class="text-xs font-mono" style="color:#34d399">4.5 jam terinvestasi</span>
           </div>
           <div class="mt-4">
             <div class="drow">
-              <div class="flex-1 text-sm text-muted">Date &amp; time</div>
-              <div class="text-sm font-mono">Thu 29 May · 10:00 WIB</div>
+              <div class="flex-1 text-sm text-muted">Aktivitas terakhir</div>
+              <div class="text-sm font-mono">2 hari lalu</div>
             </div>
             <div class="drow">
-              <div class="flex-1 text-sm text-muted">Duration</div>
-              <div class="text-sm font-mono">60 min</div>
+              <div class="flex-1 text-sm text-muted">Modul berikutnya</div>
+              <div class="text-sm font-mono">Modul 4 quiz &middot; Jumat</div>
             </div>
             <div class="drow">
-              <div class="flex-1 text-sm text-muted">Session topic</div>
-              <div class="text-sm font-mono">Difficult conversation framing</div>
-            </div>
-            <div class="drow">
-              <div class="flex-1 text-sm text-muted">Total cost</div>
-              <div class="text-sm font-mono good">Rp 750.000</div>
+              <div class="flex-1 text-sm text-muted">Sertifikat saat selesai</div>
+              <div class="text-sm font-mono good">Ya &middot; Coursera verified</div>
             </div>
           </div>
-          <p class="tab-note mt-5 text-xs text-dim">Session content is private. Your manager sees that a booking occurred — not what was discussed.</p>
+          <p class="tab-note mt-5 text-xs text-dim">Progress kursus bersifat privat untukmu. Manajermu melihat aggregat completion, bukan kamu sedang di tengah modul apa.</p>
         </div>
         <div class="metric">
-          <div class="lbl">Coach profile</div>
+          <div class="lbl">Profil kursus</div>
           <div class="mt-3">
             <div class="feat-coach-rating mt-2">
               <span class="feat-coach-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-              <span>4.9 · 38 sessions</span>
+              <span>4.9 &middot; 28k learner</span>
             </div>
-            <div class="feat-coach-tier feat-coach-tier-growth mt-3">Growth tier</div>
+            <div class="feat-coach-tier feat-coach-tier-growth mt-3">Menengah</div>
             <div class="mt-4">
               <div class="drow">
-                <div class="flex-1 text-sm text-muted">Trusted by team</div>
-                <div class="text-sm font-mono">4 teammates have booked</div>
+                <div class="flex-1 text-sm text-muted">Dipetakan ke journey</div>
+                <div class="text-sm font-mono">Gap de-escalation</div>
               </div>
               <div class="drow">
-                <div class="flex-1 text-sm text-muted">Focus areas</div>
-                <div class="text-sm font-mono">Leadership · Communication</div>
+                <div class="flex-1 text-sm text-muted">Teman tim selesai</div>
+                <div class="text-sm font-mono">4 dari 6</div>
               </div>
               <div class="drow">
-                <div class="flex-1 text-sm text-muted">Languages</div>
-                <div class="text-sm font-mono">Bahasa Indonesia · English</div>
+                <div class="flex-1 text-sm text-muted">Provider</div>
+                <div class="text-sm font-mono">Coursera</div>
+              </div>
+              <div class="drow">
+                <div class="flex-1 text-sm text-muted">Biaya untukmu</div>
+                <div class="text-sm font-mono good">Termasuk &middot; lisensi org</div>
               </div>
             </div>
           </div>
@@ -989,81 +994,81 @@ nav[aria-label="Primary"] { position: relative; }
       </div>
     </div>
 
-    <!-- MANAGER VIEW -->
-    <div class="panel" data-panel="coach-mgr">
+    <!-- TAMPILAN MANAJER -->
+    <div class="panel" data-panel="crs-mgr">
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="metric">
-          <div class="lbl">Sessions booked · team</div>
-          <div class="val">7</div>
-          <div class="dlt">this month</div>
+          <div class="lbl">Kursus aktif &middot; tim</div>
+          <div class="val">14</div>
+          <div class="dlt">kuartal ini</div>
         </div>
         <div class="metric">
-          <div class="lbl">Unique coaches used</div>
-          <div class="val">3</div>
-          <div class="dlt">out of ~9 available</div>
+          <div class="lbl">Kursus unik</div>
+          <div class="val">8</div>
+          <div class="dlt">dari ~120 di library</div>
         </div>
         <div class="metric">
-          <div class="lbl">Team members who booked</div>
-          <div class="val">4 / 6</div>
-          <div class="bar mt-3"><i style="width:67%"></i></div>
+          <div class="lbl">Anggota tim terdaftar</div>
+          <div class="val">5 / 6</div>
+          <div class="bar mt-3"><i style="width:83%"></i></div>
         </div>
         <div class="metric">
-          <div class="lbl">Session topics (aggregate)</div>
-          <div class="val text-base leading-snug mt-2">Communication · Leadership · Time mgmt</div>
-          <div class="dlt">content detail is private per person</div>
+          <div class="lbl">Tingkat completion &middot; 30 hari</div>
+          <div class="val">78%</div>
+          <div class="dlt">selesai dalam jendela target</div>
         </div>
       </div>
-      <p class="tab-note mt-5 text-xs text-dim">Managers see booking volume and aggregate topic areas — not what each person discussed with their coach. Individual sessions are private.</p>
+      <p class="tab-note mt-5 text-xs text-dim">Manajer melihat volume enrollment, tingkat completion, dan area gap mana yang sedang diinvestasikan tim &mdash; bukan lesson spesifik atau jawaban quiz siapa pun. Progress kursus per individu bersifat privat.</p>
     </div>
   </div>
 
-  <p class="mt-5 text-xs text-dim reveal">Illustrative data. In a real deployment, Compass reports numbers straight from your team's own work systems.</p>
+  <p class="mt-5 text-xs text-dim reveal">Data ilustratif. Dalam deployment nyata, Compass melaporkan angka langsung dari sistem kerja tim kamu sendiri.</p>
 </section>
 
 <script>
 (function(){
-  const root = document.querySelector('[data-demo-coach]');
+  const root = document.querySelector('[data-demo-courses]');
   if(!root) return;
-  const coaches = {
-    starter: [
-      { init:'AP', name:'Andi Prasetyo', role:'Productivity Coach', rating:'4.7', sessions:'22', price:'Rp 350.000', tier:'starter', trusted:'2 teammates' },
-      { init:'LS', name:'Lina Santoso', role:'Mindset &amp; Focus Coach', rating:'4.8', sessions:'31', price:'Rp 400.000', tier:'starter', trusted:'1 teammate' },
-      { init:'BH', name:'Budi Hartono', role:'Communication Coach', rating:'4.6', sessions:'18', price:'Rp 300.000', tier:'starter', trusted:'3 teammates' },
+  const courses = {
+    foundational: [
+      { init:'CO', name:'Active Listening for Customer Conversations', role:'Coursera · 4 minggu',    rating:'4.7', learners:'12k learner',  level:'foundational', gap:'Komunikasi',     price:'Termasuk',    priceUnit:'lisensi org' },
+      { init:'KL', name:'Refund Policy: Edge Cases Handbook',          role:'Klaut Learning · 1 jam',  rating:'4.8', learners:'340 learner',  level:'foundational', gap:'Customer Ops',   price:'Termasuk',    priceUnit:'internal'    },
+      { init:'LL', name:'Email Tone for Difficult Asks',               role:'LinkedIn Learning · 2 jam', rating:'4.6', learners:'8.2k learner', level:'foundational', gap:'Komunikasi',     price:'Rp 150.000',  priceUnit:'/ learner'  },
     ],
-    growth: [
-      { init:'RW', name:'Riana Wijaya', role:'Leadership Coach', rating:'4.9', sessions:'38', price:'Rp 750.000', tier:'growth', trusted:'4 teammates' },
-      { init:'DM', name:'Dinda Maharani', role:'Executive Presence Coach', rating:'4.8', sessions:'45', price:'Rp 900.000', tier:'growth', trusted:'2 teammates' },
-      { init:'SK', name:'Surya Kusuma', role:'Team Dynamics Coach', rating:'4.7', sessions:'27', price:'Rp 800.000', tier:'growth', trusted:'1 teammate' },
+    intermediate: [
+      { init:'CO', name:'De-escalation Techniques for CS Teams',       role:'Coursera · 6 minggu',    rating:'4.9', learners:'28k learner',  level:'intermediate', gap:'Customer Ops',   price:'Rp 200.000',  priceUnit:'/ learner'  },
+      { init:'LL', name:'Async Communication Mastery',                 role:'LinkedIn Learning · 4 jam', rating:'4.7', learners:'14k learner',  level:'intermediate', gap:'Komunikasi',     price:'Rp 180.000',  priceUnit:'/ learner'  },
+      { init:'UD', name:'Time Management for Knowledge Workers',       role:'Udemy Business · 3 jam', rating:'4.5', learners:'6.1k learner', level:'intermediate', gap:'Produktivitas',  price:'Rp 220.000',  priceUnit:'/ learner'  },
     ],
-    executive: [
-      { init:'TR', name:'Tari Rahayu', role:'C-Suite Advisor', rating:'5.0', sessions:'14', price:'Rp 2.500.000', tier:'executive', trusted:'1 teammate' },
-      { init:'FN', name:'Fajar Nugroho', role:'Strategic Leadership Coach', rating:'4.9', sessions:'19', price:'Rp 2.000.000', tier:'executive', trusted:'0 teammates' },
-      { init:'MK', name:'Maya Kartika', role:'Senior Exec Coach', rating:'4.8', sessions:'23', price:'Rp 2.200.000', tier:'executive', trusted:'2 teammates' },
+    advanced: [
+      { init:'CO', name:'Leadership Communication Workshop',           role:'Coursera · 8 minggu',    rating:'4.9', learners:'4.2k learner', level:'advanced',     gap:'Leadership',     price:'Rp 450.000',  priceUnit:'/ learner'  },
+      { init:'UD', name:'Cross-functional Stakeholder Management',     role:'Udemy Business · 5 jam', rating:'4.6', learners:'3.8k learner', level:'advanced',     gap:'Leadership',     price:'Rp 350.000',  priceUnit:'/ learner'  },
+      { init:'LL', name:'Coaching for Senior ICs',                     role:'LinkedIn Learning · 6 jam', rating:'4.7', learners:'2.1k learner', level:'advanced',     gap:'Leadership',     price:'Rp 400.000',  priceUnit:'/ learner'  },
     ]
   };
-  const tierClass = { starter:'feat-coach-tier-starter', growth:'feat-coach-tier-growth', executive:'feat-coach-tier-executive' };
-  const tierLabel = { starter:'Starter tier', growth:'Growth tier', executive:'Executive tier' };
-  function renderGrid(tier) {
-    const list = coaches[tier];
-    const grid = root.querySelector('[data-k-coach="grid"]');
+  const levelClass = { foundational:'feat-coach-tier-starter', intermediate:'feat-coach-tier-growth', advanced:'feat-coach-tier-executive' };
+  const levelLabel = { foundational:'Pemula', intermediate:'Menengah', advanced:'Lanjut' };
+  function renderGrid(level) {
+    const list = courses[level];
+    const grid = root.querySelector('[data-k-courses="grid"]');
     if(!grid) return;
     grid.innerHTML = list.map(c =>
       '<div class="feat-coach-card">' +
-        '<div style="display:flex;align-items:center;gap:10px">' +
+        '<div style="display:flex;align-items:flex-start;gap:10px">' +
           '<div class="feat-coach-avatar">'+c.init+'</div>' +
           '<div><div class="feat-coach-name">'+c.name+'</div><div class="feat-coach-role">'+c.role+'</div></div>' +
         '</div>' +
-        '<div class="feat-coach-rating"><span class="feat-coach-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span>'+c.rating+' · '+c.sessions+' sessions</span></div>' +
-        '<div class="feat-coach-tier '+tierClass[c.tier]+'">'+tierLabel[c.tier]+'</div>' +
-        '<div class="feat-coach-trusted">Trusted by team: '+c.trusted+'</div>' +
-        '<div class="feat-coach-price">'+c.price+' <span>/ session</span></div>' +
+        '<div class="feat-coach-rating"><span class="feat-coach-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span>'+c.rating+' &middot; '+c.learners+'</span></div>' +
+        '<div class="feat-coach-tier '+levelClass[c.level]+'">'+levelLabel[c.level]+'</div>' +
+        '<div class="feat-coach-trusted">Dipetakan ke: '+c.gap+'</div>' +
+        '<div class="feat-coach-price">'+c.price+' <span>'+c.priceUnit+'</span></div>' +
       '</div>'
     ).join('');
   }
   root.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => {
     root.querySelectorAll('.seg button').forEach(x => x.classList.remove('on'));
     b.classList.add('on');
-    renderGrid(b.dataset.tier);
+    renderGrid(b.dataset.level);
   }));
   root.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
     root.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
@@ -1071,7 +1076,7 @@ nav[aria-label="Primary"] { position: relative; }
     t.classList.add('on');
     root.querySelector('[data-panel="'+t.dataset.tab+'"]').classList.add('on');
   }));
-  renderGrid('starter');
+  renderGrid('foundational');
 })();
 </script>
 
