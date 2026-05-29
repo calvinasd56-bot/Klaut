@@ -23,11 +23,13 @@
     { "source": "/apps",                     "destination": "https://compass-app.klaut.id/apps",           "permanent": false },
     { "source": "/id/apps",                  "destination": "https://compass-app.klaut.id/id/apps",        "permanent": false },
     { "source": "/learn",                    "destination": "https://compass-app.klaut.id/learn",          "permanent": false },
-    { "source": "/id/learn",                 "destination": "https://compass-app.klaut.id/id/learn",       "permanent": false },
-    { "source": "/pricing",                  "destination": "https://compass-app.klaut.id/pricing",        "permanent": false },
-    { "source": "/id/pricing",               "destination": "https://compass-app.klaut.id/id/pricing",     "permanent": false }
+    { "source": "/id/learn",                 "destination": "https://compass-app.klaut.id/id/learn",       "permanent": false }
   ],
   "rewrites": [
+    { "source": "/pricing",                  "destination": "https://compass-app.klaut.id/pricing" },
+    { "source": "/id/pricing",               "destination": "https://compass-app.klaut.id/id/pricing" },
+    { "source": "/checkout",                 "destination": "https://compass-app.klaut.id/checkout" },
+    { "source": "/id/checkout",              "destination": "https://compass-app.klaut.id/checkout" },
     { "source": "/articles/:slug",           "destination": "/articles/article" },
     { "source": "/case-studies/:slug",       "destination": "/case-studies/case-study" },
     { "source": "/id/artikel/:slug",         "destination": "/id/artikel/article" },
