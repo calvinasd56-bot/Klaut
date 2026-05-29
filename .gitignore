@@ -14,3 +14,6 @@ desktop.ini
 *.log
 npm-debug.log*
 *.bak
+
+# Local Claude preview tooling
+.claude/
