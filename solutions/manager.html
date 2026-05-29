@@ -200,6 +200,7 @@
   padding: 4px 8px;
   border-radius: 9999px;
   border: 1px solid;
+  white-space: nowrap;
 }
 .feat-coach-tier-starter    { color: #a1a1aa; border-color: #3f3f46; background: rgba(63,63,70,.25); }
 .feat-coach-tier-growth     { color: #60a5fa; border-color: rgba(96,165,250,.35); background: rgba(96,165,250,.10); }
@@ -207,7 +208,7 @@
 .feat-coach-rating { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #a1a1aa; }
 .feat-coach-star   { color: #f59e0b; font-size: 13px; }
 .feat-coach-trusted { font: 400 11px/1 'JetBrains Mono', monospace; color: #71717a; }
-.feat-coach-price  { font: 600 15px/1 'Inter', sans-serif; margin-top: auto; }
+.feat-coach-price  { font: 600 15px/1 'Inter', sans-serif; margin-top: 4px; }
 .feat-coach-price span { font-size: 11px; color: #71717a; font-weight: 400; }
 .feat-coach-grid {
   display: grid;
@@ -248,6 +249,36 @@
     cookie_flags: 'SameSite=None;Secure'
   });
 </script>
+
+<style id="nav-dropdown-styles">
+.nav-dd { position: relative; }
+.nav-dd-btn { display: inline-flex; align-items: center; gap: 4px; padding: 8px 16px; font-size: .875rem; color: var(--muted, #a1a1aa); background: none; border: none; cursor: pointer; font-family: inherit; border-radius: 8px; transition: color .15s; }
+.nav-dd-btn:hover, .nav-dd-btn[aria-expanded="true"] { color: #fff; }
+.nav-dd-btn svg { flex-shrink: 0; transition: transform .2s; }
+.nav-dd-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+.nav-dd-btn:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; border-radius: 4px; }
+.nav-dd-panel { position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%) translateY(-4px); background: var(--surface, #111111); border: 1px solid var(--line, #262626); border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,.55); opacity: 0; visibility: hidden; transition: opacity .15s, visibility .15s, transform .15s; z-index: 100; }
+.nav-dd-panel.open { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+.nav-dd-panel.panel-help { width: 200px; padding: 8px; }
+.nav-dd-panel.panel-help a { display: block; padding: 8px 14px; border-radius: 8px; font-size: 13px; color: var(--muted, #a1a1aa); text-decoration: none; transition: background .12s, color .12s; line-height: 1.4; }
+.nav-dd-panel.panel-help a:hover { background: rgba(255,255,255,.06); color: #fff; }
+.nav-dd-panel.panel-mega { width: 680px; padding: 24px; }
+@media (max-width: 800px) { .nav-dd-panel.panel-mega { width: calc(100vw - 24px); left: 0; transform: translateY(-4px); } .nav-dd-panel.panel-mega.open { transform: translateY(0); } }
+.mega-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.mega-col-header { display: block; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .12em; color: rgba(255,255,255,.45); padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,.08); margin-bottom: 10px; }
+.mega-items { display: flex; flex-direction: column; }
+.mega-items a { display: block; padding: 8px 0; font-size: 13px; line-height: 1.4; color: var(--muted, #a1a1aa); text-decoration: none; transition: color .12s; }
+.mega-items a:hover { color: #fff; }
+.nav-dd-panel.panel-mega--4 { width: 860px; padding: 24px; }
+@media (max-width: 900px) { .nav-dd-panel.panel-mega--4 { width: calc(100vw - 24px); left: 0; transform: translateY(-4px); } .nav-dd-panel.panel-mega--4.open { transform: translateY(0); } }
+.mega-cols--4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+.mega-items a.mega-view-all { color: rgba(255,255,255,.5); font-style: italic; }
+.mega-items a.mega-view-all:hover { color: rgba(255,255,255,.8); }
+nav[aria-label="Primary"] { position: relative; }
+.nav-dd:has(.panel-mega), .nav-dd:has(.panel-mega--4) { position: static; }
+.nav-dd-panel.panel-mega, .nav-dd-panel.panel-mega--4 { left: 0; transform: translateY(-4px); }
+.nav-dd-panel.panel-mega.open, .nav-dd-panel.panel-mega--4.open { transform: translateY(0); }
+</style>
 </head>
 <body class="bg-bg text-ink">
 
@@ -260,9 +291,104 @@
       </a>
       <nav class="hidden md:flex items-center gap-1" aria-label="Primary">
         <a href="https://klaut.id/why-klaut" class="px-4 py-2 text-sm text-muted link-hover">Why Klaut</a>
-        <a href="https://compass.klaut.id/" class="px-4 py-2 text-sm text-muted link-hover">Compass</a>
-        <a href="https://klaut.id/faq" class="px-4 py-2 text-sm text-muted link-hover">FAQ</a>
-        <a href="https://klaut.id/articles" class="px-4 py-2 text-sm text-muted link-hover">Articles</a>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-sol-mgr-prod">Product
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-sol-mgr-prod" class="nav-dd-panel panel-mega" role="menu" aria-label="Product">
+            <div class="mega-cols">
+              <div>
+                <span class="mega-col-header">Platform</span>
+                <div class="mega-items">
+                  <a href="/" role="menuitem">Klaut AI</a>
+                  <a href="https://compass.klaut.id/" role="menuitem">Compass</a>
+                  <a href="/marketplace" role="menuitem">Klaut Marketplace</a>
+                  <a href="/learning" role="menuitem">Klaut Learning Center</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Capabilities</span>
+                <div class="mega-items">
+                  <a href="/capabilities/work-patterns" role="menuitem">Work patterns intelligence</a>
+                  <a href="/capabilities/error-detection" role="menuitem">Error detection &amp; correction</a>
+                  <a href="/capabilities/kpi" role="menuitem">KPI Command Center</a>
+                  <a href="/capabilities/reports" role="menuitem">Report Card &amp; analytics</a>
+                  <a href="/capabilities/admin" role="menuitem">Admin &amp; security</a>
+                  <a href="/capabilities/tools-integration" role="menuitem">Tools integration</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">AI Features</span>
+                <div class="mega-items">
+                  <a href="/ai/inference" role="menuitem">Inference Engine</a>
+                  <a href="/ai/copilot" role="menuitem">AI Copilot (Slime)</a>
+                  <a href="/ai/decision-support" role="menuitem">Decision Support</a>
+                  <a href="/ai/tools-automation" role="menuitem">Tools automation</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-sol-mgr-sol">Solutions
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-sol-mgr-sol" class="nav-dd-panel panel-mega panel-mega--4" role="menu" aria-label="Solutions">
+            <div class="mega-cols mega-cols--4">
+              <div>
+                <span class="mega-col-header">Company Type</span>
+                <div class="mega-items">
+                  <a href="/solutions/solo" role="menuitem">Solo</a>
+                  <a href="/solutions/team" role="menuitem">Team</a>
+                  <a href="/solutions/enterprise" role="menuitem">Enterprise</a>
+                  <a href="/solutions/partners" role="menuitem">Partners</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">MANAGEMENT</span>
+                <div class="mega-items">
+                  <a href="/solutions/employer" role="menuitem">Employer</a>
+                  <a href="/solutions/manager" role="menuitem">Manager</a>
+                  <a href="/solutions/hr" role="menuitem">HR</a>
+                  <a href="/employee" role="menuitem">Employee</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Industries</span>
+                <div class="mega-items">
+                  <a href="/solutions/industries/education" role="menuitem">Education</a>
+                  <a href="/solutions/industries/insurance" role="menuitem">Insurance</a>
+                  <a href="/solutions/industries/financial-services" role="menuitem">Financial Services</a>
+                  <a href="/solutions/industries/technology" role="menuitem">Technology</a>
+                  <a href="/solutions/industries/ecommerce" role="menuitem">E-commerce</a>
+                  <a href="/solutions/industries/healthcare" role="menuitem">Healthcare</a>
+                  <a href="/solutions/industries" role="menuitem" class="mega-view-all">View all industries</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Use Cases</span>
+                <div class="mega-items">
+                  <a href="/use-cases/ai-readiness" role="menuitem">AI readiness audit</a>
+                  <a href="/use-cases/workforce-intelligence" role="menuitem">Workforce intelligence</a>
+                  <a href="/use-cases/integration" role="menuitem">Cross-tool integration</a>
+                  <a href="/use-cases/honest-reports" role="menuitem">Honest performance reports</a>
+                  <a href="/use-cases/compliance" role="menuitem">Compliance &amp; privacy</a>
+                  <a href="/use-cases" role="menuitem" class="mega-view-all">View all use cases</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-sol-mgr-help">Help
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-sol-mgr-help" class="nav-dd-panel panel-help" role="menu" aria-label="Help">
+            <a href="/help-center" role="menuitem">Help Center</a>
+            <a href="/help-center" role="menuitem">Resource Center</a>
+            <a href="mailto:hello@klaut.id" role="menuitem">Contact Us</a>
+          </div>
+        </div>
         <a href="https://klaut.id/pricing" class="px-4 py-2 text-sm text-muted link-hover">Pricing</a>
       </nav>
     </div>
@@ -281,6 +407,97 @@
     </button>
   </div>
 </header>
+
+<!-- Mobile drawer -->
+<div id="mobileMenu" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-close-menu></div>
+  <aside class="absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-surface border-l border-line p-6 flex flex-col gap-1">
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-2">
+        <img src="/klaut-K-mark.png?v=1" alt="" class="brand-mark"/>
+      </div>
+      <button data-close-menu class="p-2 rounded-lg hover:bg-white/5" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
+    </div>
+    <a href="https://klaut.id/why-klaut" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Why Klaut</a>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Product</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-4 flex flex-col gap-0 mt-1">
+        <p class="px-4 pt-2 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Platform</p>
+        <a href="/" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut AI</a>
+        <a href="https://compass.klaut.id/" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Compass</a>
+        <a href="/marketplace" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut Marketplace</a>
+        <a href="/learning" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut Learning Center</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Capabilities</p>
+        <a href="/capabilities/work-patterns" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Work patterns intelligence</a>
+        <a href="/capabilities/error-detection" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Error detection &amp; correction</a>
+        <a href="/capabilities/kpi" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">KPI Command Center</a>
+        <a href="/capabilities/reports" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Report Card &amp; analytics</a>
+        <a href="/capabilities/admin" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Admin &amp; security</a>
+        <a href="/capabilities/tools-integration" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Tools integration</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">AI Features</p>
+        <a href="/ai/inference" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Inference Engine</a>
+        <a href="/ai/copilot" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">AI Copilot (Slime)</a>
+        <a href="/ai/decision-support" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Decision Support</a>
+        <a href="/ai/tools-automation" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Tools automation</a>
+      </div>
+    </details>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Solutions</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-4 flex flex-col gap-0 mt-1">
+        <p class="px-4 pt-2 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Company Type</p>
+        <a href="/solutions/solo" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Solo</a>
+        <a href="/solutions/team" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Team</a>
+        <a href="/solutions/enterprise" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Enterprise</a>
+        <a href="/solutions/partners" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Partners</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">MANAGEMENT</p>
+        <a href="/solutions/employer" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Employer</a>
+        <a href="/solutions/manager" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Manager</a>
+        <a href="/solutions/hr" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">HR</a>
+        <a href="/employee" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Employee</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Industries</p>
+        <a href="/solutions/industries/education" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Education</a>
+        <a href="/solutions/industries/insurance" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Insurance</a>
+        <a href="/solutions/industries/financial-services" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Financial Services</a>
+        <a href="/solutions/industries/technology" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Technology</a>
+        <a href="/solutions/industries/ecommerce" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">E-commerce</a>
+        <a href="/solutions/industries/healthcare" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Healthcare</a>
+        <a href="/solutions/industries" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-white/50 text-[13px] italic">View all industries</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Use Cases</p>
+        <a href="/use-cases/ai-readiness" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">AI readiness audit</a>
+        <a href="/use-cases/workforce-intelligence" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Workforce intelligence</a>
+        <a href="/use-cases/integration" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Cross-tool integration</a>
+        <a href="/use-cases/honest-reports" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Honest performance reports</a>
+        <a href="/use-cases/compliance" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Compliance &amp; privacy</a>
+        <a href="/use-cases" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-white/50 text-[13px] italic">View all use cases</a>
+      </div>
+    </details>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Help</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-8 flex flex-col gap-0.5 mt-0.5">
+        <a href="/help-center" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Help Center</a>
+        <a href="/help-center" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Resource Center</a>
+        <a href="mailto:hello@klaut.id" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Contact Us</a>
+      </div>
+    </details>
+    <a href="https://klaut.id/pricing" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Pricing</a>
+    <div class="flex items-center justify-center mt-4 rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium w-fit mx-auto" role="group" aria-label="Select language">
+      <a href="/id/solutions/manager" class="px-4 py-2 rounded-full text-muted hover:text-white transition-colors">Bahasa Indonesia</a>
+      <a href="/solutions/manager" class="px-4 py-2 rounded-full bg-white/10 text-white" aria-current="page">English</a>
+    </div>
+    <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" data-close-menu class="btn btn-primary justify-center mt-4">Book a call</a>
+  </aside>
+</div>
 
 <main>
 
@@ -755,9 +972,11 @@
         '<div><div class="feat-coach-name">'+a.name+'</div><div class="feat-coach-role">'+a.desc+'</div></div>' +
         '<div class="feat-coach-rating" style="margin-top:10px"><span style="color:#a1a1aa;font-size:11px">Before</span><span style="margin-left:auto;font-family:JetBrains Mono,monospace;font-size:13px">'+a.before+'</span></div>' +
         '<div class="feat-coach-rating"><span style="color:#a1a1aa;font-size:11px">After</span><span style="margin-left:auto;font-family:JetBrains Mono,monospace;font-size:13px;color:#34d399">'+a.after+'</span></div>' +
-        '<div class="feat-coach-tier feat-coach-tier-growth">'+a.delta+' &middot; time on task</div>' +
-        '<div class="feat-coach-trusted">Hours saved per person, weekly</div>' +
-        '<div class="feat-coach-price" style="color:#34d399">'+a.save+'</div>' +
+        '<div class="feat-coach-tier feat-coach-tier-growth">'+a.delta+' time saved</div>' +
+        '<div style="margin-top:auto">' +
+          '<div class="feat-coach-trusted">Hours saved per person, weekly</div>' +
+          '<div class="feat-coach-price" style="color:#34d399">'+a.save+'</div>' +
+        '</div>' +
       '</div>'
     ).join('');
   }
@@ -912,5 +1131,38 @@
 </div>
 <div id="slime-toast" style="position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:#4F6BFF;color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;font-family:Inter,sans-serif;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:10000"></div>
 <script type="module" src="/assets/slime-widget.js"></script>
+
+<script id="nav-dropdown-script">
+(function () {
+  function init() {
+    document.querySelectorAll('.nav-dd-btn').forEach(function (btn) {
+      var panel = btn.nextElementSibling;
+      if (!panel || !panel.classList.contains('nav-dd-panel')) return;
+      var dd = btn.parentElement;
+      dd.addEventListener('mouseenter', function () { open(btn, panel); });
+      dd.addEventListener('mouseleave', function () { close(btn, panel); });
+      btn.addEventListener('click', function () { toggle(btn, panel); });
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(btn, panel); }
+        if (e.key === 'Escape') { close(btn, panel); btn.focus(); }
+      });
+      panel.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { close(btn, panel); btn.focus(); }
+      });
+    });
+    document.addEventListener('click', function (e) {
+      document.querySelectorAll('.nav-dd-btn').forEach(function (btn) {
+        var panel = btn.nextElementSibling;
+        if (panel && !btn.parentElement.contains(e.target)) close(btn, panel);
+      });
+    });
+  }
+  function open(btn, panel) { panel.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+  function close(btn, panel) { panel.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+  function toggle(btn, panel) { panel.classList.contains('open') ? close(btn, panel) : open(btn, panel); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+}());
+</script>
 </body>
 </html>
