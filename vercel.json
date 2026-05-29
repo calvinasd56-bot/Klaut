@@ -16,16 +16,16 @@
     { "source": "/en/audit-live",            "destination": "/audit-live",             "permanent": true },
     { "source": "/artikel",                  "destination": "/id/artikel",             "permanent": true },
     { "source": "/artikel/:slug",            "destination": "/id/artikel/:slug",       "permanent": true },
-    { "source": "/why-klaut",                "destination": "https://compass-app.klaut.id/why-klaut",      "permanent": false },
-    { "source": "/id/why-klaut",             "destination": "https://compass-app.klaut.id/id/why-klaut",   "permanent": false },
-    { "source": "/apps",                     "destination": "https://compass-app.klaut.id/apps",           "permanent": false },
-    { "source": "/id/apps",                  "destination": "https://compass-app.klaut.id/id/apps",        "permanent": false },
-    { "source": "/learn",                    "destination": "https://compass-app.klaut.id/learn",          "permanent": false },
-    { "source": "/id/learn",                 "destination": "https://compass-app.klaut.id/id/learn",       "permanent": false }
+    { "source": "/apps",                     "destination": "/marketplace",                                "permanent": true },
+    { "source": "/id/apps",                  "destination": "/id/marketplace",                             "permanent": true }
   ],
   "rewrites": [
     { "source": "/marketplace",              "destination": "https://compass-app.klaut.id/marketplace" },
     { "source": "/id/marketplace",           "destination": "https://compass-app.klaut.id/id/marketplace" },
+    { "source": "/why-klaut",                "destination": "https://compass-app.klaut.id/why-klaut" },
+    { "source": "/id/why-klaut",             "destination": "https://compass-app.klaut.id/id/why-klaut" },
+    { "source": "/learn",                    "destination": "https://compass-app.klaut.id/learn" },
+    { "source": "/id/learn",                 "destination": "https://compass-app.klaut.id/id/learn" },
     { "source": "/pricing",                  "destination": "https://compass-app.klaut.id/pricing" },
     { "source": "/id/pricing",               "destination": "https://compass-app.klaut.id/id/pricing" },
     { "source": "/checkout",                 "destination": "https://compass-app.klaut.id/checkout" },
