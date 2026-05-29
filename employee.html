@@ -1,0 +1,1470 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="description" content="What Compass looks like from the employee seat — a learning journey that knows where you are, a curated marketplace of coaches, and an AI companion that grows when you do."/>
+<link rel="canonical" href="https://klaut.id/employee"/>
+<link rel="alternate" hreflang="en" href="https://klaut.id/employee"/>
+<link rel="alternate" hreflang="id" href="https://klaut.id/id/employee"/>
+<link rel="alternate" hreflang="x-default" href="https://klaut.id/employee"/>
+<title>For Employees — Klaut</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'], mono: ['JetBrains Mono', 'ui-monospace', 'menlo'] },
+        colors: {
+          bg:       '#0a0a0a',
+          surface:  '#111111',
+          surface2: '#1a1a1a',
+          line:     '#262626',
+          'line-2': '#3f3f46',
+          accent:   '#4F6BFF',
+          'accent-2': '#7B8FFF',
+          'accent-deep': '#3854E5',
+          ink:      '#ffffff',
+          muted:    '#a1a1aa',
+          dim:      '#71717a',
+          faint:    '#52525b',
+        },
+        boxShadow: {
+          'glow':    '0 0 0 1px rgba(99,102,241,0.20), 0 20px 60px -20px rgba(99,102,241,0.45)',
+          'glow-sm': '0 0 0 1px rgba(99,102,241,0.18), 0 8px 32px -12px rgba(99,102,241,0.35)',
+          'card':    '0 1px 0 rgba(255,255,255,0.04) inset, 0 24px 60px -28px rgba(0,0,0,0.6)',
+        },
+      },
+    },
+  };
+</script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; background: #0a0a0a; color: #fff; }
+
+  /* dot grid backdrop */
+  .dot-grid {
+    background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .grid-fade {
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 50%, transparent 100%);
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 50%, transparent 100%);
+  }
+
+  /* orbs */
+  .orb { position: absolute; border-radius: 9999px; filter: blur(80px); pointer-events: none; }
+  .orb-1 { width: 520px; height: 520px; background: radial-gradient(circle at 30% 30%, #4F6BFF, transparent 60%); top: -160px; left: -140px; opacity: .45; animation: float 14s ease-in-out infinite; }
+  .orb-2 { width: 460px; height: 460px; background: radial-gradient(circle at 70% 40%, #4F6BFF, transparent 60%); top: 8%; right: -180px; opacity: .35; animation: float 16s ease-in-out infinite reverse; }
+  .orb-3 { width: 380px; height: 380px; background: radial-gradient(circle at 50% 50%, #22d3ee, transparent 60%); bottom: -160px; left: 40%; opacity: .18; animation: float 18s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-14px) } }
+  .no-orbs .orb { display: none; }
+
+  /* scroll-reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 700ms cubic-bezier(0.2,0.8,0.2,1), transform 700ms cubic-bezier(0.2,0.8,0.2,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* hover card */
+  .card-hover { transition: transform 240ms cubic-bezier(0.2,0.8,0.2,1), box-shadow 240ms cubic-bezier(0.2,0.8,0.2,1), border-color 240ms; }
+  .card-hover:hover { transform: translateY(-4px); border-color: rgba(99,102,241,0.4); box-shadow: 0 0 0 1px rgba(99,102,241,0.30), 0 30px 80px -30px rgba(99,102,241,0.45); }
+
+  /* buttons */
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 8px; font-weight: 500; font-size: 14px; transition: all 200ms cubic-bezier(0.2,0.8,0.2,1); cursor: pointer; border: 0; }
+  .btn-primary { background: #4F6BFF; color: #fff; }
+  .btn-primary:hover { background: #3854E5; box-shadow: 0 0 0 1px rgba(99,102,241,0.4), 0 12px 32px -8px rgba(99,102,241,0.6); transform: translateY(-1px); }
+  .btn-ghost { background: rgba(255,255,255,0.04); color: #fff; border: 1px solid rgba(255,255,255,0.1); }
+  .btn-ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
+  .btn-lg { padding: 14px 24px; font-size: 15px; }
+
+  /* hero gradient clause */
+  .grad-clause {
+    background: linear-gradient(90deg, #ffffff 0%, #c7d2fe 55%, #4F6BFF 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+
+  /* selection */
+  ::selection { background: rgba(99,102,241,0.35); color: #fff; }
+
+  /* nav scroll */
+  .nav-scrolled { background: rgba(10,10,10,0.7); backdrop-filter: blur(20px); border-bottom: 1px solid #262626; }
+
+  /* brand images */
+  .brand-mark { width: 32px; height: 32px; object-fit: contain; display: block; flex-shrink: 0; }
+  .brand-wordmark { height: 34px; width: auto; object-fit: contain; display: block; flex-shrink: 0; filter: invert(1); }
+  @media (min-width: 768px) { .brand-wordmark { height: 38px; } }
+  .link-hover { transition: color 180ms; }
+  .link-hover:hover { color: #fff; }
+
+  /* ── Two Layers diagram ─────────────────────────────────── */
+  .layer-stack { position: relative; }
+  .layer { position: relative; border: 1px solid var(--lb, #262626); border-radius: 16px; background: var(--lbg, #111); overflow: hidden; }
+  .layer.upper { background: linear-gradient(180deg, rgba(99,102,241,0.10) 0%, rgba(99,102,241,0.02) 100%), #0e0d1a; border-color: rgba(99,102,241,0.30); box-shadow: 0 0 0 1px rgba(99,102,241,0.15), 0 30px 60px -30px rgba(99,102,241,0.45); }
+  .layer.lower { background: #0d0d10; border-color: #262626; box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 24px 60px -28px rgba(0,0,0,0.6); }
+  .layer-tab { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; }
+  .layer-tab.upper { background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.30); color: #c7d2fe; }
+  .layer-tab.lower { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); color: #a1a1aa; }
+
+  /* dependency arrow between the panels */
+  .dep-rail { position: relative; height: 56px; display: grid; place-items: center; }
+  .dep-line { width: 1px; height: 100%; background: linear-gradient(180deg, rgba(99,102,241,0.0) 0%, rgba(99,102,241,0.7) 50%, rgba(99,102,241,0.0) 100%); position: absolute; left: 50%; transform: translateX(-0.5px); }
+  .dep-chip { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: rgba(10,10,10,0.95); border: 1px solid rgba(99,102,241,0.35); color: #c7d2fe; font: 500 11px/1 'JetBrains Mono', monospace; letter-spacing: 0.06em; }
+  .dep-chip svg { display: block; }
+
+  /* Compass run-list */
+  .run-row { display: grid; grid-template-columns: 14px 1fr auto auto; align-items: center; gap: 12px; padding: 11px 14px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 13px; }
+  .run-row:first-child { border-top: 0; }
+  .run-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .run-dot.done   { background: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,0.15); }
+  .run-dot.live   { background: #7B8FFF; box-shadow: 0 0 0 3px rgba(99,102,241,0.20); animation: pulse 1.6s ease-in-out infinite; }
+  .run-dot.queue  { background: #3f3f46; }
+  @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
+  .pill { padding: 3px 8px; border-radius: 999px; font: 500 10.5px/1.2 'JetBrains Mono', monospace; letter-spacing: 0.04em; }
+  .pill-ok    { background: rgba(34,197,94,0.10); color: #86efac; border: 1px solid rgba(34,197,94,0.25); }
+  .pill-run   { background: rgba(99,102,241,0.14); color: #c7d2fe; border: 1px solid rgba(99,102,241,0.30); }
+  .pill-queue { background: rgba(255,255,255,0.04); color: #a1a1aa; border: 1px solid rgba(255,255,255,0.10); }
+
+  /* Klaut org map */
+  .org-cell { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; transition: border-color 240ms, background 240ms; }
+  .org-cell:hover { border-color: rgba(99,102,241,0.35); background: rgba(99,102,241,0.06); }
+  .avatar { width: 26px; height: 26px; border-radius: 999px; display: grid; place-items: center; font: 600 11px/1 'Inter', sans-serif; color: #c7d2fe; background: linear-gradient(135deg, rgba(99,102,241,0.30), rgba(129,140,248,0.10)); border: 1px solid rgba(99,102,241,0.25); flex-shrink: 0; }
+  .avatar.m { background: linear-gradient(135deg, rgba(139,92,246,0.30), rgba(99,102,241,0.10)); }
+  .avatar.c { background: linear-gradient(135deg, rgba(34,211,238,0.25), rgba(99,102,241,0.10)); color: #a5f3fc; border-color: rgba(34,211,238,0.25); }
+  .org-meta { font: 500 10.5px/1 'JetBrains Mono', monospace; color: #71717a; letter-spacing: 0.04em; }
+  .org-name { font-size: 12.5px; font-weight: 500; color: #e4e4e7; line-height: 1.1; }
+  .org-skill { font-size: 11px; color: #71717a; margin-top: 2px; line-height: 1.1; }
+
+  /* belief cards */
+  .icon-tile { width: 44px; height: 44px; border-radius: 8px; background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.30); display: grid; place-items: center; }
+
+  /* CTA band */
+  .cta-band {
+    background:
+      radial-gradient(ellipse 60% 80% at 80% 50%, rgba(99,102,241,0.18), transparent 70%),
+      radial-gradient(ellipse 50% 70% at 10% 50%, rgba(139,92,246,0.10), transparent 70%),
+      #0d0d12;
+    border: 1px solid rgba(99,102,241,0.25);
+  }
+
+  /* mono eyebrow used in hero */
+  .mono-eyebrow {
+    font: 500 12px/1 'JetBrains Mono', monospace;
+    letter-spacing: 0.02em;
+    color: #7B8FFF;
+  }
+
+  /* hairline divider with center dot */
+  .hairline-dot { position: relative; height: 1px; background: #262626; }
+  .hairline-dot::after { content: ''; position: absolute; left: 50%; top: 50%; width: 5px; height: 5px; border-radius: 50%; background: #4F6BFF; transform: translate(-50%, -50%); box-shadow: 0 0 0 4px #0a0a0a; }
+</style>
+
+<style id="nav-dropdown-styles">
+/* Nav dropdown panels */
+.nav-dd { position: relative; }
+.nav-dd-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 8px 16px; font-size: .875rem;
+  color: var(--muted, #a1a1aa);
+  background: none; border: none; cursor: pointer; font-family: inherit;
+  border-radius: 8px; transition: color .15s;
+}
+.nav-dd-btn:hover, .nav-dd-btn[aria-expanded="true"] { color: #fff; }
+.nav-dd-btn svg { flex-shrink: 0; transition: transform .2s; }
+.nav-dd-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+.nav-dd-btn:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; border-radius: 4px; }
+
+/* Shared panel chrome */
+.nav-dd-panel {
+  position: absolute; top: calc(100% + 6px); left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  background: var(--surface, #111111); border: 1px solid var(--line, #262626);
+  border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,.55);
+  opacity: 0; visibility: hidden;
+  transition: opacity .15s, visibility .15s, transform .15s;
+  z-index: 100;
+}
+.nav-dd-panel.open {
+  opacity: 1; visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Help dropdown — narrow single column */
+.nav-dd-panel.panel-help {
+  width: 200px;
+  padding: 8px;
+}
+.nav-dd-panel.panel-help a {
+  display: block; padding: 8px 14px; border-radius: 8px;
+  font-size: 13px; color: var(--muted, #a1a1aa);
+  text-decoration: none; transition: background .12s, color .12s; line-height: 1.4;
+}
+.nav-dd-panel.panel-help a:hover { background: rgba(255,255,255,.06); color: #fff; }
+.nav-dd-panel.panel-help a:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; }
+
+/* Product mega-panel — 3 columns */
+.nav-dd-panel.panel-mega {
+  width: 680px;
+  padding: 24px;
+}
+/* Clamp to viewport on narrow screens */
+@media (max-width: 800px) {
+  .nav-dd-panel.panel-mega {
+    width: calc(100vw - 24px);
+    left: 0; transform: translateY(-4px);
+  }
+  .nav-dd-panel.panel-mega.open { transform: translateY(0); }
+}
+.mega-cols {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+}
+.mega-col-header {
+  display: block;
+  font-size: 11px; font-weight: 500; text-transform: uppercase;
+  letter-spacing: .12em; color: rgba(255,255,255,.45);
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  margin-bottom: 10px;
+}
+.mega-items { display: flex; flex-direction: column; }
+.mega-items a {
+  display: block; padding: 8px 0; font-size: 13px; line-height: 1.4;
+  color: var(--muted, #a1a1aa); text-decoration: none;
+  transition: color .12s;
+}
+.mega-items a:hover { color: #fff; }
+.mega-items a:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; border-radius: 2px; }
+/* Solutions mega-panel — 4 columns */
+.nav-dd-panel.panel-mega--4 {
+  width: 860px;
+  padding: 24px;
+}
+@media (max-width: 900px) {
+  .nav-dd-panel.panel-mega--4 {
+    width: calc(100vw - 24px);
+    left: 0; transform: translateY(-4px);
+  }
+  .nav-dd-panel.panel-mega--4.open { transform: translateY(0); }
+}
+.mega-cols--4 {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px;
+}
+.mega-items a.mega-view-all {
+  color: rgba(255,255,255,.5); font-style: italic;
+}
+.mega-items a.mega-view-all:hover { color: rgba(255,255,255,.8); }
+/* FIX: anchor mega panels to <nav> container so both Product + Solutions
+   start from the same left edge (Asana pattern). Without this, .nav-dd's
+   trigger-width parent caused PLATFORM column to clip on the left. */
+nav[aria-label="Primary"] { position: relative; }
+.nav-dd:has(.panel-mega),
+.nav-dd:has(.panel-mega--4) { position: static; }
+.nav-dd-panel.panel-mega,
+.nav-dd-panel.panel-mega--4 {
+  left: 0;
+  transform: translateY(-4px);
+}
+.nav-dd-panel.panel-mega.open,
+.nav-dd-panel.panel-mega--4.open {
+  transform: translateY(0);
+}</style>
+<style id="employee-demo-styles">
+/* === Demo frame + metric chrome (ported from compass-site) === */
+  .demo-frame { border:1px solid #262626; border-radius:16px; background:#0d0d0d; overflow:hidden; box-shadow:0 40px 120px -40px rgba(99,102,241,.3); }
+  .demo-bar { display:flex; align-items:center; gap:14px; padding:12px 16px; border-bottom:1px solid #1f1f1f; background:#121212; flex-wrap:wrap; }
+  .demo-dots { display:flex; gap:6px; }
+  .demo-dots i { width:10px; height:10px; border-radius:9999px; background:#2e2e2e; display:block; }
+  .demo-title { font-family:'JetBrains Mono',monospace; font-size:12px; color:#a1a1aa; }
+  .seg { display:inline-flex; background:#161616; border:1px solid #262626; border-radius:9999px; padding:3px; gap:2px; margin-left:auto; }
+  .seg button { font:500 12px/1 'JetBrains Mono',monospace; color:#a1a1aa; padding:7px 12px; border-radius:9999px; border:0; background:transparent; cursor:pointer; transition:all .18s; }
+  .seg button.on { background:#4F6BFF; color:#fff; }
+  .tabs { display:flex; gap:4px; padding:12px 16px 0; border-bottom:1px solid #1f1f1f; flex-wrap:wrap; }
+  .tab { font-size:13px; font-weight:500; color:#a1a1aa; padding:9px 16px; border-radius:8px 8px 0 0; border:1px solid transparent; border-bottom:0; background:transparent; cursor:pointer; transition:all .18s; }
+  .tab:hover { color:#fff; }
+  .tab.on { color:#fff; background:#0d0d0d; border-color:#262626; }
+  .panel { padding:20px; display:none; }
+  .panel.on { display:block; }
+  .metric { border:1px solid #232323; border-radius:12px; background:#111; padding:16px; }
+  .metric .lbl { font-size:11px; color:#71717a; text-transform:uppercase; letter-spacing:.12em; }
+  .metric .val { font-size:26px; font-weight:600; margin-top:8px; font-variant-numeric:tabular-nums; letter-spacing:-.02em; }
+  .metric .dlt { font-size:12px; margin-top:6px; font-family:'JetBrains Mono',monospace; color:#71717a; }
+  .good { color:#34d399; }
+  .bar { height:7px; border-radius:9999px; background:#1f1f1f; overflow:hidden; }
+  .bar i { display:block; height:100%; border-radius:9999px; background:linear-gradient(90deg,#4F6BFF,#7B8FFF); transition:width .6s cubic-bezier(.2,.8,.2,1); }
+  .drow { display:flex; align-items:center; gap:14px; padding:12px 0; border-top:1px solid #1b1b1b; }
+  .drow:first-child { border-top:0; }
+  .kv { display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+  @media (max-width:700px){
+    .demo-bar { gap:12px; }
+    .seg { margin-left:0; width:100%; }
+    .seg button { flex:1; text-align:center; }
+  }
+  ::selection { background:rgba(99,102,241,.35); color:#fff; }
+
+/* ============================================================
+   FEATURE DEMO EXTENSIONS — feat-* prefix
+   Reuses all existing .demo-frame / .metric / .tab / .panel classes.
+   Only adds: band pills, coach card layout, slime companion row.
+   ============================================================ */
+
+/* Skill-band pill — used in feat-learn journey map */
+.feat-band {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: 500 11px/1 'JetBrains Mono', monospace;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 9999px;
+  border: 1px solid;
+}
+.feat-band-exploring { color: #7B8FFF; border-color: rgba(167,139,250,.35); background: rgba(167,139,250,.10); }
+.feat-band-building  { color: #60a5fa; border-color: rgba(96,165,250,.35);  background: rgba(96,165,250,.10);  }
+.feat-band-solid     { color: #34d399; border-color: rgba(52,211,153,.35);  background: rgba(52,211,153,.10);  }
+
+/* Journey milestone row inside a .metric card */
+.feat-milestone {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid #1b1b1b;
+}
+.feat-milestone:first-child { border-top: 0; padding-top: 0; }
+.feat-milestone-dot {
+  width: 8px; height: 8px;
+  border-radius: 9999px;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.feat-milestone-dot.done  { background: #34d399; box-shadow: 0 0 8px rgba(52,211,153,.5); }
+.feat-milestone-dot.next  { background: #4F6BFF; box-shadow: 0 0 8px rgba(99,102,241,.5); }
+.feat-milestone-dot.later { background: #3f3f46; }
+.feat-milestone-label { font-size: 13px; font-weight: 500; line-height: 1.3; }
+.feat-milestone-meta  { font: 400 11px/1.2 'JetBrains Mono', monospace; color: #71717a; margin-top: 3px; }
+
+/* Coach card — used in feat-coach section */
+.feat-coach-card {
+  border: 1px solid #232323;
+  border-radius: 12px;
+  background: #111;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.feat-coach-avatar {
+  width: 36px; height: 36px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #4F6BFF, #7B8FFF);
+  display: flex; align-items: center; justify-content: center;
+  font: 600 14px/1 'Inter', sans-serif;
+  color: #fff;
+  flex-shrink: 0;
+}
+.feat-coach-name  { font-size: 14px; font-weight: 600; }
+.feat-coach-role  { font-size: 11px; color: #71717a; margin-top: 1px; }
+.feat-coach-tier  {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font: 500 11px/1 'JetBrains Mono', monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 9999px;
+  border: 1px solid;
+}
+.feat-coach-tier-starter    { color: #a1a1aa; border-color: #3f3f46; background: rgba(63,63,70,.25); }
+.feat-coach-tier-growth     { color: #60a5fa; border-color: rgba(96,165,250,.35); background: rgba(96,165,250,.10); }
+.feat-coach-tier-executive  { color: #f59e0b; border-color: rgba(245,158,11,.35); background: rgba(245,158,11,.10); }
+.feat-coach-rating { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #a1a1aa; }
+.feat-coach-star   { color: #f59e0b; font-size: 13px; }
+.feat-coach-trusted { font: 400 11px/1 'JetBrains Mono', monospace; color: #71717a; }
+.feat-coach-price  { font: 600 15px/1 'Inter', sans-serif; margin-top: auto; }
+.feat-coach-price span { font-size: 11px; color: #71717a; font-weight: 400; }
+.feat-coach-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+/* Slime companion row */
+.feat-slime-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-top: 1px solid #1b1b1b;
+}
+.feat-slime-row:first-child { border-top: 0; padding-top: 0; }
+.feat-slime-avatar {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  background: #161616;
+  border: 1px solid #2a2a2a;
+}
+.feat-slime-name  { font-size: 13px; font-weight: 600; }
+.feat-slime-level { font: 500 11px/1 'JetBrains Mono', monospace; color: #7B8FFF; }
+.feat-slime-poin  { font: 600 14px/1 'JetBrains Mono', monospace; color: #34d399; margin-left: auto; flex-shrink: 0; }
+.feat-slime-poin span { font-size: 10px; color: #71717a; font-weight: 400; display: block; text-align: right; margin-top: 2px; }
+</style>
+
+</style>
+</head>
+<body class="bg-bg text-ink">
+
+<header id="nav" class="fixed top-0 inset-x-0 z-40 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-6">
+      <a href="/" class="flex items-center gap-2.5 group" aria-label="Klaut home">
+        <img src="/klaut-K-mark.png?v=1" alt="" class="brand-mark"/>
+      </a>
+      <nav class="hidden md:flex items-center gap-1" aria-label="Primary">
+        <a href="https://compass-app.klaut.id/why-klaut" class="px-4 py-2 text-sm text-muted link-hover">Why Klaut</a>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-abt-prod">Product
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-abt-prod" class="nav-dd-panel panel-mega" role="menu" aria-label="Product">
+            <div class="mega-cols">
+              <div>
+                <span class="mega-col-header">Platform</span>
+                <div class="mega-items">
+                  <a href="/" role="menuitem">Klaut AI</a>
+                  <a href="https://compass.klaut.id/" role="menuitem">Compass</a>
+                  <a href="/marketplace" role="menuitem">Klaut Marketplace</a>
+                  <a href="/learning" role="menuitem">Klaut Learning Center</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Capabilities</span>
+                <div class="mega-items">
+                  <a href="/capabilities/work-patterns" role="menuitem">Work patterns intelligence</a>
+                  <a href="/capabilities/error-detection" role="menuitem">Error detection &amp; correction</a>
+                  <a href="/capabilities/kpi" role="menuitem">KPI Command Center</a>
+                  <a href="/capabilities/reports" role="menuitem">Report Card &amp; analytics</a>
+                  <a href="/capabilities/admin" role="menuitem">Admin &amp; security</a>
+                  <a href="/capabilities/tools-integration" role="menuitem">Tools integration</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">AI Features</span>
+                <div class="mega-items">
+                  <a href="/ai/inference" role="menuitem">Inference Engine</a>
+                  <a href="/ai/copilot" role="menuitem">AI Copilot (Slime)</a>
+                  <a href="/ai/decision-support" role="menuitem">Decision Support</a>
+                  <a href="/ai/tools-automation" role="menuitem">Tools automation</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-abt-sol">Solutions
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-abt-sol" class="nav-dd-panel panel-mega panel-mega--4" role="menu" aria-label="Solutions">
+            <div class="mega-cols mega-cols--4">
+              <div>
+                <span class="mega-col-header">Company Type</span>
+                <div class="mega-items">
+                  <a href="/solutions/solo" role="menuitem">Solo</a>
+                  <a href="/solutions/team" role="menuitem">Team</a>
+                  <a href="/solutions/enterprise" role="menuitem">Enterprise</a>
+                  <a href="/solutions/partners" role="menuitem">Partners</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">MANAGEMENT</span>
+                <div class="mega-items">
+                  <a href="/solutions/employer" role="menuitem">Employer</a>
+                  <a href="/solutions/manager" role="menuitem">Manager</a>
+                  <a href="/solutions/hr" role="menuitem">HR</a>
+                  <a href="/employee" role="menuitem">Employee</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Industries</span>
+                <div class="mega-items">
+                  <a href="/solutions/industries/education" role="menuitem">Education</a>
+                  <a href="/solutions/industries/insurance" role="menuitem">Insurance</a>
+                  <a href="/solutions/industries/financial-services" role="menuitem">Financial Services</a>
+                  <a href="/solutions/industries/technology" role="menuitem">Technology</a>
+                  <a href="/solutions/industries/ecommerce" role="menuitem">E-commerce</a>
+                  <a href="/solutions/industries/healthcare" role="menuitem">Healthcare</a>
+                  <a href="/solutions/industries" role="menuitem" class="mega-view-all">View all industries</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Use Cases</span>
+                <div class="mega-items">
+                  <a href="/use-cases/ai-readiness" role="menuitem">AI readiness audit</a>
+                  <a href="/use-cases/workforce-intelligence" role="menuitem">Workforce intelligence</a>
+                  <a href="/use-cases/integration" role="menuitem">Cross-tool integration</a>
+                  <a href="/use-cases/honest-reports" role="menuitem">Honest performance reports</a>
+                  <a href="/use-cases/compliance" role="menuitem">Compliance &amp; privacy</a>
+                  <a href="/use-cases" role="menuitem" class="mega-view-all">View all use cases</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-abt-help">Help
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-abt-help" class="nav-dd-panel panel-help" role="menu" aria-label="Help">
+            <a href="/help-center" role="menuitem">FAQ</a>
+            <a href="/help-center" role="menuitem">Resource Center</a>
+            <a href="mailto:hello@klaut.id" role="menuitem">Contact Us</a>
+          </div>
+        </div>
+        <a href="https://compass-app.klaut.id/pricing" class="px-4 py-2 text-sm text-muted link-hover">Pricing</a>
+      </nav>
+    </div>
+    <div class="hidden md:flex items-center gap-3">
+      <div class="flex items-center rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium" role="group" aria-label="Select language">
+        <a href="/id/employee" class="px-3 py-1.5 rounded-full text-muted hover:text-white transition-colors">ID</a>
+        <a href="/employee" class="px-3 py-1.5 rounded-full bg-white/10 text-white" aria-current="page">EN</a>
+      </div>
+      <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" class="btn btn-primary">Book a call
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="https://compass-app.klaut.id/" target="_blank" rel="noopener" class="btn btn-ghost">Demo</a>
+    </div>
+    <button id="hamburger" class="md:hidden p-2 rounded-lg hover:bg-white/5" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div id="mobileMenu" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-close-menu></div>
+  <aside class="absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-surface border-l border-line p-6 flex flex-col gap-1">
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-2">
+        <img src="/klaut-K-mark.png?v=1" alt="" class="brand-mark"/>
+      </div>
+      <button data-close-menu class="p-2 rounded-lg hover:bg-white/5" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
+    </div>
+    <a href="https://compass-app.klaut.id/why-klaut" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Why Klaut</a>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Product</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+            <div class="pl-4 flex flex-col gap-0 mt-1">
+        <p class="px-4 pt-2 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Platform</p>
+        <a href="/" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut AI</a>
+        <a href="https://compass.klaut.id/" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Compass</a>
+        <a href="/marketplace" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut Marketplace</a>
+        <a href="/learning" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut Learning Center</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Capabilities</p>
+        <a href="/capabilities/work-patterns" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Work patterns intelligence</a>
+        <a href="/capabilities/error-detection" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Error detection &amp; correction</a>
+        <a href="/capabilities/kpi" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">KPI Command Center</a>
+        <a href="/capabilities/reports" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Report Card &amp; analytics</a>
+        <a href="/capabilities/admin" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Admin &amp; security</a>
+        <a href="/capabilities/tools-integration" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Tools integration</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">AI Features</p>
+        <a href="/ai/inference" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Inference Engine</a>
+        <a href="/ai/copilot" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">AI Copilot (Slime)</a>
+        <a href="/ai/decision-support" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Decision Support</a>
+        <a href="/ai/tools-automation" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Tools automation</a>
+      </div>
+    </details>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Solutions</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-4 flex flex-col gap-0 mt-1">
+        <p class="px-4 pt-2 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Company Type</p>
+        <a href="/solutions/solo" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Solo</a>
+        <a href="/solutions/team" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Team</a>
+        <a href="/solutions/enterprise" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Enterprise</a>
+        <a href="/solutions/partners" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Partners</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">MANAGEMENT</p>
+        <a href="/solutions/employer" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Employer</a>
+        <a href="/solutions/manager" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Manager</a>
+        <a href="/solutions/hr" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">HR</a>
+        <a href="/employee" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Employee</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Industries</p>
+        <a href="/solutions/industries/education" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Education</a>
+        <a href="/solutions/industries/insurance" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Insurance</a>
+        <a href="/solutions/industries/financial-services" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Financial Services</a>
+        <a href="/solutions/industries/technology" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Technology</a>
+        <a href="/solutions/industries/ecommerce" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">E-commerce</a>
+        <a href="/solutions/industries/healthcare" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Healthcare</a>
+        <a href="/solutions/industries" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-white/50 text-[13px] italic">View all industries</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Use Cases</p>
+        <a href="/use-cases/ai-readiness" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">AI readiness audit</a>
+        <a href="/use-cases/workforce-intelligence" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Workforce intelligence</a>
+        <a href="/use-cases/integration" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Cross-tool integration</a>
+        <a href="/use-cases/honest-reports" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Honest performance reports</a>
+        <a href="/use-cases/compliance" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Compliance &amp; privacy</a>
+        <a href="/use-cases" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-white/50 text-[13px] italic">View all use cases</a>
+      </div>
+    </details>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Help</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-8 flex flex-col gap-0.5 mt-0.5">
+        <a href="/help-center" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">FAQ</a>
+        <a href="/help-center" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Resource Center</a>
+        <a href="mailto:hello@klaut.id" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Contact Us</a>
+      </div>
+    </details>
+    <a href="https://compass-app.klaut.id/pricing" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Pricing</a>
+    <div class="flex items-center justify-center mt-4 rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium w-fit mx-auto" role="group" aria-label="Select language">
+      <a href="/id/employee" class="px-4 py-2 rounded-full text-muted hover:text-white transition-colors">Bahasa Indonesia</a>
+      <a href="/employee" class="px-4 py-2 rounded-full bg-white/10 text-white" aria-current="page">English</a>
+    </div>
+    <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" data-close-menu class="btn btn-primary justify-center mt-4">Book a call</a>
+  </aside>
+</div>
+
+
+
+<main>
+
+<!-- ============================================================ HERO -->
+<section class="relative overflow-hidden">
+  <div class="absolute inset-0 dot-grid grid-fade"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10 pt-36 pb-20 lg:pt-44 lg:pb-24">
+    <div class="reveal mono-eyebrow mb-7">/ For Employees</div>
+
+    <h1 class="reveal text-5xl md:text-7xl lg:text-[88px] font-semibold tracking-tight leading-[0.96] max-w-5xl">
+      Compass, from
+      <span class="grad-clause">your seat.</span>
+    </h1>
+
+    <p class="reveal mt-9 max-w-2xl text-lg md:text-xl text-muted leading-relaxed">
+      What an employee actually sees inside Compass — a learning journey that knows where you are, a marketplace of coaches your teammates already trust, and a private AI companion that grows when you close real skill gaps.
+    </p>
+
+    <div class="reveal mt-10 flex flex-wrap gap-3">
+      <a href="https://compass-app.klaut.id/" target="_blank" rel="noopener" class="btn btn-primary btn-lg">Try the live demo
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" class="btn btn-ghost btn-lg">Book a call</a>
+    </div>
+
+    <p class="reveal mt-14 pt-6 border-t border-white/5 text-xs text-dim font-mono uppercase tracking-[0.18em]">
+      Three surfaces. One workspace. Decision-support, not employee scoring.
+    </p>
+  </div>
+</section>
+
+<!-- FEATURE EXPLAINER 1 — Personal Learning Journey -->
+<section id="feat-learn" class="relative max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28 border-t border-white/5">
+  <div class="max-w-3xl reveal">
+    <div class="eyebrow mb-4">Learn · Journey Map</div>
+    <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.1]">
+      A learning path that <span class="hl-grad">knows where you are</span>
+    </h2>
+    <p class="mt-5 text-base md:text-lg text-muted leading-relaxed">
+      Compass detects each person's skill gaps and maps a sequenced journey — then routes them to the right external course. It tells you where to focus next. It doesn't grade you.
+    </p>
+  </div>
+
+  <div class="mt-12 reveal demo-frame" data-demo-learn>
+    <div class="demo-bar">
+      <span class="demo-dots"><i></i><i></i><i></i></span>
+      <span class="demo-title">Compass · Learn — Dewi's Journey Map</span>
+      <span class="seg" role="group" aria-label="Skill domain">
+        <button data-domain="comm" class="on">Communication</button>
+        <button data-domain="esc">Escalation Handling</button>
+      </span>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab on" data-tab="lrn-emp" role="tab">Employee · Dewi</button>
+      <button class="tab" data-tab="lrn-mgr" role="tab">Manager</button>
+      <button class="tab" data-tab="lrn-hr" role="tab">HR</button>
+    </div>
+
+    <!-- EMPLOYEE -->
+    <div class="panel on" data-panel="lrn-emp">
+      <div class="grid md:grid-cols-2 gap-5">
+
+        <!-- Journey milestone sequence -->
+        <div class="metric">
+          <div class="lbl">Journey map · <span data-k-learn="domainLabel">Communication</span></div>
+          <div class="mt-3 flex items-center gap-3">
+            <span class="feat-band feat-band-building" data-k-learn="band">Building</span>
+            <span class="text-xs text-dim" data-k-learn="bandNote">Good foundation — room to sharpen</span>
+          </div>
+          <div class="mt-4">
+            <div class="feat-milestone">
+              <div class="feat-milestone-dot done"></div>
+              <div>
+                <div class="feat-milestone-label" data-k-learn="m1">Active listening — de-escalation basics</div>
+                <div class="feat-milestone-meta" data-k-learn="m1meta">Completed · skill stays with you</div>
+              </div>
+            </div>
+            <div class="feat-milestone">
+              <div class="feat-milestone-dot next"></div>
+              <div>
+                <div class="feat-milestone-label" data-k-learn="m2">Empathy framing — partial-refund conversations</div>
+                <div class="feat-milestone-meta" data-k-learn="m2meta">Where to focus next · routed to Coursera</div>
+              </div>
+            </div>
+            <div class="feat-milestone">
+              <div class="feat-milestone-dot later"></div>
+              <div>
+                <div class="feat-milestone-label" data-k-learn="m3">Cross-team escalation handoff protocol</div>
+                <div class="feat-milestone-meta" data-k-learn="m3meta">Unlocks after current module</div>
+              </div>
+            </div>
+          </div>
+          <p class="tab-note mt-5 text-xs text-dim">This map is Dewi's — her manager sees team breadth, not this sequence. Klaut routes to third-party courses; it doesn't author them.</p>
+        </div>
+
+        <!-- History milestones -->
+        <div class="metric">
+          <div class="lbl">Skill milestones — earned</div>
+          <div class="mt-3 flex flex-col gap-3">
+            <div class="drow">
+              <div class="flex-1">
+                <div class="text-sm font-medium" data-k-learn="h1">Refund policy · restocking fee</div>
+                <div class="text-xs text-dim font-mono mt-1" data-k-learn="h1d">Closed 18 days ago · re-tested 9 / 10</div>
+              </div>
+              <span class="feat-band feat-band-solid" style="flex-shrink:0">Solid</span>
+            </div>
+            <div class="drow">
+              <div class="flex-1">
+                <div class="text-sm font-medium" data-k-learn="h2">Call opening — confidence script</div>
+                <div class="text-xs text-dim font-mono mt-1" data-k-learn="h2d">Closed 34 days ago · re-tested 8 / 10</div>
+              </div>
+              <span class="feat-band feat-band-solid" style="flex-shrink:0">Solid</span>
+            </div>
+            <div class="drow">
+              <div class="flex-1">
+                <div class="text-sm font-medium" data-k-learn="h3" data-domain-esc="Angry-customer first response">Active listening — de-escalation</div>
+                <div class="text-xs text-dim font-mono mt-1" data-k-learn="h3d">Closed 47 days ago · skill verified</div>
+              </div>
+              <span class="feat-band feat-band-solid" style="flex-shrink:0">Solid</span>
+            </div>
+          </div>
+          <div class="mt-4 kv">
+            <span class="lbl">Skills that stay with Dewi</span>
+            <span class="text-sm font-mono text-dim" data-k-learn="portableCount">3 verified · portable across roles</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MANAGER -->
+    <div class="panel" data-panel="lrn-mgr">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="metric">
+          <div class="lbl">Exploring band</div>
+          <div class="val">2</div>
+          <div class="dlt">team members</div>
+        </div>
+        <div class="metric">
+          <div class="lbl">Building band</div>
+          <div class="val">3</div>
+          <div class="dlt">team members</div>
+        </div>
+        <div class="metric">
+          <div class="lbl">Solid band</div>
+          <div class="val">1</div>
+          <div class="dlt">team member</div>
+        </div>
+        <div class="metric">
+          <div class="lbl">Skills verified · team</div>
+          <div class="val">14</div>
+          <div class="dlt">portable, not locked to role</div>
+        </div>
+      </div>
+      <div class="metric mt-5">
+        <div class="kv mb-1"><span class="lbl">Active journeys — team · <span data-k-learn="domainLabel">Communication</span></span><span class="text-xs text-dim">6 / 6 members enrolled</span></div>
+        <div class="mt-3">
+          <div class="drow"><span class="text-sm w-20 shrink-0">Dewi</span><span class="bar flex-1"><i style="width:68%"></i></span><span class="text-xs font-mono text-dim w-24 text-right">Building band</span></div>
+          <div class="drow"><span class="text-sm w-20 shrink-0">Arif</span><span class="bar flex-1"><i style="width:45%"></i></span><span class="text-xs font-mono text-dim w-24 text-right">Exploring band</span></div>
+          <div class="drow"><span class="text-sm w-20 shrink-0">Sari</span><span class="bar flex-1"><i style="width:88%"></i></span><span class="text-xs font-mono text-dim w-24 text-right">Solid band</span></div>
+          <div class="drow"><span class="text-sm w-20 shrink-0">Budi</span><span class="bar flex-1"><i style="width:38%"></i></span><span class="text-xs font-mono text-dim w-24 text-right">Exploring band</span></div>
+          <div class="drow"><span class="text-sm w-20 shrink-0">Tari</span><span class="bar flex-1"><i style="width:72%"></i></span><span class="text-xs font-mono text-dim w-24 text-right">Building band</span></div>
+          <div class="drow"><span class="text-sm w-20 shrink-0">Rina</span><span class="bar flex-1"><i style="width:61%"></i></span><span class="text-xs font-mono text-dim w-24 text-right">Building band</span></div>
+        </div>
+      </div>
+      <p class="tab-note mt-5 text-xs text-dim">Managers see band distribution and progress direction — not each person's individual module history. Decision-support, not a ranking.</p>
+    </div>
+
+    <!-- HR -->
+    <div class="panel" data-panel="lrn-hr">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="metric">
+          <div class="lbl">Journeys active</div>
+          <div class="val">31</div>
+          <div class="dlt">across 5 teams</div>
+        </div>
+        <div class="metric">
+          <div class="lbl">Skills verified · org</div>
+          <div class="val">87</div>
+          <div class="dlt">portable, not role-locked</div>
+        </div>
+        <div class="metric">
+          <div class="lbl">External courses routed to</div>
+          <div class="val">4</div>
+          <div class="dlt">providers · Compass routes, doesn't author</div>
+        </div>
+        <div class="metric">
+          <div class="lbl">Layoffs recommended by Compass</div>
+          <div class="val">0</div>
+          <div class="dlt">It grows people, not grades them.</div>
+        </div>
+      </div>
+      <p class="tab-note mt-5 text-xs text-dim">HR sees learning momentum in aggregate. Compass identifies where to focus next — it doesn't produce a final verdict on any person.</p>
+    </div>
+  </div>
+
+  <p class="mt-5 text-xs text-dim reveal">Illustrative data. In a real deployment, Compass reports numbers straight from your team's own work systems.</p>
+</section>
+
+<script>
+(function(){
+  const root = document.querySelector('[data-demo-learn]');
+  if(!root) return;
+  const domainData = {
+    comm: {
+      domainLabel: 'Communication',
+      band: 'Building',
+      bandNote: 'Good foundation — room to sharpen',
+      m1: 'Active listening — de-escalation basics',
+      m1meta: 'Completed · skill stays with you',
+      m2: 'Empathy framing — partial-refund conversations',
+      m2meta: 'Where to focus next · routed to Coursera',
+      m3: 'Cross-team escalation handoff protocol',
+      m3meta: 'Unlocks after current module',
+      h1: 'Refund policy · restocking fee',
+      h1d: 'Closed 18 days ago · re-tested 9 / 10',
+      h2: 'Call opening — confidence script',
+      h2d: 'Closed 34 days ago · re-tested 8 / 10',
+      h3: 'Active listening — de-escalation',
+      h3d: 'Closed 47 days ago · skill verified',
+      portableCount: '3 verified · portable across roles'
+    },
+    esc: {
+      domainLabel: 'Escalation Handling',
+      band: 'Exploring',
+      bandNote: 'Early stage — strong focus area',
+      m1: 'Identifying escalation triggers',
+      m1meta: 'Completed · skill stays with you',
+      m2: 'Warm handoff to senior agent — script',
+      m2meta: 'Where to focus next · routed to LinkedIn Learning',
+      m3: 'Post-escalation follow-through protocol',
+      m3meta: 'Unlocks after current module',
+      h1: 'Escalation triage — priority tiers',
+      h1d: 'Closed 22 days ago · re-tested 7 / 10',
+      h2: 'Angry-customer first response',
+      h2d: 'Closed 38 days ago · skill verified',
+      h3: 'Tone calibration under pressure',
+      h3d: 'Closed 52 days ago · skill verified',
+      portableCount: '2 verified · portable across roles'
+    }
+  };
+  function setLearn(k, v) {
+    root.querySelectorAll('[data-k-learn="'+k+'"]').forEach(e => e.textContent = v);
+  }
+  function renderDomain(d) {
+    const data = domainData[d];
+    Object.keys(data).forEach(k => setLearn(k, data[k]));
+    const bandEl = root.querySelector('[data-k-learn="band"]');
+    if(bandEl) {
+      bandEl.className = 'feat-band feat-band-' + (d === 'comm' ? 'building' : 'exploring');
+    }
+  }
+  root.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => {
+    root.querySelectorAll('.seg button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    renderDomain(b.dataset.domain);
+  }));
+  root.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+    root.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+    root.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+    t.classList.add('on');
+    root.querySelector('[data-panel="'+t.dataset.tab+'"]').classList.add('on');
+  }));
+  renderDomain('comm');
+})();
+</script>
+
+<!-- FEATURE EXPLAINER 2 — Book a Speaker / Coach / Mentor -->
+<section id="feat-coach" class="relative max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28 border-t border-white/5">
+  <div class="max-w-3xl reveal">
+    <div class="eyebrow mb-4">Learn · Speakers &amp; Coaches</div>
+    <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.1]">
+      A curated marketplace, <span class="hl-grad">inside your team</span>
+    </h2>
+    <p class="mt-5 text-base md:text-lg text-muted leading-relaxed">
+      ~9 coaches across IDR-priced tiers. Browse, see who your teammates already trust, and request a session — without leaving Compass.
+    </p>
+  </div>
+
+  <div class="mt-12 reveal demo-frame" data-demo-coach>
+    <div class="demo-bar">
+      <span class="demo-dots"><i></i><i></i><i></i></span>
+      <span class="demo-title">Compass · Learn — Speakers &amp; Coaches</span>
+      <span class="seg" role="group" aria-label="Coach tier">
+        <button data-tier="starter" class="on">Starter</button>
+        <button data-tier="growth">Growth</button>
+        <button data-tier="executive">Executive</button>
+      </span>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab on" data-tab="coach-browse" role="tab">Browse · Employee</button>
+      <button class="tab" data-tab="coach-booked" role="tab">My Booking</button>
+      <button class="tab" data-tab="coach-mgr" role="tab">Manager View</button>
+    </div>
+
+    <!-- BROWSE -->
+    <div class="panel on" data-panel="coach-browse">
+      <div class="feat-coach-grid" data-k-coach="grid">
+        <!-- Populated by JS -->
+      </div>
+      <p class="tab-note mt-5 text-xs text-dim">Coaches are independent professionals. Ratings and "trusted by team" counts are based on your organization's actual booking history. Klaut curates the list; it does not employ the coaches.</p>
+    </div>
+
+    <!-- MY BOOKING -->
+    <div class="panel" data-panel="coach-booked">
+      <div class="grid md:grid-cols-2 gap-5">
+        <div class="metric">
+          <div class="lbl">Upcoming session</div>
+          <div class="mt-3 flex items-center gap-3">
+            <div class="feat-coach-avatar">RW</div>
+            <div>
+              <div class="feat-coach-name">Riana Wijaya</div>
+              <div class="feat-coach-role">Leadership Coach · Jakarta</div>
+            </div>
+          </div>
+          <div class="mt-4">
+            <div class="drow">
+              <div class="flex-1 text-sm text-muted">Date &amp; time</div>
+              <div class="text-sm font-mono">Thu 29 May · 10:00 WIB</div>
+            </div>
+            <div class="drow">
+              <div class="flex-1 text-sm text-muted">Duration</div>
+              <div class="text-sm font-mono">60 min</div>
+            </div>
+            <div class="drow">
+              <div class="flex-1 text-sm text-muted">Session topic</div>
+              <div class="text-sm font-mono">Difficult conversation framing</div>
+            </div>
+            <div class="drow">
+              <div class="flex-1 text-sm text-muted">Total cost</div>
+              <div class="text-sm font-mono good">Rp 750.000</div>
+            </div>
+          </div>
+          <p class="tab-note mt-5 text-xs text-dim">Session content is private. Your manager sees that a booking occurred — not what was discussed.</p>
+        </div>
+        <div class="metric">
+          <div class="lbl">Coach profile</div>
+          <div class="mt-3">
+            <div class="feat-coach-rating mt-2">
+              <span class="feat-coach-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span>4.9 · 38 sessions</span>
+            </div>
+            <div class="feat-coach-tier feat-coach-tier-growth mt-3">Growth tier</div>
+            <div class="mt-4">
+              <div class="drow">
+                <div class="flex-1 text-sm text-muted">Trusted by team</div>
+                <div class="text-sm font-mono">4 teammates have booked</div>
+              </div>
+              <div class="drow">
+                <div class="flex-1 text-sm text-muted">Focus areas</div>
+                <div class="text-sm font-mono">Leadership · Communication</div>
+              </div>
+              <div class="drow">
+                <div class="flex-1 text-sm text-muted">Languages</div>
+                <div class="text-sm font-mono">Bahasa Indonesia · English</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MANAGER VIEW -->
+    <div class="panel" data-panel="coach-mgr">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="metric">
+          <div class="lbl">Sessions booked · team</div>
+          <div class="val">7</div>
+          <div class="dlt">this month</div>
+        </div>
+        <div class="metric">
+          <div class="lbl">Unique coaches used</div>
+          <div class="val">3</div>
+          <div class="dlt">out of ~9 available</div>
+        </div>
+        <div class="metric">
+          <div class="lbl">Team members who booked</div>
+          <div class="val">4 / 6</div>
+          <div class="bar mt-3"><i style="width:67%"></i></div>
+        </div>
+        <div class="metric">
+          <div class="lbl">Session topics (aggregate)</div>
+          <div class="val text-base leading-snug mt-2">Communication · Leadership · Time mgmt</div>
+          <div class="dlt">content detail is private per person</div>
+        </div>
+      </div>
+      <p class="tab-note mt-5 text-xs text-dim">Managers see booking volume and aggregate topic areas — not what each person discussed with their coach. Individual sessions are private.</p>
+    </div>
+  </div>
+
+  <p class="mt-5 text-xs text-dim reveal">Illustrative data. In a real deployment, Compass reports numbers straight from your team's own work systems.</p>
+</section>
+
+<script>
+(function(){
+  const root = document.querySelector('[data-demo-coach]');
+  if(!root) return;
+  const coaches = {
+    starter: [
+      { init:'AP', name:'Andi Prasetyo', role:'Productivity Coach', rating:'4.7', sessions:'22', price:'Rp 350.000', tier:'starter', trusted:'2 teammates' },
+      { init:'LS', name:'Lina Santoso', role:'Mindset &amp; Focus Coach', rating:'4.8', sessions:'31', price:'Rp 400.000', tier:'starter', trusted:'1 teammate' },
+      { init:'BH', name:'Budi Hartono', role:'Communication Coach', rating:'4.6', sessions:'18', price:'Rp 300.000', tier:'starter', trusted:'3 teammates' },
+    ],
+    growth: [
+      { init:'RW', name:'Riana Wijaya', role:'Leadership Coach', rating:'4.9', sessions:'38', price:'Rp 750.000', tier:'growth', trusted:'4 teammates' },
+      { init:'DM', name:'Dinda Maharani', role:'Executive Presence Coach', rating:'4.8', sessions:'45', price:'Rp 900.000', tier:'growth', trusted:'2 teammates' },
+      { init:'SK', name:'Surya Kusuma', role:'Team Dynamics Coach', rating:'4.7', sessions:'27', price:'Rp 800.000', tier:'growth', trusted:'1 teammate' },
+    ],
+    executive: [
+      { init:'TR', name:'Tari Rahayu', role:'C-Suite Advisor', rating:'5.0', sessions:'14', price:'Rp 2.500.000', tier:'executive', trusted:'1 teammate' },
+      { init:'FN', name:'Fajar Nugroho', role:'Strategic Leadership Coach', rating:'4.9', sessions:'19', price:'Rp 2.000.000', tier:'executive', trusted:'0 teammates' },
+      { init:'MK', name:'Maya Kartika', role:'Senior Exec Coach', rating:'4.8', sessions:'23', price:'Rp 2.200.000', tier:'executive', trusted:'2 teammates' },
+    ]
+  };
+  const tierClass = { starter:'feat-coach-tier-starter', growth:'feat-coach-tier-growth', executive:'feat-coach-tier-executive' };
+  const tierLabel = { starter:'Starter tier', growth:'Growth tier', executive:'Executive tier' };
+  function renderGrid(tier) {
+    const list = coaches[tier];
+    const grid = root.querySelector('[data-k-coach="grid"]');
+    if(!grid) return;
+    grid.innerHTML = list.map(c =>
+      '<div class="feat-coach-card">' +
+        '<div style="display:flex;align-items:center;gap:10px">' +
+          '<div class="feat-coach-avatar">'+c.init+'</div>' +
+          '<div><div class="feat-coach-name">'+c.name+'</div><div class="feat-coach-role">'+c.role+'</div></div>' +
+        '</div>' +
+        '<div class="feat-coach-rating"><span class="feat-coach-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span>'+c.rating+' · '+c.sessions+' sessions</span></div>' +
+        '<div class="feat-coach-tier '+tierClass[c.tier]+'">'+tierLabel[c.tier]+'</div>' +
+        '<div class="feat-coach-trusted">Trusted by team: '+c.trusted+'</div>' +
+        '<div class="feat-coach-price">'+c.price+' <span>/ session</span></div>' +
+      '</div>'
+    ).join('');
+  }
+  root.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => {
+    root.querySelectorAll('.seg button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    renderGrid(b.dataset.tier);
+  }));
+  root.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+    root.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+    root.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+    t.classList.add('on');
+    root.querySelector('[data-panel="'+t.dataset.tab+'"]').classList.add('on');
+  }));
+  renderGrid('starter');
+})();
+</script>
+
+<!-- FEATURE EXPLAINER 3 — AI Personal Assistant (Slime companion) -->
+<section id="feat-slime" class="relative max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28 border-t border-white/5">
+  <div class="max-w-3xl reveal">
+    <div class="eyebrow mb-4">AI Companion · Your Slime</div>
+    <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.1]">
+      A companion that grows <span class="hl-grad">when you do</span>
+    </h2>
+    <p class="mt-5 text-base md:text-lg text-muted leading-relaxed">
+      Each person gets one AI companion inside Compass. It earns $POIN from real work — a skill gap closed, a lesson completed, an assessment passed. Optional accessories. Strictly private.
+    </p>
+  </div>
+
+  <div class="mt-12 reveal demo-frame" data-demo-slime>
+    <div class="demo-bar">
+      <span class="demo-dots"><i></i><i></i><i></i></span>
+      <span class="demo-title">Compass · AI Companion — Dewi's Slime</span>
+      <span class="seg" role="group" aria-label="Time range">
+        <button data-range="week" class="on">This week</button>
+        <button data-range="month">This month</button>
+      </span>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab on" data-tab="slime-own" role="tab">My Slime</button>
+      <button class="tab" data-tab="slime-earn" role="tab">Earn $POIN</button>
+      <button class="tab" data-tab="slime-store" role="tab">Store</button>
+    </div>
+
+    <!-- MY SLIME -->
+    <div class="panel on" data-panel="slime-own">
+      <div class="grid md:grid-cols-2 gap-5">
+        <div class="metric">
+          <div class="lbl">Your companion</div>
+          <div class="mt-3 flex items-center gap-4">
+            <div style="font-size:52px;line-height:1">&#129438;</div>
+            <div>
+              <div style="font-size:17px;font-weight:600">Dewi's Slime</div>
+              <div class="feat-slime-level mt-1">Level 4 · Intermediate</div>
+              <div class="mt-2" style="font-size:13px;color:#71717a">Accessories: <span style="color:#a1a1aa">Starlight crown · Blue cape</span></div>
+            </div>
+          </div>
+          <div class="bar mt-5"><i data-k-slime="xpbar" style="width:62%"></i></div>
+          <div class="kv mt-2">
+            <span class="text-xs text-dim" data-k-slime="xplabel">248 / 400 XP to Level 5</span>
+            <span class="text-xs font-mono" style="color:#34d399" data-k-slime="poin">$POIN <span data-k-slime="poinVal">1,840</span></span>
+          </div>
+          <p class="tab-note mt-5 text-xs text-dim">One slime per person. Your companion is visible only to you. No data crosses between employees. Decision-support — not surveillance.</p>
+        </div>
+        <div class="metric">
+          <div class="lbl">Recent $POIN earned — <span data-k-slime="rangeLabel">this week</span></div>
+          <div class="mt-3">
+            <div class="feat-slime-row">
+              <div class="feat-slime-avatar">&#127891;</div>
+              <div>
+                <div class="feat-slime-name" data-k-slime="e1">Lesson completed</div>
+                <div class="feat-slime-level" data-k-slime="e1d">Refund: partial &amp; restocking fee · 4 min</div>
+              </div>
+              <div class="feat-slime-poin" data-k-slime="e1p">+40<span>$POIN</span></div>
+            </div>
+            <div class="feat-slime-row">
+              <div class="feat-slime-avatar">&#9989;</div>
+              <div>
+                <div class="feat-slime-name" data-k-slime="e2">Assessment passed</div>
+                <div class="feat-slime-level" data-k-slime="e2d">Re-test · 9 / 10 · Call opening script</div>
+              </div>
+              <div class="feat-slime-poin" data-k-slime="e2p">+60<span>$POIN</span></div>
+            </div>
+            <div class="feat-slime-row">
+              <div class="feat-slime-avatar">&#128170;</div>
+              <div>
+                <div class="feat-slime-name" data-k-slime="e3">Skill gap closed</div>
+                <div class="feat-slime-level" data-k-slime="e3d">Refund policy — 0 corrections this week</div>
+              </div>
+              <div class="feat-slime-poin" data-k-slime="e3p">+80<span>$POIN</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EARN $POIN -->
+    <div class="panel" data-panel="slime-earn">
+      <div class="grid md:grid-cols-2 gap-5">
+        <div class="metric">
+          <div class="lbl">What earns $POIN</div>
+          <div class="mt-3">
+            <div class="drow">
+              <div class="flex-1">
+                <div class="text-sm font-medium">Skill gap closed</div>
+                <div class="text-xs text-dim font-mono mt-1">Gap detected → lesson done → re-test passed</div>
+              </div>
+              <div class="text-sm font-mono" style="color:#34d399;flex-shrink:0">+80 $POIN</div>
+            </div>
+            <div class="drow">
+              <div class="flex-1">
+                <div class="text-sm font-medium">Lesson completed</div>
+                <div class="text-xs text-dim font-mono mt-1">Module finished and marked done</div>
+              </div>
+              <div class="text-sm font-mono" style="color:#34d399;flex-shrink:0">+40 $POIN</div>
+            </div>
+            <div class="drow">
+              <div class="flex-1">
+                <div class="text-sm font-medium">Assessment passed</div>
+                <div class="text-xs text-dim font-mono mt-1">Re-test score meets the threshold</div>
+              </div>
+              <div class="text-sm font-mono" style="color:#34d399;flex-shrink:0">+60 $POIN</div>
+            </div>
+          </div>
+          <p class="tab-note mt-5 text-xs text-dim">$POIN come only from completed work-loops — not chat time, streaks, or daily check-ins. Compass doesn't reward engagement; it rewards genuine skill closure.</p>
+        </div>
+        <div class="metric">
+          <div class="lbl">What does NOT earn $POIN</div>
+          <div class="mt-3">
+            <div class="drow">
+              <div class="flex-1 text-sm text-muted">Time spent in app</div>
+              <div class="text-sm font-mono text-dim">Not counted</div>
+            </div>
+            <div class="drow">
+              <div class="flex-1 text-sm text-muted">Daily login streaks</div>
+              <div class="text-sm font-mono text-dim">Not counted</div>
+            </div>
+            <div class="drow">
+              <div class="flex-1 text-sm text-muted">Messages sent to AI</div>
+              <div class="text-sm font-mono text-dim">Not counted</div>
+            </div>
+            <div class="drow">
+              <div class="flex-1 text-sm text-muted">Performance rank vs peers</div>
+              <div class="text-sm font-mono text-dim">Not counted</div>
+            </div>
+          </div>
+          <div class="mt-4 dlt">$POIN measure your real skill work — not your screen time.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STORE -->
+    <div class="panel" data-panel="slime-store">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="metric">
+          <div style="font-size:28px;text-align:center;padding:8px 0">&#128081;</div>
+          <div class="lbl text-center mt-2">Starlight Crown</div>
+          <div class="val text-center" style="font-size:16px;margin-top:6px">200 $POIN</div>
+          <div class="dlt text-center">Cosmetic only</div>
+        </div>
+        <div class="metric">
+          <div style="font-size:28px;text-align:center;padding:8px 0">&#129668;</div>
+          <div class="lbl text-center mt-2">Indigo Cape</div>
+          <div class="val text-center" style="font-size:16px;margin-top:6px">350 $POIN</div>
+          <div class="dlt text-center">Cosmetic only</div>
+        </div>
+        <div class="metric">
+          <div style="font-size:28px;text-align:center;padding:8px 0">&#127775;</div>
+          <div class="lbl text-center mt-2">Galaxy Background</div>
+          <div class="val text-center" style="font-size:16px;margin-top:6px">500 $POIN</div>
+          <div class="dlt text-center">Cosmetic only</div>
+        </div>
+        <div class="metric">
+          <div style="font-size:28px;text-align:center;padding:8px 0">&#128142;</div>
+          <div class="lbl text-center mt-2">Crystal Aura</div>
+          <div class="val text-center" style="font-size:16px;margin-top:6px">800 $POIN</div>
+          <div class="dlt text-center">Cosmetic only</div>
+        </div>
+      </div>
+      <p class="tab-note mt-5 text-xs text-dim">All store items are cosmetic accessories for your companion — they carry no employment meaning, no performance signal, and no status relative to other employees. Optional. Never shown to managers.</p>
+    </div>
+  </div>
+
+  <p class="mt-5 text-xs text-dim reveal">Illustrative data. In a real deployment, Compass reports numbers straight from your team's own work systems.</p>
+</section>
+
+<script>
+(function(){
+  const root = document.querySelector('[data-demo-slime]');
+  if(!root) return;
+  const rangeData = {
+    week: {
+      rangeLabel: 'this week',
+      xpbar: '62%', xplabel: '248 / 400 XP to Level 5', poinVal: '1,840',
+      e1: 'Lesson completed', e1d: 'Refund: partial &amp; restocking fee · 4 min', e1p: '+40',
+      e2: 'Assessment passed', e2d: 'Re-test · 9 / 10 · Call opening script', e2p: '+60',
+      e3: 'Skill gap closed', e3d: 'Refund policy — 0 corrections this week', e3p: '+80'
+    },
+    month: {
+      rangeLabel: 'this month',
+      xpbar: '62%', xplabel: '248 / 400 XP to Level 5', poinVal: '1,840',
+      e1: 'Lesson completed', e1d: '3 modules done this month', e1p: '+120',
+      e2: 'Assessment passed', e2d: '2 re-tests passed this month', e2p: '+120',
+      e3: 'Skill gap closed', e3d: '1 full gap loop closed this month', e3p: '+80'
+    }
+  };
+  function setSlime(k, v) {
+    root.querySelectorAll('[data-k-slime="'+k+'"]').forEach(e => {
+      if(k === 'xpbar') { e.style.width = v; }
+      else { e.textContent = v; }
+    });
+  }
+  function renderRange(r) {
+    const data = rangeData[r];
+    Object.keys(data).forEach(k => setSlime(k, data[k]));
+  }
+  root.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => {
+    root.querySelectorAll('.seg button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    renderRange(b.dataset.range);
+  }));
+  root.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+    root.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+    root.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+    t.classList.add('on');
+    root.querySelector('[data-panel="'+t.dataset.tab+'"]').classList.add('on');
+  }));
+  renderRange('week');
+})();
+</script>
+
+<!-- ============================================================ CLOSING CTA -->
+<section class="relative max-w-7xl mx-auto px-6 lg:px-10 py-24 lg:py-32 border-t border-white/5">
+  <div class="cta-band rounded-2xl p-10 md:p-14">
+    <div class="mono-eyebrow mb-5">/ See it live</div>
+    <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.05] max-w-3xl">
+      These are illustrative.
+      <span class="grad-clause">The real thing is one click away.</span>
+    </h2>
+    <p class="mt-6 max-w-2xl text-base md:text-lg text-muted leading-relaxed">
+      Every chart on this page is mock data. The real Compass workspace renders the same surfaces from your team's actual work systems. Try the live demo — no install, no data wired up, just the product.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="https://compass-app.klaut.id/" target="_blank" rel="noopener" class="btn btn-primary btn-lg">Open the live demo
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="https://compass.klaut.id/" class="btn btn-ghost btn-lg">See Compass overview</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="border-t border-line">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-16 grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-5">
+      <div class="flex items-center gap-2.5">
+        <img src="/klaut-K-mark.png?v=1" alt="" class="brand-mark"/>
+        <span class="font-semibold tracking-tight text-[17px]">Klaut</span>
+      </div>
+      <p class="mt-6 max-w-sm text-[14px] text-muted leading-relaxed">
+        Enterprise AI Transformation Ecosystem. Strategy, talent, models, and governance — engineered as one system.
+      </p>
+      <div class="mt-7 font-mono text-[12px] text-dim">Jakarta - And the rest of the world</div>
+    </div>
+
+    <div class="md:col-span-2">
+      <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Ecosystem</div>
+      <ul class="space-y-3.5 text-[15px]">
+        <li><a href="/consulting" class="text-muted link-hover">Consulting</a></li>
+        <li><a href="/cao" class="text-muted link-hover">Chief AI Officer</a></li>
+        <li><a href="https://compass.klaut.id/" class="text-muted link-hover">Compass</a></li>
+        <li><a href="/audit" class="text-muted link-hover">Audit</a></li>
+      </ul>
+    </div>
+
+    <div class="md:col-span-2">
+      <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">COMPANY</div>
+      <ul class="space-y-3.5 text-[15px]">
+        <li><a href="/about" class="text-muted link-hover">About</a></li>
+        <li><a href="/career" class="text-muted link-hover">Career</a></li>
+        <li><a href="/partners" class="text-muted link-hover">Partners</a></li>
+        <li><a href="/articles" class="text-muted link-hover">Articles</a></li>
+      </ul>
+    </div>
+
+    <div class="md:col-span-3">
+      <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Contact</div>
+      <ul class="space-y-3.5 text-[15px]">
+        <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Contact Us</a></li>
+        <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Media Contact</a></li>
+        <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Partnership Contact</a></li>
+        <li><a href="/help-center" class="text-muted link-hover">Resource Center</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-line">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-dim">
+      <div>© 2026 Klaut AI · All rights reserved.</div>
+      <div class="flex gap-6">
+        <a href="/privacy" class="link-hover">Privacy</a>
+        <a href="/terms" class="link-hover">Terms</a>
+        <a href="/security" class="link-hover">Security</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+(function () {
+  // ───── Mobile menu toggle ─────
+  const mm = document.getElementById('mobileMenu');
+  const hb = document.getElementById('hamburger');
+  if (hb && mm) {
+    hb.addEventListener('click', () => mm.classList.remove('hidden'));
+    document.querySelectorAll('[data-close-menu]').forEach(el =>
+      el.addEventListener('click', () => mm.classList.add('hidden'))
+    );
+  }
+
+  // ───── Nav sticky scroll ─────
+  const nav = document.getElementById('nav');
+  if (nav) {
+    const onScroll = () => nav.classList.toggle('nav-scrolled', window.scrollY > 8);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  // ───── Dropdown panels ─────
+  document.querySelectorAll('.nav-dd-btn').forEach(btn => {
+    const panelId = btn.getAttribute('aria-controls');
+    const panel = document.getElementById(panelId);
+    if (!panel) return;
+    const dd = btn.closest('.nav-dd');
+    let timer;
+    const open = () => {
+      clearTimeout(timer);
+      document.querySelectorAll('.nav-dd-btn[aria-expanded="true"]').forEach(b => {
+        if (b !== btn) {
+          b.setAttribute('aria-expanded', 'false');
+          const p = document.getElementById(b.getAttribute('aria-controls'));
+          if (p) p.classList.remove('open');
+        }
+      });
+      btn.setAttribute('aria-expanded', 'true');
+      panel.classList.add('open');
+    };
+    const close = () => {
+      timer = setTimeout(() => {
+        btn.setAttribute('aria-expanded', 'false');
+        panel.classList.remove('open');
+      }, 120);
+    };
+    btn.addEventListener('mouseenter', open);
+    btn.addEventListener('focus', open);
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      isOpen ? close() : open();
+    });
+    dd.addEventListener('mouseleave', close);
+    panel.addEventListener('mouseenter', () => clearTimeout(timer));
+    panel.addEventListener('mouseleave', close);
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.nav-dd-btn[aria-expanded="true"]').forEach(b => {
+        b.setAttribute('aria-expanded', 'false');
+        const p = document.getElementById(b.getAttribute('aria-controls'));
+        if (p) p.classList.remove('open');
+      });
+    }
+  });
+
+  // ───── Scroll reveal ─────
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+})();
+</script>
+
+
+</body>
+</html>
