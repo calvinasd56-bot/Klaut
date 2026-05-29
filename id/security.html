@@ -1,0 +1,833 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<!-- Primary SEO -->
+<title>Keamanan — Klaut AI</title>
+<meta name="description" content="Postur keamanan Klaut AI: infrastruktur, penanganan data, kontrol akses, tata kelola AI, penanganan insiden, dan kepatuhan untuk klaut.id, compass.klaut.id, dan aplikasi Compass."/>
+<meta name="keywords" content="kebijakan privasi Klaut, privasi Compass, UU PDP, GDPR, perlindungan data Indonesia, privasi AI enterprise"/>
+<meta name="author" content="Klaut"/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/>
+<meta name="googlebot" content="index, follow"/>
+<meta name="theme-color" content="#0a0a0a"/>
+<link rel="canonical" href="https://klaut.id/id/security"/>
+
+<!-- Language alternates (hreflang) -->
+<link rel="alternate" hreflang="id" href="https://klaut.id/id/security"/>
+<link rel="alternate" hreflang="en" href="https://klaut.id/id/security"/>
+<link rel="alternate" hreflang="x-default" href="https://klaut.id/id/security"/>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Klaut"/>
+<meta property="og:url" content="https://klaut.id/id/security"/>
+<meta property="og:title" content="Keamanan — Klaut AI"/>
+<meta property="og:description" content="Postur keamanan Klaut AI: infrastruktur, penanganan data, kontrol akses, tata kelola AI, dan penanganan insiden."/>
+<meta property="og:image" content="https://klaut.id/og-image.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:locale" content="id_ID"/>
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Keamanan — Klaut AI"/>
+<meta name="twitter:description" content="Postur keamanan Klaut AI untuk situs dan aplikasi Compass."/>
+<meta name="twitter:image" content="https://klaut.id/og-image.png"/>
+
+<!-- Icons -->
+<link rel="icon" type="image/svg+xml" href="/klaut-K.svg?v=4"/>
+<link rel="apple-touch-icon" href="/klaut-K.png?v=4"/>
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Kebijakan Privasi",
+  "url": "https://klaut.id/id/privacy",
+  "inLanguage": "id",
+  "isPartOf": { "@type": "WebSite", "name": "Klaut", "url": "https://klaut.id/" },
+  "publisher": { "@type": "Organization", "name": "Klaut AI", "url": "https://klaut.id/", "logo": "https://klaut.id/klaut-K.png" },
+  "dateModified": "2026-05-16"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Klaut", "item": "https://klaut.id/id/" },
+    { "@type": "ListItem", "position": 2, "name": "Kebijakan Privasi", "item": "https://klaut.id/id/privacy" }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'], mono: ['JetBrains Mono','ui-monospace'] },
+      colors: {
+        bg:'#0a0a0a', surface:'#111111', surface2:'#1a1a1a', line:'#262626', linestrong:'#3f3f46',
+        accent:'#4F6BFF', 'accent-2':'#7B8FFF', 'accent-deep':'#3854E5',
+        ink:'#ffffff', muted:'#a1a1aa', dim:'#71717a', faint:'#52525b',
+      },
+    }},
+  };
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background:#0a0a0a; color:#fff; font-family:'Inter',ui-sans-serif,system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  ::selection { background: rgba(99,102,241,0.35); color:#fff; }
+  .dot-grid { background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 24px 24px; }
+  .grid-lines {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 96px 96px;
+  }
+  .orb { position:absolute; border-radius:9999px; filter: blur(80px); opacity:.5; pointer-events:none; }
+  .orb-1 { width:560px; height:560px; background: radial-gradient(circle at 30% 30%, #4F6BFF, transparent 60%); top:-200px; left:-160px; }
+  .orb-2 { width:480px; height:480px; background: radial-gradient(circle at 70% 40%, #2D1B69, transparent 60%); top:-80px; right:-180px; opacity:.25; }
+  .btn { display:inline-flex; align-items:center; gap:8px; padding:12px 20px; border-radius:8px; font-weight:500; font-size:14px; transition: all 200ms cubic-bezier(.2,.8,.2,1); cursor:pointer; border:0; }
+  .btn-primary { background:#4F6BFF; color:#fff; }
+  .btn-primary:hover { background:#3854E5; box-shadow: 0 0 0 1px rgba(99,102,241,.4), 0 12px 32px -8px rgba(99,102,241,.6); transform: translateY(-1px); }
+  .btn-ghost { background: rgba(255,255,255,.04); color:#fff; border:1px solid rgba(255,255,255,.1); }
+  .btn-ghost:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.2); }
+  .eyebrow { font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:.18em; color:#7B8FFF; }
+  .hl-grad { background: linear-gradient(90deg,#ffffff 0%,#c7d2fe 55%,#4F6BFF 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .link-hover { transition: color 180ms; } .link-hover:hover { color:#fff; }
+  .brand-mark { width: 32px; height: 32px; object-fit:contain; display:block; flex-shrink:0; }
+  .brand-wordmark { height:34px; width:auto; object-fit:contain; display:block; flex-shrink:0; filter:invert(1); }
+  @media (min-width:768px){ .brand-wordmark { height:38px; } }
+  #nav.scrolled { background: rgba(10,10,10,0.72); backdrop-filter: blur(20px); border-bottom: 1px solid #262626; }
+
+  /* Legal prose */
+  .legal { color:#a1a1aa; font-size:15px; }
+  .legal > section { scroll-margin-top: 96px; }
+  .legal h2 { color:#7B8FFF; font-size:1.4rem; font-weight:600; margin:2.75rem 0 1rem; letter-spacing:-.01em; }
+  .legal section:first-child h2 { margin-top:0; }
+  .legal h3 { color:#e4e4e7; font-size:1.02rem; font-weight:600; margin:1.6rem 0 .5rem; }
+  .legal p { margin:0 0 1rem; line-height:1.78; }
+  .legal ul, .legal ol { margin:0 0 1.25rem; padding-left:1.3rem; }
+  .legal ul { list-style:disc; } .legal ol { list-style:decimal; }
+  .legal li { margin:.5rem 0; line-height:1.7; }
+  .legal li::marker { color:#52525b; }
+  .legal strong { color:#fff; font-weight:600; }
+  .legal a { color:#7B8FFF; text-decoration:underline; text-underline-offset:2px; transition:color 180ms; }
+  .legal a:hover { color:#fff; }
+  .legal .lead { color:#d4d4d8; font-size:1.05rem; line-height:1.8; }
+  .toc { position:sticky; top:96px; }
+  .toc a { display:block; padding:5px 0; color:#71717a; font-size:13px; line-height:1.45; transition:color 160ms; }
+  .toc a:hover { color:#fff; }
+  .no-scrollbar::-webkit-scrollbar { display:none; }
+  .wordmark-tile {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    background: linear-gradient(135deg, #4F6BFF, #7B8FFF);
+    color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.04em;
+  }
+  </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-59BT0YK7NH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-59BT0YK7NH', {
+    cookie_flags: 'SameSite=None;Secure'
+  });
+</script>
+
+<style id="nav-dropdown-styles">
+/* Nav dropdown panels */
+.nav-dd { position: relative; }
+.nav-dd-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 8px 16px; font-size: .875rem;
+  color: var(--muted, #a1a1aa);
+  background: none; border: none; cursor: pointer; font-family: inherit;
+  border-radius: 8px; transition: color .15s;
+}
+.nav-dd-btn:hover, .nav-dd-btn[aria-expanded="true"] { color: #fff; }
+.nav-dd-btn svg { flex-shrink: 0; transition: transform .2s; }
+.nav-dd-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+.nav-dd-btn:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; border-radius: 4px; }
+
+/* Shared panel chrome */
+.nav-dd-panel {
+  position: absolute; top: calc(100% + 6px); left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  background: var(--surface, #111111); border: 1px solid var(--line, #262626);
+  border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,.55);
+  opacity: 0; visibility: hidden;
+  transition: opacity .15s, visibility .15s, transform .15s;
+  z-index: 100;
+}
+.nav-dd-panel.open {
+  opacity: 1; visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Help dropdown — narrow single column */
+.nav-dd-panel.panel-help {
+  width: 200px;
+  padding: 8px;
+}
+.nav-dd-panel.panel-help a {
+  display: block; padding: 8px 14px; border-radius: 8px;
+  font-size: 13px; color: var(--muted, #a1a1aa);
+  text-decoration: none; transition: background .12s, color .12s; line-height: 1.4;
+}
+.nav-dd-panel.panel-help a:hover { background: rgba(255,255,255,.06); color: #fff; }
+.nav-dd-panel.panel-help a:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; }
+
+/* Product mega-panel — 3 columns */
+.nav-dd-panel.panel-mega {
+  width: 680px;
+  padding: 24px;
+}
+/* Clamp to viewport on narrow screens */
+@media (max-width: 800px) {
+  .nav-dd-panel.panel-mega {
+    width: calc(100vw - 24px);
+    left: 0; transform: translateY(-4px);
+  }
+  .nav-dd-panel.panel-mega.open { transform: translateY(0); }
+}
+.mega-cols {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+}
+.mega-col-header {
+  display: block;
+  font-size: 11px; font-weight: 500; text-transform: uppercase;
+  letter-spacing: .12em; color: rgba(255,255,255,.45);
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  margin-bottom: 10px;
+}
+.mega-items { display: flex; flex-direction: column; }
+.mega-items a {
+  display: block; padding: 8px 0; font-size: 13px; line-height: 1.4;
+  color: var(--muted, #a1a1aa); text-decoration: none;
+  transition: color .12s;
+}
+.mega-items a:hover { color: #fff; }
+.mega-items a:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; border-radius: 2px; }
+/* Solutions mega-panel — 4 columns */
+.nav-dd-panel.panel-mega--4 {
+  width: 860px;
+  padding: 24px;
+}
+@media (max-width: 900px) {
+  .nav-dd-panel.panel-mega--4 {
+    width: calc(100vw - 24px);
+    left: 0; transform: translateY(-4px);
+  }
+  .nav-dd-panel.panel-mega--4.open { transform: translateY(0); }
+}
+.mega-cols--4 {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px;
+}
+.mega-items a.mega-view-all {
+  color: rgba(255,255,255,.5); font-style: italic;
+}
+.mega-items a.mega-view-all:hover { color: rgba(255,255,255,.8); }
+/* FIX: anchor mega panels to <nav> container so both Product + Solutions
+   start from the same left edge (Asana pattern). Without this, .nav-dd's
+   trigger-width parent caused PLATFORM column to clip on the left. */
+nav[aria-label="Primary"] { position: relative; }
+.nav-dd:has(.panel-mega),
+.nav-dd:has(.panel-mega--4) { position: static; }
+.nav-dd-panel.panel-mega,
+.nav-dd-panel.panel-mega--4 {
+  left: 0;
+  transform: translateY(-4px);
+}
+.nav-dd-panel.panel-mega.open,
+.nav-dd-panel.panel-mega--4.open {
+  transform: translateY(0);
+}</style>
+</head>
+<body class="bg-bg text-ink">
+
+<!-- NAV -->
+<header id="nav" class="fixed top-0 inset-x-0 z-40 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-6">
+      <a href="https://klaut.id/id/" class="flex items-center gap-2.5 group" aria-label="Klaut home">
+        <img src="/klaut-K-mark.png?v=1" alt="" class="brand-mark"/>
+      </a>
+      <nav class="hidden md:flex items-center gap-1" aria-label="Primary">
+        <a href="https://klaut.id/why-klaut" class="px-4 py-2 text-sm text-muted link-hover">Mengapa Klaut</a>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-idprv-prod">Produk
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-idprv-prod" class="nav-dd-panel panel-mega" role="menu" aria-label="Produk">
+            <div class="mega-cols">
+              <div>
+                <span class="mega-col-header">Platform</span>
+                <div class="mega-items">
+                  <a href="/id" role="menuitem">Klaut AI</a>
+                  <a href="https://compass.klaut.id/id" role="menuitem">Compass</a>
+                  <a href="/marketplace" role="menuitem">Klaut Marketplace</a>
+                  <a href="/learning" role="menuitem">Klaut Learning Center</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Kapabilitas</span>
+                <div class="mega-items">
+                  <a href="/capabilities/work-patterns" role="menuitem">Intelijen pola kerja</a>
+                  <a href="/capabilities/error-detection" role="menuitem">Deteksi &amp; koreksi kesalahan</a>
+                  <a href="/capabilities/kpi" role="menuitem">Pusat Komando KPI</a>
+                  <a href="/capabilities/reports" role="menuitem">Rapor &amp; analitik</a>
+                  <a href="/capabilities/admin" role="menuitem">Admin &amp; keamanan</a>
+                  <a href="/capabilities/tools-integration" role="menuitem">Integrasi tools</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Fitur AI</span>
+                <div class="mega-items">
+                  <a href="/ai/inference" role="menuitem">Mesin Inferensi</a>
+                  <a href="/ai/copilot" role="menuitem">AI Copilot (Slime)</a>
+                  <a href="/ai/decision-support" role="menuitem">Dukungan Keputusan</a>
+                  <a href="/ai/tools-automation" role="menuitem">Otomatisasi tools</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-idprv-sol">Solusi
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-idprv-sol" class="nav-dd-panel panel-mega panel-mega--4" role="menu" aria-label="Solusi">
+            <div class="mega-cols mega-cols--4">
+              <div>
+                <span class="mega-col-header">Tipe Perusahaan</span>
+                <div class="mega-items">
+                  <a href="/solutions/solo" role="menuitem">Solo</a>
+                  <a href="/solutions/team" role="menuitem">Tim</a>
+                  <a href="/solutions/enterprise" role="menuitem">Enterprise</a>
+                  <a href="/solutions/partners" role="menuitem">Partner</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">MANAJEMEN</span>
+                <div class="mega-items">
+                  <a href="/solutions/employer" role="menuitem">Pemberi Kerja</a>
+                  <a href="/solutions/manager" role="menuitem">Manajer</a>
+                  <a href="/solutions/hr" role="menuitem">HR</a>
+                  <a href="/id/employee" role="menuitem">Karyawan</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Industri</span>
+                <div class="mega-items">
+                  <a href="/solutions/industries/education" role="menuitem">Pendidikan</a>
+                  <a href="/solutions/industries/insurance" role="menuitem">Asuransi</a>
+                  <a href="/solutions/industries/financial-services" role="menuitem">Jasa Keuangan</a>
+                  <a href="/solutions/industries/technology" role="menuitem">Teknologi</a>
+                  <a href="/solutions/industries/ecommerce" role="menuitem">E-commerce</a>
+                  <a href="/solutions/industries/healthcare" role="menuitem">Kesehatan</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Kasus Penggunaan</span>
+                <div class="mega-items">
+                  <a href="/use-cases/ai-readiness" role="menuitem">Audit kesiapan AI</a>
+                  <a href="/use-cases/workforce-intelligence" role="menuitem">Intelijen tenaga kerja</a>
+                  <a href="/use-cases/integration" role="menuitem">Integrasi lintas tool</a>
+                  <a href="/use-cases/honest-reports" role="menuitem">Laporan kinerja jujur</a>
+                  <a href="/use-cases/compliance" role="menuitem">Kepatuhan &amp; privasi</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-idprv-help">Bantuan
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-idprv-help" class="nav-dd-panel panel-help" role="menu" aria-label="Bantuan">
+            <a href="/id/help-center" role="menuitem">Help Center</a>
+            <a href="mailto:hello@klaut.id" role="menuitem">Hubungi Kami</a>
+          </div>
+        </div>
+        <a href="https://klaut.id/id/pricing" class="px-4 py-2 text-sm text-muted link-hover">Harga</a>
+      </nav>
+    </div>
+    <div class="hidden md:flex items-center gap-3">
+      <div class="flex items-center rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium" role="group" aria-label="Pilih bahasa">
+        <a href="/id/privacy" class="px-3 py-1.5 rounded-full bg-white/10 text-white" aria-current="page">ID</a>
+        <a href="https://klaut.id/id/privacy" class="px-3 py-1.5 rounded-full text-muted hover:text-white transition-colors">EN</a>
+      </div>
+      <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" class="btn btn-primary">Hubungi Kami
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="https://compass-app.klaut.id/" target="_blank" rel="noopener" class="btn btn-ghost">Demo</a>
+    </div>
+    <button id="hamburger" class="md:hidden p-2 rounded-lg hover:bg-white/5" aria-label="Buka menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div id="mobileMenu" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-close-menu></div>
+  <aside class="absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-surface border-l border-line p-6 flex flex-col gap-1">
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-2">
+        <img src="/klaut-K-mark.png?v=1" alt="" class="brand-mark"/>
+      </div>
+      <button data-close-menu class="p-2 rounded-lg hover:bg-white/5" aria-label="Tutup menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
+    </div>
+    <a href="/id"      data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Klaut</a>
+    <a href="https://klaut.id/why-klaut" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Mengapa Klaut</a>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Produk</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+            <div class="pl-4 flex flex-col gap-0 mt-1">
+        <p class="px-4 pt-2 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Platform</p>
+        <a href="/id" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut AI</a>
+        <a href="https://compass.klaut.id/id" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Compass</a>
+        <a href="/marketplace" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut Marketplace</a>
+        <a href="/learning" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut Learning Center</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Kapabilitas</p>
+        <a href="/capabilities/work-patterns" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Intelijen pola kerja</a>
+        <a href="/capabilities/error-detection" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Deteksi &amp; koreksi kesalahan</a>
+        <a href="/capabilities/kpi" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Pusat Komando KPI</a>
+        <a href="/capabilities/reports" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Rapor &amp; analitik</a>
+        <a href="/capabilities/admin" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Admin &amp; keamanan</a>
+        <a href="/capabilities/tools-integration" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Integrasi tools</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Fitur AI</p>
+        <a href="/ai/inference" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Mesin Inferensi</a>
+        <a href="/ai/copilot" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">AI Copilot (Slime)</a>
+        <a href="/ai/decision-support" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Dukungan Keputusan</a>
+        <a href="/ai/tools-automation" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Otomatisasi tools</a>
+      </div>
+    </details>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Solusi</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-4 flex flex-col gap-0 mt-1">
+        <p class="px-4 pt-2 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Tipe Perusahaan</p>
+        <a href="/solutions/solo" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Solo</a>
+        <a href="/solutions/team" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Tim</a>
+        <a href="/solutions/enterprise" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Enterprise</a>
+        <a href="/solutions/partners" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Partner</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">MANAJEMEN</p>
+        <a href="/solutions/employer" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Pemberi Kerja</a>
+        <a href="/solutions/manager" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Manajer</a>
+        <a href="/solutions/hr" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">HR</a>
+        <a href="/id/employee" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Karyawan</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Industri</p>
+        <a href="/solutions/industries/education" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Pendidikan</a>
+        <a href="/solutions/industries/insurance" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Asuransi</a>
+        <a href="/solutions/industries/financial-services" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Jasa Keuangan</a>
+        <a href="/solutions/industries/technology" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Teknologi</a>
+        <a href="/solutions/industries/ecommerce" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">E-commerce</a>
+        <a href="/solutions/industries/healthcare" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Kesehatan</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Kasus Penggunaan</p>
+        <a href="/use-cases/ai-readiness" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Audit kesiapan AI</a>
+        <a href="/use-cases/workforce-intelligence" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Intelijen tenaga kerja</a>
+        <a href="/use-cases/integration" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Integrasi lintas tool</a>
+        <a href="/use-cases/honest-reports" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Laporan kinerja jujur</a>
+        <a href="/use-cases/compliance" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Kepatuhan &amp; privasi</a>
+      </div>
+    </details>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Bantuan</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-8 flex flex-col gap-0.5 mt-0.5">
+        <a href="/id/help-center" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Help Center</a>
+        <a href="mailto:hello@klaut.id" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Hubungi Kami</a>
+      </div>
+    </details>
+    <a href="https://klaut.id/id/pricing" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Harga</a>
+    <div class="flex items-center justify-center mt-4 rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium w-fit mx-auto" role="group" aria-label="Pilih bahasa">
+      <a href="/id/privacy" class="px-4 py-2 rounded-full bg-white/10 text-white" aria-current="page">Bahasa Indonesia</a>
+      <a href="https://klaut.id/id/privacy" class="px-4 py-2 rounded-full text-muted hover:text-white transition-colors">English</a>
+    </div>
+    <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" data-close-menu class="btn btn-primary justify-center mt-4">Hubungi Kami</a>
+  </aside>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section class="relative overflow-hidden pt-16">
+  <div class="absolute inset-0 dot-grid opacity-60"></div>
+  <div class="absolute inset-0 grid-lines opacity-40"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-16 lg:pt-28 lg:pb-20">
+    <nav class="text-xs text-dim mb-6" aria-label="Breadcrumb">
+      <a href="https://klaut.id/id/" class="link-hover">Klaut</a> <span class="mx-1.5">/</span> <span class="text-muted">Keamanan</span>
+    </nav>
+    <div class="eyebrow mb-4">Legal</div>
+    <h1 class="text-4xl md:text-6xl font-semibold tracking-tight leading-[1.02]"><span class="hl-grad">Keamanan</span></h1>
+    <p class="mt-5 max-w-2xl text-base md:text-lg text-muted leading-relaxed">Klaut AI · Jakarta, Indonesia</p>
+    <div class="mt-6 flex flex-wrap gap-x-8 gap-y-2 font-mono text-xs text-dim">
+      <span>Tanggal efektif: 16 Mei 2026</span>
+      <span>Terakhir diperbarui: 16 Mei 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- BODY -->
+<section class="relative max-w-7xl mx-auto px-6 lg:px-10 pb-24 border-t border-line pt-14">
+  <div class="lg:grid lg:grid-cols-[230px_minmax(0,1fr)] lg:gap-14">
+
+    <aside class="hidden lg:block">
+      <div class="toc no-scrollbar overflow-y-auto max-h-[calc(100vh-140px)]">
+        <div class="eyebrow text-dim mb-4" style="color:#71717a">Di halaman ini</div>
+        <a href="#s1">1. Cara kami memandang keamanan</a>
+        <a href="#s2">2. Cakupan yang dibahas halaman ini</a>
+        <a href="#s3">3. Infrastruktur</a>
+        <a href="#s4">4. Arsitektur privasi Compass</a>
+        <a href="#s5">5. Penanganan data</a>
+        <a href="#s6">6. Kontrol akses</a>
+        <a href="#s7">7. Tata kelola AI dalam solusi yang kami terapkan</a>
+        <a href="#s8">8. Manajemen vendor dan sub-prosesor</a>
+        <a href="#s9">9. Personel</a>
+        <a href="#s10">10. Pengembangan perangkat lunak</a>
+        <a href="#s11">11. Penanganan insiden</a>
+        <a href="#s12">12. Tanggung jawab pelanggan</a>
+        <a href="#s13">13. Pengungkapan kerentanan</a>
+        <a href="#s14">14. Postur kepatuhan</a>
+        <a href="#s15">15. Perubahan</a>
+        <a href="#s16">16. Kontak</a>
+      </div>
+    </aside>
+
+    <article class="legal max-w-3xl">
+      <section id="s1">
+        <h2>1. Cara kami memandang keamanan</h2>
+        <p class="lead">Klaut menjalankan praktik AI tingkat perusahaan. Klien mempercayakan kepada kami akses ke sistem operasional, data karyawan, dan alur kerja yang menjadi dasar pengambilan keputusan. Akses itulah asetnya; kepercayaan yang menyertainya adalah produknya. Kami memperlakukan keamanan sebagai persoalan rekayasa kelas pertama, bukan sekadar butir kepatuhan.</p>
+        <p>Halaman ini menjelaskan pengaman yang berlaku atas data yang kami simpan dan proses, asumsi di baliknya, serta titik-titik di mana kami sengaja menahan diri dari klaim yang tidak dapat kami buktikan. Halaman ini dirujuk oleh, dan beroperasi sebagai bagian dari, <a href="https://klaut.id/id/privacy">Kebijakan Privasi</a> kami.</p>
+      </section>
+
+      <section id="s2">
+        <h2>2. Cakupan yang dibahas halaman ini</h2>
+        <ul>
+          <li>Situs publik di klaut.id dan compass.klaut.id.</li>
+          <li>Aplikasi Compass di compass-app.klaut.id beserta data yang diprosesnya untuk klien.</li>
+          <li>Sistem internal yang digunakan untuk menjalankan penugasan klien: komunikasi, penanganan dokumen, repositori kode, dan perkakas AI.</li>
+        </ul>
+        <p>Sistem milik klien, platform pihak ketiga yang dihubungkan klien ke Compass, serta penyedia model yang digunakan di dalam solusi yang kami terapkan diatur oleh postur keamanannya masing-masing, yang kami evaluasi saat pengadaan dan kami dokumentasikan di setiap penugasan.</p>
+      </section>
+
+      <section id="s3">
+        <h2>3. Infrastruktur</h2>
+        <p><strong>Hosting dan edge.</strong> Situs dan aplikasi Compass diterapkan di Vercel, dengan Cloudflare di depannya untuk DNS, CDN, dan proteksi edge. TLS bersifat wajib di setiap endpoint publik, dengan HSTS diaktifkan. Kami tidak melayani lalu lintas HTTP di domain produksi kami.</p>
+        <p><strong>Domain dan DNS.</strong> klaut.id dan subdomainnya berjalan dengan konfigurasi yang sadar-DNSSEC melalui Cloudflare. Perubahan record dibatasi pada akun administrator bernama dengan faktor kedua berupa kunci perangkat keras.</p>
+        <p><strong>Email.</strong> Email transaksional dan email penugasan keluar dikirim melalui Postmark dengan SPF, DKIM, dan DMARC ditegakkan pada domain klaut.id. Kami tidak menyalurkan komunikasi yang menghadap klien melalui layanan SMTP generik.</p>
+        <p><strong>Analitik.</strong> Vercel Web Analytics menyediakan analitik situs agregat tanpa pelacak iklan dan tanpa session replay. Tidak ada JavaScript pihak ketiga di situs publik selain tag yang diterbitkan Vercel.</p>
+      </section>
+
+      <section id="s4">
+        <h2>4. Arsitektur privasi Compass</h2>
+        <p>Platform Compass dirancang berdasarkan satu asumsi keamanan dan privasi: tiga audiens melihat tiga tampilan atas data dasar yang sama, dan batas di antara mereka ditegakkan di lapisan data, bukan di antarmuka.</p>
+        <ul>
+          <li>Karyawan melihat kinerja, kesalahan, pelajaran, dan skor keterampilannya sendiri secara penuh.</li>
+          <li>Manajer melihat tren tingkat tim dan data individual terbatas yang diizinkan oleh cakupan penerapan — umumnya kategori kesenjangan dan arah perubahan, bukan rekaman aktivitas mentah.</li>
+          <li>HR melihat kapabilitas tenaga kerja secara agregat dan sinyal kepercayaan. HR tidak dapat menelusuri dari agregat ke individu melalui jalur produk mana pun.</li>
+        </ul>
+        <p>Ini ditegakkan melalui:</p>
+        <ul>
+          <li>Kebijakan akses tingkat baris di model data Compass, yang dievaluasi di sisi server pada setiap pembacaan.</li>
+          <li>Permukaan API terpisah untuk tampilan karyawan, manajer, dan HR, masing-masing dibatasi pada data yang boleh dilihat oleh peran tersebut.</li>
+          <li>Jejak audit yang mencatat ketika sebuah peristiwa lintas-batas yang diizinkan terjadi (misalnya, ekspor catatan diri sendiri yang diprakarsai karyawan), dan menolak permintaan tersebut bila tidak diizinkan.</li>
+        </ul>
+        <p>Batas privasi adalah bagian dari produk, bukan langkah konfigurasi yang dapat dinonaktifkan klien. Klien tidak dapat menggeser satu sakelar untuk memberi HR akses tingkat individu; melakukannya akan menuntut konfigurasi ulang model data itu sendiri, yang bukan operasi yang menghadap pelanggan.</p>
+      </section>
+
+      <section id="s5">
+        <h2>5. Penanganan data</h2>
+        <p><strong>Saat transit.</strong> Seluruh data klien dan platform bergerak melalui TLS 1.2 atau lebih tinggi antara perangkat pengguna, edge kami, aplikasi kami, dan penyimpanan data kami.</p>
+        <p><strong>Saat tersimpan.</strong> Penyimpanan data produksi menggunakan enkripsi saat tersimpan yang dikelola penyedia. Cadangan mewarisi postur enkripsi yang sama.</p>
+        <p><strong>Rahasia.</strong> Kredensial dan kunci API untuk sistem produksi disimpan dalam secret store terkelola, tidak pernah di dalam kode sumber, dan dirotasi ketika pemegangnya berganti peran atau ketika vendor mengindikasikan adanya paparan. Rahasia produksi tidak disimpan di perangkat pribadi.</p>
+        <p><strong>Cadangan dan pemulihan.</strong> Data produksi Compass dicadangkan setiap hari dengan prosedur pemulihan yang terdokumentasi. Cadangan dienkripsi, disimpan selama tiga puluh hari kecuali periode lebih panjang disepakati secara kontraktual, dan diuji melalui latihan pemulihan setidaknya setiap kuartal.</p>
+        <p><strong>Pencatatan log.</strong> Log aplikasi dan akses ditangkap untuk tujuan keamanan dan operasional, disimpan selama sembilan puluh hari di tingkat platform, dan ditinjau ketika insiden atau anomali teridentifikasi.</p>
+      </section>
+
+      <section id="s6">
+        <h2>6. Kontrol akses</h2>
+        <p><strong>Akses internal.</strong> Akses produksi dibatasi pada operator bernama yang membutuhkannya. Autentikasi ditegakkan melalui penyedia identitas dengan faktor kedua yang wajib. Akun bersama dan kredensial bersama dilarang.</p>
+        <p><strong>Akses klien.</strong> Autentikasi pengguna Compass berjalan melalui penyedia identitas klien apabila penerapannya mendukung SSO; penerapan mandiri menggunakan akun berkredensial dengan penegakan faktor kedua yang tersedia. Penyediaan dan pencabutan akun adalah tanggung jawab klien sesuai cakupan penerapan.</p>
+        <p><strong>Hak istimewa minimum.</strong> Penetapan peran di dalam Compass maupun di perkakas internal kami mengikuti prinsip hak istimewa minimum. Akses tingkat tinggi diberikan untuk tugas tertentu, dicatat, dan dicabut ketika tugas selesai.</p>
+      </section>
+
+      <section id="s7">
+        <h2>7. Tata kelola AI dalam solusi yang kami terapkan</h2>
+        <p>Ketika Klaut menerapkan sebuah model — di dalam Compass atau di dalam penugasan klien — pemilihan model diperlakukan sebagai keputusan keamanan, bukan semata keputusan kinerja. Setiap model yang diterapkan dievaluasi terhadap:</p>
+        <ul>
+          <li>Sensitivitas data yang akan diproses model tersebut.</li>
+          <li>Klausa penggunaan-pelatihan vendor dan apakah jalur penerapan menjaga data agar dikecualikan dari pelatihan.</li>
+          <li>Kebijakan retensi vendor atas masukan dan keluaran.</li>
+          <li>Paparan hukum dan regulasi dari beban kerja tersebut.</li>
+        </ul>
+        <p>Hasilnya didokumentasikan di dalam penugasan, termasuk model mana yang disetujui untuk kelas data mana dan jalur mana yang secara eksplisit dilarang. Apabila jawaban yang tepat adalah model yang di-host sendiri di lingkungan yang dikendalikan klien, itulah yang kami terapkan.</p>
+      </section>
+
+      <section id="s8">
+        <h2>8. Manajemen vendor dan sub-prosesor</h2>
+        <p>Daftar terkini sub-prosesor yang digunakan dalam penyediaan layanan dipelihara dan tersedia atas permintaan. Penambahan material pada daftar tersebut untuk penerapan Compass yang aktif diberitahukan kepada klien setidaknya tiga puluh hari sebelum berlaku, dengan hak untuk mengajukan keberatan secara tertulis.</p>
+        <p>Kami mengevaluasi vendor baru terhadap kriteria keamanan dan privasi yang terdokumentasi sebelum mereka menangani data produksi. Kami mensyaratkan komitmen penanganan data secara kontraktual yang setidaknya sekuat komitmen yang kami buat kepada klien kami.</p>
+      </section>
+
+      <section id="s9">
+        <h2>9. Personel</h2>
+        <p>Klaut beroperasi sebagai tim kecil yang bernama jelas. Setiap orang yang menangani data klien menandatangani pernyataan kerahasiaan tertulis. Personel yang menangani kredensial produksi diwajibkan menjaga perangkat kerjanya terenkripsi penuh (full-disk encryption), menggunakan pengelola kata sandi terkelola, dan menjalankan sistem operasi yang mutakhir.</p>
+        <p>Apabila Klaut melibatkan kolaborator eksternal — sumber daya teknis paruh waktu, konsultan spesialis, atau kontak implementasi vendor — orang tersebut ditempatkan di bawah kewajiban kerahasiaan dan penanganan data yang sama melalui perjanjian tertulis sebelum akses diberikan.</p>
+      </section>
+
+      <section id="s10">
+        <h2>10. Pengembangan perangkat lunak</h2>
+        <p>Kode sumber untuk situs publik dan aplikasi Compass disimpan dalam platform kode terkelola dengan proteksi branch pada branch produksi, peninjauan wajib atas perubahan yang memengaruhi autentikasi, otorisasi, atau akses data, dan pemindaian dependensi diaktifkan pada setiap build. Kami tidak meng-commit rahasia atau data produksi ke dalam kontrol sumber.</p>
+      </section>
+
+      <section id="s11">
+        <h2>11. Penanganan insiden</h2>
+        <p>Kami memperlakukan insiden sebagai setiap peristiwa yang membahayakan atau tampak berpotensi membahayakan kerahasiaan, integritas, atau ketersediaan data yang kami simpan. Proses tanggapan kami memiliki empat tahap:</p>
+        <ol>
+          <li><strong>Tangani.</strong> Hentikan vektor yang aktif. Cabut kredensial yang terkompromi. Putuskan sistem yang terdampak dari jaringan bila penanganan menuntutnya.</li>
+          <li><strong>Nilai.</strong> Tentukan data apa yang dapat dijangkau, siapa yang terdampak, dan seberapa realistis paparannya.</li>
+          <li><strong>Beritahu.</strong> Berkomunikasi secara jujur dengan klien yang terdampak dalam jangka waktu yang, sekurang-kurangnya, memenuhi ketentuan UU PDP dan kerangka lintas-batas yang berlaku. Pemberitahuan mencakup apa yang terjadi, apa yang kami ketahui, apa yang belum kami ketahui, dan apa yang sedang kami lakukan.</li>
+          <li><strong>Selesaikan.</strong> Perbaiki akar penyebabnya. Dokumentasikan insidennya. Perbarui pengaman yang gagal menangkapnya.</li>
+        </ol>
+        <p>Kami tidak meremehkan insiden dalam pengungkapan. Kredibilitas yang hilang karena meremehkan suatu insiden lebih besar daripada kredibilitas yang hilang karena melaporkannya secara akurat.</p>
+      </section>
+
+      <section id="s12">
+        <h2>12. Tanggung jawab pelanggan</h2>
+        <p>Keamanan adalah tanggung jawab bersama. Klien kami bertanggung jawab untuk:</p>
+        <ul>
+          <li>Menyediakan akun Compass kepada karyawan yang tepat, dan mencabut akses dengan segera ketika seorang karyawan berganti peran atau keluar.</li>
+          <li>Mengonfigurasi penyedia identitasnya secara aman apabila Compass menggunakan SSO.</li>
+          <li>Melindungi kredensial untuk sistem terhubung mereka (platform layanan pelanggan, basis data internal, dan sebagainya) yang diamati Compass sesuai cakupan penerapan.</li>
+          <li>Tidak menggunakan Compass di luar cakupan yang disepakati atau dengan cara yang melanggar Bagian 7 <a href="https://klaut.id/id/terms">Ketentuan Layanan</a>.</li>
+          <li>Melaporkan dugaan masalah keamanan dengan segera melalui saluran pada Bagian 13.</li>
+        </ul>
+      </section>
+
+      <section id="s13">
+        <h2>13. Pengungkapan kerentanan</h2>
+        <p>Jika Anda meyakini telah menemukan kerentanan keamanan yang memengaruhi klaut.id, compass.klaut.id, atau compass-app.klaut.id, tuliskan ke <a href="mailto:hello@klaut.id?subject=Security%20disclosure">hello@klaut.id</a> dengan "Security disclosure" pada subjek. Sertakan detail yang cukup agar kami dapat mereproduksi masalahnya. Kami mengonfirmasi penerimaan dalam tiga hari kerja.</p>
+        <p>Kami berkomitmen untuk:</p>
+        <ul>
+          <li>Menyelidiki laporan yang dibuat dengan itikad baik.</li>
+          <li>Tidak menempuh tindakan hukum terhadap peneliti yang mematuhi bagian ini.</li>
+          <li>Memberikan kredit kepada pelapor yang memintanya, setelah perbaikan diterapkan.</li>
+        </ul>
+        <p>Kami meminta para peneliti untuk:</p>
+        <ul>
+          <li>Membatasi pengujian pada permukaan yang disebutkan di atas.</li>
+          <li>Tidak mengakses, mengubah, atau menghapus data yang bukan milik Anda.</li>
+          <li>Tidak menjalankan pemindaian otomatis pada laju yang mengganggu operasi normal.</li>
+          <li>Memberi kami jangka waktu yang wajar untuk memperbaiki dan mengungkapkan sebelum memublikasikan detailnya.</li>
+        </ul>
+      </section>
+
+      <section id="s14">
+        <h2>14. Postur kepatuhan</h2>
+        <p>Klaut beroperasi sejalan dengan ketentuan Undang-Undang Pelindungan Data Pribadi Indonesia (UU No. 27 Tahun 2022), Undang-Undang Informasi dan Transaksi Elektronik Indonesia (UU No. 11 Tahun 2008 beserta perubahannya), dan, apabila klien serta datanya menjadikannya berlaku, GDPR, UK GDPR, serta peraturan analog di yurisdiksi lain tempat klien kami beroperasi.</p>
+        <p>Saat ini kami belum memegang sertifikasi ISO 27001 atau SOC 2. Postur kami dibangun untuk dapat dievaluasi terhadap substansi kerangka-kerangka tersebut selama tinjauan pengadaan klien. Apabila klien mensyaratkan sertifikasi tertentu sebagai prasyarat penugasan, syarat itu dibahas pada fase Foundation dan dimasukkan ke dalam rencana penugasan atau ditangani sebagai kesenjangan yang diketahui.</p>
+      </section>
+
+      <section id="s15">
+        <h2>15. Perubahan</h2>
+        <p>Kami memperbarui halaman ini ketika praktik kami berubah atau ketika kerangka yang relevan berubah. Versi terkini, beserta tanggal efektifnya, dipasang di sini. Perubahan material yang memengaruhi klien aktif diberitahukan melalui email kepada kontak klien bernama sesuai surat penugasan.</p>
+      </section>
+
+      <section id="s16">
+        <h2>16. Kontak</h2>
+        <p>Pertanyaan keamanan, laporan kerentanan, dan pemberitahuan insiden semuanya diarahkan ke <a href="mailto:hello@klaut.id">hello@klaut.id</a>. Tandai baris subjek sesuai keperluan.</p>
+        <p class="text-dim">Klaut AI · Jakarta, Indonesia</p>
+      </section>
+
+      <div class="mt-12 pt-8 border-t border-line flex flex-wrap gap-3 text-sm">
+        <a href="https://klaut.id/id/privacy" class="btn btn-ghost">Kebijakan Privasi</a>
+        <a href="https://klaut.id/id/terms" class="btn btn-ghost">Ketentuan Layanan</a>
+        <a href="mailto:hello@klaut.id?subject=Security%20disclosure" class="btn btn-primary">Laporkan kerentanan</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t border-line">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-16 grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-5">
+      <a href="https://klaut.id/id/" class="flex items-center gap-2.5">
+        <img src="/klaut-K-mark.png?v=1" alt="" class="h-7 w-7"/>
+        <span class="font-semibold tracking-tight text-[17px]">Klaut</span>
+      </a>
+      <p class="mt-6 max-w-sm text-[14px] text-muted leading-relaxed">
+        Ekosistem Transformasi AI Enterprise. Strategi, talent, model, dan tata kelola — direkayasa sebagai satu sistem.
+      </p>
+      <div class="mt-7 font-mono text-[12px] text-dim">Jakarta - Dan seluruh dunia</div>
+    </div>
+
+    <div class="md:col-span-2">
+      <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Ekosistem</div>
+      <ul class="space-y-3.5 text-[15px]">
+        <li><a href="/id/consulting" class="text-muted link-hover">AI Consulting</a></li>
+        <li><a href="https://compass.klaut.id/id" class="text-muted link-hover">Compass</a></li>
+        <li><a href="/learning" class="text-muted link-hover">Learning Center</a></li>
+        <li><a href="/marketplace" class="text-muted link-hover">Marketplace</a></li>
+      </ul>
+    </div>
+
+    <div class="md:col-span-2">
+      <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">PERUSAHAAN</div>
+      <ul class="space-y-3.5 text-[15px]">
+        <li><a href="/id/about" class="text-muted link-hover">Tentang</a></li>
+        <li><a href="/id/career" class="text-muted link-hover">Karier</a></li>
+        <li><a href="/id/partners" class="text-muted link-hover">Partner</a></li>
+        <li><a href="/id/artikel" class="text-muted link-hover">Artikel</a></li>
+      </ul>
+    </div>
+
+    <div class="md:col-span-3">
+      <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Kontak</div>
+      <ul class="space-y-3.5 text-[15px]">
+        <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Hubungi Kami</a></li>
+        <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Kontak Media</a></li>
+        <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Kontak Partnership</a></li>
+        <li><a href="/id/help-center" class="text-muted link-hover">Help Center</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-line">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-dim">
+      <div>© 2026 Klaut AI · Semua hak dilindungi.</div>
+      <div class="flex gap-6">
+        <a href="https://klaut.id/id/privacy" class="link-hover">Privasi</a>
+        <a href="https://klaut.id/id/terms" class="link-hover">Ketentuan</a>
+        <a href="https://klaut.id/id/security" class="link-hover">Keamanan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  const mm = document.getElementById('mobileMenu');
+  document.getElementById('hamburger').addEventListener('click', () => mm.classList.remove('hidden'));
+  document.querySelectorAll('[data-close-menu]').forEach(el => el.addEventListener('click', () => mm.classList.add('hidden')));
+</script>
+
+<!-- Vercel Web Analytics -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<link rel="stylesheet" href="/assets/slime-widget.css">
+<script>window.__slimeLang = 'id';</script>
+<button id="slime-fab" data-state="idle" aria-label="Buka Compass Copilot">
+  <span class="slime-nudge" id="slime-nudge"></span>
+</button>
+<div class="fab-bubble" id="fab-bubble" role="status" aria-live="polite">
+  <small><span class="fab-bubble-dot"></span><span id="fab-bubble-eyebrow">Compass</span></small>
+  <span id="fab-bubble-txt"></span>
+</div>
+<div id="ai-panel" data-state="idle" aria-hidden="true" role="dialog" aria-label="Compass Copilot">
+  <div class="ai-h">
+    <span class="ava" aria-hidden="true"></span>
+    <span class="htxt">
+      <b id="ai-panel-title">Compass Copilot</b>
+      <span class="stat"><i></i><span id="ai-stat">Online &middot; siap</span></span>
+    </span>
+    <button class="x" id="ai-x" title="Tutup" aria-label="Tutup">&times;</button>
+  </div>
+  <div id="ai-log"></div>
+  <div class="ai-chips">
+    <button class="ai-chip">Apa itu Compass?</button>
+    <button class="ai-chip">Lihat paket harga</button>
+    <button class="ai-chip">Pesan demo</button>
+    <button class="ai-chip">Bicara dengan sales</button>
+  </div>
+  <form id="ai-form" autocomplete="off">
+    <input id="ai-in" placeholder="Tanya tentang Compass..." aria-label="Pesan"/>
+    <button type="submit">Kirim</button>
+  </form>
+</div>
+<div id="compass-slime-chat" role="dialog" aria-label="Ada yang bisa saya bantu?" aria-hidden="true">
+  <div class="csc-header">
+    <span class="csc-eyebrow">COMPASS AI</span>
+    <span class="csc-dot" aria-hidden="true"></span>
+    <button class="csc-close" id="csc-close" aria-label="Tutup">&times;</button>
+  </div>
+  <p class="csc-greeting">Halo! Ada yang bisa saya bantu hari ini?</p>
+  <div class="csc-grid" id="csc-cta-grid"><!-- populated by JS --></div>
+  <div class="csc-input-row">
+    <input class="csc-input" id="csc-input" type="text" placeholder="Atau tanya apa saja..." autocomplete="off" aria-label="Tanya Compass AI"/>
+    <button class="csc-send" id="csc-send">Kirim</button>
+  </div>
+  <p class="csc-footer">Klaut menyajikan opsi &mdash; Anda yang memutuskan. Asisten AI sedang dikembangkan.</p>
+</div>
+<div id="slime-toast" style="position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:#4F6BFF;color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;font-family:Inter,sans-serif;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:10000"></div>
+<script type="module" src="/assets/slime-widget.js"></script>
+<!-- ══ end Slime Widget ══ -->
+
+<script id="nav-dropdown-script">
+(function () {
+  function init() {
+    document.querySelectorAll('.nav-dd-btn').forEach(function (btn) {
+      var panel = btn.nextElementSibling;
+      if (!panel || !panel.classList.contains('nav-dd-panel')) return;
+      var dd = btn.parentElement;
+      dd.addEventListener('mouseenter', function () { open(btn, panel); });
+      dd.addEventListener('mouseleave', function () { close(btn, panel); });
+      btn.addEventListener('click', function () { toggle(btn, panel); });
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(btn, panel); }
+        if (e.key === 'Escape') { close(btn, panel); btn.focus(); }
+      });
+      panel.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { close(btn, panel); btn.focus(); }
+      });
+    });
+    document.addEventListener('click', function (e) {
+      document.querySelectorAll('.nav-dd-btn').forEach(function (btn) {
+        var panel = btn.nextElementSibling;
+        if (panel && !btn.parentElement.contains(e.target)) close(btn, panel);
+      });
+    });
+  }
+  function open(btn, panel) { panel.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+  function close(btn, panel) { panel.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+  function toggle(btn, panel) { panel.classList.contains('open') ? close(btn, panel) : open(btn, panel); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+}());
+</script>
+</body>
+</html>
