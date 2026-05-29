@@ -122,6 +122,62 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/security"/>
   </url>
 
+  <!-- Capabilities (Bahasa) -->
+  <url>
+    <loc>https://klaut.id/id/work-patterns</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/work-patterns"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/work-patterns"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/work-patterns"/>
+  </url>
+  <url>
+    <loc>https://klaut.id/id/error-detection</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/error-detection"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/error-detection"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/error-detection"/>
+  </url>
+  <url>
+    <loc>https://klaut.id/id/kpi-command-center</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/kpi-command-center"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/kpi-command-center"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/kpi-command-center"/>
+  </url>
+  <url>
+    <loc>https://klaut.id/id/report-card</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/report-card"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/report-card"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/report-card"/>
+  </url>
+  <url>
+    <loc>https://klaut.id/id/admin-security</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/admin-security"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/admin-security"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/admin-security"/>
+  </url>
+  <url>
+    <loc>https://klaut.id/id/tools-integration</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://klaut.id/tools-integration"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://klaut.id/id/tools-integration"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://klaut.id/tools-integration"/>
+  </url>
+
   <!-- Bahasa Indonesia (/id/) -->
   <url>
     <loc>https://klaut.id/id</loc>

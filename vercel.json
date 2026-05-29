@@ -26,7 +26,16 @@
     { "source": "/capabilities/report-card",          "destination": "/report-card",          "permanent": true },
     { "source": "/capabilities/admin",                "destination": "/admin-security",       "permanent": true },
     { "source": "/capabilities/admin-security",       "destination": "/admin-security",       "permanent": true },
-    { "source": "/capabilities/tools-integration",    "destination": "/tools-integration",    "permanent": true }
+    { "source": "/capabilities/tools-integration",    "destination": "/tools-integration",    "permanent": true },
+    { "source": "/id/capabilities/work-patterns",     "destination": "/id/work-patterns",     "permanent": true },
+    { "source": "/id/capabilities/error-detection",   "destination": "/id/error-detection",   "permanent": true },
+    { "source": "/id/capabilities/kpi",               "destination": "/id/kpi-command-center","permanent": true },
+    { "source": "/id/capabilities/kpi-command-center","destination": "/id/kpi-command-center","permanent": true },
+    { "source": "/id/capabilities/reports",           "destination": "/id/report-card",       "permanent": true },
+    { "source": "/id/capabilities/report-card",       "destination": "/id/report-card",       "permanent": true },
+    { "source": "/id/capabilities/admin",             "destination": "/id/admin-security",    "permanent": true },
+    { "source": "/id/capabilities/admin-security",    "destination": "/id/admin-security",    "permanent": true },
+    { "source": "/id/capabilities/tools-integration", "destination": "/id/tools-integration", "permanent": true }
   ],
   "rewrites": [
     { "source": "/marketplace",              "destination": "https://compass-app.klaut.id/marketplace" },

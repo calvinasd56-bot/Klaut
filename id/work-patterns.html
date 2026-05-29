@@ -1,0 +1,944 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<!-- Primary SEO -->
+<title>Intelijen Pola Kerja — Compass by Klaut</title>
+<meta name="description" content="Compass terhubung ke sinyal kerja nyata dan menjalankan inferensi deterministik atas data agregat untuk menampilkan bagaimana tim kamu benar-benar bekerja — tren fokus, beban rapat, hari yang terfragmentasi. Dukungan keputusan, bukan pengawasan."/>
+<meta name="keywords" content="intelijen pola kerja, analitik tenaga kerja AI, waktu fokus, kelebihan rapat, pola tim, Klaut Compass, workforce intelligence"/>
+<meta name="author" content="Klaut"/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/>
+<meta name="googlebot" content="index, follow"/>
+<meta name="theme-color" content="#0a0a0a"/>
+<link rel="canonical" href="https://klaut.id/id/work-patterns"/>
+
+<!-- Language alternates -->
+<link rel="alternate" hreflang="id" href="https://klaut.id/id/work-patterns"/>
+<link rel="alternate" hreflang="en" href="https://klaut.id/work-patterns"/>
+<link rel="alternate" hreflang="x-default" href="https://klaut.id/work-patterns"/>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Klaut Compass"/>
+<meta property="og:url" content="https://klaut.id/id/work-patterns"/>
+<meta property="og:title" content="Intelijen Pola Kerja — Compass by Klaut"/>
+<meta property="og:description" content="Compass menampilkan bagaimana tim kamu benar-benar bekerja — erosi waktu fokus, beban rapat berlebih, hari yang terfragmentasi. Agregat secara default. Tanpa pemantauan keystroke. Dukungan keputusan, bukan pengawasan."/>
+<meta property="og:image" content="https://compass.klaut.id/og-image.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Klaut Compass — Intelijen Pola Kerja"/>
+<meta property="og:locale" content="id_ID"/>
+<meta property="og:locale:alternate" content="en_US"/>
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Intelijen Pola Kerja — Compass by Klaut"/>
+<meta name="twitter:description" content="Compass menampilkan bagaimana tim kamu benar-benar bekerja — erosi waktu fokus, beban rapat berlebih, hari terfragmentasi. Agregat secara default. Bukan pengawasan."/>
+<meta name="twitter:image" content="https://compass.klaut.id/og-image.png"/>
+
+<link rel="icon" type="image/svg+xml" href="/klaut-K.svg?v=4"/>
+<link rel="apple-touch-icon" href="/klaut-K.png?v=4"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'], mono: ['"JetBrains Mono"','ui-monospace','monospace'] },
+      colors: { bg:'#0a0a0a', surface:'#111111', surface2:'#1a1a1a', line:'#262626',
+                accent:'#4F6BFF', 'accent-2':'#7B8FFF', 'accent-deep':'#3854E5',
+                ink:'#ffffff', muted:'#a1a1aa', dim:'#71717a' },
+    }},
+  };
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family:'Inter',ui-sans-serif,system-ui,sans-serif; -webkit-font-smoothing:antialiased; background:#0a0a0a; color:#fff; }
+  .dot-grid { background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 24px 24px; }
+  .orb { position:absolute; border-radius:9999px; filter:blur(80px); opacity:.45; pointer-events:none; }
+  .orb-1 { width:520px; height:520px; background:radial-gradient(circle at 30% 30%, #4F6BFF, transparent 60%); top:-160px; left:-120px; animation:float 12s ease-in-out infinite; }
+  .orb-2 { width:460px; height:460px; background:radial-gradient(circle at 70% 40%, #2D1B69, transparent 60%); top:5%; right:-180px; animation:float 14s ease-in-out infinite reverse; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .reveal { opacity:0; transform:translateY(20px); transition:opacity 700ms cubic-bezier(.2,.8,.2,1), transform 700ms cubic-bezier(.2,.8,.2,1); }
+  .reveal.in { opacity:1; transform:translateY(0); }
+  .btn { display:inline-flex; align-items:center; gap:8px; padding:14px 24px; border-radius:8px; font-weight:500; font-size:15px; transition:all 200ms cubic-bezier(.2,.8,.2,1); cursor:pointer; border:0; }
+  .btn-primary { background:#4F6BFF; color:#fff; }
+  .btn-primary:hover { background:#3854E5; box-shadow:0 0 0 1px rgba(99,102,241,.4), 0 12px 32px -8px rgba(99,102,241,.6); transform:translateY(-1px); }
+  .btn-ghost { background:rgba(255,255,255,.04); color:#fff; border:1px solid rgba(255,255,255,.1); }
+  .btn-ghost:hover { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.2); }
+  .eyebrow { font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:.18em; color:#7B8FFF; }
+  .link-hover { transition:color 180ms; } .link-hover:hover { color:#fff; }
+  .brand-mark { width:22px; height:22px; object-fit:contain; display:block; flex-shrink:0; }
+  @media (min-width:768px){ .brand-mark { width:24px; height:24px; } }
+  @media (min-width:1024px){ .brand-mark { width:26px; height:26px; } }
+  .brand-wordmark { height:22px; width:auto; max-width:118px; object-fit:contain; display:block; flex-shrink:0; filter:invert(1); }
+  @media (min-width:768px){ .brand-wordmark{ height:26px; max-width:140px; } }
+  @media (min-width:1024px){ .brand-wordmark{ height:30px; max-width:160px; } }
+  .hl-grad { background:linear-gradient(90deg,#fff 0%,#c7d2fe 55%,#4F6BFF 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .step { position:relative; padding:24px; border:1px solid #262626; border-radius:14px; background:#111; transition:border-color 240ms, transform 240ms, box-shadow 240ms; }
+  .step:hover { border-color:rgba(99,102,241,.4); transform:translateY(-3px); box-shadow:0 24px 60px -30px rgba(99,102,241,.5); }
+  .step-idx { font-family:'JetBrains Mono',monospace; font-size:12px; color:#7B8FFF; letter-spacing:.08em; }
+  .pill { display:inline-flex; align-items:center; gap:8px; padding:6px 12px; border-radius:9999px; background:rgba(99,102,241,.10); border:1px solid rgba(99,102,241,.25); font-size:12px; color:#e4e4e7; }
+  .hero-grid { -webkit-mask-image:linear-gradient(to right, #000 0%, #000 45%, transparent 80%);
+                       mask-image:linear-gradient(to right, #000 0%, #000 45%, transparent 80%); }
+  .hero-copy { max-width:100%; }
+  @media (min-width:768px){ .hero-copy { max-width:64%; } }
+  @media (min-width:1024px){ .hero-copy { max-width:58%; } }
+  @media (min-width:1280px){ .hero-copy { max-width:60%; } }
+  .demo-frame { border:1px solid #262626; border-radius:16px; background:#0d0d0d; overflow:hidden; box-shadow:0 40px 120px -40px rgba(99,102,241,.3); }
+  .demo-bar { display:flex; align-items:center; gap:14px; padding:12px 16px; border-bottom:1px solid #1f1f1f; background:#121212; flex-wrap:wrap; }
+  .demo-dots { display:flex; gap:6px; }
+  .demo-dots i { width:10px; height:10px; border-radius:9999px; background:#2e2e2e; display:block; }
+  .demo-title { font-family:'JetBrains Mono',monospace; font-size:12px; color:#a1a1aa; }
+  .seg { display:inline-flex; background:#161616; border:1px solid #262626; border-radius:9999px; padding:3px; gap:2px; margin-left:auto; }
+  .seg button { font:500 12px/1 'JetBrains Mono',monospace; color:#a1a1aa; padding:7px 12px; border-radius:9999px; border:0; background:transparent; cursor:pointer; transition:all .18s; }
+  .seg button.on { background:#4F6BFF; color:#fff; }
+  .metric { border:1px solid #232323; border-radius:12px; background:#111; padding:16px; }
+  .metric .lbl { font-size:11px; color:#71717a; text-transform:uppercase; letter-spacing:.12em; }
+  .metric .val { font-size:26px; font-weight:600; margin-top:8px; font-variant-numeric:tabular-nums; letter-spacing:-.02em; }
+  .metric .dlt { font-size:12px; margin-top:6px; font-family:'JetBrains Mono',monospace; color:#71717a; }
+  .good { color:#34d399; }
+  .warn { color:#f59e0b; }
+  .bad { color:#f87171; }
+  .bar { height:7px; border-radius:9999px; background:#1f1f1f; overflow:hidden; }
+  .bar i { display:block; height:100%; border-radius:9999px; background:linear-gradient(90deg,#4F6BFF,#7B8FFF); transition:width .6s cubic-bezier(.2,.8,.2,1); }
+  .bar.warn-bar i { background:linear-gradient(90deg,#f59e0b,#fbbf24); }
+  .drow { display:flex; align-items:center; gap:14px; padding:12px 0; border-top:1px solid #1b1b1b; }
+  .drow:first-child { border-top:0; }
+  .kv { display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+  @media (max-width:700px){ .demo-bar { gap:12px; } .seg { margin-left:0; width:100%; } .seg button { flex:1; text-align:center; } }
+  ::selection { background:rgba(99,102,241,.35); color:#fff; }
+
+/* === MEGA-NAV BUTTON + LINK FIXES === */
+#nav img.brand-mark, #mobileMenu img.brand-mark { width:28px; height:28px; object-fit:contain; display:block; flex-shrink:0; background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; }
+#nav a, #mobileMenu a { text-decoration:none; }
+.btn { display:inline-flex; align-items:center; gap:6px; font:500 14px/1 'Inter',ui-sans-serif,system-ui,sans-serif; letter-spacing:-0.005em; height:36px; padding:0 18px; border-radius:8px; text-decoration:none; transition:background 180ms cubic-bezier(0.2,0.8,0.2,1), border-color 180ms cubic-bezier(0.2,0.8,0.2,1), color 180ms cubic-bezier(0.2,0.8,0.2,1); }
+.btn-primary { background:var(--accent,#4F6BFF); border:1px solid var(--accent,#4F6BFF); color:#fff; }
+.btn-primary:hover { background:var(--accent-deep,#3854E5); border-color:var(--accent-deep,#3854E5); }
+.btn-ghost { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); color:var(--ink,#fff); }
+.btn-ghost:hover { background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.18); }
+.link-hover { transition:color 180ms; }
+.link-hover:hover { color:#fff; }
+/* === MEGA-NAV HEIGHT NORMALIZATION === */
+.btn { height:44px !important; padding:0 20px !important; font-size:14px !important; }
+#nav [role="group"][aria-label="Select language"], #nav [role="group"][aria-label="Pilih bahasa"] { height:44px !important; padding:4px !important; }
+#nav [role="group"][aria-label="Select language"] a, #nav [role="group"][aria-label="Pilih bahasa"] a { height:36px !important; padding:0 14px !important; display:inline-flex !important; align-items:center !important; font-size:13px !important; }
+#nav > div > div:last-child { gap:12px !important; }
+
+/* === WORK PATTERNS PAGE — wp-* prefix === */
+.wp-value-block { border:1px solid #1e1e1e; border-radius:14px; background:#0d0d0d; padding:28px; display:flex; flex-direction:column; gap:10px; }
+.wp-value-icon { width:36px; height:36px; border-radius:10px; background:rgba(79,107,255,.12); border:1px solid rgba(79,107,255,.2); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.wp-value-title { font-size:16px; font-weight:600; }
+.wp-value-body  { font-size:14px; color:#a1a1aa; line-height:1.6; }
+.wp-not-item { display:flex; align-items:flex-start; gap:14px; padding:16px; border-radius:12px; border:1px solid #1e1e1e; background:#0d0d0d; }
+.wp-not-x { width:24px; height:24px; border-radius:9999px; background:rgba(248,113,113,.10); border:1px solid rgba(248,113,113,.25); display:flex; align-items:center; justify-content:center; font-size:13px; color:#f87171; flex-shrink:0; margin-top:1px; }
+.wp-not-check { width:24px; height:24px; border-radius:9999px; background:rgba(52,211,153,.10); border:1px solid rgba(52,211,153,.25); display:flex; align-items:center; justify-content:center; font-size:13px; color:#34d399; flex-shrink:0; margin-top:1px; }
+.wp-not-title { font-size:14px; font-weight:600; }
+.wp-not-body  { font-size:13px; color:#71717a; margin-top:3px; line-height:1.5; }
+.wp-role-card { border:1px solid #1e1e1e; border-radius:12px; background:#0d0d0d; padding:20px; }
+.wp-role-label { font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:.12em; color:#7B8FFF; margin-bottom:8px; }
+.wp-role-title { font-size:15px; font-weight:600; margin-bottom:6px; }
+.wp-role-body  { font-size:13px; color:#a1a1aa; line-height:1.55; }
+.wp-chart-wrap { padding:24px 24px 0; position:relative; }
+.wp-chart-box { position:relative; height:300px; }
+@media (max-width:640px) { .wp-chart-box { height:240px; } }
+.wp-chart-caption { font-size:11px; color:#71717a; text-align:center; margin-top:12px; margin-bottom:16px; font-family:'JetBrains Mono',monospace; }
+</style>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-59BT0YK7NH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-59BT0YK7NH', { cookie_flags: 'SameSite=None;Secure' });
+</script>
+
+<style id="nav-dropdown-styles">
+.nav-dd { position: relative; }
+.nav-dd-btn { display: inline-flex; align-items: center; gap: 4px; padding: 8px 16px; font-size: .875rem; color: var(--muted, #a1a1aa); background: none; border: none; cursor: pointer; font-family: inherit; border-radius: 8px; transition: color .15s; }
+.nav-dd-btn:hover, .nav-dd-btn[aria-expanded="true"] { color: #fff; }
+.nav-dd-btn svg { flex-shrink: 0; transition: transform .2s; }
+.nav-dd-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+.nav-dd-btn:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; border-radius: 4px; }
+.nav-dd-panel { position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%) translateY(-4px); background: var(--surface, #111111); border: 1px solid var(--line, #262626); border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,.55); opacity: 0; visibility: hidden; transition: opacity .15s, visibility .15s, transform .15s; z-index: 100; }
+.nav-dd-panel.open { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+.nav-dd-panel.panel-help { width: 200px; padding: 8px; }
+.nav-dd-panel.panel-help a { display: block; padding: 8px 14px; border-radius: 8px; font-size: 13px; color: var(--muted, #a1a1aa); text-decoration: none; transition: background .12s, color .12s; line-height: 1.4; }
+.nav-dd-panel.panel-help a:hover { background: rgba(255,255,255,.06); color: #fff; }
+.nav-dd-panel.panel-mega { width: 680px; padding: 24px; }
+@media (max-width: 800px) { .nav-dd-panel.panel-mega { width: calc(100vw - 24px); left: 0; transform: translateY(-4px); } .nav-dd-panel.panel-mega.open { transform: translateY(0); } }
+.mega-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.mega-col-header { display: block; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .12em; color: rgba(255,255,255,.45); padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,.08); margin-bottom: 10px; }
+.mega-items { display: flex; flex-direction: column; }
+.mega-items a { display: block; padding: 8px 0; font-size: 13px; line-height: 1.4; color: var(--muted, #a1a1aa); text-decoration: none; transition: color .12s; }
+.mega-items a:hover { color: #fff; }
+.nav-dd-panel.panel-mega--4 { width: 860px; padding: 24px; }
+@media (max-width: 900px) { .nav-dd-panel.panel-mega--4 { width: calc(100vw - 24px); left: 0; transform: translateY(-4px); } .nav-dd-panel.panel-mega--4.open { transform: translateY(0); } }
+.mega-cols--4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+.mega-items a.mega-view-all { color: rgba(255,255,255,.5); font-style: italic; }
+.mega-items a.mega-view-all:hover { color: rgba(255,255,255,.8); }
+nav[aria-label="Primary"] { position: relative; }
+.nav-dd:has(.panel-mega), .nav-dd:has(.panel-mega--4) { position: static; }
+.nav-dd-panel.panel-mega, .nav-dd-panel.panel-mega--4 { left: 0; transform: translateY(-4px); }
+.nav-dd-panel.panel-mega.open, .nav-dd-panel.panel-mega--4.open { transform: translateY(0); }
+</style>
+</head>
+<body class="bg-bg text-ink">
+
+<!-- NAV -->
+<header id="nav" class="fixed top-0 inset-x-0 z-40 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-6">
+      <a href="https://klaut.id/id/" class="flex items-center gap-2.5 group" aria-label="Klaut — kembali ke klaut.id">
+        <img src="/klaut-K-mark.png?v=1" alt="" class="brand-mark"/>
+      </a>
+      <nav class="hidden md:flex items-center gap-1" aria-label="Primary">
+        <a href="https://klaut.id/why-klaut" class="px-4 py-2 text-sm text-muted link-hover">Mengapa Klaut</a>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-idwp-prod">Produk
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-idwp-prod" class="nav-dd-panel panel-mega" role="menu" aria-label="Produk">
+            <div class="mega-cols">
+              <div>
+                <span class="mega-col-header">Platform</span>
+                <div class="mega-items">
+                  <a href="/id" role="menuitem">Klaut AI</a>
+                  <a href="https://compass.klaut.id/id" role="menuitem">Compass</a>
+                  <a href="/marketplace" role="menuitem">Klaut Marketplace</a>
+                  <a href="/learning" role="menuitem">Klaut Learning Center</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Kapabilitas</span>
+                <div class="mega-items">
+                  <a href="/id/work-patterns" role="menuitem" aria-current="page">Intelijen pola kerja</a>
+                  <a href="/id/error-detection" role="menuitem">Deteksi &amp; koreksi kesalahan</a>
+                  <a href="/id/kpi-command-center" role="menuitem">Pusat Komando KPI</a>
+                  <a href="/id/report-card" role="menuitem">Rapor &amp; analitik</a>
+                  <a href="/id/admin-security" role="menuitem">Admin &amp; keamanan</a>
+                  <a href="/id/tools-integration" role="menuitem">Integrasi tools</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Fitur AI</span>
+                <div class="mega-items">
+                  <a href="/ai/inference" role="menuitem">Mesin Inferensi</a>
+                  <a href="/ai/copilot" role="menuitem">AI Copilot (Slime)</a>
+                  <a href="/ai/decision-support" role="menuitem">Dukungan Keputusan</a>
+                  <a href="/ai/tools-automation" role="menuitem">Otomatisasi tools</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-idwp-sol">Solusi
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-idwp-sol" class="nav-dd-panel panel-mega panel-mega--4" role="menu" aria-label="Solusi">
+            <div class="mega-cols mega-cols--4">
+              <div>
+                <span class="mega-col-header">Tipe Perusahaan</span>
+                <div class="mega-items">
+                  <a href="/solutions/solo" role="menuitem">Solo</a>
+                  <a href="/solutions/team" role="menuitem">Tim</a>
+                  <a href="/solutions/enterprise" role="menuitem">Enterprise</a>
+                  <a href="/solutions/partners" role="menuitem">Partner</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">MANAJEMEN</span>
+                <div class="mega-items">
+                  <a href="/solutions/employer" role="menuitem">Pemberi Kerja</a>
+                  <a href="/solutions/manager" role="menuitem">Manajer</a>
+                  <a href="/solutions/hr" role="menuitem">HR</a>
+                  <a href="/id/employee" role="menuitem">Karyawan</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Industri</span>
+                <div class="mega-items">
+                  <a href="/solutions/industries/education" role="menuitem">Pendidikan</a>
+                  <a href="/solutions/industries/insurance" role="menuitem">Asuransi</a>
+                  <a href="/solutions/industries/financial-services" role="menuitem">Jasa Keuangan</a>
+                  <a href="/solutions/industries/technology" role="menuitem">Teknologi</a>
+                  <a href="/solutions/industries/ecommerce" role="menuitem">E-commerce</a>
+                  <a href="/solutions/industries/healthcare" role="menuitem">Kesehatan</a>
+                  <a href="/solutions/industries" role="menuitem" class="mega-view-all">Lihat semua industri</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Kasus Penggunaan</span>
+                <div class="mega-items">
+                  <a href="/use-cases/ai-readiness" role="menuitem">Audit kesiapan AI</a>
+                  <a href="/use-cases/workforce-intelligence" role="menuitem">Intelijen tenaga kerja</a>
+                  <a href="/use-cases/integration" role="menuitem">Integrasi lintas tool</a>
+                  <a href="/use-cases/honest-reports" role="menuitem">Laporan kinerja jujur</a>
+                  <a href="/use-cases/compliance" role="menuitem">Kepatuhan &amp; privasi</a>
+                  <a href="/use-cases" role="menuitem" class="mega-view-all">Lihat semua kasus</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-idwp-help">Bantuan
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-idwp-help" class="nav-dd-panel panel-help" role="menu" aria-label="Bantuan">
+            <a href="/id/help-center" role="menuitem">Help Center</a>
+            <a href="/help-center" role="menuitem">Resource Center</a>
+            <a href="mailto:hello@klaut.id" role="menuitem">Hubungi Kami</a>
+          </div>
+        </div>
+        <a href="https://klaut.id/id/pricing" class="px-4 py-2 text-sm text-muted link-hover">Pricing</a>
+      </nav>
+    </div>
+    <div class="hidden md:flex items-center gap-3">
+      <div class="flex items-center rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium" role="group" aria-label="Pilih bahasa">
+        <a href="/id/work-patterns" class="px-3 py-1.5 rounded-full bg-white/10 text-white" aria-current="page">ID</a>
+        <a href="/work-patterns" class="px-3 py-1.5 rounded-full text-muted hover:text-white transition-colors">EN</a>
+      </div>
+      <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" class="btn btn-primary">Jadwalkan panggilan
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="https://compass-app.klaut.id/" target="_blank" rel="noopener" class="btn btn-ghost">Demo</a>
+    </div>
+    <button id="hamburger" class="md:hidden p-2 rounded-lg hover:bg-white/5" aria-label="Buka menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div id="mobileMenu" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-close-menu></div>
+  <aside class="absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-surface border-l border-line p-6 flex flex-col gap-1">
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-2">
+        <img src="/klaut-K-mark.png?v=1" alt="" class="brand-mark"/>
+      </div>
+      <button data-close-menu class="p-2 rounded-lg hover:bg-white/5" aria-label="Tutup menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
+    </div>
+    <a href="https://klaut.id/why-klaut" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Mengapa Klaut</a>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Produk</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-4 flex flex-col gap-0 mt-1">
+        <p class="px-4 pt-2 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Platform</p>
+        <a href="/id" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut AI</a>
+        <a href="https://compass.klaut.id/id" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Compass</a>
+        <a href="/marketplace" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut Marketplace</a>
+        <a href="/learning" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut Learning Center</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Kapabilitas</p>
+        <a href="/id/work-patterns" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-white text-[13px]" aria-current="page">Intelijen pola kerja</a>
+        <a href="/id/error-detection" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Deteksi &amp; koreksi kesalahan</a>
+        <a href="/id/kpi-command-center" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Pusat Komando KPI</a>
+        <a href="/id/report-card" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Rapor &amp; analitik</a>
+        <a href="/id/admin-security" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Admin &amp; keamanan</a>
+        <a href="/id/tools-integration" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Integrasi tools</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Fitur AI</p>
+        <a href="/ai/inference" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Mesin Inferensi</a>
+        <a href="/ai/copilot" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">AI Copilot (Slime)</a>
+        <a href="/ai/decision-support" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Dukungan Keputusan</a>
+        <a href="/ai/tools-automation" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Otomatisasi tools</a>
+      </div>
+    </details>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Solusi</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-4 flex flex-col gap-0 mt-1">
+        <p class="px-4 pt-2 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Tipe Perusahaan</p>
+        <a href="/solutions/solo" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Solo</a>
+        <a href="/solutions/team" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Tim</a>
+        <a href="/solutions/enterprise" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Enterprise</a>
+        <a href="/solutions/partners" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Partner</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">MANAJEMEN</p>
+        <a href="/solutions/employer" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Pemberi Kerja</a>
+        <a href="/solutions/manager" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Manajer</a>
+        <a href="/solutions/hr" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">HR</a>
+        <a href="/id/employee" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Karyawan</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Industri</p>
+        <a href="/solutions/industries/education" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Pendidikan</a>
+        <a href="/solutions/industries/insurance" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Asuransi</a>
+        <a href="/solutions/industries/financial-services" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Jasa Keuangan</a>
+        <a href="/solutions/industries/technology" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Teknologi</a>
+        <a href="/solutions/industries/ecommerce" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">E-commerce</a>
+        <a href="/solutions/industries/healthcare" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Kesehatan</a>
+        <a href="/solutions/industries" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-white/50 text-[13px] italic">Lihat semua industri</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Kasus Penggunaan</p>
+        <a href="/use-cases/ai-readiness" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Audit kesiapan AI</a>
+        <a href="/use-cases/workforce-intelligence" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Intelijen tenaga kerja</a>
+        <a href="/use-cases/integration" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Integrasi lintas tool</a>
+        <a href="/use-cases/honest-reports" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Laporan kinerja jujur</a>
+        <a href="/use-cases/compliance" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Kepatuhan &amp; privasi</a>
+        <a href="/use-cases" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-white/50 text-[13px] italic">Lihat semua kasus</a>
+      </div>
+    </details>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Bantuan</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-8 flex flex-col gap-0.5 mt-0.5">
+        <a href="/id/help-center" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Help Center</a>
+        <a href="/help-center" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Resource Center</a>
+        <a href="mailto:hello@klaut.id" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Hubungi Kami</a>
+      </div>
+    </details>
+    <a href="https://klaut.id/id/pricing" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Pricing</a>
+    <div class="flex items-center justify-center mt-4 rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium w-fit mx-auto" role="group" aria-label="Pilih bahasa">
+      <a href="/id/work-patterns" class="px-4 py-2 rounded-full bg-white/10 text-white" aria-current="page">Bahasa Indonesia</a>
+      <a href="/work-patterns" class="px-4 py-2 rounded-full text-muted hover:text-white transition-colors">English</a>
+    </div>
+    <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" data-close-menu class="btn btn-primary justify-center mt-4">Jadwalkan panggilan</a>
+  </aside>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section class="relative overflow-hidden pt-16" style="isolation:isolate">
+  <div class="absolute inset-0 dot-grid hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-12 pb-20 lg:pt-16 lg:pb-28">
+    <div class="hero-copy">
+      <div class="reveal eyebrow mb-5">Kapabilitas &middot; Pola Kerja</div>
+      <h1 class="reveal text-5xl md:text-6xl xl:text-7xl font-semibold tracking-tight leading-[1.02]">
+        Lihat bagaimana timmu<br><span class="hl-grad">benar-benar bekerja.</span>
+      </h1>
+      <p class="reveal mt-7 max-w-xl text-lg md:text-xl text-muted leading-relaxed">
+        Compass terhubung ke sinyal kerja nyata &mdash; mulai dari Google Calendar read-only &mdash; dan menjalankan inferensi deterministik atas snapshot agregat angka saja untuk menampilkan apa yang berubah dalam pola kerja timmu dan mengapa itu penting. Bukan penampil log. Lapisan inferensi.
+      </p>
+      <div class="reveal mt-9 flex flex-wrap gap-4">
+        <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" class="btn btn-primary">Jadwalkan panggilan
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="https://compass-app.klaut.id/" target="_blank" rel="noopener" class="btn btn-ghost">Demo</a>
+      </div>
+      <p class="reveal mt-6 text-xs text-dim">Agregat secara default. Tanpa pemantauan keystroke atau konten. Dukungan keputusan untuk manajer dan HR &mdash; bukan penilaian otomatis.</p>
+    </div>
+  </div>
+</section>
+
+<!-- APA ITU -->
+<section class="max-w-7xl mx-auto px-6 lg:px-10 py-16 lg:py-24 border-t border-white/5">
+  <div class="max-w-2xl reveal mb-12">
+    <div class="eyebrow mb-4">Apa ini</div>
+    <h2 class="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1]">
+      Lapisan inferensi, bukan <span class="hl-grad">dashboard log mentah</span>
+    </h2>
+    <p class="mt-5 text-base text-muted leading-relaxed">
+      Kebanyakan tool tenaga kerja menyodorkan log dan membiarkan interpretasinya ke kamu. Compass mengambil angka agregat dari tool yang terhubung, menjalankan inferensi deterministik lintas snapshot dari waktu ke waktu, dan memberi tahu apa yang berubah &mdash; serta kategori penyebab yang paling mungkin menjelaskannya.
+    </p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-5 reveal">
+    <div class="wp-value-block">
+      <div class="wp-value-icon">&#128200;</div>
+      <div class="wp-value-title">Deteksi erosi waktu fokus</div>
+      <div class="wp-value-body">Compass melacak rata-rata blok waktu fokus tanpa gangguan dari sinyal kalender agregat tim. Ketika angka itu turun minggu ke minggu &mdash; dan beban rapat naik &mdash; ia menyebutkan polanya dengan jelas: "Rata-rata waktu fokus turun dari 2j 10m ke 47m dalam 6 minggu, didorong oleh beban rapat." Bukan skor. Temuan dengan penyebab yang paling mungkin.</div>
+    </div>
+    <div class="wp-value-block">
+      <div class="wp-value-icon">&#128337;</div>
+      <div class="wp-value-title">Kelebihan rapat &amp; hari terfragmentasi</div>
+      <div class="wp-value-body">Rapat back-to-back, jeda singkat antar blok, rapat yang merembes ke sore hari &mdash; Compass menampilkan ini sebagai sinyal agregat, bukan pengawasan individu. Kamu melihat pola tim, bukan siapa yang secara spesifik menyebabkannya.</div>
+    </div>
+    <div class="wp-value-block">
+      <div class="wp-value-icon">&#9878;</div>
+      <div class="wp-value-title">Keseimbangan kolaborasi vs. fokus individu</div>
+      <div class="wp-value-body">Berapa banyak waktu tim yang bersifat kolaboratif versus kerja mendalam? Apakah rasio itu bergeser? Compass menyimpulkan keseimbangan dari struktur kalender agregat dan memberi sinyal ketika bergerak di luar norma yang ditentukan tim dari snapshot data nyata pertama mereka.</div>
+    </div>
+  </div>
+</section>
+
+<!-- BUKTI VISUAL -->
+<section class="max-w-7xl mx-auto px-6 lg:px-10 pb-16 lg:pb-24">
+  <div class="max-w-2xl reveal mb-10">
+    <div class="eyebrow mb-4">Sinyal dalam praktik</div>
+    <h2 class="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1]">
+      Erosi waktu fokus &mdash; <span class="hl-grad">tampilan 6 minggu</span>
+    </h2>
+    <p class="mt-5 text-base text-muted leading-relaxed">
+      Inilah yang sebenarnya ditampilkan Compass: tren bernama dengan besaran terukur. Grafik di bawah menunjukkan polanya &mdash; blok waktu fokus rata-rata yang menyusut saat beban rapat meningkat. Compass menampilkan ini sebagai temuan, bukan dump data mentah.
+    </p>
+  </div>
+
+  <div class="reveal demo-frame" id="wp-chart-frame">
+    <div class="demo-bar">
+      <span class="demo-dots"><i></i><i></i><i></i></span>
+      <span class="demo-title">Compass &middot; Pola Kerja &mdash; Tren waktu fokus &middot; Agregat tim</span>
+      <span class="seg" role="group" aria-label="Tampilan sinyal">
+        <button class="on" data-wp-seg="focus">Waktu fokus</button>
+        <button data-wp-seg="meetings">Beban rapat</button>
+      </span>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 px-5 pt-5 pb-1">
+      <div class="metric">
+        <div class="lbl">Rata-rata blok fokus &middot; Minggu 1</div>
+        <div class="val">2j 10m</div>
+        <div class="dlt">baseline &middot; agregat tim</div>
+      </div>
+      <div class="metric">
+        <div class="lbl">Rata-rata blok fokus &middot; Minggu 6</div>
+        <div class="val bad">47m</div>
+        <div class="dlt bad">&darr; turun 64% dalam 6 minggu</div>
+      </div>
+      <div class="metric">
+        <div class="lbl">Inferensi Compass</div>
+        <div class="val" style="font-size:15px;line-height:1.35;margin-top:10px;">Erosi fokus didorong oleh beban rapat</div>
+        <div class="dlt">deterministik &middot; bukan tebakan AI</div>
+      </div>
+    </div>
+
+    <div class="wp-chart-wrap">
+      <div class="wp-chart-box">
+        <canvas id="wp-focus-chart" aria-label="Grafik garis menunjukkan waktu fokus menurun dari 130 menit ke 47 menit selama 6 minggu" role="img"></canvas>
+      </div>
+      <p class="wp-chart-caption">Data ilustratif &mdash; menunjukkan jenis sinyal yang ditampilkan Compass. Nilai nyata berasal dari koneksi kalender tim kamu setelah onboarding.</p>
+    </div>
+
+    <div class="px-5 pb-5">
+      <div class="metric mt-2">
+        <div class="lbl">Temuan Compass &mdash; bahasa sederhana</div>
+        <p class="mt-3 text-sm text-muted leading-relaxed">
+          "Rata-rata waktu fokus tanpa gangguan turun dari 2j 10m ke 47m selama 6 minggu. Korelat utama adalah kenaikan 38% rapat terjadwal per hari. Ini memenuhi ambang erosi fokus. Disarankan meninjau jadwal rapat &mdash; keputusan ada di tanganmu."
+        </p>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="pill">Hanya agregat</span>
+          <span class="pill">Inferensi deterministik</span>
+          <span class="pill">Dukungan keputusan</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARA KERJANYA -->
+<section class="max-w-7xl mx-auto px-6 lg:px-10 py-16 lg:py-24 border-t border-white/5">
+  <div class="max-w-2xl reveal mb-12">
+    <div class="eyebrow mb-4">Cara kerjanya</div>
+    <h2 class="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1]">
+      Empat langkah dari <span class="hl-grad">kalender ke temuan</span>
+    </h2>
+  </div>
+  <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 reveal">
+    <div class="step">
+      <div class="step-idx mb-4">01 &mdash; HUBUNGKAN</div>
+      <div class="text-base font-semibold mb-2">OAuth read-only</div>
+      <p class="text-sm text-muted leading-relaxed">Compass terhubung ke Google Calendar via OAuth read-only. Ia membaca struktur rapat &mdash; durasi, frekuensi, jeda &mdash; tetapi tidak pernah membaca judul acara, deskripsi, atau peserta di luar hitungan agregat. Tanpa akses tulis. Tanpa akses konten.</p>
+    </div>
+    <div class="step">
+      <div class="step-idx mb-4">02 &mdash; SNAPSHOT</div>
+      <div class="text-base font-semibold mb-2">Agregat angka saja</div>
+      <p class="text-sm text-muted leading-relaxed">Setiap polling periodik menghasilkan snapshot angka agregat: rata-rata panjang blok fokus, jumlah rapat per hari, rasio back-to-back, jam kolaborasi. Event individu langsung dibuang. Hanya agregat yang disimpan.</p>
+    </div>
+    <div class="step">
+      <div class="step-idx mb-4">03 &mdash; INFER</div>
+      <div class="text-base font-semibold mb-2">Inferensi deterministik</div>
+      <p class="text-sm text-muted leading-relaxed">Compass membandingkan snapshot dari waktu ke waktu menggunakan aturan deterministik &mdash; bukan model probabilistik, bukan penilaian black-box. Ketika waktu fokus turun lebih dari ambang yang dikonfigurasi dan beban rapat naik, ia menyebutkan polanya. Matematika, bukan tebakan.</p>
+    </div>
+    <div class="step">
+      <div class="step-idx mb-4">04 &mdash; TAMPILKAN</div>
+      <div class="text-base font-semibold mb-2">Temuan bahasa sederhana</div>
+      <p class="text-sm text-muted leading-relaxed">Temuan muncul di dashboard Compass dan Rapor sebagai ringkasan bahasa sederhana dengan angka pendukung. Tanpa alarm, tanpa tindakan otomatis &mdash; temuan yang bisa kamu tindaklanjuti atau abaikan. Keputusan tetap di tanganmu.</p>
+    </div>
+  </div>
+  <p class="mt-8 text-xs text-dim reveal">Compass memerlukan minimal 3 snapshot data nyata sebelum menampilkan temuan erosi fokus. Hingga ambang tersebut terpenuhi, tren yang ditampilkan ditandai jelas sebagai ilustratif (data sintetis). Kamu akan selalu tahu mana yang sedang kamu lihat.</p>
+</section>
+
+<!-- APA YANG BUKAN INI -->
+<section class="max-w-7xl mx-auto px-6 lg:px-10 py-16 lg:py-24 border-t border-white/5">
+  <div class="max-w-2xl reveal mb-12">
+    <div class="eyebrow mb-4">Kejujuran</div>
+    <h2 class="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1]">
+      Apa yang Pola Kerja <span class="hl-grad">bukan</span>
+    </h2>
+    <p class="mt-5 text-base text-muted leading-relaxed">
+      Banyak tool "intelijen tenaga kerja" sebenarnya adalah produk pengawasan dengan branding lebih baik. Compass bukan itu. Berikut apa yang secara eksplisit tidak dilakukannya &mdash; dan mengapa itu penting untuk kepercayaan.
+    </p>
+  </div>
+  <div class="grid md:grid-cols-2 gap-4 reveal">
+    <div class="wp-not-item">
+      <div class="wp-not-x">&#10005;</div>
+      <div>
+        <div class="wp-not-title">Bukan pengawasan</div>
+        <div class="wp-not-body">Compass tidak merekam keystroke, aktivitas mouse, screen time, atau konten apa pun dari aplikasi yang kamu gunakan. Ia membaca struktur &mdash; kapan rapat terjadi &mdash; bukan substansi.</div>
+      </div>
+    </div>
+    <div class="wp-not-item">
+      <div class="wp-not-x">&#10005;</div>
+      <div>
+        <div class="wp-not-title">Bukan skor produktivitas individu</div>
+        <div class="wp-not-body">Data pola kerja adalah agregat secara default. Tidak ada skor fokus per orang, tidak ada peringkat beban rapat individu, tidak ada indeks produktivitas karyawan. Jika kamu tidak bisa melihatnya untuk individu dalam produk, itu by design.</div>
+      </div>
+    </div>
+    <div class="wp-not-item">
+      <div class="wp-not-x">&#10005;</div>
+      <div>
+        <div class="wp-not-title">Bukan sinyal rekrut/pecat</div>
+        <div class="wp-not-body">Compass menampilkan pola, bukan vonis. Ia tidak merekomendasikan PHK, menandai individu untuk ditinjau, atau memasok sistem keputusan HR otomatis. Data pola kerja adalah satu masukan di antara banyak &mdash; manajer yang memutuskan apa yang harus dilakukan dengannya.</div>
+      </div>
+    </div>
+    <div class="wp-not-item">
+      <div class="wp-not-x">&#10005;</div>
+      <div>
+        <div class="wp-not-title">Tidak fabrikasi ketika data minim</div>
+        <div class="wp-not-body">Di bawah ambang kepercayaan 3 snapshot, Compass menampilkan data ilustratif yang diberi label jelas sebagai demikian. Ia tidak akan menampilkan temuan erosi fokus "nyata" sampai cukup snapshot nyata ada. Transparan sintetis-vs-nyata adalah aturan keras, bukan pengaturan.</div>
+      </div>
+    </div>
+    <div class="wp-not-item">
+      <div class="wp-not-check">&#10003;</div>
+      <div>
+        <div class="wp-not-title">Dukungan keputusan</div>
+        <div class="wp-not-body">Setiap temuan di Compass diberi label sebagai sinyal untuk tinjauan manusia. Ia memberi tahu apa yang ditunjukkan data dan apa yang kemungkinan menyebabkannya. Apa yang kamu lakukan selanjutnya sepenuhnya keputusanmu.</div>
+      </div>
+    </div>
+    <div class="wp-not-item">
+      <div class="wp-not-check">&#10003;</div>
+      <div>
+        <div class="wp-not-title">Agregat secara default</div>
+        <div class="wp-not-body">Sinyal level tim digabungkan dari snapshot agregat. Catatan event individu dibuang setelah agregasi. Arsitektur menegakkan ini &mdash; ini bukan toggle konfigurasi yang bisa tidak sengaja dimatikan.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIAPA YANG DIBANTU -->
+<section class="max-w-7xl mx-auto px-6 lg:px-10 py-16 lg:py-24 border-t border-white/5">
+  <div class="max-w-2xl reveal mb-12">
+    <div class="eyebrow mb-4">Siapa yang dibantu</div>
+    <h2 class="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1]">
+      Tiga peran, satu <span class="hl-grad">sinyal bersama</span>
+    </h2>
+    <p class="mt-5 text-base text-muted leading-relaxed">
+      Data pola kerja berguna di setiap lapisan organisasi &mdash; setiap peran melihat apa yang relevan untuk keputusan mereka, pada tingkat agregasi yang tepat.
+    </p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-5 reveal">
+    <div class="wp-role-card">
+      <div class="wp-role-label">Karyawan</div>
+      <div class="wp-role-title">Pahami pola kerjamu sendiri</div>
+      <div class="wp-role-body">Karyawan dapat melihat pola kerja agregat mereka sendiri &mdash; bagaimana tren blok waktu fokus mereka, apakah hari mereka semakin terfragmentasi &mdash; dan menggunakannya sebagai pemicu percakapan dengan manajer. Tampilan privat, tidak dibagikan ke atas sebagai skor.</div>
+    </div>
+    <div class="wp-role-card">
+      <div class="wp-role-label">Manajer</div>
+      <div class="wp-role-title">Spot gesekan level tim sebelum menumpuk</div>
+      <div class="wp-role-body">Manajer mendapatkan tampilan agregat tim: tren erosi fokus, distribusi beban rapat, keseimbangan kolaborasi-vs-solo. Cukup untuk mengajukan pertanyaan yang tepat di sinkronisasi tim berikutnya &mdash; tidak cukup untuk memantau individu tanpa persetujuan.</div>
+    </div>
+    <div class="wp-role-card">
+      <div class="wp-role-label">HR &amp; Kepemimpinan</div>
+      <div class="wp-role-title">Kesehatan organisasi sekilas pandang</div>
+      <div class="wp-role-body">HR dan kepemimpinan melihat pola seluruh org lintas departemen &mdash; di mana waktu fokus bertahan, di mana erosi terjadi, apakah tim tertentu memiliki ritme kerja yang berbeda secara struktural. Masukan untuk kebijakan jadwal dan desain beban kerja, bukan arsip kasus individu.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA AKHIR -->
+<section class="relative overflow-hidden border-t border-white/5">
+  <div class="absolute inset-0 dot-grid opacity-60"></div>
+  <div class="orb" style="width:560px;height:560px;background:radial-gradient(circle at 50% 50%, #4F6BFF, transparent 60%);top:-100px;left:50%;transform:translateX(-50%);opacity:.35;"></div>
+  <div class="relative max-w-4xl mx-auto px-6 lg:px-10 py-24 lg:py-32 text-center">
+    <div class="reveal eyebrow mb-6">Siap melihat pola tim kamu?</div>
+    <h2 class="reveal text-4xl md:text-6xl font-semibold tracking-tight leading-[1.05]">
+      Sinyal nyata. <span class="hl-grad">Inferensi nyata.</span>
+    </h2>
+    <p class="reveal mt-6 max-w-xl mx-auto text-lg text-muted leading-relaxed">
+      Intelijen Pola Kerja sudah aktif di Compass. Hubungkan Google Calendar read-only dan Compass mulai membangun snapshot dari hari pertama. Temuan muncul setelah ambang kepercayaan terpenuhi.
+    </p>
+    <div class="reveal mt-10 flex flex-wrap justify-center gap-4">
+      <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" class="btn btn-primary">Jadwalkan panggilan
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="https://compass-app.klaut.id/" target="_blank" rel="noopener" class="btn btn-ghost">Demo</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t border-line">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-16 grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-5">
+      <div class="flex items-center gap-2.5">
+        <img src="/klaut-K-mark.png?v=1" alt="" class="brand-mark"/>
+      </div>
+      <p class="mt-6 max-w-sm text-[14px] text-muted leading-relaxed">
+        Ekosistem Transformasi AI Enterprise. Strategi, talenta, model, dan tata kelola &mdash; direkayasa sebagai satu sistem.
+      </p>
+      <div class="mt-7 font-mono text-[12px] text-dim">Jakarta - Dan seluruh dunia</div>
+    </div>
+    <div class="md:col-span-2">
+      <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Ekosistem</div>
+      <ul class="space-y-3.5 text-[15px]">
+        <li><a href="https://klaut.id/consulting" class="text-muted link-hover">Consulting</a></li>
+        <li><a href="https://klaut.id/cao" class="text-muted link-hover">Chief AI Officer</a></li>
+        <li><a href="https://compass.klaut.id/" class="text-muted link-hover">Compass</a></li>
+        <li><a href="https://klaut.id/audit" class="text-muted link-hover">Audit</a></li>
+      </ul>
+    </div>
+    <div class="md:col-span-2">
+      <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">PERUSAHAAN</div>
+      <ul class="space-y-3.5 text-[15px]">
+        <li><a href="https://klaut.id/about" class="text-muted link-hover">Tentang</a></li>
+        <li><a href="https://klaut.id/career" class="text-muted link-hover">Karir</a></li>
+        <li><a href="https://klaut.id/partners" class="text-muted link-hover">Partner</a></li>
+        <li><a href="https://klaut.id/articles" class="text-muted link-hover">Artikel</a></li>
+      </ul>
+    </div>
+    <div class="md:col-span-3">
+      <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Kontak</div>
+      <ul class="space-y-3.5 text-[15px]">
+        <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Hubungi Kami</a></li>
+        <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Kontak Media</a></li>
+        <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Kontak Kemitraan</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-line">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-dim">
+      <div>&copy; 2026 Klaut AI &middot; Semua hak dilindungi.</div>
+      <div class="flex gap-6">
+        <a href="https://klaut.id/privacy" class="link-hover">Privasi</a>
+        <a href="https://klaut.id/terms" class="link-hover">Ketentuan</a>
+        <a href="https://klaut.id/security" class="link-hover">Keamanan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  function onScroll(){ if(window.scrollY>8) nav.classList.add('bg-bg/70','backdrop-blur-xl','border-b','border-line'); else nav.classList.remove('bg-bg/70','backdrop-blur-xl','border-b','border-line'); }
+  window.addEventListener('scroll', onScroll, { passive:true }); onScroll();
+  const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } }), { threshold:0.1, rootMargin:'0px 0px -10% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+<!-- Vercel Web Analytics -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<link rel="stylesheet" href="/assets/slime-widget.css">
+<script>window.__slimeLang = 'id';</script>
+<button id="slime-fab" data-state="idle" aria-label="Buka Compass Copilot">
+  <span class="slime-nudge" id="slime-nudge"></span>
+</button>
+<div class="fab-bubble" id="fab-bubble" role="status" aria-live="polite">
+  <small><span class="fab-bubble-dot"></span><span id="fab-bubble-eyebrow">Compass</span></small>
+  <span id="fab-bubble-txt"></span>
+</div>
+<div id="ai-panel" data-state="idle" aria-hidden="true" role="dialog" aria-label="Compass Copilot">
+  <div class="ai-h">
+    <span class="ava" aria-hidden="true"></span>
+    <span class="htxt">
+      <b id="ai-panel-title">Compass Copilot</b>
+      <span class="stat"><i></i><span id="ai-stat">Online &middot; siap</span></span>
+    </span>
+    <button class="x" id="ai-x" title="Tutup" aria-label="Tutup">&times;</button>
+  </div>
+  <div id="ai-log"></div>
+  <div class="ai-chips">
+    <button class="ai-chip">Apa itu Compass?</button>
+    <button class="ai-chip">Lihat paket harga</button>
+    <button class="ai-chip">Jadwalkan demo</button>
+    <button class="ai-chip">Hubungi sales</button>
+  </div>
+  <form id="ai-form" autocomplete="off">
+    <input id="ai-in" placeholder="Tanya tentang Compass..." aria-label="Pesan"/>
+    <button type="submit">Kirim</button>
+  </form>
+</div>
+<div id="compass-slime-chat" role="dialog" aria-label="Apa yang bisa saya bantu?" aria-hidden="true">
+  <div class="csc-header">
+    <span class="csc-eyebrow">COMPASS AI</span>
+    <span class="csc-dot" aria-hidden="true"></span>
+    <button class="csc-close" id="csc-close" aria-label="Tutup">&times;</button>
+  </div>
+  <p class="csc-greeting">Hai! Ada yang bisa saya bantu hari ini?</p>
+  <div class="csc-grid" id="csc-cta-grid"><!-- populated by JS --></div>
+  <div class="csc-input-row">
+    <input class="csc-input" id="csc-input" type="text" placeholder="Atau tanya apa saja..." autocomplete="off" aria-label="Tanya Compass AI"/>
+    <button class="csc-send" id="csc-send">Kirim</button>
+  </div>
+  <p class="csc-footer">Klaut menampilkan pilihan &mdash; kamu yang memutuskan. Asisten AI dalam pengembangan.</p>
+</div>
+<div id="slime-toast" style="position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:#4F6BFF;color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;font-family:Inter,sans-serif;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:10000"></div>
+<script type="module" src="/assets/slime-widget.js"></script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script>
+window.addEventListener('load', function () {
+(function(){
+  const labels = ['Minggu 1','Minggu 2','Minggu 3','Minggu 4','Minggu 5','Minggu 6'];
+  const focusData  = [130, 118, 102, 88, 65, 47];
+  const meetingData = [3.2, 3.8, 4.5, 5.1, 5.7, 6.4];
+
+  const ctx = document.getElementById('wp-focus-chart');
+  if (!ctx) return;
+
+  Chart.defaults.color = '#71717a';
+  Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+  Chart.defaults.font.family = "'JetBrains Mono', monospace";
+  Chart.defaults.font.size = 11;
+
+  let activeDataset = 'focus';
+
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Rata-rata blok fokus (mnt)',
+          data: focusData,
+          borderColor: '#4F6BFF',
+          backgroundColor: 'rgba(79,107,255,0.08)',
+          pointBackgroundColor: '#4F6BFF',
+          pointBorderColor: '#0d0d0d',
+          pointBorderWidth: 2,
+          pointRadius: 5,
+          pointHoverRadius: 7,
+          borderWidth: 2.5,
+          tension: 0.35,
+          fill: true,
+          yAxisID: 'yFocus',
+        },
+        {
+          label: 'Rata-rata rapat / hari',
+          data: meetingData,
+          borderColor: '#f59e0b',
+          backgroundColor: 'rgba(245,158,11,0.06)',
+          pointBackgroundColor: '#f59e0b',
+          pointBorderColor: '#0d0d0d',
+          pointBorderWidth: 2,
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          borderWidth: 2,
+          borderDash: [5, 3],
+          tension: 0.35,
+          fill: false,
+          yAxisID: 'yMeetings',
+          hidden: true,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: true, position: 'top', align: 'end', labels: { boxWidth: 10, boxHeight: 2, padding: 16, color: '#a1a1aa', font: { size: 11, family: "'JetBrains Mono', monospace" } } },
+        tooltip: { backgroundColor: '#111', borderColor: '#262626', borderWidth: 1, titleColor: '#e4e4e7', bodyColor: '#a1a1aa', padding: 12,
+          callbacks: {
+            label: function(ctx) {
+              if (ctx.datasetIndex === 0) {
+                const v = ctx.raw;
+                const h = Math.floor(v/60);
+                const m = v % 60;
+                return ' Fokus: ' + (h ? h + 'j ' : '') + m + 'm';
+              } else {
+                return ' Rapat/hari: ' + ctx.raw.toFixed(1);
+              }
+            }
+          }
+        }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#71717a' }, border: { color: 'rgba(255,255,255,0.08)' } },
+        yFocus: { type: 'linear', position: 'left', min: 0, max: 160, grid: { color: 'rgba(255,255,255,0.05)' }, border: { color: 'rgba(255,255,255,0.08)' },
+          ticks: { color: '#71717a', callback: function(v) { const h = Math.floor(v/60); const m = v % 60; return h ? h + 'j ' + (m ? m + 'm' : '') : m + 'm'; }, stepSize: 20 },
+          title: { display: true, text: 'Blok fokus', color: '#71717a', font: { size: 10 } }
+        },
+        yMeetings: { type: 'linear', position: 'right', min: 0, max: 10, display: false, grid: { drawOnChartArea: false } }
+      }
+    }
+  });
+
+  requestAnimationFrame(function() { chart.resize(); });
+
+  document.querySelectorAll('[data-wp-seg]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('[data-wp-seg]').forEach(function(b){ b.classList.remove('on'); });
+      btn.classList.add('on');
+      const seg = btn.dataset.wpSeg;
+      if (seg === 'focus') {
+        chart.data.datasets[0].hidden = false;
+        chart.data.datasets[1].hidden = true;
+        chart.options.scales.yMeetings.display = false;
+      } else {
+        chart.data.datasets[0].hidden = false;
+        chart.data.datasets[1].hidden = false;
+        chart.options.scales.yMeetings.display = true;
+      }
+      chart.update();
+    });
+  });
+})();
+});
+</script>
+
+<!-- Mobile menu script -->
+<script>
+(function(){
+  const hamburger = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  if (!hamburger || !menu) return;
+  hamburger.addEventListener('click', function(){ menu.classList.remove('hidden'); document.body.style.overflow = 'hidden'; });
+  menu.querySelectorAll('[data-close-menu]').forEach(function(el){
+    el.addEventListener('click', function(){ menu.classList.add('hidden'); document.body.style.overflow = ''; });
+  });
+})();
+</script>
+
+<script id="nav-dropdown-script">
+(function () {
+  function init() {
+    document.querySelectorAll('.nav-dd-btn').forEach(function (btn) {
+      var panel = btn.nextElementSibling;
+      if (!panel || !panel.classList.contains('nav-dd-panel')) return;
+      var dd = btn.parentElement;
+      dd.addEventListener('mouseenter', function () { open(btn, panel); });
+      dd.addEventListener('mouseleave', function () { close(btn, panel); });
+      btn.addEventListener('click', function () { toggle(btn, panel); });
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(btn, panel); }
+        if (e.key === 'Escape') { close(btn, panel); btn.focus(); }
+      });
+      panel.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { close(btn, panel); btn.focus(); }
+      });
+    });
+    document.addEventListener('click', function (e) {
+      document.querySelectorAll('.nav-dd-btn').forEach(function (btn) {
+        var panel = btn.nextElementSibling;
+        if (panel && !btn.parentElement.contains(e.target)) close(btn, panel);
+      });
+    });
+  }
+  function open(btn, panel) { panel.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+  function close(btn, panel) { panel.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+  function toggle(btn, panel) { panel.classList.contains('open') ? close(btn, panel) : open(btn, panel); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+}());
+</script>
+</body>
+</html>
