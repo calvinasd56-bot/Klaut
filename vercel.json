@@ -14,8 +14,8 @@
     { "source": "/en/audit-live",            "destination": "/audit-live",             "permanent": true },
     { "source": "/artikel",                  "destination": "/id/artikel",             "permanent": true },
     { "source": "/artikel/:slug",            "destination": "/id/artikel/:slug",       "permanent": true },
-    { "source": "/marketplace",              "destination": "https://compass-app.klaut.id/apps",    "permanent": false },
-    { "source": "/id/marketplace",           "destination": "https://compass-app.klaut.id/id/apps", "permanent": false }
+    { "source": "/marketplace",              "destination": "https://compass-app.klaut.id/marketplace",    "permanent": false },
+    { "source": "/id/marketplace",           "destination": "https://compass-app.klaut.id/id/marketplace", "permanent": false }
   ],
   "rewrites": [
     { "source": "/articles/:slug",           "destination": "/articles/article" },
