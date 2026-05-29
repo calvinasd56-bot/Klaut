@@ -218,6 +218,13 @@
 .feat-coach-trusted { font: 400 11px/1 'JetBrains Mono', monospace; color: #71717a; }
 .feat-coach-price  { font: 600 15px/1 'Inter', sans-serif; margin-top: auto; }
 .feat-coach-price span { font-size: 11px; color: #71717a; font-weight: 400; }
+.feat-prov { display: inline-flex; align-items: center; gap: 6px; font: 600 11px/1 'Inter', sans-serif; color: #d4d4d8; }
+.feat-prov i { width: 8px; height: 8px; border-radius: 9999px; display: inline-block; flex-shrink: 0; }
+.feat-access { font: 600 14px/1.2 'Inter', sans-serif; margin-top: auto; }
+.feat-access.free { color: #34d399; }
+.feat-access.credit { color: #7B8FFF; }
+.feat-access-sub { font: 400 11px/1.4 'JetBrains Mono', monospace; color: #71717a; margin-top: 4px; }
+.feat-cta { display: inline-flex; align-items: center; gap: 4px; font: 500 12px/1 'Inter', sans-serif; color: #fff; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 8px; padding: 7px 12px; width: fit-content; }
 .feat-coach-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -257,10 +264,10 @@
 #nav a, #mobileMenu a { text-decoration: none; }
 .btn {
   display: inline-flex; align-items: center; gap: 6px;
-  font: 500 14px/1 var(--font-sans, ui-sans-serif);
+  font: 500 14px/1 'Inter', ui-sans-serif, system-ui, sans-serif;
   letter-spacing: -0.005em;
   height: 36px; padding: 0 18px;
-  border-radius: 9999px;
+  border-radius: 8px;
   text-decoration: none;
   transition: background 180ms cubic-bezier(0.2,0.8,0.2,1), border-color 180ms cubic-bezier(0.2,0.8,0.2,1), color 180ms cubic-bezier(0.2,0.8,0.2,1);
 }
@@ -562,8 +569,7 @@ nav[aria-label="Primary"] { position: relative; }
     <div class="hero-copy">
       <div class="reveal eyebrow mb-5">Compass · For Employees</div>
       <h1 class="reveal text-5xl md:text-6xl xl:text-7xl font-semibold tracking-tight leading-[1.02]">
-        Your growth is yours.<br/>
-        <span class="hl-grad">Compass just maps it.</span>
+        Your growth is <span class="hl-grad">yours.</span>
       </h1>
       <p class="reveal mt-7 max-w-xl text-lg md:text-xl text-muted leading-relaxed">
         Compass makes you measurably sharper at your actual job — by showing you where your skills are, connecting you to people who can help, and rewarding genuine work-loops with a companion that grows alongside you. Your data stays with you. Compass doesn't grade you.
@@ -610,13 +616,16 @@ nav[aria-label="Primary"] { position: relative; }
     </div>
 
     <div class="tabs" role="tablist">
-      <button class="tab on" data-tab="lrn-emp" role="tab">Employee &middot; Dewi</button>
-      <button class="tab" data-tab="lrn-mgr" role="tab">Manager</button>
-      <button class="tab" data-tab="lrn-hr" role="tab">HR</button>
+      <button class="tab on" data-tab="lrn-prog" role="tab">Progress</button>
+      <button class="tab" data-tab="lrn-err" role="tab">Errors</button>
+      <button class="tab" data-tab="lrn-kpi" role="tab">KPI</button>
     </div>
 
-    <!-- EMPLOYEE -->
-    <div class="panel on" data-panel="lrn-emp">
+    <!-- Persistent privacy strip — renders on every tab (replaces the role-tab RBAC story) -->
+    <p class="tab-note mt-4 mb-1 text-xs text-dim">This view is Dewi's. Her manager sees direction, not detail. HR sees aggregates, not her history.</p>
+
+    <!-- PROGRESS -->
+    <div class="panel on" data-panel="lrn-prog">
       <div class="grid md:grid-cols-2 gap-5">
 
         <!-- Journey milestone sequence -->
@@ -649,7 +658,7 @@ nav[aria-label="Primary"] { position: relative; }
               </div>
             </div>
           </div>
-          <p class="tab-note mt-5 text-xs text-dim">This map is Dewi's &mdash; her manager sees team breadth, not this sequence. Klaut routes to third-party courses; it doesn't author them.</p>
+          <p class="tab-note mt-5 text-xs text-dim">Compass shows where Dewi is &mdash; not a score, not a percentile, not a verdict. Skills verified stay with her, even across roles.</p>
         </div>
 
         <!-- History milestones -->
@@ -687,69 +696,66 @@ nav[aria-label="Primary"] { position: relative; }
       </div>
     </div>
 
-    <!-- MANAGER -->
-    <div class="panel" data-panel="lrn-mgr">
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- ERRORS -->
+    <div class="panel" data-panel="lrn-err">
+      <div class="metric">
+        <div class="lbl">Focus signal &middot; <span data-k-learn="domainLabel">Communication</span></div>
+        <p class="text-xs text-dim mt-2">Drawn from Dewi's own work, never shared raw with manager or HR.</p>
+        <div class="mt-4 flex flex-col gap-3">
+          <div class="drow">
+            <div class="flex-1">
+              <div class="text-sm font-medium" data-k-learn="e1">Talking over the customer on partial-refund calls</div>
+              <div class="text-xs text-dim font-mono mt-1" data-k-learn="e1d">Noticed in 3 of last 12 calls &middot; routed to "Empathy framing" module</div>
+            </div>
+            <span class="feat-band feat-band-building" style="flex-shrink:0">In focus</span>
+          </div>
+          <div class="drow">
+            <div class="flex-1">
+              <div class="text-sm font-medium" data-k-learn="e2">Long pauses before offering an alternative</div>
+              <div class="text-xs text-dim font-mono mt-1" data-k-learn="e2d">First noticed this week &middot; self-noted before manager flagged</div>
+            </div>
+            <span class="feat-band feat-band-exploring" style="flex-shrink:0">Just noticed</span>
+          </div>
+          <div class="drow">
+            <div class="flex-1">
+              <div class="text-sm font-medium" data-k-learn="e3">Closing without confirming next step</div>
+              <div class="text-xs text-dim font-mono mt-1" data-k-learn="e3d">Last seen 21 days ago &middot; pattern fading</div>
+            </div>
+            <span class="feat-band feat-band-solid" style="flex-shrink:0">Trending up</span>
+          </div>
+        </div>
+        <div class="mt-4 kv">
+          <span class="lbl">What Dewi's working on next</span>
+          <span class="text-sm font-mono text-dim" data-k-learn="focusNext">Empathy framing &mdash; partial-refund conversations</span>
+        </div>
+      </div>
+      <p class="tab-note mt-5 text-xs text-dim">Errors here are patterns Dewi can see in her own work &mdash; not a tally, not a rank, not visible to her manager raw. Compass identifies where to focus next; it doesn't grade her, and it never recommends layoffs. Her data stays with her.</p>
+    </div>
+
+    <!-- KPI -->
+    <div class="panel" data-panel="lrn-kpi">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="metric">
-          <div class="lbl">Exploring band</div>
-          <div class="val">2</div>
-          <div class="dlt">team members</div>
+          <div class="lbl" data-k-learn="k1">Customer-satisfaction trend &middot; Dewi</div>
+          <div class="val" style="font-size:19px;line-height:1.25" data-k-learn="k1v">Trending up</div>
+          <div class="dlt" data-k-learn="k1d">since "Active listening" milestone &middot; 6 wks</div>
         </div>
         <div class="metric">
-          <div class="lbl">Building band</div>
-          <div class="val">3</div>
-          <div class="dlt">team members</div>
+          <div class="lbl" data-k-learn="k2">First-contact resolution &middot; Dewi</div>
+          <div class="val" style="font-size:19px;line-height:1.25" data-k-learn="k2v">Holding steady</div>
+          <div class="dlt" data-k-learn="k2d">her own baseline &middot; not vs team</div>
         </div>
         <div class="metric">
-          <div class="lbl">Solid band</div>
-          <div class="val">1</div>
-          <div class="dlt">team member</div>
-        </div>
-        <div class="metric">
-          <div class="lbl">Skills verified &middot; team</div>
-          <div class="val">14</div>
-          <div class="dlt">portable, not locked to role</div>
+          <div class="lbl" data-k-learn="k3">Escalation rate &middot; Dewi</div>
+          <div class="val" style="font-size:19px;line-height:1.25" data-k-learn="k3v">Easing</div>
+          <div class="dlt" data-k-learn="k3d">fewer warm handoffs needed &middot; self-baseline</div>
         </div>
       </div>
       <div class="metric mt-5">
-        <div class="kv mb-1"><span class="lbl">Active journeys &mdash; team &middot; <span data-k-learn="domainLabel">Communication</span></span><span class="text-xs text-dim">6 / 6 members enrolled</span></div>
-        <div class="mt-3">
-          <div class="drow"><span class="text-sm w-20 shrink-0">Dewi</span><span class="bar flex-1"><i style="width:68%"></i></span><span class="text-xs font-mono text-dim w-24 text-right">Building band</span></div>
-          <div class="drow"><span class="text-sm w-20 shrink-0">Arif</span><span class="bar flex-1"><i style="width:45%"></i></span><span class="text-xs font-mono text-dim w-24 text-right">Exploring band</span></div>
-          <div class="drow"><span class="text-sm w-20 shrink-0">Sari</span><span class="bar flex-1"><i style="width:88%"></i></span><span class="text-xs font-mono text-dim w-24 text-right">Solid band</span></div>
-          <div class="drow"><span class="text-sm w-20 shrink-0">Budi</span><span class="bar flex-1"><i style="width:38%"></i></span><span class="text-xs font-mono text-dim w-24 text-right">Exploring band</span></div>
-          <div class="drow"><span class="text-sm w-20 shrink-0">Tari</span><span class="bar flex-1"><i style="width:72%"></i></span><span class="text-xs font-mono text-dim w-24 text-right">Building band</span></div>
-          <div class="drow"><span class="text-sm w-20 shrink-0">Rina</span><span class="bar flex-1"><i style="width:61%"></i></span><span class="text-xs font-mono text-dim w-24 text-right">Building band</span></div>
-        </div>
+        <div class="kv mb-1"><span class="lbl">Team momentum &middot; <span data-k-learn="domainLabel">Communication</span></span><span class="text-xs text-dim">aggregate, never one person's report card</span></div>
+        <p class="text-sm text-muted leading-relaxed mt-2" data-k-learn="teamStrip">6 / 6 enrolled &middot; Building band trending up &middot; 14 skills verified across team (portable, not role-locked) &middot; external courses routed to 4 providers &middot; Layoffs recommended by Compass: 0. It grows people, not grades them.</p>
       </div>
-      <p class="tab-note mt-5 text-xs text-dim">Managers see band distribution and progress direction &mdash; not each person's individual module history. Decision-support, not a ranking.</p>
-    </div>
-
-    <!-- HR -->
-    <div class="panel" data-panel="lrn-hr">
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="metric">
-          <div class="lbl">Journeys active</div>
-          <div class="val">31</div>
-          <div class="dlt">across 5 teams</div>
-        </div>
-        <div class="metric">
-          <div class="lbl">Skills verified &middot; org</div>
-          <div class="val">87</div>
-          <div class="dlt">portable, not role-locked</div>
-        </div>
-        <div class="metric">
-          <div class="lbl">External courses routed to</div>
-          <div class="val">4</div>
-          <div class="dlt">providers &middot; Compass routes, doesn't author</div>
-        </div>
-        <div class="metric">
-          <div class="lbl">Layoffs recommended by Compass</div>
-          <div class="val">0</div>
-          <div class="dlt">It grows people, not grades them.</div>
-        </div>
-      </div>
-      <p class="tab-note mt-5 text-xs text-dim">HR sees learning momentum in aggregate. Compass identifies where to focus next &mdash; it doesn't produce a final verdict on any person.</p>
+      <p class="tab-note mt-5 text-xs text-dim">KPI shows direction, not a grade. Dewi's numbers are hers against her own baseline &mdash; never ranked against teammates. Team momentum is aggregate, never one person's report card.</p>
     </div>
   </div>
 
@@ -777,7 +783,24 @@ nav[aria-label="Primary"] { position: relative; }
       h2d: 'Closed 34 days ago · re-tested 8 / 10',
       h3: 'Active listening — de-escalation',
       h3d: 'Closed 47 days ago · skill verified',
-      portableCount: '3 verified · portable across roles'
+      portableCount: '3 verified · portable across roles',
+      e1: 'Talking over the customer on partial-refund calls',
+      e1d: 'Noticed in 3 of last 12 calls · routed to "Empathy framing" module',
+      e2: 'Long pauses before offering an alternative',
+      e2d: 'First noticed this week · self-noted before manager flagged',
+      e3: 'Closing without confirming next step',
+      e3d: 'Last seen 21 days ago · pattern fading',
+      focusNext: 'Empathy framing — partial-refund conversations',
+      k1: 'Customer-satisfaction trend · Dewi',
+      k1v: 'Trending up',
+      k1d: 'since "Active listening" milestone · 6 wks',
+      k2: 'First-contact resolution · Dewi',
+      k2v: 'Holding steady',
+      k2d: 'her own baseline · not vs team',
+      k3: 'Escalation rate · Dewi',
+      k3v: 'Easing',
+      k3d: 'fewer warm handoffs needed · self-baseline',
+      teamStrip: '6 / 6 enrolled · Building band trending up · 14 skills verified across team (portable, not role-locked) · external courses routed to 4 providers · Layoffs recommended by Compass: 0. It grows people, not grades them.'
     },
     esc: {
       domainLabel: 'Escalation Handling',
@@ -795,7 +818,24 @@ nav[aria-label="Primary"] { position: relative; }
       h2d: 'Closed 38 days ago · skill verified',
       h3: 'Tone calibration under pressure',
       h3d: 'Closed 52 days ago · skill verified',
-      portableCount: '2 verified · portable across roles'
+      portableCount: '2 verified · portable across roles',
+      e1: 'Holding escalation too long before warm handoff',
+      e1d: 'Noticed in 2 of last 9 escalations · routed to "Warm handoff" module',
+      e2: 'Tone drift under pressure on tier-2 calls',
+      e2d: 'First noticed this week · self-noted before manager flagged',
+      e3: 'Skipping post-escalation follow-through',
+      e3d: 'Last seen 28 days ago · pattern fading',
+      focusNext: 'Warm handoff to senior agent — script',
+      k1: 'Escalation success rate · Dewi',
+      k1v: 'Trending up',
+      k1d: 'since "Triage" milestone · 6 wks',
+      k2: 'Time-in-escalation · Dewi',
+      k2v: 'Easing',
+      k2d: 'her own baseline · not vs team',
+      k3: 'Post-escalation follow-through · Dewi',
+      k3v: 'Holding steady',
+      k3d: 'self-baseline · not vs team',
+      teamStrip: '6 / 6 enrolled · Exploring band trending up · 14 skills verified across team (portable, not role-locked) · external courses routed to 4 providers · Layoffs recommended by Compass: 0. It grows people, not grades them.'
     }
   };
   function setLearn(k, v) {
@@ -827,36 +867,36 @@ nav[aria-label="Primary"] { position: relative; }
 <!-- CONNECTIVE INTRO — Coaches -->
 <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-10 pb-2 border-t border-white/5">
   <p class="text-base text-muted leading-relaxed max-w-2xl">
-    Once you know where to go, Compass connects you to people who can help you get there faster. A curated marketplace of coaches and speakers — inside your team, at IDR-transparent pricing, with session content that stays private.
+    Compass reads where you are with its own Understanding instrument, then routes you to a curated external course built for that gap — from providers like Coursera, LinkedIn Learning, Duolingo, Pijar Mahir, and others on the shortlist. Courses tied to your role come free; anything outside it unlocks with Learning credit. Your enrolment is visible to your manager as a signal that learning is happening — the content of each lesson stays with the provider, never inside Compass.
   </p>
 </div>
 
 <!-- FEATURE EXPLAINER 2 — Book a Speaker / Coach / Mentor -->
 <section id="feat-coach" class="relative max-w-7xl mx-auto px-6 lg:px-10 py-12 lg:py-20">
   <div class="max-w-3xl reveal">
-    <div class="eyebrow mb-4">Learn &middot; Speakers &amp; Coaches</div>
+    <div class="eyebrow mb-4">Learn &middot; Curated learning marketplace</div>
     <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.1]">
-      A curated marketplace, <span class="hl-grad">inside your team</span>
+      A curated learning journey for <span class="hl-grad">your personal growth</span>
     </h2>
     <p class="mt-5 text-base md:text-lg text-muted leading-relaxed">
-      ~9 coaches across IDR-priced tiers. Browse, see who your teammates already trust, and request a session &mdash; without leaving Compass.
+      A curated catalogue of external courses &mdash; from providers like Coursera, Udemy, LinkedIn Learning, Duolingo and Pijar Mahir &mdash; picked by Compass against the skill gap your Understanding read surfaced. Free for the courses tied to your role; unlock anything outside it with Learning credit. Klaut routes you to the course &mdash; it doesn't author or teach the content.
     </p>
   </div>
 
   <div class="mt-12 reveal demo-frame" data-demo-coach>
     <div class="demo-bar">
       <span class="demo-dots"><i></i><i></i><i></i></span>
-      <span class="demo-title">Compass &middot; Learn &mdash; Speakers &amp; Coaches</span>
-      <span class="seg" role="group" aria-label="Coach tier">
-        <button data-tier="starter" class="on">Starter</button>
-        <button data-tier="growth">Growth</button>
-        <button data-tier="executive">Executive</button>
+      <span class="demo-title">Compass &middot; Learn &mdash; Curated learning marketplace</span>
+      <span class="seg" role="group" aria-label="Learning provider">
+        <button data-provider="coursera" class="on">Coursera</button>
+        <button data-provider="linkedin">LinkedIn Learning</button>
+        <button data-provider="duolingo">Duolingo</button>
       </span>
     </div>
 
     <div class="tabs" role="tablist">
-      <button class="tab on" data-tab="coach-browse" role="tab">Browse &middot; Employee</button>
-      <button class="tab" data-tab="coach-booked" role="tab">My Booking</button>
+      <button class="tab on" data-tab="coach-browse" role="tab">Browse &middot; Catalogue</button>
+      <button class="tab" data-tab="coach-booked" role="tab">My Learning</button>
       <button class="tab" data-tab="coach-mgr" role="tab">Manager View</button>
     </div>
 
@@ -865,60 +905,62 @@ nav[aria-label="Primary"] { position: relative; }
       <div class="feat-coach-grid" data-k-coach="grid">
         <!-- Populated by JS -->
       </div>
-      <p class="tab-note mt-5 text-xs text-dim">Coaches are independent professionals. Ratings and "trusted by team" counts are based on your organization's actual booking history. Klaut curates the list; it does not employ the coaches.</p>
+      <p class="tab-note mt-5 text-xs text-dim">Compass curates and routes &mdash; it does not author, host, or resell these courses. Providers shown are recognised external brands; tiles in this demo are illustrative and not active connectors. "Trusted by team" counts come from your organisation's actual enrolment history once a real provider connector is wired. Completion and progress are read as a signal back into your dashboard &mdash; not as a competence score. Klaut routes you to learning, never teaches the content.</p>
     </div>
 
-    <!-- MY BOOKING -->
+    <!-- MY LEARNING -->
     <div class="panel" data-panel="coach-booked">
       <div class="grid md:grid-cols-2 gap-5">
         <div class="metric">
-          <div class="lbl">Upcoming session</div>
-          <div class="mt-3 flex items-center gap-3">
-            <div class="feat-coach-avatar">RW</div>
-            <div>
-              <div class="feat-coach-name">Riana Wijaya</div>
-              <div class="feat-coach-role">Leadership Coach &middot; Jakarta</div>
-            </div>
+          <div class="lbl">Currently enrolled</div>
+          <div class="mt-3"><span class="feat-prov"><i style="background:#0056d2"></i>Coursera</span></div>
+          <div class="mt-2">
+            <div class="feat-coach-name">Business Analytics Foundations</div>
+            <div class="feat-coach-role">Data analysis &middot; routed by Compass</div>
           </div>
           <div class="mt-4">
             <div class="drow">
-              <div class="flex-1 text-sm text-muted">Date &amp; time</div>
-              <div class="text-sm font-mono">Thu 29 May &middot; 10:00 WIB</div>
+              <div class="flex-1 text-sm text-muted">Started</div>
+              <div class="text-sm font-mono">14 days ago</div>
             </div>
             <div class="drow">
-              <div class="flex-1 text-sm text-muted">Duration</div>
-              <div class="text-sm font-mono">60 min</div>
+              <div class="flex-1 text-sm text-muted">Last activity</div>
+              <div class="text-sm font-mono">2 days ago</div>
             </div>
             <div class="drow">
-              <div class="flex-1 text-sm text-muted">Session topic</div>
-              <div class="text-sm font-mono">Difficult conversation framing</div>
+              <div class="flex-1 text-sm text-muted">Progress</div>
+              <div class="text-sm font-mono">Module 3 of 6 &middot; On track</div>
             </div>
             <div class="drow">
-              <div class="flex-1 text-sm text-muted">Total cost</div>
-              <div class="text-sm font-mono good">Rp 750.000</div>
+              <div class="flex-1 text-sm text-muted">Access</div>
+              <div class="text-sm font-mono good">Free for your role &middot; no credit spent</div>
             </div>
           </div>
-          <p class="tab-note mt-5 text-xs text-dim">Session content is private. Your manager sees that a booking occurred &mdash; not what was discussed.</p>
+          <p class="tab-note mt-5 text-xs text-dim">Course content stays with the provider. Your manager sees that you enrolled &mdash; not what each lesson said or how you answered.</p>
         </div>
         <div class="metric">
-          <div class="lbl">Coach profile</div>
+          <div class="lbl">Your learning profile</div>
           <div class="mt-3">
-            <div class="feat-coach-rating mt-2">
-              <span class="feat-coach-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-              <span>4.9 &middot; 38 sessions</span>
-            </div>
-            <div class="feat-coach-tier feat-coach-tier-growth mt-3">Growth tier</div>
+            <div class="feat-coach-tier feat-coach-tier-growth mt-1">Routed for: Operations</div>
             <div class="mt-4">
               <div class="drow">
-                <div class="flex-1 text-sm text-muted">Trusted by team</div>
-                <div class="text-sm font-mono">4 teammates have booked</div>
+                <div class="flex-1 text-sm text-muted">Skill route</div>
+                <div class="text-sm font-mono">Data judgement &rarr; business comms</div>
               </div>
               <div class="drow">
-                <div class="flex-1 text-sm text-muted">Focus areas</div>
-                <div class="text-sm font-mono">Leadership &middot; Communication</div>
+                <div class="flex-1 text-sm text-muted">Active gap</div>
+                <div class="text-sm font-mono">Data interpretation &middot; Foundational &rarr; Intermediate</div>
               </div>
               <div class="drow">
-                <div class="flex-1 text-sm text-muted">Languages</div>
+                <div class="flex-1 text-sm text-muted">Loop trace</div>
+                <div class="text-sm font-mono">2 modules closed &middot; 1 active</div>
+              </div>
+              <div class="drow">
+                <div class="flex-1 text-sm text-muted">Learning credit</div>
+                <div class="text-sm font-mono good">1 unlock remaining this cycle</div>
+              </div>
+              <div class="drow">
+                <div class="flex-1 text-sm text-muted">Languages routed</div>
                 <div class="text-sm font-mono">Bahasa Indonesia &middot; English</div>
               </div>
             </div>
@@ -931,27 +973,27 @@ nav[aria-label="Primary"] { position: relative; }
     <div class="panel" data-panel="coach-mgr">
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="metric">
-          <div class="lbl">Sessions booked &middot; team</div>
-          <div class="val">7</div>
-          <div class="dlt">this month</div>
+          <div class="lbl">Enrollments &middot; team</div>
+          <div class="val">14</div>
+          <div class="dlt">across 8 teammates &middot; 30 days</div>
         </div>
         <div class="metric">
-          <div class="lbl">Unique coaches used</div>
-          <div class="val">3</div>
-          <div class="dlt">out of ~9 available</div>
+          <div class="lbl">Providers used</div>
+          <div class="val">4</div>
+          <div class="dlt">Coursera &middot; LinkedIn &middot; Duolingo &middot; Pijar Mahir</div>
         </div>
         <div class="metric">
-          <div class="lbl">Team members who booked</div>
-          <div class="val">4 / 6</div>
+          <div class="lbl">Teammates enrolled</div>
+          <div class="val">8 / 12</div>
           <div class="bar mt-3"><i style="width:67%"></i></div>
         </div>
         <div class="metric">
-          <div class="lbl">Session topics (aggregate)</div>
-          <div class="val text-base leading-snug mt-2">Communication &middot; Leadership &middot; Time mgmt</div>
+          <div class="lbl">Skill-area mix</div>
+          <div class="val text-base leading-snug mt-2">Data analysis &middot; Business comms &middot; Leadership</div>
           <div class="dlt">content detail is private per person</div>
         </div>
       </div>
-      <p class="tab-note mt-5 text-xs text-dim">Managers see booking volume and aggregate topic areas &mdash; not what each person discussed with their coach. Individual sessions are private.</p>
+      <p class="tab-note mt-5 text-xs text-dim">Managers see enrolment volume, providers used, and aggregate skill areas &mdash; never per-lesson activity, quiz answers, or individual progress detail. Course content stays with the provider.</p>
     </div>
   </div>
 
@@ -962,46 +1004,45 @@ nav[aria-label="Primary"] { position: relative; }
 (function(){
   const root = document.querySelector('[data-demo-coach]');
   if(!root) return;
-  const coaches = {
-    starter: [
-      { init:'AP', name:'Andi Prasetyo', role:'Productivity Coach', rating:'4.7', sessions:'22', price:'Rp 350.000', tier:'starter', trusted:'2 teammates' },
-      { init:'LS', name:'Lina Santoso', role:'Mindset &amp; Focus Coach', rating:'4.8', sessions:'31', price:'Rp 400.000', tier:'starter', trusted:'1 teammate' },
-      { init:'BH', name:'Budi Hartono', role:'Communication Coach', rating:'4.6', sessions:'18', price:'Rp 300.000', tier:'starter', trusted:'3 teammates' },
+  const courses = {
+    coursera: [
+      { dot:'#0056d2', provider:'Coursera', title:'Business Analytics Foundations', track:'Data analysis', signal:'Provider rating 4.7 &middot; widely enrolled professional certificate', level:'foundational', trusted:'4 teammates taking this', access:'free', accessLabel:'Free for your role', accessSub:'Operations role &middot; routed by Compass', cta:'Start course' },
+      { dot:'#0056d2', provider:'Coursera', title:'Strategic Communication for Managers', track:'Leadership communication', signal:'Provider rating 4.6 &middot; professional certificate track', level:'intermediate', trusted:'2 teammates taking this', access:'credit', accessLabel:'Unlock with Learning credit', accessSub:'Outside your role &middot; subscription routed via Klaut', cta:'Unlock' },
+      { dot:'#0056d2', provider:'Coursera', title:'Project Management Principles', track:'Delivery &amp; planning', signal:'Provider rating 4.8 &middot; industry-recognised certificate', level:'advanced', trusted:'', access:'credit', accessLabel:'Unlock with Learning credit', accessSub:'Outside your role &middot; subscription routed via Klaut', cta:'Unlock' },
     ],
-    growth: [
-      { init:'RW', name:'Riana Wijaya', role:'Leadership Coach', rating:'4.9', sessions:'38', price:'Rp 750.000', tier:'growth', trusted:'4 teammates' },
-      { init:'DM', name:'Dinda Maharani', role:'Executive Presence Coach', rating:'4.8', sessions:'45', price:'Rp 900.000', tier:'growth', trusted:'2 teammates' },
-      { init:'SK', name:'Surya Kusuma', role:'Team Dynamics Coach', rating:'4.7', sessions:'27', price:'Rp 800.000', tier:'growth', trusted:'1 teammate' },
+    linkedin: [
+      { dot:'#0a66c2', provider:'LinkedIn Learning', title:'Giving and Receiving Feedback at Work', track:'People &amp; culture', signal:'Verified by 5 teammates &middot; enterprise-licensed track', level:'foundational', trusted:'5 teammates taking this', access:'free', accessLabel:'Free for your role', accessSub:'People-lead role &middot; routed by Compass', cta:'Start course' },
+      { dot:'#0a66c2', provider:'LinkedIn Learning', title:'Excel for Business Analysts', track:'Data &amp; spreadsheets', signal:'Provider rating 4.7 &middot; enterprise reporting available', level:'intermediate', trusted:'3 teammates taking this', access:'credit', accessLabel:'Unlock with Learning credit', accessSub:'Outside your role &middot; enterprise seat routed via Klaut', cta:'Unlock' },
+      { dot:'#0a66c2', provider:'LinkedIn Learning', title:'Leading Without Authority', track:'Leadership', signal:'Provider rating 4.6 &middot; enterprise-licensed track', level:'advanced', trusted:'', access:'credit', accessLabel:'Unlock with Learning credit', accessSub:'Outside your role &middot; enterprise seat routed via Klaut', cta:'Unlock' },
     ],
-    executive: [
-      { init:'TR', name:'Tari Rahayu', role:'C-Suite Advisor', rating:'5.0', sessions:'14', price:'Rp 2.500.000', tier:'executive', trusted:'1 teammate' },
-      { init:'FN', name:'Fajar Nugroho', role:'Strategic Leadership Coach', rating:'4.9', sessions:'19', price:'Rp 2.000.000', tier:'executive', trusted:'0 teammates' },
-      { init:'MK', name:'Maya Kartika', role:'Senior Exec Coach', rating:'4.8', sessions:'23', price:'Rp 2.200.000', tier:'executive', trusted:'2 teammates' },
+    duolingo: [
+      { dot:'#58cc02', provider:'Duolingo', title:'Business English &mdash; Daily Practice', track:'Language &amp; client-facing comms', signal:'Free app &middot; streak-based daily practice', level:'foundational', trusted:'6 teammates taking this', access:'free', accessLabel:'Free for your role', accessSub:'Customer-facing role &middot; routed by Compass', cta:'Start course' },
+      { dot:'#58cc02', provider:'Duolingo', title:'Mandarin for Regional Sales', track:'Language &amp; regional sales', signal:'Free app &middot; regional market-readiness track', level:'foundational', trusted:'2 teammates taking this', access:'free', accessLabel:'Free for your role', accessSub:'Regional-sales role &middot; routed by Compass', cta:'Start course' },
+      { dot:'#58cc02', provider:'Duolingo', title:'Japanese &mdash; Conversational Track', track:'Language &amp; global mobility', signal:'Free app &middot; conversational fluency track', level:'intermediate', trusted:'', access:'credit', accessLabel:'Unlock with Learning credit', accessSub:'Outside your role &middot; routed via Klaut for tracked progress', cta:'Unlock' },
     ]
   };
-  const tierClass = { starter:'feat-coach-tier-starter', growth:'feat-coach-tier-growth', executive:'feat-coach-tier-executive' };
-  const tierLabel = { starter:'Starter tier', growth:'Growth tier', executive:'Executive tier' };
-  function renderGrid(tier) {
-    const list = coaches[tier];
+  const levelClass = { foundational:'feat-coach-tier-starter', intermediate:'feat-coach-tier-growth', advanced:'feat-coach-tier-executive' };
+  const levelLabel = { foundational:'Foundational', intermediate:'Intermediate', advanced:'Advanced' };
+  function renderGrid(provider) {
+    const list = courses[provider];
     const grid = root.querySelector('[data-k-coach="grid"]');
-    if(!grid) return;
+    if(!grid || !list) return;
     grid.innerHTML = list.map(c =>
       '<div class="feat-coach-card">' +
-        '<div style="display:flex;align-items:center;gap:10px">' +
-          '<div class="feat-coach-avatar">'+c.init+'</div>' +
-          '<div><div class="feat-coach-name">'+c.name+'</div><div class="feat-coach-role">'+c.role+'</div></div>' +
-        '</div>' +
-        '<div class="feat-coach-rating"><span class="feat-coach-star">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span>'+c.rating+' &middot; '+c.sessions+' sessions</span></div>' +
-        '<div class="feat-coach-tier '+tierClass[c.tier]+'">'+tierLabel[c.tier]+'</div>' +
-        '<div class="feat-coach-trusted">Trusted by team: '+c.trusted+'</div>' +
-        '<div class="feat-coach-price">'+c.price+' <span>/ session</span></div>' +
+        '<div class="feat-prov"><i style="background:'+c.dot+'"></i>'+c.provider+'</div>' +
+        '<div><div class="feat-coach-name">'+c.title+'</div><div class="feat-coach-role">'+c.track+'</div></div>' +
+        '<div class="feat-coach-rating"><span>'+c.signal+'</span></div>' +
+        '<div class="feat-coach-tier '+levelClass[c.level]+'">'+levelLabel[c.level]+'</div>' +
+        (c.trusted ? '<div class="feat-coach-trusted">Trusted by team: '+c.trusted+'</div>' : '') +
+        '<div class="feat-access '+c.access+'">'+c.accessLabel+'<div class="feat-access-sub">'+c.accessSub+'</div></div>' +
+        '<div class="feat-cta">'+c.cta+'</div>' +
       '</div>'
     ).join('');
   }
   root.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => {
     root.querySelectorAll('.seg button').forEach(x => x.classList.remove('on'));
     b.classList.add('on');
-    renderGrid(b.dataset.tier);
+    renderGrid(b.dataset.provider);
   }));
   root.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
     root.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
@@ -1009,7 +1050,7 @@ nav[aria-label="Primary"] { position: relative; }
     t.classList.add('on');
     root.querySelector('[data-panel="'+t.dataset.tab+'"]').classList.add('on');
   }));
-  renderGrid('starter');
+  renderGrid('coursera');
 })();
 </script>
 

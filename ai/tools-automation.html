@@ -1,0 +1,1477 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tools automation — Compass AI · Klaut</title>
+<meta name="description" content="Compass routes each task to the right external tool and the right model, and unifies tasks, events and signals from the apps you already use into one dashboard. Bring your own accounts; Klaut adds the routing, priority and correction layer." />
+<link rel="canonical" href="https://klaut.id/ai/tools-automation" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://klaut.id/ai/tools-automation" />
+<meta property="og:title" content="Tools automation — Compass AI · Klaut" />
+<meta property="og:description" content="Compass routes each task to the right external tool and the right model, and unifies tasks, events and signals from the apps you already use into one dashboard. Bring your own accounts; Klaut adds the routing, priority and correction layer." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Tools automation — Compass AI · Klaut" />
+<meta name="twitter:description" content="Compass routes each task to the right external tool and the right model, and unifies tasks, events and signals from the apps you already use into one dashboard. Bring your own accounts; Klaut adds the routing, priority and correction layer." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+          mono: ['JetBrains Mono', 'ui-monospace', 'Menlo', 'monospace'],
+        },
+        colors: {
+          bg:        '#0a0a0f',
+          surface:   '#13131a',
+          surface2:  '#1a1a22',
+          line:      'rgba(255,255,255,0.08)',
+          accent:    '#4F6BFF',
+          'accent-2':'#7B8FFF',
+          'accent-deep':'#3854E5',
+          ink:       '#ffffff',
+          muted:     '#a1a1aa',
+          dim:       '#71717a',
+          faint:     '#52525b',
+        },
+        maxWidth: { content: '1280px' },
+      },
+    },
+  };
+</script>
+<style>
+  :root {
+    --accent: #4F6BFF;
+    --accent-2: #7B8FFF;
+    --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    background: #0a0a0f;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ---------- Background motifs ---------- */
+  .dot-grid {
+    background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .dot-grid-fade {
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 40%, transparent 100%);
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 40%, transparent 100%);
+  }
+  .orb {
+    position: absolute; border-radius: 9999px;
+    filter: blur(90px); pointer-events: none;
+    will-change: transform;
+  }
+  @keyframes float {
+    0%,100% { transform: translate3d(0,0,0); }
+    50%     { transform: translate3d(0,-14px,0); }
+  }
+  .orb-float-a { animation: float 14s ease-in-out infinite; }
+  .orb-float-b { animation: float 18s ease-in-out infinite reverse; }
+
+  /* ---------- Gradient headline accent ---------- */
+  .grad-text {
+    background: linear-gradient(92deg, #7B8FFF 0%, #4F6BFF 45%, #7B8FFF 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+  }
+
+  /* ---------- Eyebrow / section labels ---------- */
+  .section-num {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px;
+    color: #7B8FFF;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: #7B8FFF;
+  }
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 800ms var(--ease-out), transform 800ms var(--ease-out);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 80ms; }
+  .reveal-delay-2 { transition-delay: 160ms; }
+  .reveal-delay-3 { transition-delay: 240ms; }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 20px;
+    border-radius: 8px;
+    font-weight: 500; font-size: 14px; line-height: 1;
+    transition: all 200ms var(--ease-out);
+    cursor: pointer; border: 0;
+    white-space: nowrap;
+  }
+  .btn-primary { background: #4F6BFF; color: #fff; }
+  .btn-primary:hover {
+    background: #3854E5;
+    box-shadow: 0 0 0 1px rgba(99,102,241,0.4), 0 12px 32px -8px rgba(99,102,241,0.6);
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    background: rgba(255,255,255,0.04);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.10);
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.20); }
+  .btn svg.arrow { transition: transform 200ms var(--ease-out); }
+  .btn:hover svg.arrow { transform: translateX(3px); }
+
+  /* ---------- Cards ---------- */
+  .card {
+    position: relative;
+    background: #13131a;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    transition: transform 280ms var(--ease-out),
+                border-color 280ms var(--ease-out),
+                box-shadow 280ms var(--ease-out);
+    overflow: hidden;
+  }
+  .card::before {
+    content: ""; position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(129,140,248,0.20), transparent 65%);
+    pointer-events: none;
+    opacity: 0.8;
+    transition: opacity 280ms var(--ease-out);
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(99,102,241,0.40);
+    box-shadow: 0 0 0 1px rgba(99,102,241,0.20), 0 30px 80px -30px rgba(99,102,241,0.50);
+  }
+  .card:hover::before { opacity: 1.2; }
+
+  /* ---------- Icon tile ---------- */
+  .icon-tile {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: rgba(99,102,241,0.13);
+    border: 1px solid rgba(99,102,241,0.28);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #7B8FFF;
+    flex-shrink: 0;
+  }
+  .icon-tile svg { width: 22px; height: 22px; stroke-width: 1.75; }
+
+  /* ---------- Nav ---------- */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    transition: background 220ms var(--ease-out), border-color 220ms var(--ease-out), backdrop-filter 220ms var(--ease-out);
+    border-bottom: 1px solid transparent;
+  }
+  .nav.scrolled {
+    background: rgba(10,10,15,0.72);
+    -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav a.nav-link {
+    color: #a1a1aa;
+    font-size: 14px;
+    transition: color 180ms var(--ease-out);
+  }
+  .nav a.nav-link:hover { color: #fff; }
+  .nav a.nav-link.active { color: #fff; }
+
+  /* ---------- Process timeline ---------- */
+  .timeline {
+    position: relative;
+  }
+  .timeline-rule {
+    position: absolute;
+    top: 22px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, rgba(99,102,241,0.0), rgba(99,102,241,0.55) 15%, rgba(99,102,241,0.55) 85%, rgba(99,102,241,0.0));
+    z-index: 0;
+  }
+  .step-dot {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: rgba(99,102,241,0.13);
+    border: 1px solid rgba(99,102,241,0.28);
+    color: #7B8FFF;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 14px; font-weight: 500;
+    display: inline-flex; align-items: center; justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---------- Hairline ---------- */
+  .hairline {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.14), transparent);
+  }
+
+  /* ---------- Logo ---------- */
+  .wordmark-tile {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    background: linear-gradient(135deg, #4F6BFF, #7B8FFF);
+    color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.04em;
+  }
+
+  /* ---------- Mobile menu ---------- */
+  .mobile-menu {
+    transform: translateX(100%);
+    transition: transform 360ms var(--ease-out);
+  }
+  .mobile-menu.open { transform: translateX(0); }
+  .mobile-backdrop {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 240ms var(--ease-out);
+  }
+  .mobile-backdrop.open { opacity: 1; pointer-events: auto; }
+
+  /* ---------- Brand images (canonical nav) ---------- */
+  .brand-mark { width: 32px; height: 32px; object-fit: contain; display: block; flex-shrink: 0; }
+  .brand-wordmark { height: 34px; width: auto; object-fit: contain; display: block; flex-shrink: 0; filter: invert(1); }
+  @media (min-width: 768px) { .brand-wordmark { height: 38px; } }
+  .link-hover { transition: color 180ms; }
+  .link-hover:hover { color: #fff; }
+  .nav-scrolled { background: rgba(10,10,15,0.72); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.06); }
+
+  /* ---------- "Not" list ---------- */
+  .not-row {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 20px 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .not-row:last-child { border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .not-row .strike {
+    width: 26px; height: 26px; border-radius: 7px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #71717a;
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .not-row .strike svg { width: 14px; height: 14px; stroke-width: 1.75; }
+
+  ::selection { background: rgba(99,102,241,0.35); color: #fff; }
+
+  /* Pull quote (paid statement) */
+  .pull-quote {
+    position: relative;
+    background:
+      linear-gradient(180deg, rgba(99,102,241,0.06), rgba(99,102,241,0.02)),
+      #13131a;
+    border: 1px solid rgba(99,102,241,0.22);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .pull-quote::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(99,102,241,0.16), transparent 60%);
+    pointer-events: none;
+  }
+  .pull-quote .quote-mark {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px;
+    color: #7B8FFF;
+  }
+
+  /* ---------- AI Feature scoped styles ---------- */
+  .aif-step-card {
+    position: relative;
+    background: #111118;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 28px 28px 32px;
+    overflow: hidden;
+    transition: transform 280ms var(--ease-out), border-color 280ms var(--ease-out), box-shadow 280ms var(--ease-out);
+  }
+  .aif-step-card::before {
+    content: ""; position: absolute;
+    top: -50px; right: -50px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(79,107,255,0.18), transparent 65%);
+    pointer-events: none;
+  }
+  .aif-step-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(79,107,255,0.36);
+    box-shadow: 0 20px 60px -20px rgba(79,107,255,0.35);
+  }
+  .aif-step-num {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: #4F6BFF;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .aif-step-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .aif-step-body {
+    font-size: 14px;
+    color: #a1a1aa;
+    line-height: 1.65;
+  }
+
+  /* Demo frame */
+  .aif-frame {
+    background: #111118;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .aif-frame-header {
+    background: #0e0e15;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .aif-frame-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+  .aif-frame-body { padding: 28px 28px 24px; }
+
+  /* Inference headline pill */
+  .aif-infer-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(52,211,153,0.10);
+    border: 1px solid rgba(52,211,153,0.25);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #34d399;
+    margin-bottom: 20px;
+  }
+  .aif-infer-pill svg { flex-shrink: 0; }
+
+  /* Chart caption */
+  .aif-chart-caption {
+    font-size: 12px;
+    color: #71717a;
+    margin-top: 10px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  /* Secondary bullets */
+  .aif-bullet {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: #a1a1aa;
+    line-height: 1.55;
+  }
+  .aif-bullet-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #4F6BFF;
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  /* Honesty note */
+  .aif-honesty {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 12px;
+    color: #71717a;
+    line-height: 1.6;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-top: 20px;
+  }
+  .aif-honesty svg { flex-shrink: 0; color: #71717a; margin-top: 1px; }
+
+  /* hl-grad alias (mirrors .grad-text) */
+  .hl-grad {
+    background: linear-gradient(92deg, #7B8FFF 0%, #4F6BFF 45%, #7B8FFF 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+  }
+
+  /* text-muted / text-dim utilities */
+  .text-muted { color: #a1a1aa; }
+  .text-dim   { color: #71717a; }
+
+  /* ---------- Tools automation specific ---------- */
+
+  /* Routing diagram */
+  .ta-diagram {
+    background: #0e0e15;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 36px 28px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .ta-center-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, rgba(79,107,255,0.18), rgba(123,143,255,0.10));
+    border: 1px solid rgba(79,107,255,0.40);
+    border-radius: 14px;
+    padding: 16px 28px;
+    min-width: 200px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+  .ta-center-label {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+  .ta-center-sub {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10px;
+    color: #7B8FFF;
+    letter-spacing: 0.06em;
+  }
+  .ta-arrow-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    width: 100%;
+    position: relative;
+    padding: 6px 0;
+  }
+  .ta-arrow-line {
+    width: 2px;
+    height: 28px;
+    background: linear-gradient(to bottom, rgba(79,107,255,0.65), rgba(79,107,255,0.20));
+    border-radius: 2px;
+    margin: 0 auto;
+  }
+  .ta-chips-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    width: 100%;
+  }
+  .ta-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 160px;
+    max-width: 280px;
+  }
+  .ta-group-label {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    color: #52525b;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .ta-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 8px;
+    padding: 7px 13px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #a1a1aa;
+    white-space: nowrap;
+  }
+  .ta-chip-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .ta-groups-wrapper {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .ta-connector {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    width: 100%;
+    padding: 0 20px;
+    position: relative;
+    height: 28px;
+  }
+  .ta-connector::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(79,107,255,0.30) 20%, rgba(79,107,255,0.30) 80%, transparent);
+  }
+  .ta-connector-arm {
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(79,107,255,0.50), rgba(79,107,255,0.18));
+    border-radius: 2px;
+  }
+
+  /* Task list rows */
+  .ta-task-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .ta-task-row:last-child { border-bottom: none; }
+  .ta-source-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 6px;
+    padding: 4px 9px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 86px;
+    justify-content: center;
+  }
+  .ta-task-title {
+    font-size: 14px;
+    color: #e4e4e7;
+    flex: 1;
+    line-height: 1.4;
+  }
+  .ta-task-status {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    color: #71717a;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .ta-task-status.status-new {
+    color: #7B8FFF;
+  }
+
+  /* BYOA stat block */
+  .ta-stat-block {
+    background: linear-gradient(135deg, rgba(79,107,255,0.08), rgba(79,107,255,0.03));
+    border: 1px solid rgba(79,107,255,0.20);
+    border-radius: 16px;
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .ta-stat-number {
+    font-size: clamp(44px, 6vw, 72px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    background: linear-gradient(92deg, #7B8FFF 0%, #4F6BFF 50%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+  }
+</style>
+
+<style id="nav-dropdown-styles">
+/* Nav dropdown panels */
+.nav-dd { position: relative; }
+.nav-dd-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 8px 16px; font-size: .875rem;
+  color: var(--muted, #a1a1aa);
+  background: none; border: none; cursor: pointer; font-family: inherit;
+  border-radius: 8px; transition: color .15s;
+}
+.nav-dd-btn:hover, .nav-dd-btn[aria-expanded="true"] { color: #fff; }
+.nav-dd-btn svg { flex-shrink: 0; transition: transform .2s; }
+.nav-dd-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+.nav-dd-btn:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; border-radius: 4px; }
+
+/* Shared panel chrome */
+.nav-dd-panel {
+  position: absolute; top: calc(100% + 6px); left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  background: var(--surface, #111111); border: 1px solid var(--line, #262626);
+  border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,.55);
+  opacity: 0; visibility: hidden;
+  transition: opacity .15s, visibility .15s, transform .15s;
+  z-index: 100;
+}
+.nav-dd-panel.open {
+  opacity: 1; visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Help dropdown — narrow single column */
+.nav-dd-panel.panel-help {
+  width: 200px;
+  padding: 8px;
+}
+.nav-dd-panel.panel-help a {
+  display: block; padding: 8px 14px; border-radius: 8px;
+  font-size: 13px; color: var(--muted, #a1a1aa);
+  text-decoration: none; transition: background .12s, color .12s; line-height: 1.4;
+}
+.nav-dd-panel.panel-help a:hover { background: rgba(255,255,255,.06); color: #fff; }
+.nav-dd-panel.panel-help a:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; }
+
+/* Product mega-panel — 3 columns */
+.nav-dd-panel.panel-mega {
+  width: 680px;
+  padding: 24px;
+}
+/* Clamp to viewport on narrow screens */
+@media (max-width: 800px) {
+  .nav-dd-panel.panel-mega {
+    width: calc(100vw - 24px);
+    left: 0; transform: translateY(-4px);
+  }
+  .nav-dd-panel.panel-mega.open { transform: translateY(0); }
+}
+.mega-cols {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+}
+.mega-col-header {
+  display: block;
+  font-size: 11px; font-weight: 500; text-transform: uppercase;
+  letter-spacing: .12em; color: rgba(255,255,255,.45);
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  margin-bottom: 10px;
+}
+.mega-items { display: flex; flex-direction: column; }
+.mega-items a {
+  display: block; padding: 8px 0; font-size: 13px; line-height: 1.4;
+  color: var(--muted, #a1a1aa); text-decoration: none;
+  transition: color .12s;
+}
+.mega-items a:hover { color: #fff; }
+.mega-items a[aria-current="page"] { color: #fff; }
+.mega-items a:focus-visible { outline: 1px solid var(--accent, #4F6BFF); outline-offset: 2px; border-radius: 2px; }
+/* Solutions mega-panel — 4 columns */
+.nav-dd-panel.panel-mega--4 {
+  width: 860px;
+  padding: 24px;
+}
+@media (max-width: 900px) {
+  .nav-dd-panel.panel-mega--4 {
+    width: calc(100vw - 24px);
+    left: 0; transform: translateY(-4px);
+  }
+  .nav-dd-panel.panel-mega--4.open { transform: translateY(0); }
+}
+.mega-cols--4 {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px;
+}
+.mega-items a.mega-view-all {
+  color: rgba(255,255,255,.5); font-style: italic;
+}
+.mega-items a.mega-view-all:hover { color: rgba(255,255,255,.8); }
+/* FIX: anchor mega panels to <nav> container so both Product + Solutions
+   start from the same left edge (Asana pattern). Without this, .nav-dd's
+   trigger-width parent caused PLATFORM column to clip on the left. */
+nav[aria-label="Primary"] { position: relative; }
+.nav-dd:has(.panel-mega),
+.nav-dd:has(.panel-mega--4) { position: static; }
+.nav-dd-panel.panel-mega,
+.nav-dd-panel.panel-mega--4 {
+  left: 0;
+  transform: translateY(-4px);
+}
+.nav-dd-panel.panel-mega.open,
+.nav-dd-panel.panel-mega--4.open {
+  transform: translateY(0);
+}</style>
+</head>
+<body class="bg-bg text-ink">
+
+<!-- ================= NAV ================= -->
+<header id="nav" class="fixed top-0 inset-x-0 z-40 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-6">
+      <a href="https://klaut.id/" class="flex items-center gap-2.5 group" aria-label="Klaut home">
+        <img src="/klaut-K-mark.png?v=1" alt="" class="brand-mark"/>
+      </a>
+      <nav class="hidden md:flex items-center gap-1" aria-label="Primary">
+        <a href="https://klaut.id/why-klaut" class="px-4 py-2 text-sm text-muted link-hover">Why Klaut</a>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-con-prod">Product
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-con-prod" class="nav-dd-panel panel-mega" role="menu" aria-label="Product">
+            <div class="mega-cols">
+              <div>
+                <span class="mega-col-header">Platform</span>
+                <div class="mega-items">
+                  <a href="https://klaut.id/" role="menuitem">Klaut AI</a>
+                  <a href="https://compass.klaut.id/" role="menuitem">Compass</a>
+                  <a href="https://klaut.id/marketplace" role="menuitem">Klaut Marketplace</a>
+                  <a href="https://klaut.id/learning" role="menuitem">Klaut Learning Center</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Capabilities</span>
+                <div class="mega-items">
+                  <a href="https://klaut.id/capabilities/work-patterns" role="menuitem">Work patterns intelligence</a>
+                  <a href="https://klaut.id/capabilities/error-detection" role="menuitem">Error detection &amp; correction</a>
+                  <a href="https://klaut.id/capabilities/kpi" role="menuitem">KPI Command Center</a>
+                  <a href="https://klaut.id/capabilities/reports" role="menuitem">Report Card &amp; analytics</a>
+                  <a href="https://klaut.id/capabilities/admin" role="menuitem">Admin &amp; security</a>
+                  <a href="https://klaut.id/capabilities/tools-integration" role="menuitem">Tools integration</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">AI Features</span>
+                <div class="mega-items">
+                  <a href="https://klaut.id/ai/inference" role="menuitem">Inference Engine</a>
+                  <a href="https://klaut.id/ai/copilot" role="menuitem">AI Copilot (Slime)</a>
+                  <a href="https://klaut.id/ai/decision-support" role="menuitem">Decision Support</a>
+                  <a href="https://klaut.id/ai/tools-automation" role="menuitem" aria-current="page">Tools automation</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-con-sol">Solutions
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-con-sol" class="nav-dd-panel panel-mega panel-mega--4" role="menu" aria-label="Solutions">
+            <div class="mega-cols mega-cols--4">
+              <div>
+                <span class="mega-col-header">Company Type</span>
+                <div class="mega-items">
+                  <a href="https://klaut.id/solutions/solo" role="menuitem">Solo</a>
+                  <a href="https://klaut.id/solutions/team" role="menuitem">Team</a>
+                  <a href="https://klaut.id/solutions/enterprise" role="menuitem">Enterprise</a>
+                  <a href="https://klaut.id/solutions/partners" role="menuitem">Partners</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">MANAGEMENT</span>
+                <div class="mega-items">
+                  <a href="https://klaut.id/solutions/employer" role="menuitem">Employer</a>
+                  <a href="https://klaut.id/solutions/manager" role="menuitem">Manager</a>
+                  <a href="https://klaut.id/solutions/hr" role="menuitem">HR</a>
+                  <a href="https://klaut.id/employee" role="menuitem">Employee</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Industries</span>
+                <div class="mega-items">
+                  <a href="https://klaut.id/solutions/industries/education" role="menuitem">Education</a>
+                  <a href="https://klaut.id/solutions/industries/insurance" role="menuitem">Insurance</a>
+                  <a href="https://klaut.id/solutions/industries/financial-services" role="menuitem">Financial Services</a>
+                  <a href="https://klaut.id/solutions/industries/technology" role="menuitem">Technology</a>
+                  <a href="https://klaut.id/solutions/industries/ecommerce" role="menuitem">E-commerce</a>
+                  <a href="https://klaut.id/solutions/industries/healthcare" role="menuitem">Healthcare</a>
+                  <a href="https://klaut.id/solutions/industries" role="menuitem" class="mega-view-all">View all industries</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Use Cases</span>
+                <div class="mega-items">
+                  <a href="https://klaut.id/use-cases/ai-readiness" role="menuitem">AI readiness audit</a>
+                  <a href="https://klaut.id/use-cases/workforce-intelligence" role="menuitem">Workforce intelligence</a>
+                  <a href="https://klaut.id/use-cases/integration" role="menuitem">Cross-tool integration</a>
+                  <a href="https://klaut.id/use-cases/honest-reports" role="menuitem">Honest performance reports</a>
+                  <a href="https://klaut.id/use-cases/compliance" role="menuitem">Compliance &amp; privacy</a>
+                  <a href="https://klaut.id/use-cases" role="menuitem" class="mega-view-all">View all use cases</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-con-help">Help
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-con-help" class="nav-dd-panel panel-help" role="menu" aria-label="Help">
+            <a href="https://klaut.id/help-center" role="menuitem">Help Center</a>
+            <a href="https://klaut.id/help-center" role="menuitem">Resource Center</a>
+            <a href="mailto:hello@klaut.id" role="menuitem">Contact Us</a>
+          </div>
+        </div>
+        <a href="https://klaut.id/pricing" class="px-4 py-2 text-sm text-muted link-hover">Pricing</a>
+      </nav>
+    </div>
+    <div class="hidden md:flex items-center gap-3">
+      <div class="flex items-center rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium" role="group" aria-label="Select language">
+        <a href="https://klaut.id/id/ai/tools-automation" class="px-3 py-1.5 rounded-full text-muted hover:text-white transition-colors">ID</a>
+        <a href="https://klaut.id/ai/tools-automation" class="px-3 py-1.5 rounded-full bg-white/10 text-white" aria-current="page">EN</a>
+      </div>
+      <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" class="btn btn-primary">Book a call
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="https://compass-app.klaut.id/" target="_blank" rel="noopener" class="btn btn-ghost">Demo</a>
+    </div>
+    <button id="hamburger" class="md:hidden p-2 rounded-lg hover:bg-white/5" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div id="mobileMenu" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-close-menu></div>
+  <aside class="absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-surface border-l border-line p-6 flex flex-col gap-1 overflow-y-auto">
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-2">
+        <img src="/klaut-K-mark.png?v=1" alt="" class="brand-mark"/>
+      </div>
+      <button data-close-menu class="p-2 rounded-lg hover:bg-white/5" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
+    </div>
+    <a href="https://klaut.id/why-klaut" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Why Klaut</a>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Product</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-4 flex flex-col gap-0 mt-1">
+        <p class="px-4 pt-2 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Platform</p>
+        <a href="https://klaut.id/" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut AI</a>
+        <a href="https://compass.klaut.id/" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Compass</a>
+        <a href="https://klaut.id/marketplace" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut Marketplace</a>
+        <a href="https://klaut.id/learning" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut Learning Center</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Capabilities</p>
+        <a href="https://klaut.id/capabilities/work-patterns" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Work patterns intelligence</a>
+        <a href="https://klaut.id/capabilities/error-detection" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Error detection &amp; correction</a>
+        <a href="https://klaut.id/capabilities/kpi" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">KPI Command Center</a>
+        <a href="https://klaut.id/capabilities/reports" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Report Card &amp; analytics</a>
+        <a href="https://klaut.id/capabilities/admin" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Admin &amp; security</a>
+        <a href="https://klaut.id/capabilities/tools-integration" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Tools integration</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">AI Features</p>
+        <a href="https://klaut.id/ai/inference" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Inference Engine</a>
+        <a href="https://klaut.id/ai/copilot" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">AI Copilot (Slime)</a>
+        <a href="https://klaut.id/ai/decision-support" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Decision Support</a>
+        <a href="https://klaut.id/ai/tools-automation" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-white text-[13px]" aria-current="page">Tools automation</a>
+      </div>
+    </details>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Solutions</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-4 flex flex-col gap-0 mt-1">
+        <p class="px-4 pt-2 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Company Type</p>
+        <a href="https://klaut.id/solutions/solo" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Solo</a>
+        <a href="https://klaut.id/solutions/team" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Team</a>
+        <a href="https://klaut.id/solutions/enterprise" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Enterprise</a>
+        <a href="https://klaut.id/solutions/partners" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Partners</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">MANAGEMENT</p>
+        <a href="https://klaut.id/solutions/employer" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Employer</a>
+        <a href="https://klaut.id/solutions/manager" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Manager</a>
+        <a href="https://klaut.id/solutions/hr" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">HR</a>
+        <a href="https://klaut.id/employee" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Employee</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Industries</p>
+        <a href="https://klaut.id/solutions/industries/education" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Education</a>
+        <a href="https://klaut.id/solutions/industries/insurance" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Insurance</a>
+        <a href="https://klaut.id/solutions/industries/financial-services" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Financial Services</a>
+        <a href="https://klaut.id/solutions/industries/technology" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Technology</a>
+        <a href="https://klaut.id/solutions/industries/ecommerce" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">E-commerce</a>
+        <a href="https://klaut.id/solutions/industries/healthcare" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Healthcare</a>
+        <a href="https://klaut.id/solutions/industries" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-white/50 text-[13px] italic">View all industries</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Use Cases</p>
+        <a href="https://klaut.id/use-cases/ai-readiness" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">AI readiness audit</a>
+        <a href="https://klaut.id/use-cases/workforce-intelligence" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Workforce intelligence</a>
+        <a href="https://klaut.id/use-cases/integration" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Cross-tool integration</a>
+        <a href="https://klaut.id/use-cases/honest-reports" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Honest performance reports</a>
+        <a href="https://klaut.id/use-cases/compliance" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Compliance &amp; privacy</a>
+        <a href="https://klaut.id/use-cases" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-white/50 text-[13px] italic">View all use cases</a>
+      </div>
+    </details>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Help</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-8 flex flex-col gap-0.5 mt-0.5">
+        <a href="https://klaut.id/help-center" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Help Center</a>
+        <a href="https://klaut.id/help-center" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Resource Center</a>
+        <a href="mailto:hello@klaut.id" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Contact Us</a>
+      </div>
+    </details>
+    <a href="https://klaut.id/pricing" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Pricing</a>
+    <div class="flex items-center justify-center mt-4 rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium w-fit mx-auto" role="group" aria-label="Select language">
+      <a href="https://klaut.id/id/ai/tools-automation" class="px-4 py-2 rounded-full text-muted hover:text-white transition-colors">Bahasa Indonesia</a>
+      <a href="https://klaut.id/ai/tools-automation" class="px-4 py-2 rounded-full bg-white/10 text-white" aria-current="page">English</a>
+    </div>
+    <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" data-close-menu class="btn btn-primary justify-center mt-4">Book a call</a>
+  </aside>
+</div>
+
+<!-- ================= HERO ================= -->
+<section id="top" class="relative overflow-hidden pt-40 pb-28 md:pt-48 md:pb-36">
+  <div class="absolute inset-0 dot-grid dot-grid-fade pointer-events-none"></div>
+  <div class="orb orb-float-a" style="width:560px;height:560px;background:radial-gradient(circle at 35% 35%, rgba(79,107,255,0.50), transparent 60%);top:-180px;left:-180px;opacity:0.50"></div>
+  <div class="orb orb-float-b" style="width:460px;height:460px;background:radial-gradient(circle at 60% 50%, rgba(123,143,255,0.38), transparent 60%);top:6%;right:-160px;opacity:0.40"></div>
+
+  <div class="relative max-w-content mx-auto px-6 md:px-10">
+    <div class="reveal max-w-3xl">
+      <div class="eyebrow mb-7">/ Compass &middot; AI Feature</div>
+      <h1 class="font-semibold tracking-tight leading-[1.05] text-[clamp(40px,6.4vw,88px)]">
+        We don&rsquo;t replace your tools.<br><span class="hl-grad">We orchestrate them.</span>
+      </h1>
+      <p class="mt-8 text-muted text-[19px] md:text-xl leading-relaxed max-w-2xl">
+        Compass routes each task to the right external tool and the right model &mdash; Zapier, Make, Lindy, n8n, OpenAI, Claude, Gemini &mdash; and unifies tasks, events and signals from Asana, Trello, Notion, Slack and more into one dashboard. Bring your own accounts; Klaut adds the routing, priority and correction layer.
+      </p>
+      <div class="mt-10 flex flex-wrap items-center gap-3">
+        <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" class="btn btn-primary">
+          Book a call
+          <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a href="https://compass-app.klaut.id/" target="_blank" rel="noopener" class="btn btn-ghost">Demo</a>
+        <a href="https://compass.klaut.id/" class="btn btn-ghost">Back to Compass</a>
+      </div>
+      <p class="mt-5 text-xs text-dim">
+        Orchestration, not a black-box agent. You bring your own accounts &mdash; Klaut never marks up your AI spend.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SECTION A — ORCHESTRATE, NOT BUILD ================= -->
+<section class="py-24 md:py-32">
+  <div class="max-w-content mx-auto px-6 md:px-10">
+    <div class="reveal max-w-2xl mb-14">
+      <div class="eyebrow mb-4">/ How it works</div>
+      <h2 class="text-[clamp(28px,3.6vw,44px)] font-semibold tracking-tight leading-[1.1]">
+        Orchestrate, not build.
+      </h2>
+      <p class="mt-4 text-muted text-[17px] leading-relaxed">
+        Compass sits above your tools as a routing, priority, and correction layer. It decides what runs where and in what order &mdash; your existing tools do the actual work.
+      </p>
+    </div>
+
+    <!-- Routing diagram -->
+    <div class="aif-frame reveal">
+      <div class="aif-frame-header">
+        <span class="aif-frame-dot" style="background:#ff5f57"></span>
+        <span class="aif-frame-dot" style="background:#febc2e"></span>
+        <span class="aif-frame-dot" style="background:#28c840"></span>
+        <span class="text-dim text-xs ml-2 font-mono">compass &middot; tool routing &middot; live view</span>
+      </div>
+      <div class="aif-frame-body">
+        <div class="ta-diagram">
+          <!-- Top groups — inputs feed up into Compass -->
+          <div class="ta-groups-wrapper">
+            <div class="ta-group">
+              <span class="ta-group-label">Automation</span>
+              <div class="flex flex-wrap gap-2 justify-center">
+                <span class="ta-chip"><span class="ta-chip-dot" style="background:#F97316"></span>Zapier</span>
+                <span class="ta-chip"><span class="ta-chip-dot" style="background:#8B5CF6"></span>Make</span>
+                <span class="ta-chip"><span class="ta-chip-dot" style="background:#06B6D4"></span>Lindy</span>
+                <span class="ta-chip"><span class="ta-chip-dot" style="background:#10B981"></span>n8n</span>
+              </div>
+            </div>
+            <div class="ta-group">
+              <span class="ta-group-label">Models</span>
+              <div class="flex flex-wrap gap-2 justify-center">
+                <span class="ta-chip"><span class="ta-chip-dot" style="background:#10a37f"></span>OpenAI</span>
+                <span class="ta-chip"><span class="ta-chip-dot" style="background:#CC785C"></span>Claude</span>
+                <span class="ta-chip"><span class="ta-chip-dot" style="background:#4285F4"></span>Gemini</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Connector arms up to center node -->
+          <div style="display:flex;justify-content:center;gap:80px;width:100%;padding:0 20px;position:relative;height:32px;margin:0;">
+            <div style="display:flex;justify-content:center;gap:60px;width:100%;position:absolute;top:0;left:0;right:0;align-items:flex-start;">
+              <!-- left arm -->
+              <div style="width:2px;height:32px;background:linear-gradient(to bottom,rgba(79,107,255,0.18),rgba(79,107,255,0.55));border-radius:2px;margin:0 auto;flex-shrink:0;"></div>
+              <!-- right arm -->
+              <div style="width:2px;height:32px;background:linear-gradient(to bottom,rgba(79,107,255,0.18),rgba(79,107,255,0.55));border-radius:2px;margin:0 auto;flex-shrink:0;"></div>
+            </div>
+          </div>
+
+          <!-- Center: Compass node -->
+          <div class="ta-center-node" style="margin:0 auto;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7B8FFF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-bottom:4px"><circle cx="12" cy="12" r="10"/><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span class="ta-center-label">Compass</span>
+            <span class="ta-center-sub">routing &middot; priority &middot; correction</span>
+          </div>
+
+          <!-- Arrow down -->
+          <div class="ta-arrow-line" style="margin:0 auto;"></div>
+
+          <!-- Output label -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:4px;">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.10em;color:#52525b;text-transform:uppercase;">Output</span>
+            <span class="ta-chip" style="background:rgba(79,107,255,0.10);border-color:rgba(79,107,255,0.28);color:#a1a1aa;">Unified dashboard &middot; task list &middot; AI summary</span>
+          </div>
+        </div>
+
+        <div class="aif-honesty" style="margin-top:24px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>Klaut owns the routing, priority and correction layer. The external tools do the doing &mdash; Compass decides what runs where, and in what order.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- hairline -->
+<div class="max-w-content mx-auto px-6 md:px-10"><div class="hairline"></div></div>
+
+<!-- ================= SECTION B — UNIFIED WORKSPACE ================= -->
+<section class="py-24 md:py-32">
+  <div class="max-w-content mx-auto px-6 md:px-10">
+    <div class="reveal max-w-2xl mb-14">
+      <div class="eyebrow mb-4">/ Unified workspace</div>
+      <h2 class="text-[clamp(28px,3.6vw,44px)] font-semibold tracking-tight leading-[1.1]">
+        One unified workspace.
+      </h2>
+      <p class="mt-4 text-muted text-[17px] leading-relaxed">
+        Tasks, events and signals from every connected tool flow into a single list. Nothing is hidden, relabelled, or stripped of context.
+      </p>
+    </div>
+
+    <!-- Task list demo -->
+    <div class="aif-frame reveal">
+      <div class="aif-frame-header">
+        <span class="aif-frame-dot" style="background:#ff5f57"></span>
+        <span class="aif-frame-dot" style="background:#febc2e"></span>
+        <span class="aif-frame-dot" style="background:#28c840"></span>
+        <span class="text-dim text-xs ml-2 font-mono">compass &middot; unified task list &middot; today</span>
+      </div>
+      <div class="aif-frame-body">
+
+        <!-- AI summary pill -->
+        <div class="aif-infer-pill" style="margin-bottom:24px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          AI summary: 3 tasks need attention today &mdash; 1 overdue, 1 due Fri, 1 meeting in 2 h.
+        </div>
+
+        <!-- Task rows -->
+        <div role="list" aria-label="Unified task list">
+
+          <!-- Row 1 -->
+          <div class="ta-task-row" role="listitem">
+            <span class="ta-source-pill" style="background:rgba(249,115,22,0.12);border:1px solid rgba(249,115,22,0.28);color:#FB923C;">
+              Asana
+            </span>
+            <span class="ta-task-title">Ship Q3 onboarding flow</span>
+            <span class="ta-task-status">In progress</span>
+          </div>
+
+          <!-- Row 2 -->
+          <div class="ta-task-row" role="listitem">
+            <span class="ta-source-pill" style="background:rgba(52,211,153,0.10);border:1px solid rgba(52,211,153,0.25);color:#34d399;">
+              Slack
+            </span>
+            <span class="ta-task-title">Follow up with vendor on SSO</span>
+            <span class="ta-task-status">Today</span>
+          </div>
+
+          <!-- Row 3 -->
+          <div class="ta-task-row" role="listitem">
+            <span class="ta-source-pill" style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.28);color:#818cf8;">
+              Notion
+            </span>
+            <span class="ta-task-title">Finalise pricing one-pager</span>
+            <span class="ta-task-status">Due Fri</span>
+          </div>
+
+          <!-- Row 4 -->
+          <div class="ta-task-row" role="listitem">
+            <span class="ta-source-pill" style="background:rgba(66,133,244,0.12);border:1px solid rgba(66,133,244,0.28);color:#60a5fa;">
+              Calendar
+            </span>
+            <span class="ta-task-title">Design review</span>
+            <span class="ta-task-status">14:00</span>
+          </div>
+
+          <!-- Row 5 — native Compass task -->
+          <div class="ta-task-row" role="listitem">
+            <span class="ta-source-pill" style="background:rgba(79,107,255,0.14);border:1px solid rgba(79,107,255,0.36);color:#7B8FFF;">
+              Compass
+            </span>
+            <span class="ta-task-title">Review focus-time report</span>
+            <span class="ta-task-status status-new">New</span>
+          </div>
+
+        </div>
+
+        <div class="aif-honesty">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>Every item keeps a permanent source badge &mdash; you always know where it came from. Native Compass tasks live in the same list. Compass adds an AI &ldquo;what to work on first&rdquo; summary over the merged view.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- hairline -->
+<div class="max-w-content mx-auto px-6 md:px-10"><div class="hairline"></div></div>
+
+<!-- ================= SECTION C — BYOA ================= -->
+<section class="py-24 md:py-32">
+  <div class="max-w-content mx-auto px-6 md:px-10">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+
+      <div class="reveal">
+        <div class="eyebrow mb-4">/ Bring your own accounts</div>
+        <h2 class="text-[clamp(28px,3.6vw,44px)] font-semibold tracking-tight leading-[1.1] mb-6">
+          Bring your own accounts.
+        </h2>
+        <p class="text-muted text-[17px] leading-relaxed mb-8">
+          Connect your existing Zapier, Make, OpenAI, Claude or Gemini accounts. Klaut orchestrates on top &mdash; so there&rsquo;s no per-seat AI markup, and your data and spend stay under your contracts.
+        </p>
+        <div class="flex flex-col gap-4">
+          <div class="aif-bullet">
+            <span class="aif-bullet-dot" aria-hidden="true"></span>
+            <span>Your automation accounts (Zapier, Make, n8n, Lindy) remain entirely yours &mdash; Klaut only adds routing logic on top.</span>
+          </div>
+          <div class="aif-bullet">
+            <span class="aif-bullet-dot" aria-hidden="true"></span>
+            <span>Your model API keys (OpenAI, Claude, Gemini) stay in your name and billing &mdash; Klaut never resells tokens.</span>
+          </div>
+          <div class="aif-bullet">
+            <span class="aif-bullet-dot" aria-hidden="true"></span>
+            <span>Compass applies priority and correction logic &mdash; a thin, auditable layer with no hidden vendor lock-in.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <div class="ta-stat-block">
+          <div>
+            <div class="ta-stat-number">$0</div>
+            <div class="mt-3 text-[15px] font-semibold text-white">Klaut LLM cost passed to you</div>
+            <p class="mt-2 text-muted text-[14px] leading-relaxed">
+              Klaut does not proxy or mark up your AI spend. You bring your own model accounts &mdash; we add the orchestration layer only.
+            </p>
+          </div>
+          <div class="hairline" style="margin:4px 0;"></div>
+          <div class="flex flex-col gap-3 pt-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[13px] text-muted">Zapier / Make / n8n</span>
+              <span class="font-mono text-[12px] text-dim">Your account</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-[13px] text-muted">OpenAI / Claude / Gemini</span>
+              <span class="font-mono text-[12px] text-dim">Your API key</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-[13px] text-muted">Compass orchestration</span>
+              <span class="font-mono text-[12px]" style="color:#7B8FFF;">Klaut layer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- hairline -->
+<div class="max-w-content mx-auto px-6 md:px-10"><div class="hairline"></div></div>
+
+<!-- ================= SECTION D — WHAT IT IS NOT ================= -->
+<section class="py-24 md:py-32">
+  <div class="max-w-content mx-auto px-6 md:px-10">
+    <div class="grid md:grid-cols-2 gap-16 items-start">
+
+      <div class="reveal">
+        <div class="eyebrow mb-4">/ Honesty</div>
+        <h2 class="text-[clamp(28px,3.6vw,44px)] font-semibold tracking-tight leading-[1.1]">
+          What Tools automation is not.
+        </h2>
+        <p class="mt-4 text-muted text-[17px] leading-relaxed">
+          Compass is a thin orchestration and visibility layer. We&rsquo;re deliberate about what we&rsquo;re not trying to be.
+        </p>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <div class="not-row">
+          <div class="strike" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <div>
+            <div class="text-[15px] font-medium text-white mb-1">Not a workflow engine</div>
+            <p class="text-[14px] text-muted leading-relaxed">Klaut routes to Zapier, Make and n8n; it doesn&rsquo;t rebuild them. Your workflows, triggers and connectors live in the tools you already own.</p>
+          </div>
+        </div>
+        <div class="not-row">
+          <div class="strike" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <div>
+            <div class="text-[15px] font-medium text-white mb-1">Not an agent framework</div>
+            <p class="text-[14px] text-muted leading-relaxed">The doing happens in tools you control. Compass decides routing and order &mdash; it doesn&rsquo;t run an autonomous agent on your behalf or act without a clear trigger.</p>
+          </div>
+        </div>
+        <div class="not-row">
+          <div class="strike" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <div>
+            <div class="text-[15px] font-medium text-white mb-1">Not a reseller of AI</div>
+            <p class="text-[14px] text-muted leading-relaxed">You bring your own model accounts; there is no markup. Your API spend goes directly to the model provider under your contracts.</p>
+          </div>
+        </div>
+        <div class="not-row">
+          <div class="strike" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <div>
+            <div class="text-[15px] font-medium text-white mb-1">Not a data sink</div>
+            <p class="text-[14px] text-muted leading-relaxed">Source attribution is always shown; nothing is hidden or relabelled. Every task and event retains its origin badge so your team knows exactly where it came from.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTNOTE ================= -->
+<div class="max-w-content mx-auto px-6 md:px-10 pb-16">
+  <p class="text-xs text-dim leading-relaxed">
+    Compass orchestrates &mdash; it doesn&rsquo;t replace your tools or run a black-box agent. You bring your own accounts; Klaut adds routing, priority and correction. Source attribution is always shown.
+  </p>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer class="border-t border-line">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-16 grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-5">
+      <div class="flex items-center gap-2.5">
+        <img src="/klaut-K-mark.png?v=1" alt="" class="brand-mark"/>
+        <span class="font-semibold tracking-tight text-[17px]">Klaut</span>
+      </div>
+      <p class="mt-6 max-w-sm text-[14px] text-muted leading-relaxed">
+        Enterprise AI Transformation Ecosystem. Strategy, talent, models, and governance &mdash; engineered as one system.
+      </p>
+      <div class="mt-7 font-mono text-[12px] text-dim">Jakarta - And the rest of the world</div>
+    </div>
+
+    <div class="md:col-span-2">
+      <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Ecosystem</div>
+      <ul class="space-y-3.5 text-[15px]">
+        <li><a href="https://klaut.id/consulting" class="text-muted link-hover">Consulting</a></li>
+        <li><a href="https://klaut.id/cao" class="text-muted link-hover">Chief AI Officer</a></li>
+        <li><a href="https://compass.klaut.id/" class="text-muted link-hover">Compass</a></li>
+        <li><a href="https://klaut.id/audit" class="text-muted link-hover">Audit</a></li>
+      </ul>
+    </div>
+
+    <div class="md:col-span-2">
+      <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">COMPANY</div>
+      <ul class="space-y-3.5 text-[15px]">
+        <li><a href="https://klaut.id/about" class="text-muted link-hover">About</a></li>
+        <li><a href="https://klaut.id/career" class="text-muted link-hover">Career</a></li>
+        <li><a href="https://klaut.id/partners" class="text-muted link-hover">Partners</a></li>
+        <li><a href="https://klaut.id/articles" class="text-muted link-hover">Articles</a></li>
+      </ul>
+    </div>
+
+    <div class="md:col-span-3">
+      <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Contact</div>
+      <ul class="space-y-3.5 text-[15px]">
+        <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Contact Us</a></li>
+        <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Media Contact</a></li>
+        <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Partnership Contact</a></li>
+        <li><a href="https://klaut.id/help-center" class="text-muted link-hover">Resource Center</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-line">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-dim">
+      <div>&copy; 2026 Klaut AI &middot; All rights reserved.</div>
+      <div class="flex gap-6">
+        <a href="https://klaut.id/privacy" class="link-hover">Privacy</a>
+        <a href="https://klaut.id/terms" class="link-hover">Terms</a>
+        <a href="https://klaut.id/security" class="link-hover">Security</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  const updateNav = () => {
+    if (window.scrollY > 12) nav.classList.add('nav-scrolled');
+    else nav.classList.remove('nav-scrolled');
+  };
+  updateNav();
+  window.addEventListener('scroll', updateNav, { passive: true });
+
+  // Scroll-reveal — robust against missed initial IO records
+  const initReveal = () => {
+    const els = document.querySelectorAll('.reveal');
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    // Immediately reveal anything already in (or above) the initial viewport
+    els.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < vh * 0.95) el.classList.add('in');
+    });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+    els.forEach((el) => { if (!el.classList.contains('in')) io.observe(el); });
+    // Safety net
+    setTimeout(() => document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in')), 1500);
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(initReveal));
+  } else {
+    requestAnimationFrame(initReveal);
+  }
+
+  // Mobile menu
+  const mm = document.getElementById('mobileMenu');
+  document.getElementById('hamburger').addEventListener('click', () => mm.classList.remove('hidden'));
+  document.querySelectorAll('[data-close-menu]').forEach(el =>
+    el.addEventListener('click', () => mm.classList.add('hidden'))
+  );
+</script>
+
+<link rel="stylesheet" href="/assets/slime-widget.css">
+<script>window.__slimeLang = 'en';</script>
+<button id="slime-fab" data-state="idle" aria-label="Open Compass Copilot">
+  <span class="slime-nudge" id="slime-nudge"></span>
+</button>
+<div class="fab-bubble" id="fab-bubble" role="status" aria-live="polite">
+  <small><span class="fab-bubble-dot"></span><span id="fab-bubble-eyebrow">Compass</span></small>
+  <span id="fab-bubble-txt"></span>
+</div>
+<div id="ai-panel" data-state="idle" aria-hidden="true" role="dialog" aria-label="Compass Copilot">
+  <div class="ai-h">
+    <span class="ava" aria-hidden="true"></span>
+    <span class="htxt">
+      <b id="ai-panel-title">Compass Copilot</b>
+      <span class="stat"><i></i><span id="ai-stat">Online &middot; ready</span></span>
+    </span>
+    <button class="x" id="ai-x" title="Close" aria-label="Close">&times;</button>
+  </div>
+  <div id="ai-log"></div>
+  <div class="ai-chips">
+    <button class="ai-chip">What is Compass?</button>
+    <button class="ai-chip">See pricing plans</button>
+    <button class="ai-chip">Book a demo</button>
+    <button class="ai-chip">Talk to sales</button>
+  </div>
+  <form id="ai-form" autocomplete="off">
+    <input id="ai-in" placeholder="Ask about Compass..." aria-label="Message"/>
+    <button type="submit">Send</button>
+  </form>
+</div>
+<div id="compass-slime-chat" role="dialog" aria-label="How can I help you?" aria-hidden="true">
+  <div class="csc-header">
+    <span class="csc-eyebrow">COMPASS AI</span>
+    <span class="csc-dot" aria-hidden="true"></span>
+    <button class="csc-close" id="csc-close" aria-label="Close">&times;</button>
+  </div>
+  <p class="csc-greeting">Hi! What can I help you with today?</p>
+  <div class="csc-grid" id="csc-cta-grid"><!-- populated by JS --></div>
+  <div class="csc-input-row">
+    <input class="csc-input" id="csc-input" type="text" placeholder="Or ask me anything..." autocomplete="off" aria-label="Ask Compass AI"/>
+    <button class="csc-send" id="csc-send">Send</button>
+  </div>
+  <p class="csc-footer">Klaut surfaces options &mdash; you decide what to do. AI assistant in development.</p>
+</div>
+<div id="slime-toast" style="position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:#4F6BFF;color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;font-family:Inter,sans-serif;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:10000"></div>
+<script type="module" src="/assets/slime-widget.js"></script>
+<!-- end Slime Widget -->
+
+<script id="nav-dropdown-script">
+(function () {
+  function init() {
+    document.querySelectorAll('.nav-dd-btn').forEach(function (btn) {
+      var panel = btn.nextElementSibling;
+      if (!panel || !panel.classList.contains('nav-dd-panel')) return;
+      var dd = btn.parentElement;
+      dd.addEventListener('mouseenter', function () { open(btn, panel); });
+      dd.addEventListener('mouseleave', function () { close(btn, panel); });
+      btn.addEventListener('click', function () { toggle(btn, panel); });
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(btn, panel); }
+        if (e.key === 'Escape') { close(btn, panel); btn.focus(); }
+      });
+      panel.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { close(btn, panel); btn.focus(); }
+      });
+    });
+    document.addEventListener('click', function (e) {
+      document.querySelectorAll('.nav-dd-btn').forEach(function (btn) {
+        var panel = btn.nextElementSibling;
+        if (panel && !btn.parentElement.contains(e.target)) close(btn, panel);
+      });
+    });
+  }
+  function open(btn, panel) { panel.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+  function close(btn, panel) { panel.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+  function toggle(btn, panel) { panel.classList.contains('open') ? close(btn, panel) : open(btn, panel); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+}());
+</script>
+</body>
+</html>
