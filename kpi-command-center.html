@@ -1,0 +1,899 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<!-- Primary SEO -->
+<title>KPI Command Center — Compass by Klaut</title>
+<meta name="description" content="Define per-org KPIs, set monthly and quarterly period targets, bulk-upload actuals via CSV, and track pacing vs target live across employee, manager, and employer views in Compass."/>
+<meta name="keywords" content="KPI tracking, OKR, performance targets, bulk upload CSV, pacing vs target, workforce KPIs, Klaut Compass, KPI command center"/>
+<meta name="author" content="Klaut"/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/>
+<meta name="googlebot" content="index, follow"/>
+<meta name="theme-color" content="#0a0a0a"/>
+<link rel="canonical" href="https://klaut.id/kpi-command-center"/>
+
+<!-- Language alternates -->
+<link rel="alternate" hreflang="id" href="https://klaut.id/id/kpi-command-center"/>
+<link rel="alternate" hreflang="en" href="https://klaut.id/kpi-command-center"/>
+<link rel="alternate" hreflang="x-default" href="https://klaut.id/kpi-command-center"/>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Klaut Compass"/>
+<meta property="og:url" content="https://klaut.id/kpi-command-center"/>
+<meta property="og:title" content="KPI Command Center — Compass by Klaut"/>
+<meta property="og:description" content="Define per-org KPIs, set period targets, bulk-upload actuals via CSV, and track pacing across all roles in one live view."/>
+<meta property="og:image" content="https://compass.klaut.id/og-image.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Klaut Compass — KPI Command Center"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:locale:alternate" content="id_ID"/>
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="KPI Command Center — Compass by Klaut"/>
+<meta name="twitter:description" content="Define KPIs, set targets, upload actuals, track pacing vs target. Live across all roles."/>
+<meta name="twitter:image" content="https://compass.klaut.id/og-image.png"/>
+
+<link rel="icon" type="image/svg+xml" href="/klaut-K.svg?v=4"/>
+<link rel="apple-touch-icon" href="/klaut-K.png?v=4"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'], mono: ['"JetBrains Mono"','ui-monospace','monospace'] },
+      colors: { bg:'#0a0a0a', surface:'#111111', surface2:'#1a1a1a', line:'#262626',
+                accent:'#4F6BFF', 'accent-2':'#7B8FFF', 'accent-deep':'#3854E5',
+                ink:'#ffffff', muted:'#a1a1aa', dim:'#71717a' },
+    }},
+  };
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family:'Inter',ui-sans-serif,system-ui,sans-serif; -webkit-font-smoothing:antialiased; background:#0a0a0a; color:#fff; }
+  .dot-grid { background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 24px 24px; }
+  .orb { position:absolute; border-radius:9999px; filter:blur(80px); opacity:.45; pointer-events:none; }
+  .orb-1 { width:520px; height:520px; background:radial-gradient(circle at 30% 30%, #4F6BFF, transparent 60%); top:-160px; left:-120px; animation:float 12s ease-in-out infinite; }
+  .orb-2 { width:460px; height:460px; background:radial-gradient(circle at 70% 40%, #2D1B69, transparent 60%); top:5%; right:-180px; animation:float 14s ease-in-out infinite reverse; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .reveal { opacity:0; transform:translateY(20px); transition:opacity 700ms cubic-bezier(.2,.8,.2,1), transform 700ms cubic-bezier(.2,.8,.2,1); }
+  .reveal.in { opacity:1; transform:translateY(0); }
+  .btn { display:inline-flex; align-items:center; gap:8px; padding:14px 24px; border-radius:8px; font-weight:500; font-size:15px; transition:all 200ms cubic-bezier(.2,.8,.2,1); cursor:pointer; border:0; }
+  .btn-primary { background:#4F6BFF; color:#fff; }
+  .btn-primary:hover { background:#3854E5; box-shadow:0 0 0 1px rgba(99,102,241,.4), 0 12px 32px -8px rgba(99,102,241,.6); transform:translateY(-1px); }
+  .btn-ghost { background:rgba(255,255,255,.04); color:#fff; border:1px solid rgba(255,255,255,.1); }
+  .btn-ghost:hover { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.2); }
+  .eyebrow { font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:.18em; color:#7B8FFF; }
+  .link-hover { transition:color 180ms; } .link-hover:hover { color:#fff; }
+  .brand-mark { width:22px; height:22px; object-fit:contain; display:block; flex-shrink:0; }
+  @media (min-width:768px){ .brand-mark { width:24px; height:24px; } }
+  @media (min-width:1024px){ .brand-mark { width:26px; height:26px; } }
+  .hl-grad { background:linear-gradient(90deg,#fff 0%,#c7d2fe 55%,#4F6BFF 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .step { position:relative; padding:24px; border:1px solid #262626; border-radius:14px; background:#111; transition:border-color 240ms, transform 240ms, box-shadow 240ms; }
+  .step:hover { border-color:rgba(99,102,241,.4); transform:translateY(-3px); box-shadow:0 24px 60px -30px rgba(99,102,241,.5); }
+  .step-idx { font-family:'JetBrains Mono',monospace; font-size:12px; color:#7B8FFF; letter-spacing:.08em; }
+  .pill { display:inline-flex; align-items:center; gap:8px; padding:6px 12px; border-radius:9999px; background:rgba(99,102,241,.10); border:1px solid rgba(99,102,241,.25); font-size:12px; color:#e4e4e7; }
+  .hero-grid { -webkit-mask-image:linear-gradient(to right, #000 0%, #000 45%, transparent 80%); mask-image:linear-gradient(to right, #000 0%, #000 45%, transparent 80%); }
+  .hero-copy { max-width:100%; }
+  @media (min-width:768px){ .hero-copy { max-width:64%; } }
+  @media (min-width:1024px){ .hero-copy { max-width:58%; } }
+  @media (min-width:1280px){ .hero-copy { max-width:60%; } }
+  .demo-frame { border:1px solid #262626; border-radius:16px; background:#0d0d0d; overflow:hidden; box-shadow:0 40px 120px -40px rgba(99,102,241,.3); }
+  .demo-bar { display:flex; align-items:center; gap:14px; padding:12px 16px; border-bottom:1px solid #1f1f1f; background:#121212; flex-wrap:wrap; }
+  .demo-dots { display:flex; gap:6px; }
+  .demo-dots i { width:10px; height:10px; border-radius:9999px; background:#2e2e2e; display:block; }
+  .demo-title { font-family:'JetBrains Mono',monospace; font-size:12px; color:#a1a1aa; }
+  .seg { display:inline-flex; background:#161616; border:1px solid #262626; border-radius:9999px; padding:3px; gap:2px; margin-left:auto; }
+  .seg button { font:500 12px/1 'JetBrains Mono',monospace; color:#a1a1aa; padding:7px 12px; border-radius:9999px; border:0; background:transparent; cursor:pointer; transition:all .18s; }
+  .seg button.on { background:#4F6BFF; color:#fff; }
+  .metric { border:1px solid #232323; border-radius:12px; background:#111; padding:16px; }
+  .metric .lbl { font-size:11px; color:#71717a; text-transform:uppercase; letter-spacing:.12em; }
+  .metric .val { font-size:26px; font-weight:600; margin-top:8px; font-variant-numeric:tabular-nums; letter-spacing:-.02em; }
+  .metric .dlt { font-size:12px; margin-top:6px; font-family:'JetBrains Mono',monospace; color:#71717a; }
+  .good { color:#34d399; }
+  .warn { color:#f59e0b; }
+  .bad { color:#f87171; }
+  .bar { height:7px; border-radius:9999px; background:#1f1f1f; overflow:hidden; }
+  .bar i { display:block; height:100%; border-radius:9999px; background:linear-gradient(90deg,#4F6BFF,#7B8FFF); transition:width .6s cubic-bezier(.2,.8,.2,1); }
+  .bar.warn-bar i { background:linear-gradient(90deg,#f59e0b,#fbbf24); }
+  .bar.bad-bar i { background:linear-gradient(90deg,#f87171,#fca5a5); }
+  .drow { display:flex; align-items:center; gap:14px; padding:12px 0; border-top:1px solid #1b1b1b; }
+  .drow:first-child { border-top:0; }
+  .kv { display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+  @media (max-width:700px){ .demo-bar { gap:12px; } .seg { margin-left:0; width:100%; } .seg button { flex:1; text-align:center; } }
+  ::selection { background:rgba(99,102,241,.35); color:#fff; }
+
+/* === MEGA-NAV === */
+#nav img.brand-mark, #mobileMenu img.brand-mark { width:28px; height:28px; object-fit:contain; display:block; flex-shrink:0; background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; }
+#nav a, #mobileMenu a { text-decoration:none; }
+.btn { display:inline-flex; align-items:center; gap:6px; font:500 14px/1 'Inter',ui-sans-serif,system-ui,sans-serif; letter-spacing:-0.005em; height:36px; padding:0 18px; border-radius:8px; text-decoration:none; transition:background 180ms cubic-bezier(0.2,0.8,0.2,1), border-color 180ms cubic-bezier(0.2,0.8,0.2,1), color 180ms cubic-bezier(0.2,0.8,0.2,1); }
+.btn-primary { background:var(--accent,#4F6BFF); border:1px solid var(--accent,#4F6BFF); color:#fff; }
+.btn-primary:hover { background:var(--accent-deep,#3854E5); border-color:var(--accent-deep,#3854E5); }
+.btn-ghost { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); color:var(--ink,#fff); }
+.btn-ghost:hover { background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.18); }
+.link-hover { transition:color 180ms; }
+.link-hover:hover { color:#fff; }
+.btn { height:44px !important; padding:0 20px !important; font-size:14px !important; }
+#nav [role="group"][aria-label="Select language"], #nav [role="group"][aria-label="Pilih bahasa"] { height:44px !important; padding:4px !important; }
+#nav [role="group"][aria-label="Select language"] a, #nav [role="group"][aria-label="Pilih bahasa"] a { height:36px !important; padding:0 14px !important; display:inline-flex !important; align-items:center !important; font-size:13px !important; }
+#nav > div > div:last-child { gap:12px !important; }
+
+/* === KPI COMMAND CENTER PAGE — kpi-* prefix === */
+.kpi-value-block { border:1px solid #1e1e1e; border-radius:14px; background:#0d0d0d; padding:28px; display:flex; flex-direction:column; gap:10px; }
+.kpi-value-icon { width:36px; height:36px; border-radius:10px; background:rgba(79,107,255,.12); border:1px solid rgba(79,107,255,.2); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.kpi-value-title { font-size:16px; font-weight:600; }
+.kpi-value-body { font-size:14px; color:#a1a1aa; line-height:1.6; }
+
+.kpi-role-card { border:1px solid #1e1e1e; border-radius:12px; background:#0d0d0d; padding:20px; }
+.kpi-role-label { font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:.12em; color:#7B8FFF; margin-bottom:8px; }
+.kpi-role-title { font-size:15px; font-weight:600; margin-bottom:6px; }
+.kpi-role-body { font-size:13px; color:#a1a1aa; line-height:1.55; }
+
+.kpi-card { border:1px solid #1e1e1e; border-radius:12px; background:#111; padding:16px 18px; }
+.kpi-card-name { font-size:13px; font-weight:600; margin-bottom:2px; }
+.kpi-card-meta { font-size:11px; color:#71717a; font-family:'JetBrains Mono',monospace; margin-bottom:10px; }
+.kpi-card-vals { display:flex; justify-content:space-between; align-items:baseline; gap:8px; margin-bottom:8px; }
+.kpi-card-actual { font-size:20px; font-weight:700; font-variant-numeric:tabular-nums; letter-spacing:-.02em; }
+.kpi-card-target { font-size:12px; color:#71717a; font-family:'JetBrains Mono',monospace; }
+
+/* Chart container */
+.kpi-chart-wrap { padding:24px 24px 0; position:relative; }
+.kpi-chart-box { position:relative; height:300px; }
+@media (max-width:640px) { .kpi-chart-box { height:240px; } }
+.kpi-chart-caption { font-size:11px; color:#71717a; text-align:center; margin-top:12px; margin-bottom:16px; font-family:'JetBrains Mono',monospace; }
+</style>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-59BT0YK7NH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-59BT0YK7NH', { cookie_flags: 'SameSite=None;Secure' });
+</script>
+
+<style id="nav-dropdown-styles">
+.nav-dd { position:relative; }
+.nav-dd-btn { display:inline-flex; align-items:center; gap:4px; padding:8px 16px; font-size:.875rem; color:var(--muted,#a1a1aa); background:none; border:none; cursor:pointer; font-family:inherit; border-radius:8px; transition:color .15s; }
+.nav-dd-btn:hover, .nav-dd-btn[aria-expanded="true"] { color:#fff; }
+.nav-dd-btn svg { flex-shrink:0; transition:transform .2s; }
+.nav-dd-btn[aria-expanded="true"] svg { transform:rotate(180deg); }
+.nav-dd-btn:focus-visible { outline:1px solid var(--accent,#4F6BFF); outline-offset:2px; border-radius:4px; }
+.nav-dd-panel { position:absolute; top:calc(100% + 6px); left:50%; transform:translateX(-50%) translateY(-4px); background:var(--surface,#111111); border:1px solid var(--line,#262626); border-radius:12px; box-shadow:0 8px 32px rgba(0,0,0,.55); opacity:0; visibility:hidden; transition:opacity .15s, visibility .15s, transform .15s; z-index:100; }
+.nav-dd-panel.open { opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
+.nav-dd-panel.panel-help { width:200px; padding:8px; }
+.nav-dd-panel.panel-help a { display:block; padding:8px 14px; border-radius:8px; font-size:13px; color:var(--muted,#a1a1aa); text-decoration:none; transition:background .12s, color .12s; line-height:1.4; }
+.nav-dd-panel.panel-help a:hover { background:rgba(255,255,255,.06); color:#fff; }
+.nav-dd-panel.panel-mega { width:680px; padding:24px; }
+@media (max-width:800px) { .nav-dd-panel.panel-mega { width:calc(100vw - 24px); left:0; transform:translateY(-4px); } .nav-dd-panel.panel-mega.open { transform:translateY(0); } }
+.mega-cols { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; }
+.mega-col-header { display:block; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:.12em; color:rgba(255,255,255,.45); padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,.08); margin-bottom:10px; }
+.mega-items { display:flex; flex-direction:column; }
+.mega-items a { display:block; padding:8px 0; font-size:13px; line-height:1.4; color:var(--muted,#a1a1aa); text-decoration:none; transition:color .12s; }
+.mega-items a:hover { color:#fff; }
+.nav-dd-panel.panel-mega--4 { width:860px; padding:24px; }
+@media (max-width:900px) { .nav-dd-panel.panel-mega--4 { width:calc(100vw - 24px); left:0; transform:translateY(-4px); } .nav-dd-panel.panel-mega--4.open { transform:translateY(0); } }
+.mega-cols--4 { display:grid; grid-template-columns:repeat(4,1fr); gap:28px; }
+.mega-items a.mega-view-all { color:rgba(255,255,255,.5); font-style:italic; }
+.mega-items a.mega-view-all:hover { color:rgba(255,255,255,.8); }
+nav[aria-label="Primary"] { position:relative; }
+.nav-dd:has(.panel-mega), .nav-dd:has(.panel-mega--4) { position:static; }
+.nav-dd-panel.panel-mega, .nav-dd-panel.panel-mega--4 { left:0; transform:translateY(-4px); }
+.nav-dd-panel.panel-mega.open, .nav-dd-panel.panel-mega--4.open { transform:translateY(0); }
+</style>
+</head>
+<body class="bg-bg text-ink">
+
+<!-- NAV -->
+<header id="nav" class="fixed top-0 inset-x-0 z-40 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-6">
+      <a href="https://klaut.id/" class="flex items-center gap-2.5 group" aria-label="Klaut — back to klaut.id">
+        <img src="/klaut-K-mark.png?v=1" alt="" class="brand-mark"/>
+      </a>
+      <nav class="hidden md:flex items-center gap-1" aria-label="Primary">
+        <a href="https://klaut.id/why-klaut" class="px-4 py-2 text-sm text-muted link-hover">Why Klaut</a>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-kpi-prod">Product
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-kpi-prod" class="nav-dd-panel panel-mega" role="menu" aria-label="Product">
+            <div class="mega-cols">
+              <div>
+                <span class="mega-col-header">Platform</span>
+                <div class="mega-items">
+                  <a href="https://klaut.id/" role="menuitem">Klaut AI</a>
+                  <a href="https://compass.klaut.id/" role="menuitem">Compass</a>
+                  <a href="https://klaut.id/marketplace" role="menuitem">Klaut Marketplace</a>
+                  <a href="https://klaut.id/learning" role="menuitem">Klaut Learning Center</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Capabilities</span>
+                <div class="mega-items">
+                  <a href="/work-patterns" role="menuitem">Work patterns intelligence</a>
+                  <a href="/error-detection" role="menuitem">Error detection &amp; correction</a>
+                  <a href="/kpi-command-center" role="menuitem" aria-current="page">KPI Command Center</a>
+                  <a href="/report-card" role="menuitem">Report Card &amp; analytics</a>
+                  <a href="/admin-security" role="menuitem">Admin &amp; security</a>
+                  <a href="/tools-integration" role="menuitem">Tools integration</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">AI Features</span>
+                <div class="mega-items">
+                  <a href="https://klaut.id/ai/inference" role="menuitem">Inference Engine</a>
+                  <a href="https://klaut.id/ai/copilot" role="menuitem">AI Copilot (Slime)</a>
+                  <a href="https://klaut.id/ai/decision-support" role="menuitem">Decision Support</a>
+                  <a href="https://klaut.id/ai/tools-automation" role="menuitem">Tools automation</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-kpi-sol">Solutions
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-kpi-sol" class="nav-dd-panel panel-mega panel-mega--4" role="menu" aria-label="Solutions">
+            <div class="mega-cols mega-cols--4">
+              <div>
+                <span class="mega-col-header">Company Type</span>
+                <div class="mega-items">
+                  <a href="https://klaut.id/solutions/solo" role="menuitem">Solo</a>
+                  <a href="https://klaut.id/solutions/team" role="menuitem">Team</a>
+                  <a href="https://klaut.id/solutions/enterprise" role="menuitem">Enterprise</a>
+                  <a href="https://klaut.id/solutions/partners" role="menuitem">Partners</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">MANAGEMENT</span>
+                <div class="mega-items">
+                  <a href="https://klaut.id/solutions/employer" role="menuitem">Employer</a>
+                  <a href="https://klaut.id/solutions/manager" role="menuitem">Manager</a>
+                  <a href="https://klaut.id/solutions/hr" role="menuitem">HR</a>
+                  <a href="https://klaut.id/solutions/employee" role="menuitem">Employee</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Industries</span>
+                <div class="mega-items">
+                  <a href="https://klaut.id/solutions/industries/education" role="menuitem">Education</a>
+                  <a href="https://klaut.id/solutions/industries/insurance" role="menuitem">Insurance</a>
+                  <a href="https://klaut.id/solutions/industries/financial-services" role="menuitem">Financial Services</a>
+                  <a href="https://klaut.id/solutions/industries/technology" role="menuitem">Technology</a>
+                  <a href="https://klaut.id/solutions/industries/ecommerce" role="menuitem">E-commerce</a>
+                  <a href="https://klaut.id/solutions/industries/healthcare" role="menuitem">Healthcare</a>
+                  <a href="https://klaut.id/solutions/industries" role="menuitem" class="mega-view-all">View all industries</a>
+                </div>
+              </div>
+              <div>
+                <span class="mega-col-header">Use Cases</span>
+                <div class="mega-items">
+                  <a href="https://klaut.id/use-cases/ai-readiness" role="menuitem">AI readiness audit</a>
+                  <a href="https://klaut.id/use-cases/workforce-intelligence" role="menuitem">Workforce intelligence</a>
+                  <a href="https://klaut.id/use-cases/integration" role="menuitem">Cross-tool integration</a>
+                  <a href="https://klaut.id/use-cases/honest-reports" role="menuitem">Honest performance reports</a>
+                  <a href="https://klaut.id/use-cases/compliance" role="menuitem">Compliance &amp; privacy</a>
+                  <a href="https://klaut.id/use-cases" role="menuitem" class="mega-view-all">View all use cases</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="ndd-kpi-help">Help
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="ndd-kpi-help" class="nav-dd-panel panel-help" role="menu" aria-label="Help">
+            <a href="https://klaut.id/help-center" role="menuitem">Help Center</a>
+            <a href="https://klaut.id/help-center" role="menuitem">Resource Center</a>
+            <a href="mailto:hello@klaut.id" role="menuitem">Contact Us</a>
+          </div>
+        </div>
+        <a href="https://klaut.id/pricing" class="px-4 py-2 text-sm text-muted link-hover">Pricing</a>
+      </nav>
+    </div>
+    <div class="hidden md:flex items-center gap-3">
+      <div class="flex items-center rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium" role="group" aria-label="Select language">
+        <a href="/id/kpi-command-center" class="px-3 py-1.5 rounded-full text-muted hover:text-white transition-colors">ID</a>
+        <a href="/kpi-command-center" class="px-3 py-1.5 rounded-full bg-white/10 text-white" aria-current="page">EN</a>
+      </div>
+      <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" class="btn btn-primary">Book a call
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="https://compass-app.klaut.id/" target="_blank" rel="noopener" class="btn btn-ghost">Demo</a>
+    </div>
+    <button id="hamburger" class="md:hidden p-2 rounded-lg hover:bg-white/5" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div id="mobileMenu" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-close-menu></div>
+  <aside class="absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-surface border-l border-line p-6 flex flex-col gap-1">
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-2">
+        <img src="/klaut-K-mark.png?v=1" alt="" class="brand-mark"/>
+      </div>
+      <button data-close-menu class="p-2 rounded-lg hover:bg-white/5" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
+    </div>
+    <a href="https://klaut.id/why-klaut" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Why Klaut</a>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Product</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-4 flex flex-col gap-0 mt-1">
+        <p class="px-4 pt-2 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Platform</p>
+        <a href="https://klaut.id/" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut AI</a>
+        <a href="https://compass.klaut.id/" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Compass</a>
+        <a href="https://klaut.id/marketplace" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut Marketplace</a>
+        <a href="https://klaut.id/learning" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Klaut Learning Center</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Capabilities</p>
+        <a href="/work-patterns" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Work patterns intelligence</a>
+        <a href="/error-detection" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Error detection &amp; correction</a>
+        <a href="/kpi-command-center" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-white text-[13px]" aria-current="page">KPI Command Center</a>
+        <a href="/report-card" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Report Card &amp; analytics</a>
+        <a href="/admin-security" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Admin &amp; security</a>
+        <a href="/tools-integration" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Tools integration</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">AI Features</p>
+        <a href="https://klaut.id/ai/inference" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Inference Engine</a>
+        <a href="https://klaut.id/ai/copilot" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">AI Copilot (Slime)</a>
+        <a href="https://klaut.id/ai/decision-support" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Decision Support</a>
+        <a href="https://klaut.id/ai/tools-automation" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Tools automation</a>
+      </div>
+    </details>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Solutions</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-4 flex flex-col gap-0 mt-1">
+        <p class="px-4 pt-2 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Company Type</p>
+        <a href="https://klaut.id/solutions/solo" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Solo</a>
+        <a href="https://klaut.id/solutions/team" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Team</a>
+        <a href="https://klaut.id/solutions/enterprise" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Enterprise</a>
+        <a href="https://klaut.id/solutions/partners" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Partners</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">MANAGEMENT</p>
+        <a href="https://klaut.id/solutions/employer" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Employer</a>
+        <a href="https://klaut.id/solutions/manager" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Manager</a>
+        <a href="https://klaut.id/solutions/hr" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">HR</a>
+        <a href="https://klaut.id/solutions/employee" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Employee</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Industries</p>
+        <a href="https://klaut.id/solutions/industries/education" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Education</a>
+        <a href="https://klaut.id/solutions/industries/insurance" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Insurance</a>
+        <a href="https://klaut.id/solutions/industries/financial-services" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Financial Services</a>
+        <a href="https://klaut.id/solutions/industries/technology" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Technology</a>
+        <a href="https://klaut.id/solutions/industries/ecommerce" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">E-commerce</a>
+        <a href="https://klaut.id/solutions/industries/healthcare" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Healthcare</a>
+        <a href="https://klaut.id/solutions/industries" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-white/50 text-[13px] italic">View all industries</a>
+        <p class="px-4 pt-3 pb-1 text-[10px] font-medium uppercase tracking-[.12em] text-white/40">Use Cases</p>
+        <a href="https://klaut.id/use-cases/ai-readiness" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">AI readiness audit</a>
+        <a href="https://klaut.id/use-cases/workforce-intelligence" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Workforce intelligence</a>
+        <a href="https://klaut.id/use-cases/integration" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Cross-tool integration</a>
+        <a href="https://klaut.id/use-cases/honest-reports" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Honest performance reports</a>
+        <a href="https://klaut.id/use-cases/compliance" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-muted text-[13px]">Compliance &amp; privacy</a>
+        <a href="https://klaut.id/use-cases" data-close-menu class="px-4 py-2 rounded-lg hover:bg-white/5 text-white/50 text-[13px] italic">View all use cases</a>
+      </div>
+    </details>
+    <details class="group">
+      <summary class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted cursor-pointer flex items-center justify-between list-none">
+        <span>Help</span>
+        <svg class="w-4 h-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="pl-8 flex flex-col gap-0.5 mt-0.5">
+        <a href="https://klaut.id/help-center" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Help Center</a>
+        <a href="https://klaut.id/help-center" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Resource Center</a>
+        <a href="mailto:hello@klaut.id" data-close-menu class="px-4 py-2.5 rounded-lg hover:bg-white/5 text-muted text-[13px]">Contact Us</a>
+      </div>
+    </details>
+    <a href="https://klaut.id/pricing" data-close-menu class="px-4 py-3 rounded-lg hover:bg-white/5 text-muted">Pricing</a>
+    <div class="flex items-center justify-center mt-4 rounded-full border border-white/10 bg-white/5 p-0.5 text-xs font-medium w-fit mx-auto" role="group" aria-label="Select language">
+      <a href="/id/kpi-command-center" class="px-4 py-2 rounded-full text-muted hover:text-white transition-colors">Bahasa Indonesia</a>
+      <a href="/kpi-command-center" class="px-4 py-2 rounded-full bg-white/10 text-white" aria-current="page">English</a>
+    </div>
+    <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" data-close-menu class="btn btn-primary justify-center mt-4">Book a call</a>
+  </aside>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section class="relative overflow-hidden pt-16" style="isolation:isolate">
+  <div class="absolute inset-0 dot-grid hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-12 pb-20 lg:pt-16 lg:pb-28">
+    <div class="hero-copy">
+      <div class="reveal eyebrow mb-5">Capability &middot; KPI Command Center</div>
+      <h1 class="reveal text-5xl md:text-6xl xl:text-7xl font-semibold tracking-tight leading-[1.02]">
+        Set targets. Upload actuals.<br><span class="hl-grad">Track pacing live.</span>
+      </h1>
+      <p class="reveal mt-7 max-w-xl text-lg md:text-xl text-muted leading-relaxed">
+        Compass lets you define per-org KPIs, set monthly and quarterly period targets, bulk-upload actuals via CSV, and track pacing against target — rendered live across employee, manager, and employer views. One source of truth for the numbers that matter.
+      </p>
+      <div class="reveal mt-9 flex flex-wrap gap-4">
+        <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" class="btn btn-primary">Book a call
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="https://compass-app.klaut.id/" target="_blank" rel="noopener" class="btn btn-ghost">Demo</a>
+      </div>
+      <p class="reveal mt-6 text-xs text-dim">Per-org KPIs with source attribution. Pacing vs target, not just actuals. Role-scoped views across all three layers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IT IS -->
+<section class="max-w-7xl mx-auto px-6 lg:px-10 py-16 lg:py-24 border-t border-white/5">
+  <div class="max-w-2xl reveal mb-12">
+    <div class="eyebrow mb-4">What it is</div>
+    <h2 class="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1]">
+      KPI tracking without the <span class="hl-grad">spreadsheet sprawl</span>
+    </h2>
+    <p class="mt-5 text-base text-muted leading-relaxed">
+      Most orgs track KPIs in spreadsheets that become stale the moment they are shared. Compass gives you a structured layer: define the KPIs your org cares about, set period targets, feed in actuals when they are ready, and get a live pacing view — scoped appropriately for each role.
+    </p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-5 reveal">
+    <div class="kpi-value-block">
+      <div class="kpi-value-icon">&#127919;</div>
+      <div class="kpi-value-title">Flexible KPI definition</div>
+      <div class="kpi-value-body">Define any KPI your org tracks — revenue targets, task completion rates, client satisfaction scores, operational throughput. Each KPI has a name, unit, period type (monthly / quarterly), and the data source it comes from. You own the definition.</div>
+    </div>
+    <div class="kpi-value-block">
+      <div class="kpi-value-icon">&#128196;</div>
+      <div class="kpi-value-title">CSV bulk upload</div>
+      <div class="kpi-value-body">No API integration required to get started. Upload actuals as a CSV when your period closes — Compass maps the rows to the right KPIs, validates the data, and renders the pacing view immediately. Multiple KPIs in one upload, one or many periods at once.</div>
+    </div>
+    <div class="kpi-value-block">
+      <div class="kpi-value-icon">&#128200;</div>
+      <div class="kpi-value-title">Pacing vs target</div>
+      <div class="kpi-value-body">Actuals alone are not enough. Compass shows where each KPI sits relative to the period target — and whether the current pacing trajectory will hit it. Early visibility into a miss beats a post-period surprise every time.</div>
+    </div>
+  </div>
+</section>
+
+<!-- VISUAL PROOF -->
+<section class="max-w-7xl mx-auto px-6 lg:px-10 pb-16 lg:pb-24">
+  <div class="max-w-2xl reveal mb-10">
+    <div class="eyebrow mb-4">Signal in practice</div>
+    <h2 class="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1]">
+      Actual vs target — <span class="hl-grad">7-month view</span>
+    </h2>
+    <p class="mt-5 text-base text-muted leading-relaxed">
+      The area chart below shows what a typical KPI pacing view looks like in Compass: actuals trending against a dashed target line, with individual KPI progress cards showing each metric's current % to target.
+    </p>
+  </div>
+
+  <div class="reveal demo-frame">
+    <div class="demo-bar">
+      <span class="demo-dots"><i></i><i></i><i></i></span>
+      <span class="demo-title">Compass &middot; KPI Command Center &mdash; Pacing view &middot; Q2 2026</span>
+      <span class="seg" role="group" aria-label="KPI view">
+        <button class="on" data-kpi-seg="pacing">Pacing chart</button>
+        <button data-kpi-seg="cards">KPI cards</button>
+      </span>
+    </div>
+
+    <div id="kpi-panel-pacing" class="panel on">
+      <div class="kpi-chart-wrap">
+        <div class="kpi-chart-box">
+          <canvas id="kpi-main-chart" aria-label="Area chart showing actual KPI vs target across 7 months" role="img"></canvas>
+        </div>
+        <p class="kpi-chart-caption">Illustrative data &mdash; shows the type of view Compass renders. Real values come from your uploaded actuals and configured targets.</p>
+      </div>
+    </div>
+
+    <div id="kpi-panel-cards" class="panel" style="display:none; padding:20px;">
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="kpi-card">
+          <div class="kpi-card-name">Revenue (Monthly)</div>
+          <div class="kpi-card-meta">Source: Finance upload &middot; Period: May 2026</div>
+          <div class="kpi-card-vals">
+            <span class="kpi-card-actual good">Rp 4.2B</span>
+            <span class="kpi-card-target">Target: Rp 4.5B</span>
+          </div>
+          <div class="bar"><i style="width:93%"></i></div>
+          <div class="mt-2 text-xs text-dim font-mono">93% to target</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card-name">Task Completion Rate</div>
+          <div class="kpi-card-meta">Source: Compass tasks &middot; Period: May 2026</div>
+          <div class="kpi-card-vals">
+            <span class="kpi-card-actual warn">78%</span>
+            <span class="kpi-card-target">Target: 90%</span>
+          </div>
+          <div class="bar warn-bar"><i style="width:78%"></i></div>
+          <div class="mt-2 text-xs text-dim font-mono">78% to target</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card-name">Client NPS Score</div>
+          <div class="kpi-card-meta">Source: CSV upload &middot; Period: Q2 2026</div>
+          <div class="kpi-card-vals">
+            <span class="kpi-card-actual good">67</span>
+            <span class="kpi-card-target">Target: 65</span>
+          </div>
+          <div class="bar"><i style="width:100%"></i></div>
+          <div class="mt-2 text-xs text-dim font-mono good">Target met &mdash; 67 vs 65</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card-name">Operational Throughput</div>
+          <div class="kpi-card-meta">Source: CSV upload &middot; Period: May 2026</div>
+          <div class="kpi-card-vals">
+            <span class="kpi-card-actual bad">1,840</span>
+            <span class="kpi-card-target">Target: 2,200</span>
+          </div>
+          <div class="bar bad-bar"><i style="width:64%"></i></div>
+          <div class="mt-2 text-xs text-dim font-mono bad">64% to target &mdash; at-risk</div>
+        </div>
+      </div>
+      <p class="text-xs text-dim font-mono mt-4 px-1">Illustrative data &mdash; real values from your org's actuals and targets.</p>
+    </div>
+
+    <div class="px-5 pb-5">
+      <div class="metric mt-2">
+        <div class="lbl">Period summary</div>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <span class="pill">4 KPIs tracked</span>
+          <span class="pill">2 on-track</span>
+          <span class="pill warn" style="background:rgba(245,158,11,.10);border-color:rgba(245,158,11,.3);color:#f59e0b;">1 at-risk</span>
+          <span class="pill bad" style="background:rgba(248,113,113,.10);border-color:rgba(248,113,113,.3);color:#f87171;">1 off-track</span>
+          <span class="pill">CSV upload &middot; last 2h ago</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="max-w-7xl mx-auto px-6 lg:px-10 py-16 lg:py-24 border-t border-white/5">
+  <div class="max-w-2xl reveal mb-12">
+    <div class="eyebrow mb-4">How it works</div>
+    <h2 class="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1]">
+      Five steps from <span class="hl-grad">definition to pacing</span>
+    </h2>
+  </div>
+  <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4 reveal">
+    <div class="step">
+      <div class="step-idx mb-4">01 &mdash; DEFINE</div>
+      <div class="text-base font-semibold mb-2">Create your KPIs</div>
+      <p class="text-sm text-muted leading-relaxed">Admins define each KPI: name, unit of measure, period type (monthly or quarterly), and the data source it comes from. KPIs are org-scoped — they apply across the teams you configure them for.</p>
+    </div>
+    <div class="step">
+      <div class="step-idx mb-4">02 &mdash; SET TARGETS</div>
+      <div class="text-base font-semibold mb-2">Period targets</div>
+      <p class="text-sm text-muted leading-relaxed">For each KPI and each period, set a target value. Monthly revenue, quarterly NPS, weekly task completion rate — targets are set per period so pacing is always relative to the right benchmark, not a static annual figure.</p>
+    </div>
+    <div class="step">
+      <div class="step-idx mb-4">03 &mdash; UPLOAD</div>
+      <div class="text-base font-semibold mb-2">Actuals via CSV</div>
+      <p class="text-sm text-muted leading-relaxed">When a period closes, upload actuals as a CSV. Compass maps each row to the right KPI and period, validates the format, and rejects bad rows with clear error messages. No API required — CSV is the universal format.</p>
+    </div>
+    <div class="step">
+      <div class="step-idx mb-4">04 &mdash; TRACK</div>
+      <div class="text-base font-semibold mb-2">Pacing vs target</div>
+      <p class="text-sm text-muted leading-relaxed">The KPI view renders immediately after upload. Actuals are shown against the period target as a progress bar and area chart. At-risk and off-track KPIs are surfaced clearly — not buried in a table.</p>
+    </div>
+    <div class="step">
+      <div class="step-idx mb-4">05 &mdash; ACT</div>
+      <div class="text-base font-semibold mb-2">Close the gap</div>
+      <p class="text-sm text-muted leading-relaxed">The pacing view is decision-support: you see where the gap is, who owns the KPI, and how much of the period remains. Compass does not prescribe the action. It gives you the visibility to act — or to ask the right question in the next team review.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT HELPS -->
+<section class="max-w-7xl mx-auto px-6 lg:px-10 py-16 lg:py-24 border-t border-white/5">
+  <div class="max-w-2xl reveal mb-12">
+    <div class="eyebrow mb-4">Who it helps</div>
+    <h2 class="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1]">
+      One KPI layer, <span class="hl-grad">three role views</span>
+    </h2>
+    <p class="mt-5 text-base text-muted leading-relaxed">
+      The same KPI data renders differently depending on your role in the org. Every layer gets what is relevant — nothing more, nothing less.
+    </p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-5 reveal">
+    <div class="kpi-role-card">
+      <div class="kpi-role-label">Employer / Owner</div>
+      <div class="kpi-role-title">Org pacing at a glance</div>
+      <div class="kpi-role-body">Owners see org-wide KPI pacing across all periods and departments — which targets are on track, which are at risk, and which periods have missing actuals. Input for quarterly planning and resource decisions, not day-to-day management.</div>
+    </div>
+    <div class="kpi-role-card">
+      <div class="kpi-role-label">Manager</div>
+      <div class="kpi-role-title">Team target pacing</div>
+      <div class="kpi-role-body">Managers see their team's KPI pacing — scoped to the targets their team owns. They can see which KPIs are on track and which need attention before the period closes, without needing access to the whole org's numbers.</div>
+    </div>
+    <div class="kpi-role-card">
+      <div class="kpi-role-label">Employee</div>
+      <div class="kpi-role-title">Own targets, clear pacing</div>
+      <div class="kpi-role-body">Employees see the KPIs assigned to them and their current pacing vs target. No ambiguity about what success looks like this month or quarter — the target is explicit, and progress is visible as soon as actuals are uploaded.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="relative overflow-hidden border-t border-white/5">
+  <div class="absolute inset-0 dot-grid opacity-60"></div>
+  <div class="orb" style="width:560px;height:560px;background:radial-gradient(circle at 50% 50%, #4F6BFF, transparent 60%);top:-100px;left:50%;transform:translateX(-50%);opacity:.35;"></div>
+  <div class="relative max-w-4xl mx-auto px-6 lg:px-10 py-24 lg:py-32 text-center">
+    <div class="reveal eyebrow mb-6">Stop flying blind on targets</div>
+    <h2 class="reveal text-4xl md:text-6xl font-semibold tracking-tight leading-[1.05]">
+      Define. Upload. <span class="hl-grad">Track pacing.</span>
+    </h2>
+    <p class="reveal mt-6 max-w-xl mx-auto text-lg text-muted leading-relaxed">
+      KPI Command Center is live in Compass. Define your org's KPIs, set period targets, and upload actuals via CSV. Pacing renders immediately across all role views.
+    </p>
+    <div class="reveal mt-10 flex flex-wrap justify-center gap-4">
+      <a href="https://calendar.app.google/gey4SNwkcNYrbBpVA" target="_blank" rel="noopener" class="btn btn-primary">Book a call
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="https://compass-app.klaut.id/" target="_blank" rel="noopener" class="btn btn-ghost">Demo</a>
+    </div>
+    <p class="reveal mt-8 text-xs text-dim max-w-md mx-auto">Compass is sold to organizations. KPI Command Center is included in all plans. KPI definition and target-setting require Admin or Owner access.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t border-line">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-16 grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-5">
+      <div class="flex items-center gap-2.5">
+        <img src="/klaut-K-mark.png?v=1" alt="" class="brand-mark"/>
+      </div>
+      <p class="mt-6 max-w-sm text-[14px] text-muted leading-relaxed">
+        Enterprise AI Transformation Ecosystem. Strategy, talent, models, and governance &mdash; engineered as one system.
+      </p>
+      <div class="mt-7 font-mono text-[12px] text-dim">Jakarta - And the rest of the world</div>
+    </div>
+    <div class="md:col-span-2">
+      <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Ecosystem</div>
+      <ul class="space-y-3.5 text-[15px]">
+        <li><a href="https://klaut.id/consulting" class="text-muted link-hover">Consulting</a></li>
+        <li><a href="https://klaut.id/cao" class="text-muted link-hover">Chief AI Officer</a></li>
+        <li><a href="https://compass.klaut.id/" class="text-muted link-hover">Compass</a></li>
+        <li><a href="https://klaut.id/audit" class="text-muted link-hover">Audit</a></li>
+      </ul>
+    </div>
+    <div class="md:col-span-2">
+      <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">COMPANY</div>
+      <ul class="space-y-3.5 text-[15px]">
+        <li><a href="https://klaut.id/about" class="text-muted link-hover">About</a></li>
+        <li><a href="https://klaut.id/career" class="text-muted link-hover">Career</a></li>
+        <li><a href="https://klaut.id/partners" class="text-muted link-hover">Partners</a></li>
+        <li><a href="https://klaut.id/articles" class="text-muted link-hover">Articles</a></li>
+      </ul>
+    </div>
+    <div class="md:col-span-3">
+      <div class="font-mono text-[12px] text-dim uppercase tracking-wider mb-5">Contact</div>
+      <ul class="space-y-3.5 text-[15px]">
+        <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Contact Us</a></li>
+        <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Media Contact</a></li>
+        <li><a href="mailto:hello@klaut.id" class="text-muted link-hover">Partnership Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-line">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-dim">
+      <div>&copy; 2026 Klaut AI &middot; All rights reserved.</div>
+      <div class="flex gap-6">
+        <a href="https://klaut.id/privacy" class="link-hover">Privacy</a>
+        <a href="https://klaut.id/terms" class="link-hover">Terms</a>
+        <a href="https://klaut.id/security" class="link-hover">Security</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  function onScroll(){ if(window.scrollY>8) nav.classList.add('bg-bg/70','backdrop-blur-xl','border-b','border-line'); else nav.classList.remove('bg-bg/70','backdrop-blur-xl','border-b','border-line'); }
+  window.addEventListener('scroll', onScroll, { passive:true }); onScroll();
+  const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } }), { threshold:0.1, rootMargin:'0px 0px -10% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+<!-- Vercel Web Analytics -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<link rel="stylesheet" href="/assets/slime-widget.css">
+<script>window.__slimeLang = 'en';</script>
+<button id="slime-fab" data-state="idle" aria-label="Open Compass Copilot">
+  <span class="slime-nudge" id="slime-nudge"></span>
+</button>
+<div class="fab-bubble" id="fab-bubble" role="status" aria-live="polite">
+  <small><span class="fab-bubble-dot"></span><span id="fab-bubble-eyebrow">Compass</span></small>
+  <span id="fab-bubble-txt"></span>
+</div>
+<div id="ai-panel" data-state="idle" aria-hidden="true" role="dialog" aria-label="Compass Copilot">
+  <div class="ai-h">
+    <span class="ava" aria-hidden="true"></span>
+    <span class="htxt">
+      <b id="ai-panel-title">Compass Copilot</b>
+      <span class="stat"><i></i><span id="ai-stat">Online &middot; ready</span></span>
+    </span>
+    <button class="x" id="ai-x" title="Close" aria-label="Close">&times;</button>
+  </div>
+  <div id="ai-log"></div>
+  <div class="ai-chips">
+    <button class="ai-chip">What is Compass?</button>
+    <button class="ai-chip">See pricing plans</button>
+    <button class="ai-chip">Book a demo</button>
+    <button class="ai-chip">Talk to sales</button>
+  </div>
+  <form id="ai-form" autocomplete="off">
+    <input id="ai-in" placeholder="Ask about Compass..." aria-label="Message"/>
+    <button type="submit">Send</button>
+  </form>
+</div>
+<div id="compass-slime-chat" role="dialog" aria-label="How can I help you?" aria-hidden="true">
+  <div class="csc-header">
+    <span class="csc-eyebrow">COMPASS AI</span>
+    <span class="csc-dot" aria-hidden="true"></span>
+    <button class="csc-close" id="csc-close" aria-label="Close">&times;</button>
+  </div>
+  <p class="csc-greeting">Hi! What can I help you with today?</p>
+  <div class="csc-grid" id="csc-cta-grid"></div>
+  <div class="csc-input-row">
+    <input class="csc-input" id="csc-input" type="text" placeholder="Or ask me anything..." autocomplete="off" aria-label="Ask Compass AI"/>
+    <button class="csc-send" id="csc-send">Send</button>
+  </div>
+  <p class="csc-footer">Klaut surfaces options &mdash; you decide what to do. AI assistant in development.</p>
+</div>
+<div id="slime-toast" style="position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:#4F6BFF;color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;font-family:Inter,sans-serif;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:10000"></div>
+<script type="module" src="/assets/slime-widget.js"></script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script>
+window.addEventListener('load', function () {
+(function(){
+  const months = ['Nov','Dec','Jan','Feb','Mar','Apr','May'];
+  const actualData = [3.1, 3.4, 3.2, 3.6, 3.9, 4.0, 4.2]; // billions Rp
+  const targetData = [3.5, 3.5, 3.8, 3.8, 4.2, 4.2, 4.5];
+
+  Chart.defaults.color = '#71717a';
+  Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+  Chart.defaults.font.family = "'JetBrains Mono', monospace";
+  Chart.defaults.font.size = 11;
+
+  const ctx = document.getElementById('kpi-main-chart');
+  if (!ctx) return;
+
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: months,
+      datasets: [
+        {
+          label: 'Actual (Rp B)',
+          data: actualData,
+          borderColor: '#4F6BFF',
+          backgroundColor: 'rgba(79,107,255,0.10)',
+          pointBackgroundColor: '#4F6BFF',
+          pointBorderColor: '#0d0d0d',
+          pointBorderWidth: 2,
+          pointRadius: 5,
+          pointHoverRadius: 7,
+          borderWidth: 2.5,
+          tension: 0.3,
+          fill: true,
+        },
+        {
+          label: 'Target (Rp B)',
+          data: targetData,
+          borderColor: '#7B8FFF',
+          backgroundColor: 'transparent',
+          pointBackgroundColor: '#7B8FFF',
+          pointBorderColor: '#0d0d0d',
+          pointBorderWidth: 2,
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          borderWidth: 2,
+          borderDash: [6, 4],
+          tension: 0.3,
+          fill: false,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: true, position: 'top', align: 'end', labels: { boxWidth: 10, boxHeight: 2, padding: 16, color: '#a1a1aa', font: { size: 11, family: "'JetBrains Mono', monospace" } } },
+        tooltip: { backgroundColor:'#111', borderColor:'#262626', borderWidth:1, titleColor:'#e4e4e7', bodyColor:'#a1a1aa', padding:12,
+          callbacks: { label: function(ctx){ return ' ' + ctx.dataset.label + ': Rp ' + ctx.raw.toFixed(1) + 'B'; } }
+        }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#71717a' }, border: { color: 'rgba(255,255,255,0.08)' } },
+        y: { min: 2.5, max: 5.0, grid: { color: 'rgba(255,255,255,0.05)' }, border: { color: 'rgba(255,255,255,0.08)' },
+          ticks: { color: '#71717a', callback: function(v){ return 'Rp ' + v.toFixed(1) + 'B'; }, stepSize: 0.5 },
+          title: { display: true, text: 'Revenue', color: '#71717a', font: { size: 10 } }
+        }
+      }
+    }
+  });
+
+  requestAnimationFrame(function() { chart.resize(); });
+
+  // Segment toggle between chart and cards
+  document.querySelectorAll('[data-kpi-seg]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('[data-kpi-seg]').forEach(function(b){ b.classList.remove('on'); });
+      btn.classList.add('on');
+      const seg = btn.dataset.kpiSeg;
+      document.getElementById('kpi-panel-pacing').style.display = seg === 'pacing' ? 'block' : 'none';
+      document.getElementById('kpi-panel-cards').style.display = seg === 'cards' ? 'block' : 'none';
+      if (seg === 'pacing') { requestAnimationFrame(function(){ chart.resize(); }); }
+    });
+  });
+})();
+});
+</script>
+
+<!-- Mobile menu script -->
+<script>
+(function(){
+  const hamburger = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  if (!hamburger || !menu) return;
+  hamburger.addEventListener('click', function(){ menu.classList.remove('hidden'); document.body.style.overflow = 'hidden'; });
+  menu.querySelectorAll('[data-close-menu]').forEach(function(el){
+    el.addEventListener('click', function(){ menu.classList.add('hidden'); document.body.style.overflow = ''; });
+  });
+})();
+</script>
+
+<script id="nav-dropdown-script">
+(function () {
+  function init() {
+    document.querySelectorAll('.nav-dd-btn').forEach(function (btn) {
+      var panel = btn.nextElementSibling;
+      if (!panel || !panel.classList.contains('nav-dd-panel')) return;
+      var dd = btn.parentElement;
+      dd.addEventListener('mouseenter', function () { open(btn, panel); });
+      dd.addEventListener('mouseleave', function () { close(btn, panel); });
+      btn.addEventListener('click', function () { toggle(btn, panel); });
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(btn, panel); }
+        if (e.key === 'Escape') { close(btn, panel); btn.focus(); }
+      });
+      panel.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { close(btn, panel); btn.focus(); }
+      });
+    });
+    document.addEventListener('click', function (e) {
+      document.querySelectorAll('.nav-dd-btn').forEach(function (btn) {
+        var panel = btn.nextElementSibling;
+        if (panel && !btn.parentElement.contains(e.target)) close(btn, panel);
+      });
+    });
+  }
+  function open(btn, panel) { panel.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+  function close(btn, panel) { panel.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+  function toggle(btn, panel) { panel.classList.contains('open') ? close(btn, panel) : open(btn, panel); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+}());
+</script>
+</body>
+</html>
